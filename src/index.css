@@ -36,5 +36,85 @@
   body {
     @apply bg-paper text-ink font-display antialiased selection:bg-accent selection:text-paper;
     background-color: var(--paper); /* Transitioned dynamically later */
+}
+
+@layer utilities {
+  .cinematic-image-wrapper {
+    @apply relative overflow-hidden;
+  }
+  .cinematic-image-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 50%,
+      rgba(10, 36, 99, 0.08) 80%,
+      rgba(10, 36, 99, 0.18) 100%
+    );
+    pointer-events: none;
+    mix-blend-mode: multiply;
+  }
+  .cinematic-image-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.06) 0%,
+      transparent 40%
+    );
+    pointer-events: none;
+    z-index: 2;
+  }
+  .cinematic-image-wrapper.warm-vignette::after {
+    background: radial-gradient(
+      ellipse at center,
+      transparent 50%,
+      rgba(184, 147, 94, 0.06) 80%,
+      rgba(184, 147, 94, 0.12) 100%
+    );
+  }
+
+  .cinema-wall {
+    @apply relative w-[100vw] h-[100vh] grid grid-cols-6 grid-rows-4 gap-1;
+    transform: scale(1.05);
+    transform-origin: center;
+    mask-image: radial-gradient(
+      ellipse 80% 70% at center,
+      black 40%,
+      black 65%,
+      transparent 95%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 80% 70% at center,
+      black 40%,
+      black 65%,
+      transparent 95%
+    );
+  }
+  .cinema-wall::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 36, 99, 0.08);
+    pointer-events: none;
+    z-index: 5;
+  }
+  .text-smudge {
+    position: absolute;
+    width: 720px;
+    height: 360px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+      ellipse at center,
+      rgba(255, 255, 255, 0.85) 0%,
+      rgba(255, 255, 255, 0.65) 40%,
+      rgba(255, 255, 255, 0.0) 80%
+    );
+    filter: blur(8px);
+    z-index: 19;
   }
 }
