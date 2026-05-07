@@ -39,6 +39,17 @@ const LANDER_IMAGES = [
 
 const easeOutExpo = [0.22, 1, 0.36, 1];
 
+const LIFECYCLES = [
+  [0.00, 0.10, 0.55, 0.70],
+  [0.05, 0.15, 0.60, 0.75],
+  [0.12, 0.22, 0.65, 0.80],
+  [0.18, 0.28, 0.70, 0.85],
+  [0.25, 0.35, 0.75, 0.90],
+  [0.32, 0.42, 0.80, 0.95],
+  [0.40, 0.50, 0.85, 1.00],
+  [0.48, 0.58, 0.90, 1.00]
+];
+
 const BeatText = ({ children, delay = 0, className, style, inViewAmount = 0.5 }) => (
   <motion.div
     initial={{ opacity: 0, y: 24 }}
@@ -73,21 +84,12 @@ const WordFade = ({ text, delayOffset = 0, className, style }) => {
   );
 };
 
+// Uses exact CSS classes defined in index.css
 const CinematicImage = ({ src, alt, className, style, isWarm = false, isBW = false, imgStyle }) => {
-  const wrapperClass = `cinematic-image-wrapper ${isWarm ? 'warm-vignette' : ''} ${className || ''}`;
-  const baseFilter = isBW 
-    ? "grayscale(100%) contrast(1.05) saturate(0) brightness(1.02)" 
-    : "contrast(1.05) saturate(0.92) brightness(1.02)";
-  
+  const wrapperClass = `cinematic-image ${isWarm ? 'warm-vignette' : ''} ${isBW ? 'is-bw' : ''} ${className || ''}`;
   return (
     <div className={wrapperClass} style={style}>
-      <img 
-        src={src} 
-        alt={alt || "visual"} 
-        className="w-full h-full object-cover" 
-        style={{ filter: baseFilter, ...imgStyle }} 
-        loading="lazy" 
-      />
+      <img src={src} alt={alt || "visual"} style={imgStyle} loading="lazy" />
     </div>
   );
 };
@@ -118,35 +120,32 @@ const SoloBeat = ({ image, headline, delay = 0.12 }) => {
       exit={{ opacity: 0, scale: 0.98 }}
       viewport={{ amount: 0.5 }}
       transition={{ opacity: { duration: 0.7 }, scale: { duration: 0.7, ease: easeOutExpo }, delay }}
-      className="w-full max-w-[760px] aspect-[4/5] mx-auto relative rounded-[2px]"
+      className="w-full h-full flex items-center justify-end rounded-[2px]"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ perspective: 1200, rotateX: springX, rotateY: springY }}
     >
-      <CinematicImage src={image} alt={headline} className="w-full h-[80vh] max-h-[880px] rounded-[2px]" />
+      <CinematicImage src={image} alt={headline} className="w-full h-full rounded-[2px]" />
     </motion.div>
   );
 };
 
-const GridBeat = ({ images, delay = 0.12 }) => {
+const GridBeat = ({ images, beatProgress, delay = 0.12 }) => {
   const { springX, springY, handleMouseMove, handleMouseLeave } = useTilt(4);
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start end", "end start"] });
-  const yA = useTransform(scrollYProgress, [0, 1], [-24, 24]);
-  const yB = useTransform(scrollYProgress, [0, 1], [32, -32]);
-  const yC = useTransform(scrollYProgress, [0, 1], [-16, 16]);
-  const yD = useTransform(scrollYProgress, [0, 1], [24, -24]);
+  const yA = useTransform(beatProgress, [0, 1], [-24, 24]);
+  const yB = useTransform(beatProgress, [0, 1], [32, -32]);
+  const yC = useTransform(beatProgress, [0, 1], [-16, 16]);
+  const yD = useTransform(beatProgress, [0, 1], [24, -24]);
 
   const configs = [
-    { src: images[0], top: '0', right: '0', width: '60%', aspectRatio: '4/5', zIndex: 3, delay: 0, y: yA },
-    { src: images[1], top: '18%', left: '0', width: '50%', aspectRatio: '1/1', zIndex: 2, delay: 0.1, y: yB },
+    { src: images[0], top: '0%', right: '0%', width: '60%', aspectRatio: '4/5', zIndex: 3, delay: 0, y: yA },
+    { src: images[1], top: '18%', left: '0%', width: '50%', aspectRatio: '1/1', zIndex: 2, delay: 0.1, y: yB },
     { src: images[2], bottom: '8%', right: '12%', width: '45%', aspectRatio: '3/4', zIndex: 4, delay: 0.18, y: yC },
-    { src: images[3], bottom: '0', left: '8%', width: '38%', aspectRatio: '1/1', zIndex: 1, delay: 0.26, y: yD },
+    { src: images[3], bottom: '0%', left: '8%', width: '38%', aspectRatio: '1/1', zIndex: 1, delay: 0.26, y: yD },
   ];
 
   return (
     <motion.div
-      ref={containerRef}
       className="w-[56vw] max-w-[720px] h-[78vh] max-h-[820px] mx-auto relative"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -159,83 +158,66 @@ const GridBeat = ({ images, delay = 0.12 }) => {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ amount: 0.5 }}
           transition={{ opacity: { duration: 0.6 }, scale: { duration: 0.6, ease: easeOutExpo }, delay: delay + img.delay }}
-          className="absolute border border-hairline rounded-[2px] overflow-hidden"
+          className="absolute overflow-hidden rounded-[2px]"
           style={{ 
             top: img.top, bottom: img.bottom, left: img.left, right: img.right, 
-            width: img.width, aspectRatio: img.aspectRatio, zIndex: img.zIndex, y: img.y,
-            maskImage: 'radial-gradient(ellipse at center, black 55%, black 75%, transparent 100%)',
-            WebkitMaskImage: 'radial-gradient(ellipse at center, black 55%, black 75%, transparent 100%)'
+            width: img.width, aspectRatio: img.aspectRatio, zIndex: img.zIndex, y: img.y
           }}
         >
-          <CinematicImage src={img.src} alt={`grid-${idx}`} className="w-full h-full" />
+          <div style={{ maskImage: 'radial-gradient(ellipse at center, black 55%, black 75%, transparent 100%)', WebkitMaskImage: 'radial-gradient(ellipse at center, black 55%, black 75%, transparent 100%)' }} className="w-full h-full">
+            <CinematicImage src={img.src} alt={`grid-${idx}`} className="w-full h-full" />
+          </div>
         </motion.div>
       ))}
     </motion.div>
   );
 };
 
-const MemoryImage = ({ img, idx, scrollYProgress, isBeat14, isClosing }) => {
-  const isSlow = isBeat14;
-  const multiplier = isSlow ? 1.5 : 1.0;
-  
-  // Base intervals
-  const baseIn = [0.00, 0.05, 0.12, 0.18, 0.25, 0.32, 0.40, 0.48][idx];
-  const fadeDur = 0.10 * multiplier;
-  const holdDur = (0.55 - 0.10) * multiplier; // approx 0.45 hold
-  
-  const inStart = baseIn;
-  const inEnd = inStart + fadeDur;
-  const outStart = inEnd + holdDur;
-  const outEnd = outStart + fadeDur;
+const MemoryImage = ({ img, idx, beatProgress, isBeat14, isClosing }) => {
+  let inS = LIFECYCLES[idx][0];
+  let inE = isBeat14 ? inS + 0.15 : LIFECYCLES[idx][1];
+  let outS = isBeat14 ? LIFECYCLES[idx][2] - 0.05 : LIFECYCLES[idx][2];
+  let outE = isBeat14 ? LIFECYCLES[idx][3] + 0.05 : LIFECYCLES[idx][3];
 
-  const opacity = useTransform(scrollYProgress, [inStart, inEnd, outStart, outEnd], [0, 0.85, 0.85, 0]);
+  const opacity = useTransform(beatProgress, [inS, inE, outS, outE], [0, 0.85, 0.85, 0]);
   
-  // Drift: alternating
-  const driftDir = idx % 2 === 0 ? 1 : -1;
-  const baseDrift = useTransform(scrollYProgress, [0, 1], [-20 * driftDir, 20 * driftDir]);
+  const driftDir = idx % 2 === 0 ? -1 : 1;
+  const baseDrift = useTransform(beatProgress, [0, 1], [-20 * driftDir, 20 * driftDir]);
   
-  // Sunset dissolve for Beat 15
-  const dissolveY = useTransform(scrollYProgress, [0.7, 1], [0, 200]);
+  const dissolveY = useTransform(beatProgress, [0.7, 1], [0, 200]);
   const y = isClosing ? useTransform(() => baseDrift.get() + dissolveY.get()) : baseDrift;
   
-  // For Beat 15, we force fade out towards 1.0 if not already
-  const closingOpacity = useTransform(scrollYProgress, [0.7, 0.95], [opacity.get(), 0]);
-  const finalOpacity = isClosing ? useTransform(() => Math.min(opacity.get(), closingOpacity.get())) : opacity;
-
   return (
     <motion.div
-      className="absolute border border-hairline rounded-[2px] overflow-hidden"
+      className="absolute overflow-hidden rounded-[2px]"
       style={{ 
         top: img.top, left: img.left, width: img.width, aspectRatio: img.aspectRatio, 
-        rotate: img.rotate, opacity: finalOpacity, y,
-        maskImage: 'radial-gradient(ellipse at center, black 55%, black 75%, transparent 100%)',
-        WebkitMaskImage: 'radial-gradient(ellipse at center, black 55%, black 75%, transparent 100%)'
+        rotate: img.rotate, opacity, y, zIndex: img.zIndex
       }}
     >
-      <CinematicImage src={img.src} alt="memory" className="w-full h-full" isWarm={isBeat14} />
+      <div style={{ maskImage: 'radial-gradient(ellipse at center, black 55%, black 75%, transparent 100%)', WebkitMaskImage: 'radial-gradient(ellipse at center, black 55%, black 75%, transparent 100%)' }} className="w-full h-full">
+        <CinematicImage src={img.src} alt="memory" className="w-full h-full" isWarm={isBeat14} />
+      </div>
     </motion.div>
   );
 };
 
-const MemoryBeat = ({ images, isBeat14, isClosing }) => {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start end", "end start"] });
-  
+const MemoryBeat = ({ images, isBeat14, isClosing, beatProgress }) => {
   const configs = [
-    { top: '8%', left: '12%', width: '38%', aspectRatio: '4/5', rotate: -2 },
-    { top: '4%', left: '58%', width: '32%', aspectRatio: '1/1', rotate: 1.5 },
-    { top: '28%', left: '38%', width: '30%', aspectRatio: '3/4', rotate: -1 },
-    { top: '22%', left: '72%', width: '26%', aspectRatio: '4/5', rotate: 2.5 },
-    { top: '50%', left: '8%', width: '34%', aspectRatio: '1/1', rotate: 1 },
-    { top: '56%', left: '48%', width: '30%', aspectRatio: '3/4', rotate: -2 },
-    { top: '72%', left: '24%', width: '28%', aspectRatio: '4/5', rotate: 1.5 },
-    { top: '78%', left: '64%', width: '32%', aspectRatio: '1/1', rotate: -1.5 },
+    { top: '8%', left: '12%', width: '38%', aspectRatio: '4/5', rotate: '-2deg' },
+    { top: '4%', left: '58%', width: '32%', aspectRatio: '1/1', rotate: '1.5deg' },
+    { top: '28%', left: '38%', width: '30%', aspectRatio: '3/4', rotate: '-1deg' },
+    { top: '22%', left: '72%', width: '26%', aspectRatio: '4/5', rotate: '2.5deg' },
+    { top: '50%', left: '8%', width: '34%', aspectRatio: '1/1', rotate: '1deg' },
+    { top: '56%', left: '48%', width: '30%', aspectRatio: '3/4', rotate: '-2deg' },
+    { top: '72%', left: '24%', width: '28%', aspectRatio: '4/5', rotate: '1.5deg' },
+    { top: '78%', left: '64%', width: '32%', aspectRatio: '1/1', rotate: '-1.5deg' },
   ];
 
   return (
-    <div ref={containerRef} className="absolute right-0 top-0 w-[50vw] h-[100vh] -mr-[4vw] pointer-events-none">
+    <div className="absolute right-0 top-0 w-[50vw] h-[100vh] -mr-[4vw] pointer-events-none">
       {configs.map((cfg, idx) => (
-        <MemoryImage key={idx} img={{...cfg, src: images[idx]}} idx={idx} scrollYProgress={scrollYProgress} isBeat14={isBeat14} isClosing={isClosing} />
+        <MemoryImage key={idx} img={{...cfg, src: images[idx]}} idx={idx} beatProgress={beatProgress} isBeat14={isBeat14} isClosing={isClosing} />
       ))}
     </div>
   );
@@ -243,41 +225,48 @@ const MemoryBeat = ({ images, isBeat14, isClosing }) => {
 
 const TimelineSection = ({ beat, index, setActiveBeat }) => {
   const ref = useRef(null);
+  const { scrollYProgress: beatProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const inView = useInView(ref, { amount: 0.5 });
   useEffect(() => { if (inView) setActiveBeat(index); }, [inView, index, setActiveBeat]);
+  
   const isBeat14 = index === 13;
   const isClosing = beat.type === "memory-closing";
+  const isSolo = beat.type === "solo";
 
   return (
-    <section ref={ref} className="w-full min-h-[720px] h-[100vh] grid grid-cols-1 md:grid-cols-2 gap-[96px] relative snap-center snap-always z-10 py-12 md:py-0">
+    <section ref={ref} className={`w-full relative snap-center snap-always z-10 py-12 md:py-0 ${isSolo ? 'beat-solo' : 'min-h-[720px] h-[100vh] grid grid-cols-1 md:grid-cols-2 gap-[96px]'}`}>
       <div className="flex flex-col justify-center h-full px-6 md:px-0 relative z-20">
         <BeatText delay={0} className="mb-4">
           <p className="text-[0.75rem] uppercase tracking-[0.18em] font-display font-medium text-ink-soft">{beat.eyebrow}</p>
         </BeatText>
-        <BeatText delay={0} className="mb-6">
+        <BeatText delay={0} className="mb-0">
           <h2 className="text-[4.5rem] md:text-[7.5rem] font-serif text-ink leading-[0.9] tracking-[-0.04em]" style={{ fontVariationSettings: '"opsz" 144', fontStyle: 'italic', fontWeight: 300 }}>
             {beat.year}
           </h2>
         </BeatText>
-        <BeatText delay={0.08} className="mb-6 max-w-lg">
-          <h3 className="text-[1.875rem] md:text-[2.75rem] font-display font-medium text-ink leading-[1.1] tracking-[-0.02em]">{beat.headline}</h3>
+        <BeatText delay={0.08} className="">
+          <h3 className="font-display font-medium text-ink leading-[1.1] tracking-[-0.02em] mt-[24px] mb-[28px] text-[clamp(2rem,3.5vw,2.875rem)]">{beat.headline}</h3>
         </BeatText>
         <BeatText delay={0.16} className="max-w-md">
-          <p className="text-[1rem] md:text-[1.0625rem] font-display font-normal text-ink leading-[1.55]">{beat.body}</p>
+          <p className="font-display font-normal text-[1.0625rem] text-ink leading-[1.55] tracking-normal">{beat.body}</p>
         </BeatText>
       </div>
 
-      <div className={`flex items-center justify-center h-full px-6 md:pr-[4vw] md:pl-0 ${beat.type.startsWith('memory') ? 'static' : 'relative z-10'}`}>
+      <div className={`${isSolo ? 'image-column' : 'flex items-center justify-center h-full px-6 md:pr-[4vw] md:pl-0'} ${beat.type.startsWith('memory') ? 'static' : 'relative z-10'}`}>
         {beat.type === "solo" && <SoloBeat image={beat.image} headline={beat.headline} />}
-        {beat.type === "grid" && <GridBeat images={beat.images} />}
-        {beat.type.startsWith("memory") && <MemoryBeat images={beat.images} isBeat14={isBeat14} isClosing={isClosing} />}
+        {beat.type === "grid" && <GridBeat images={beat.images} beatProgress={beatProgress} />}
+        {beat.type.startsWith("memory") && <MemoryBeat images={beat.images} beatProgress={beatProgress} isBeat14={isBeat14} isClosing={isClosing} />}
       </div>
     </section>
   );
 };
 
 const CinemaWallLander = ({ globalScrollYProgress }) => {
-  const opacity = useTransform(globalScrollYProgress, [0, 0.06], [1, 0]);
+  const wallOpacity = useTransform(globalScrollYProgress, [0, 0.05, 0.08], [1, 1, 0]);
+  const wallVisibility = useTransform(globalScrollYProgress, [0, 0.08, 0.081], ['visible', 'visible', 'hidden']);
+  const wallPointerEvents = useTransform(globalScrollYProgress, [0, 0.08, 0.081], ['auto', 'auto', 'none']);
+  const zIndex = useTransform(globalScrollYProgress, [0, 0.08, 0.081], [50, 50, -1]);
+  
   const smudgeOpacity = useTransform(globalScrollYProgress, [0, 0.04], [1, 0]);
 
   // Layout grid mappings for the 16 images
@@ -301,7 +290,7 @@ const CinemaWallLander = ({ globalScrollYProgress }) => {
   ];
 
   return (
-    <motion.section style={{ opacity }} className="w-[100vw] h-[100vh] fixed top-0 left-0 bg-white z-30 pointer-events-none">
+    <motion.section style={{ opacity: wallOpacity, visibility: wallVisibility, pointerEvents: wallPointerEvents, zIndex }} className="w-[100vw] h-[100vh] fixed top-0 left-0 bg-white z-50">
       <div className="cinema-wall">
         {LANDER_IMAGES.map((src, i) => (
           <motion.div 
@@ -316,7 +305,7 @@ const CinemaWallLander = ({ globalScrollYProgress }) => {
         ))}
       </div>
 
-      <motion.div style={{ opacity: smudgeOpacity }} className="absolute inset-0 flex flex-col items-center justify-center">
+      <motion.div style={{ opacity: smudgeOpacity }} className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
         <motion.div 
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.8 }}
           className="text-smudge"
@@ -442,42 +431,22 @@ const ScrollNarrative = () => {
   }, []);
 
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
-  
-  // Total Scroll calculations
-  // Lander: 0 -> 0.04. Beats: 0.04 -> 0.6. Testimonials: 0.6 -> 0.9. Footer: 0.9 -> 1.0 (approximate mapping)
-  // Real layout will dictate actual values, so we use precise triggers where possible.
-  
-  const bgColor = useTransform(scrollYProgress, [0.55, 0.6], ["#FFFFFF", "#FBEFD0"]);
-  // Wait, the golden transition is specifically during Beat 14->15. Since we added a huge Testimonials + Footer, 
-  // global scrollYProgress won't be 0.84->0.93 anymore. It will be much earlier in the total scroll.
-  // Actually, tying bg to beat indices is safer, or we just eyeball the new scroll ratios.
-  // Let's use a ref specifically wrapping the Beats.
   const beatsRef = useRef(null);
   const { scrollYProgress: beatsScroll } = useScroll({ target: beatsRef, offset: ["start start", "end end"] });
+  
   const trueBgColor = useTransform(beatsScroll, [0.84, 0.93], ["#FFFFFF", "#FBEFD0"]);
-
   const horizonScaleY = useTransform(beatsScroll, [0, 0.04, 0.10, 1], [0, 0, 0.08, 1]);
   
-  // Closing gesture triggers when beats finish.
+  // The horizon line "leveling" rotation should fire AFTER beat 15 reaches beat-progress 1.0
   useEffect(() => {
     return beatsScroll.onChange((latest) => {
-      // It should level AFTER beat 15 images dissolve (0.7 of beat 15). 
-      // This is near 0.98 of beatsScroll. 
-      if (latest > 0.98 && !hasClosed) {
+      if (latest > 0.99 && !hasClosed) {
         setIsClosing(true);
-        setHasClosed(true);
+        setTimeout(() => setHasClosed(true), 300);
       }
     });
   }, [beatsScroll, hasClosed]);
 
-  // Horizon line opacity during Testimonials/Footer
-  // We can track global scroll progress past the beats block
-  const { scrollYProgress: postBeatsScroll } = useScroll({
-    target: containerRef,
-    offset: ["end center", "end end"] // triggers near footer
-  });
-  
-  // It fades to 0.4 during testimonials. Actually, let's just use overall document scroll 
   const horizonOpacity = useTransform(scrollYProgress, [0.65, 0.7, 0.9, 1], [1, 0.4, 0.4, 0]);
 
   return (
@@ -485,12 +454,12 @@ const ScrollNarrative = () => {
       <motion.div className="fixed inset-0 z-[-1] pointer-events-none transition-colors duration-200" style={{ backgroundColor: trueBgColor }} />
       <CinemaWallLander globalScrollYProgress={scrollYProgress} />
 
-      <div ref={beatsRef} className="relative max-w-[1440px] mx-auto px-[clamp(24px,5vw,96px)]">
+      <div ref={beatsRef} className="relative max-w-[1440px] mx-auto px-[clamp(24px,5vw,96px)] pt-[100vh]">
         <div className="fixed top-0 bottom-0 left-[50%] -translate-x-[50%] z-0 pointer-events-none flex justify-center w-[20px]">
           <motion.div 
             className="absolute top-0 w-[1.5px] bg-ink origin-top"
             style={{ height: '100vh', scaleY: hasClosed ? 0.6 : horizonScaleY, rotate: hasClosed ? 90 : 0, opacity: horizonOpacity }}
-            transition={{ rotate: { duration: 0.8, ease: [0.83, 0, 0.17, 1], delay: 0.3 }, scaleY: { duration: 0.8, ease: [0.83, 0, 0.17, 1], delay: 0.3 } }}
+            transition={{ rotate: { duration: 0.8, ease: [0.83, 0, 0.17, 1] }, scaleY: { duration: 0.8, ease: [0.83, 0, 0.17, 1] } }}
           />
           {BEATS.map((_, i) => {
             const isActive = activeBeat === i;
@@ -513,7 +482,7 @@ const ScrollNarrative = () => {
           className="fixed left-1/2 top-1/2 -translate-x-1/2 mt-8 z-20 pointer-events-none"
           initial={{ opacity: 0 }}
           animate={{ opacity: hasClosed ? 1 : 0 }}
-          transition={{ duration: 0.6, delay: 1.1 }} // 0.3 pause + 0.8 rotate
+          transition={{ duration: 0.6, delay: 0.8 }}
         >
           <span className="font-serif text-[1rem] text-ink" style={{ fontVariationSettings: '"opsz" 144', fontStyle: 'italic', fontWeight: 300 }}>— still sailing</span>
         </motion.div>
@@ -525,7 +494,6 @@ const ScrollNarrative = () => {
         </div>
       </div>
       
-      {/* Post Timeline Sections */}
       <TestimonialsSection />
       <Footer />
     </div>
