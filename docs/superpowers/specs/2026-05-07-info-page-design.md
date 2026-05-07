@@ -1,33 +1,41 @@
-# Info Page Design Spec: The Zigzag Editorial Timeline
+# Info Page Design Spec: The Zigzag Editorial Timeline (Revised to Perry Wang Style)
 
 ## 1. Overview
-The Info page (`/info`) is a high-end, kinetic storytelling experience documenting 15 milestones. Inspired by Perry Wang's portfolio, it moves away from strict section-snapping and instead uses a fluid, alternating "zigzag" scroll layout. The experience relies heavily on Scroll-Driven Animations via Framer Motion to provide a cinematic, "wow" factor at every scroll tick.
+The `/info` page is a kinetic editorial scroll experience modeled on `perryw-2023.webflow.io/info`. It uses a 50/50 CSS Grid layout with a fixed "Horizon Line" spine down the middle that dynamically scales and transforms.
 
-## 2. Core Layout Architecture
-- **Fluid Scroll:** No scroll-jacking or magnetic snapping. Pacing is completely user-controlled.
-- **The Zigzag Grid:** A two-column layout that alternates per milestone:
-  - Even index: Text on Left, Image on Right
-  - Odd index: Image on Left, Text on Right
-- **The Horizon Line (Spine):** A fixed/parallax vertical line (`#0B2D72`) running down the exact center. 
+## 2. Typography
+- **Display Sans:** "General Sans" (Body, UI, Captions)
+- **Editorial Serif:** "Fraunces" (Years, Pull quotes, Numbers ONLY). `opsz` 144, italic 300.
+- Loaded via Fontshare CDN.
 
-## 3. The "Wow" Animations (Crucial)
-To avoid a static feel, every element responds to scroll (`useScroll`, `useTransform`):
-1. **Text Reveals:** Text blocks stagger in using character/word-level reveals (using `framer-motion` variants) and have a subtle Y-axis parallax. As they exit the viewport, they blur and fade out.
-2. **Image Kinetics:**
-   - **Mask Reveals:** Images don't just fade; they reveal themselves via directional masking (e.g., wiping from bottom to top) as they enter.
-   - **Parallax & Scale:** The image container scrolls normally, but the image *inside* the container scales down from `1.2` to `1.0` and translates on the Y-axis.
-   - **3D Tilt:** Subtly linking the scroll velocity or Y-progress to a slight 3D rotation (`rotateX`, `rotateY`) on the image containers.
-3. **The Spine:** The central line acts as a scroll progress bar, painting itself navy (`#0B2D72`) as the user scrolls down.
+## 3. Palette
+- `--paper`: `#F8F7F4`
+- `--paper-warm`: `#F6E7BC`
+- `--ink`: `#0B2D72`
+- `--ink-soft`: `#0B2D7299`
+- `--accent`: `#0992C2`
+- `--hairline`: `#0B2D721A`
 
-## 4. The Climax ("Since Then")
-At the final section ("Since Then | The Horizon"):
-- The central vertical line smoothly turns 90 degrees into a horizontal "sunset" line.
-- The entire page background transitions seamlessly from the default paper/white to a warm golden glow (`#F6E7BC`).
+## 4. Layout
+- CSS Grid, two columns, 50/50 split, 96px gutter.
+- **Left:** Sticky-feeling text content (Eyebrow, Year, Headline, Body).
+- **Right:** Single image (4:5 portrait, max 480px, hairline border).
+- Max width 1440px.
 
-## 5. Data Model
-An array of 15 timeline objects containing: `year`, `title`, `copy`, and placeholder `visual` instructions.
+## 5. The Horizon Line
+- 1px vertical line at 50% left, fixed.
+- `scaleY` tied to overall scroll progress (0.08 to 1).
+- Has 6px dots for each beat. Active beat dot scales 1.4x and fills with `--accent`.
+- Closing Gesture: On the final beat, the line rotates 90° over 800ms to become horizontal, and "— still sailing" fades in.
 
-## 6. Technical Stack
+## 6. Reveal Choreography
+- **Left:** `translateY` 24px -> 0. Staggered reveals (Year 0ms, Headline 80ms, Body 160ms). Exits 400ms fade + translateY -16px.
+- **Right:** Opacity 0 -> 1, Scale 1.04 -> 1.0. 3D tilt on mousemove. Staggers 120ms after left.
+
+## 7. The Golden Transition
+- Background color interpolates from `--paper` to `--paper-warm` during transition from Beat 13 to Beat 14.
+
+## 8. Stack
 - React + Tailwind CSS
-- Framer Motion (`useScroll`, `useTransform`, `motion.div`)
-- CSS Grid/Flexbox for the alternating layout.
+- Framer Motion for scroll-linked animations (`useScroll`, `whileInView`, `useTransform`).
+- Lenis for smooth scroll.

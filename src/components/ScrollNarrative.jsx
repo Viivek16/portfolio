@@ -1,281 +1,260 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import React, { useRef, useState, useEffect } from 'react';
+import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
+import Lenis from 'lenis';
 
-const MILESTONES = [
-  {
-    year: "2018",
-    title: "The Genesis",
-    copy: "Co-founded Yellow Bags. It was my first leap into the unknown. It ended in legal shutdowns—a brutal, necessary lesson in the foundations of business.",
-    image: "https://images.unsplash.com/photo-1541888087405-ebad0c1f6024?auto=format&fit=crop&q=80&w=1000",
-  },
-  {
-    year: "2020",
-    title: "The Blockade",
-    copy: "Pandemic hit. The world stopped, and for a moment, so did I. Lost, clueless, and ranted on LinkedIn until the noise turned into a signal: Neurotech Design.",
-    image: "https://images.unsplash.com/photo-1584467735815-f778f274e296?auto=format&fit=crop&q=80&w=1000",
-  },
-  {
-    year: "2020",
-    title: "The Growth",
-    copy: "What started as a trio grew into an 18-member family. We were bootstrapped and relentless. We built more than tech; we built a culture.",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=1000",
-  },
-  {
-    year: "2021",
-    title: "The Pivot",
-    copy: "Transitioned to Web3 as a freelancer. Writing whitepapers and managing communities—learning the new language of decentralized finance from the ground up.",
-    image: "https://images.unsplash.com/photo-1639762681057-408e52192e55?auto=format&fit=crop&q=80&w=1000",
-  },
-  {
-    year: "June 2021",
-    title: "NewTribe Capital",
-    copy: "Joined the tribe. The beginning of a journey into high-stakes venture capital.",
-    image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=1000",
-  },
-  {
-    year: "March 2022",
-    title: "Hyper-Growth (Part I)",
-    copy: "NewTribe Capital won Best VC of the Year at AIBC. We built a global community of 450+ KOLs—the network effect in action.",
-    image: "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&q=80&w=1000",
-  },
-  {
-    year: "March 2022",
-    title: "Hyper-Growth (Part II)",
-    copy: "Led 50+ investments and managed a $200M+ AUM portfolio. The numbers were big, but the impact on the 250+ projects was what mattered.",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000",
-  },
-  {
-    year: "December 2022",
-    title: "The Resolution",
-    copy: "14 cities in 12 months. A solo resolution to rediscover the world and my place in it.",
-    image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80&w=1000",
-  },
-  {
-    year: "November 2023",
-    title: "Scaling Up",
-    copy: "Raised $1.5M for Leo Ventures. Bridging private capital with high-conviction founders.",
-    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=1000",
-  },
-  {
-    year: "September 2024",
-    title: "Convergence",
-    copy: "Hosted 20+ global events. From RWA Summits to private gatherings—bringing the brightest minds into one room.",
-    image: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80&w=1000",
-  },
-  {
-    year: "December 2024",
-    title: "The Architect",
-    copy: "Helped set up three major VC firms across India, Singapore, and the UAE. Building the infrastructure for the future of investment.",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1000",
-  },
-  {
-    year: "January 2025",
-    title: "The Exit",
-    copy: "Led strategy for NODO’s agentic vaults. Helped raise $10M Series A, leading to a successful acquisition.",
-    image: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&q=80&w=1000",
-  },
-  {
-    year: "April 2025",
-    title: "Yellow Capital",
-    copy: "Joined Yellow Capital as Portfolio Manager. Diving deep into institutional liquidity and market making.",
-    image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&q=80&w=1000",
-  },
-  {
-    year: "November 2025",
-    title: "The Union",
-    copy: "Got married to the love of my life. The most important 'partnership' I’ve ever entered.",
-    image: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=1000",
-  },
+const BEATS = [
+  { eyebrow: "01. 2018", year: "2018", headline: "Yellow Bags shuts down.", body: "The first lesson — that conviction without distribution is just a hobby.", image: "/info-images/beat-01.jpg" },
+  { eyebrow: "EARLY 2020", year: "2020", headline: "Pandemic blockade. LinkedIn rants.", body: "Locked in, writing publicly for the first time. The audience came before the plan did.", image: "/info-images/beat-02.jpg" },
+  { eyebrow: "LATE 2020", year: "2020", headline: "Neurotech Design: 3 → 18.", body: "Built a team in the middle of a shutdown. Learned that culture compounds faster than headcount.", image: "/info-images/beat-03.jpg" },
+  { eyebrow: "2021", year: "2021", headline: "Web3, freelance.", body: "Traded certainty for surface area. Every client was a tutorial in a new corner of the stack.", image: "/info-images/beat-04.jpg" },
+  { eyebrow: "JUNE 2021", year: "2021", headline: "NewTribe Capital.", body: "The first real seat at the table. Thesis-writing replaced thesis-reading.", image: "/info-images/beat-05.jpg" },
+  { eyebrow: "MARCH 2022", year: "2022", headline: "Best VC Award. 450+ KOLs.", body: "Distribution, finally on my side of the table. The network became the product.", image: "/info-images/beat-06.jpg" },
+  { eyebrow: "MARCH 2022", year: "2022", headline: "250+ projects. $200M+ AUM.", body: "Scale teaches you which of your instincts were actually principles.", image: "/info-images/beat-07.jpg" },
+  { eyebrow: "DECEMBER 2022", year: "2022", headline: "14 cities in 12 months.", body: "Conferences as research. Every flight bought a lesson the deck couldn't.", image: "/info-images/beat-08.jpg" },
+  { eyebrow: "NOVEMBER 2023", year: "2023", headline: "$1.5M for Leo Ventures.", body: "Raising taught me more about clarity than any pitch I'd ever heard.", image: "/info-images/beat-09.jpg" },
+  { eyebrow: "SEPTEMBER 2024", year: "2024", headline: "20+ global events, hosted.", body: "Convening became a form of investing — earlier than capital, often more lasting.", image: "/info-images/beat-10.jpg" },
+  { eyebrow: "DECEMBER 2024", year: "2024", headline: "Three firms: Asva, Leo, DCF.", body: "Different theses, shared backbone. Learned to architect, not just operate.", image: "/info-images/beat-11.jpg" },
+  { eyebrow: "JANUARY 2025", year: "2025", headline: "NODO. $10M Series A. Acquired.", body: "The full arc in one deal — early conviction, patient build, clean exit.", image: "/info-images/beat-12.jpg" },
+  { eyebrow: "APRIL 2025", year: "2025", headline: "Yellow Capital. Portfolio Manager.", body: "Came back to the title I'd watched from the outside seven years earlier.", image: "/info-images/beat-13.jpg" },
+  { eyebrow: "NOVEMBER 2025", year: "2025", headline: "Married.", body: "Some chapters are not professional.", image: "/info-images/beat-14.jpg" },
+  { eyebrow: "SINCE", year: "NOW", headline: "Sailing across VC, market making, AI.", body: "Three currents, one boat. Still learning which way the wind actually blows.", image: "/info-images/beat-15.jpg" },
 ];
 
-const TimelineItem = ({ item, index }) => {
-  const isEven = index % 2 === 0;
-  const ref = useRef(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "center center"],
-  });
-  
-  const { scrollYProgress: exitProgress } = useScroll({
-    target: ref,
-    offset: ["center center", "end start"],
-  });
+const easeOutExpo = [0.22, 1, 0.36, 1];
 
-  // Entry Animations
-  const opacity = useTransform(scrollYProgress, [0, 0.8, 1], [0, 0.3, 1]);
-  const y = useTransform(scrollYProgress, [0, 1], [150, 0]);
-  
-  // Exit Animations
-  const exitOpacity = useTransform(exitProgress, [0, 0.5, 1], [1, 0.5, 0]);
-  const exitY = useTransform(exitProgress, [0, 1], [0, -100]);
-  const blur = useTransform(exitProgress, [0, 1], ["blur(0px)", "blur(10px)"]);
-
-  // Image parallax and scale
-  const imgScale = useTransform(scrollYProgress, [0, 1], [1.3, 1]);
-  const imgRotate = useTransform(scrollYProgress, [0, 1], [isEven ? -5 : 5, 0]);
-  const imgY = useTransform(exitProgress, [0, 1], [0, -50]);
-
+const BeatText = ({ children, delay = 0, className, style }) => {
   return (
-    <motion.div 
-      ref={ref}
-      style={{ opacity: opacity, y: y }}
-      className={`relative w-full min-h-[80vh] flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center justify-center gap-12 md:gap-24 my-32`}
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -16 }}
+      viewport={{ amount: 0.5, margin: "0px 0px -20% 0px" }}
+      transition={{ duration: 0.6, ease: easeOutExpo, delay }}
+      className={className}
+      style={style}
     >
-      {/* Node on the spine */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#0B2D72] border-4 border-[#F8F7F4] z-20 hidden md:block"></div>
-
-      {/* Text Section */}
-      <motion.div 
-        style={{ opacity: exitOpacity, y: exitY, filter: blur }}
-        className={`w-full md:w-1/2 flex flex-col justify-center ${isEven ? 'md:text-right md:pr-16 md:items-end' : 'md:text-left md:pl-16 md:items-start'} z-10 px-6 md:px-0`}
-      >
-        <div className="overflow-hidden mb-4">
-          <motion.h4 
-            style={{ y: useTransform(scrollYProgress, [0.5, 1], [50, 0]) }}
-            className="font-mono text-sm tracking-[0.2em] text-[#0B2D72]/60 uppercase"
-          >
-            {item.year}
-          </motion.h4>
-        </div>
-        
-        <div className="overflow-hidden mb-6">
-          <motion.h2 
-            style={{ y: useTransform(scrollYProgress, [0.4, 1], [100, 0]) }}
-            className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter uppercase text-text-primary"
-          >
-            {item.title}
-          </motion.h2>
-        </div>
-
-        <motion.p 
-          style={{ opacity: useTransform(scrollYProgress, [0.6, 1], [0, 1]) }}
-          className="font-body text-lg md:text-xl text-text-primary/80 leading-relaxed max-w-lg"
-        >
-          {item.copy}
-        </motion.p>
-      </motion.div>
-
-      {/* Image Section */}
-      <motion.div 
-        style={{ opacity: exitOpacity, y: imgY }}
-        className="w-full md:w-1/2 h-[50vh] md:h-[70vh] px-6 md:px-0 z-10"
-      >
-        <div className={`w-full h-full overflow-hidden ${isEven ? 'md:ml-16' : 'md:mr-16'} relative`}>
-          {/* Subtle masking reveal effect */}
-          <motion.div 
-            style={{ height: useTransform(scrollYProgress, [0, 0.8], ["100%", "0%"]) }}
-            className="absolute inset-0 bg-[#F8F7F4] z-10 origin-bottom"
-          ></motion.div>
-          <motion.img 
-            style={{ scale: imgScale, rotate: imgRotate }}
-            src={item.image} 
-            alt={item.title}
-            className="w-full h-full object-cover grayscale-[30%] hover:grayscale-0 transition-all duration-700 ease-out"
-          />
-        </div>
-      </motion.div>
+      {children}
     </motion.div>
   );
 };
 
-const HorizonClimax = ({ scrollYProgress }) => {
-  // Climax appears at the very end of the global scroll
-  const opacity = useTransform(scrollYProgress, [0.85, 0.95], [0, 1]);
-  const y = useTransform(scrollYProgress, [0.85, 0.95], [100, 0]);
-  const scale = useTransform(scrollYProgress, [0.85, 1], [0.8, 1]);
-  const glowOpacity = useTransform(scrollYProgress, [0.9, 1], [0, 1]);
+const ImageCard = ({ src, alt, delay = 0.12 }) => {
+  const [rotateX, setRotateX] = useState(0);
+  const [rotateY, setRotateY] = useState(0);
+
+  const springX = useSpring(rotateX, { stiffness: 200, damping: 20 });
+  const springY = useSpring(rotateY, { stiffness: 200, damping: 20 });
+
+  const handleMouseMove = (e) => {
+    if (!e.currentTarget) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Calculate rotation (-6 to 6 degrees)
+    const xPct = (x / rect.width - 0.5) * 2;
+    const yPct = (y / rect.height - 0.5) * 2;
+    
+    setRotateX(-yPct * 6);
+    setRotateY(xPct * 6);
+  };
+
+  const handleMouseLeave = () => {
+    setRotateX(0);
+    setRotateY(0);
+  };
 
   return (
-    <div className="relative w-full h-[100vh] flex flex-col items-center justify-center overflow-hidden">
-      {/* The Horizon Line Turning Horizontal */}
-      <motion.div 
-        style={{ scaleX: useTransform(scrollYProgress, [0.85, 0.95], [0, 1]), opacity }}
-        className="absolute top-1/2 left-0 w-full h-[1px] bg-[#0B2D72] origin-center z-10"
-      ></motion.div>
+    <motion.div
+      initial={{ opacity: 0, scale: 1.04 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.98 }}
+      viewport={{ amount: 0.5 }}
+      transition={{ opacity: { duration: 0.7 }, scale: { duration: 0.7, ease: easeOutExpo }, delay }}
+      className="w-full max-w-[480px] aspect-[4/5] mx-auto relative overflow-hidden bg-hairline rounded-sm"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ perspective: 1200, rotateX: springX, rotateY: springY }}
+    >
+      <div className="absolute inset-0 border border-hairline z-10 pointer-events-none"></div>
+      <img src={src} alt={alt} className="w-full h-full object-cover" loading="lazy" />
+    </motion.div>
+  );
+};
 
-      {/* Golden Glow Background Injection */}
-      <motion.div 
-        style={{ opacity: glowOpacity }}
-        className="absolute inset-0 bg-[#F6E7BC] z-0 mix-blend-multiply"
-      ></motion.div>
+const BeatSection = ({ beat, index, setActiveBeat }) => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { amount: 0.5 });
+  
+  useEffect(() => {
+    if (inView) setActiveBeat(index);
+  }, [inView, index, setActiveBeat]);
 
-      <motion.div style={{ opacity, y, scale }} className="z-20 text-center flex flex-col items-center px-6">
-        <h4 className="font-mono text-sm tracking-[0.2em] text-[#0B2D72] uppercase mb-6 bg-[#F8F7F4]/50 px-4 py-1 rounded-full backdrop-blur-sm">
-          Since Then
-        </h4>
-        <h2 className="font-display text-5xl md:text-8xl font-bold tracking-tighter uppercase text-[#0B2D72] mb-8">
-          The Horizon
-        </h2>
-        <p className="font-body text-xl md:text-2xl text-[#0B2D72]/80 leading-relaxed max-w-2xl font-light">
-          Sailing across VC, Market Making, and AI. The journey continues.
-        </p>
-      </motion.div>
-    </div>
+  return (
+    <section ref={ref} className="w-full min-h-[720px] h-screen grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-24 relative snap-center snap-always z-10 py-12 md:py-0">
+      
+      {/* Left Column (Sticky-feeling content) */}
+      <div className="flex flex-col justify-center h-full px-6 md:px-0">
+        <BeatText delay={0} className="mb-4">
+          <p className="text-[0.75rem] uppercase tracking-[0.18em] font-display font-medium text-ink-soft">
+            {beat.eyebrow}
+          </p>
+        </BeatText>
+        
+        <BeatText delay={0} className="mb-6">
+          <h2 
+            className="text-[4.5rem] md:text-[7.5rem] font-serif text-ink leading-[0.9] tracking-[-0.04em]"
+            style={{ fontVariationSettings: '"opsz" 144', fontStyle: 'italic', fontWeight: 300 }}
+          >
+            {beat.year}
+          </h2>
+        </BeatText>
+        
+        <BeatText delay={0.08} className="mb-6 max-w-lg">
+          <h3 className="text-[1.875rem] md:text-[2.75rem] font-display font-medium text-ink leading-[1.1] tracking-[-0.02em]">
+            {beat.headline}
+          </h3>
+        </BeatText>
+        
+        <BeatText delay={0.16} className="max-w-md">
+          <p className="text-[1rem] md:text-[1.0625rem] font-display font-normal text-ink leading-[1.55]">
+            {beat.body}
+          </p>
+        </BeatText>
+      </div>
+
+      {/* Right Column (Image) */}
+      <div className="flex items-center justify-center h-full px-6 md:px-0">
+        <ImageCard src={beat.image} alt={beat.headline} delay={0.12} />
+      </div>
+      
+    </section>
   );
 };
 
 const ScrollNarrative = () => {
   const containerRef = useRef(null);
+  const [activeBeat, setActiveBeat] = useState(0);
+  const [isClosing, setIsClosing] = useState(false);
   
+  // Initialize Lenis
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+    });
+    
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+    return () => lenis.destroy();
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
 
-  // Spine growing effect
-  const spineHeight = useSpring(useTransform(scrollYProgress, [0, 0.9], ["0%", "100%"]), {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
+  // Background Transition (Beat 13 exit to Beat 14 entry approx 0.86 to 0.92)
+  const bgColor = useTransform(scrollYProgress, [0.86, 0.92], ["#F8F7F4", "#F6E7BC"]);
 
-  // Background color shift for the climax
-  const bgColor = useTransform(scrollYProgress, [0.85, 0.95], ["#F8F7F4", "#F6E7BC"]);
+  // Horizon Line Scaling
+  // It starts at 8% vh at scroll progress 0. Ends at 100% vh at scroll progress 1.
+  const horizonScaleY = useTransform(scrollYProgress, [0, 1], [0.08, 1]);
+  
+  // Track when user reaches the absolute bottom to trigger closing gesture
+  useEffect(() => {
+    return scrollYProgress.onChange((latest) => {
+      if (latest > 0.99 && !isClosing) {
+        setIsClosing(true);
+      } else if (latest < 0.98 && isClosing) {
+        setIsClosing(false);
+      }
+    });
+  }, [scrollYProgress, isClosing]);
 
   return (
-    <motion.div 
-      ref={containerRef} 
-      style={{ backgroundColor: bgColor }}
-      className="relative w-full transition-colors duration-1000 ease-in-out"
-    >
-      {/* Intro Header */}
-      <div className="w-full h-screen flex flex-col items-center justify-center text-center px-6 md:px-12 relative z-20">
-        <motion.h1 
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-5xl md:text-8xl lg:text-9xl font-bold uppercase tracking-tighter text-text-primary"
+    <div ref={containerRef} className="relative w-full min-h-[1500vh]">
+      
+      {/* Scroll-Linked Fixed Background */}
+      <motion.div 
+        className="fixed inset-0 z-[-1] pointer-events-none transition-colors duration-200"
+        style={{ backgroundColor: bgColor }}
+      />
+
+      {/* Outer Container for Content */}
+      <div className="relative max-w-[1440px] mx-auto px-[clamp(24px,5vw,96px)]">
+        
+        {/* Fixed Horizon Line Container */}
+        <div className="fixed top-0 bottom-0 left-[50%] -translate-x-[50%] z-0 pointer-events-none flex justify-center w-[20px]">
+          
+          <motion.div 
+            className="absolute top-0 w-[1px] bg-ink origin-top"
+            style={{ 
+              height: '100vh',
+              scaleY: isClosing ? 0.6 : horizonScaleY,
+              rotate: isClosing ? 90 : 0,
+            }}
+            transition={{
+              rotate: { duration: 0.8, ease: [0.83, 0, 0.17, 1] },
+              scaleY: { duration: 0.8, ease: [0.83, 0, 0.17, 1] }
+            }}
+          />
+
+          {/* Dots on Horizon */}
+          {/* We calculate rough percentages for the dots. E.g., 15 beats = 15 dots evenly spaced */}
+          {BEATS.map((_, i) => {
+            const isActive = activeBeat === i;
+            const topPercent = (i / (BEATS.length - 1)) * 100;
+            
+            // To ensure the dot is physically located where the horizon reaches at that scroll progress:
+            // Since scaleY goes 0.08 to 1.0, the dot positions should map similarly.
+            const adjustedTop = 8 + (topPercent * 0.92);
+
+            return (
+              <motion.div
+                key={i}
+                className={`absolute w-[6px] h-[6px] rounded-full border border-ink ${isActive ? 'bg-accent border-accent' : 'bg-paper'}`}
+                style={{ top: `${adjustedTop}vh` }}
+                animate={{
+                  scale: isActive ? 1.4 : 1,
+                  opacity: isClosing ? 0 : 1
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              />
+            );
+          })}
+        </div>
+
+        {/* Closing Gesture Caption */}
+        <motion.div
+          className="fixed left-1/2 top-1/2 -translate-x-1/2 mt-8 z-20 pointer-events-none"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isClosing ? 1 : 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
         >
-          The Journey
-        </motion.h1>
-        <motion.div 
-          initial={{ scaleY: 0 }}
-          animate={{ scaleY: 1 }}
-          transition={{ delay: 0.8, duration: 1, ease: "circOut" }}
-          className="w-[1px] h-32 bg-[#0B2D72] mt-12 origin-top"
-        ></motion.div>
-      </div>
+          <span className="font-serif text-[1rem] text-ink" style={{ fontVariationSettings: '"opsz" 144', fontStyle: 'italic', fontWeight: 300 }}>
+            — still sailing
+          </span>
+        </motion.div>
 
-      {/* The Central Spine */}
-      <div className="absolute left-1/2 top-[100vh] bottom-[100vh] w-[1px] -translate-x-1/2 hidden md:block z-0 pointer-events-none">
-        <div className="w-full h-full bg-gray-200"></div>
-        <motion.div 
-          style={{ height: spineHeight }}
-          className="absolute top-0 left-0 w-full bg-[#0B2D72] origin-top"
-        ></motion.div>
-      </div>
+        {/* Beats */}
+        <div className="relative z-10 pb-[10vh]">
+          {BEATS.map((beat, i) => (
+            <BeatSection 
+              key={i} 
+              index={i} 
+              beat={beat} 
+              setActiveBeat={setActiveBeat} 
+            />
+          ))}
+        </div>
 
-      {/* The Timeline */}
-      <div className="relative w-full max-w-7xl mx-auto z-10 pt-32 pb-64">
-        {MILESTONES.map((item, index) => (
-          <TimelineItem key={index} item={item} index={index} />
-        ))}
       </div>
-
-      {/* The Climax */}
-      <HorizonClimax scrollYProgress={scrollYProgress} />
-    </motion.div>
+    </div>
   );
 };
 

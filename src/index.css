@@ -1,14 +1,24 @@
 @import "tailwindcss";
 
-@theme {
-  --color-bg-primary: #F8F7F4;
-  --color-text-primary: #0B2D72;
-  --color-accent-blue: #0AC4E0;
-  --color-accent-cream: #F6E7BC;
+:root {
+  --paper: #F8F7F4;
+  --paper-warm: #F6E7BC;
+  --ink: #0B2D72;
+  --ink-soft: #0B2D7299;
+  --accent: #0992C2;
+  --hairline: #0B2D721A;
+}
 
-  --font-display: "Syne", sans-serif;
-  --font-body: "Inter", sans-serif;
-  --font-poetry: "Caveat", cursive;
+@theme {
+  --color-paper: var(--paper);
+  --color-paper-warm: var(--paper-warm);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-accent: var(--accent);
+  --color-hairline: var(--hairline);
+
+  --font-display: "General Sans", sans-serif;
+  --font-serif: "Fraunces", serif;
 
   /* Strict 0px border radius overrides */
   --radius-sm: 0px;
@@ -22,9 +32,7 @@
 
 @layer base {
   body {
-    @apply bg-bg-primary text-text-primary font-body antialiased selection:bg-accent-blue selection:text-bg-primary;
-  }
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-display;
+    @apply bg-paper text-ink font-display antialiased selection:bg-accent selection:text-paper;
+    background-color: var(--paper); /* Transitioned dynamically later */
   }
 }
