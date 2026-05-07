@@ -8,7 +8,7 @@ const Navigation = () => {
   const location = useLocation()
   
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 p-6 md:px-12 flex justify-between items-center mix-blend-difference text-white">
+    <nav className="fixed top-0 left-0 w-full z-50 p-6 md:px-12 flex justify-between items-center text-ink">
       <Link to="/" className="font-display text-2xl tracking-tighter font-bold uppercase">
         VM.
       </Link>
@@ -16,17 +16,17 @@ const Navigation = () => {
       <div className="flex gap-8 items-center font-display uppercase tracking-widest text-sm">
         <Link 
           to="/" 
-          className={`hover:opacity-100 transition-opacity ${location.pathname === '/' ? 'opacity-100 border-b border-white' : 'opacity-60'}`}
+          className={`hover:text-ink transition-colors ${location.pathname === '/' ? 'text-ink border-b border-accent' : 'text-ink-soft'}`}
         >
-          Work
+          WORK
         </Link>
         <Link 
           to="/info" 
-          className={`hover:opacity-100 transition-opacity ${location.pathname === '/info' ? 'opacity-100 border-b border-white' : 'opacity-60'}`}
+          className={`hover:text-ink transition-colors ${location.pathname === '/info' ? 'text-ink border-b border-accent' : 'text-ink-soft'}`}
         >
-          Info
+          INFO
         </Link>
-        <button className="opacity-60 hover:opacity-100 transition-opacity">
+        <button className="text-ink-soft hover:text-ink transition-colors">
           <Menu className="w-6 h-6" />
         </button>
       </div>

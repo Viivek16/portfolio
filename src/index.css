@@ -1,22 +1,27 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #FFFFFF;
-  --paper-warm: #FBEFD0;
-  --ink: #0A2463;
-  --ink-soft: #0A246399;
-  --ink-faint: #0A246333;
-  --accent: #0992C2;
-  --hairline: #0A246314;
+  --bg:           #0E0E10;
+  --bg-elevated:  #16161A;
+  --bg-warm:      #1A1410;
+  --ink:          #F2EFE9;
+  --ink-soft:     #F2EFE9B3;
+  --ink-faint:    #F2EFE940;
+  --accent:       #0AC4E0;
+  --accent-warm:  #D4A857;
+  --hairline:     #F2EFE91A;
 }
 
 @theme {
-  --color-paper: var(--paper);
-  --color-paper-warm: var(--paper-warm);
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-bg-warm: var(--bg-warm);
+  --color-paper: var(--bg); /* Fallback */
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);
   --color-ink-faint: var(--ink-faint);
   --color-accent: var(--accent);
+  --color-accent-warm: var(--accent-warm);
   --color-hairline: var(--hairline);
 
   --font-display: "General Sans", sans-serif;
@@ -34,8 +39,8 @@
 
 @layer base {
   body {
-    @apply bg-paper text-ink font-display antialiased selection:bg-accent selection:text-paper;
-    background-color: var(--paper); /* Transitioned dynamically later */
+    @apply text-ink font-display antialiased selection:bg-accent selection:text-bg;
+    background-color: var(--bg);
   }
 }
 
@@ -44,30 +49,29 @@
     position: relative;
     overflow: hidden;
     border: 1px solid var(--hairline);
+    border-radius: 2px;
   }
   .cinematic-image img {
-    filter: contrast(1.05) saturate(0.92) brightness(1.02);
+    filter: contrast(1.1) saturate(0.85) brightness(0.95);
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
   }
-  .cinematic-image.is-bw img {
-    filter: grayscale(100%) contrast(1.05) saturate(0) brightness(1.02);
-  }
+  
   .cinematic-image::after {
     content: '';
     position: absolute;
     inset: 0;
     background: radial-gradient(
       ellipse at center,
-      transparent 50%,
-      rgba(10, 36, 99, 0.08) 80%,
-      rgba(10, 36, 99, 0.18) 100%
+      transparent 45%,
+      rgba(0, 0, 0, 0.20) 80%,
+      rgba(0, 0, 0, 0.45) 100%
     );
     pointer-events: none;
     mix-blend-mode: multiply;
-    z-index: 2;
+    z-index: 5;
   }
   .cinematic-image::before {
     content: '';
@@ -75,19 +79,11 @@
     inset: 0;
     background: linear-gradient(
       135deg,
-      rgba(255, 255, 255, 0.06) 0%,
-      transparent 40%
+      rgba(255, 255, 255, 0.04) 0%,
+      transparent 35%
     );
     pointer-events: none;
-    z-index: 3;
-  }
-  .cinematic-image.warm-vignette::after {
-    background: radial-gradient(
-      ellipse at center,
-      transparent 50%,
-      rgba(184, 147, 94, 0.06) 80%,
-      rgba(184, 147, 94, 0.12) 100%
-    );
+    z-index: 6;
   }
 
   .cinema-wall {
@@ -111,7 +107,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(10, 36, 99, 0.08);
+    background: rgba(14, 14, 16, 0.45);
     pointer-events: none;
     z-index: 5;
   }
@@ -124,49 +120,42 @@
     transform: translate(-50%, -50%);
     background: radial-gradient(
       ellipse at center,
-      rgba(255, 255, 255, 0.85) 0%,
-      rgba(255, 255, 255, 0.65) 40%,
-      rgba(255, 255, 255, 0.0) 80%
+      rgba(14, 14, 16, 0.85) 0%,
+      rgba(14, 14, 16, 0.65) 40%,
+      rgba(14, 14, 16, 0.0) 80%
     );
-    filter: blur(8px);
+    filter: blur(12px);
     z-index: 19;
   }
 
-  .beat-solo {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
-    align-items: center;
-    min-height: 100vh;
-  }
-  @media (min-width: 768px) {
-    .beat-solo {
-      grid-template-columns: 38fr 62fr;
-      gap: 4vw;
-    }
-  }
-
-  .beat-solo .image-column {
-    width: 100%;
-    height: 60vh;
+  .testimonials-track {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    gap: 32px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 8vw;
+    padding: 64px 8vw;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
-  @media (min-width: 768px) {
-    .beat-solo .image-column {
-      width: 58vw;
-      max-width: 760px;
-      height: 80vh;
-      max-height: 880px;
-      justify-content: flex-end;
-      padding-right: 4vw;
-    }
+  .testimonials-track::-webkit-scrollbar { display: none; }
+  
+  .testimonial-card {
+    flex: 0 0 380px;
+    scroll-snap-align: start;
+    background: var(--bg-elevated);
+    border: 1px solid var(--hairline);
+    border-radius: 2px;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    transition: all 300ms ease;
   }
-
-  .beat-solo .image-column .cinematic-image {
-    width: 100%;
-    height: 100%;
-    aspect-ratio: 4 / 5;
+  
+  .testimonial-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(10, 196, 224, 0.4);
   }
 }

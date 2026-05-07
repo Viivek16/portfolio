@@ -4,30 +4,47 @@ import Lenis from 'lenis';
 
 const getUrl = (id, w) => `https://images.unsplash.com/${id}?w=${w}&q=80&auto=format&fit=crop`;
 
+// Image references
+const imgYellowBags = getUrl("photo-1565891741441-64926e441838", 800);
+const imgPandemic = [getUrl("photo-1576091160550-2173dba999ef", 800), getUrl("photo-1499914485622-a88fac536970", 800), getUrl("photo-1635776062764-e025521e3df3", 800)];
+const imgNeurotech = getUrl("photo-1542744173-8e7e53415bb0", 800);
+const imgWeb3 = [getUrl("photo-1517694712202-14dd9538aa97", 800), getUrl("photo-1521737604893-d14cc237f11d", 800), getUrl("photo-1639762681485-074b7f938ba0", 800)];
+const imgNewTribe = getUrl("photo-1556761175-5973dc0f32e7", 800);
+const imgBestVC = [getUrl("photo-1505373877841-8d25f7d46678", 800), getUrl("photo-1567427017947-545c5f8d16ad", 800), getUrl("photo-1540575467063-178a50c2df87", 800)];
+const imgProjects = [getUrl("photo-1551288049-bebda4e38f71", 800), getUrl("photo-1552664730-d307ca884978", 800), getUrl("photo-1614332287897-cdc485fa562d", 800)];
+const imgCities = [getUrl("photo-1436491865332-7a61a109cc05", 800), getUrl("photo-1512453979798-5ea266f8880c", 800), getUrl("photo-1525625293386-3f8f99389edd", 800), getUrl("photo-1488646953014-85cb44e25828", 800), getUrl("photo-1502920917128-1aa500764cbd", 800)];
+const imgLeo = getUrl("photo-1450101499163-c8848c66ca85", 800);
+const imgEvents = [getUrl("photo-1492684223066-81342ee5ff30", 800), getUrl("photo-1505236858219-8359eb29e329", 800), getUrl("photo-1519671482749-fd09be7ccebf", 800), getUrl("photo-1470229722913-7c0e2dbbafd3", 800), getUrl("photo-1511578314322-379afb476865", 800)];
+const imgFirms = [getUrl("photo-1486325212027-8081e485255e", 800), getUrl("photo-1497366216548-37526070297c", 800), getUrl("photo-1497366811353-6870744d04b2", 800)];
+const imgNodo = getUrl("photo-1554224155-6726b3ff858f", 800);
+const imgYellowCap = getUrl("photo-1496588152823-86ff7695e68f", 800);
+const imgMarried = [getUrl("photo-1519741497674-611481863552", 800), getUrl("photo-1525258946800-98cfd641d0de", 800), getUrl("photo-1606216794074-735e91aa5c44", 800), getUrl("photo-1519225421980-715cb0215aed", 800)];
+const imgSailing = [getUrl("photo-1500627964684-141351970a7f", 800), getUrl("photo-1507525428034-b723cf961d3e", 800), getUrl("photo-1502163140606-888448ae8cfe", 800), getUrl("photo-1493558103817-58b2924bce98", 800)];
+
 const BEATS = [
-  { type: "solo", eyebrow: "01. 2018", year: "2018", headline: "Yellow Bags shuts down.", body: "The first lesson — that conviction without distribution is just a hobby.", image: getUrl("photo-1565891741441-64926e441838", 800) },
-  { type: "grid", eyebrow: "EARLY 2020", year: "2020", headline: "Pandemic blockade. LinkedIn rants.", body: "Locked in, writing publicly for the first time. The audience came before the plan did.", images: [getUrl("photo-1584824486509-112e4181ff6b", 600), getUrl("photo-1593642632559-0c6d3fc62b89", 500), getUrl("photo-1518791841217-8f162f1e1131", 450), getUrl("photo-1517842645767-c639042777db", 380)] },
-  { type: "solo", eyebrow: "LATE 2020", year: "2020", headline: "Neurotech Design: 3 → 18.", body: "Built a team in the middle of a shutdown. Learned that culture compounds faster than headcount.", image: getUrl("photo-1542744173-8e7e53415bb0", 800) },
-  { type: "grid", eyebrow: "2021", year: "2021", headline: "Web3, freelance.", body: "Traded certainty for surface area. Every client was a tutorial in a new corner of the stack.", images: [getUrl("photo-1517694712202-14dd9538aa97", 600), getUrl("photo-1521737604893-d14cc237f11d", 500), getUrl("photo-1639762681485-074b7f938ba0", 450), getUrl("photo-1455390582262-044cdead277a", 380)] },
-  { type: "solo", eyebrow: "JUNE 2021", year: "2021", headline: "NewTribe Capital.", body: "The first real seat at the table. Thesis-writing replaced thesis-reading.", image: getUrl("photo-1556761175-5973dc0f32e7", 800) },
-  { type: "grid", eyebrow: "MARCH 2022", year: "2022", headline: "Best VC Award. 450+ KOLs.", body: "Distribution, finally on my side of the table. The network became the product.", images: [getUrl("photo-1505373877841-8d25f7d46678", 600), getUrl("photo-1567427017947-545c5f8d16ad", 500), getUrl("photo-1540575467063-178a50c2df87", 450), getUrl("photo-1478737270239-2f02b77fc618", 380)] },
-  { type: "grid", eyebrow: "MARCH 2022", year: "2022", headline: "250+ projects. $200M+ AUM.", body: "Scale teaches you which of your instincts were actually principles.", images: [getUrl("photo-1551288049-bebda4e38f71", 600), getUrl("photo-1552664730-d307ca884978", 500), getUrl("photo-1614332287897-cdc485fa562d", 450), getUrl("photo-1559526324-4b87b5e36e44", 380)] },
-  { type: "memory", eyebrow: "DECEMBER 2022", year: "2022", headline: "14 cities in 12 months.", body: "Conferences as research. Every flight bought a lesson the deck couldn't.", images: [getUrl("photo-1436491865332-7a61a109cc05", 500), getUrl("photo-1512453979798-5ea266f8880c", 500), getUrl("photo-1525625293386-3f8f99389edd", 500), getUrl("photo-1488646953014-85cb44e25828", 500), getUrl("photo-1502920917128-1aa500764cbd", 500), getUrl("photo-1483450388369-9ed95738483c", 500), getUrl("photo-1542296332-2e4473faf563", 500), getUrl("photo-1502602898657-3e91760cbb34", 500)] },
-  { type: "solo", eyebrow: "NOVEMBER 2023", year: "2023", headline: "$1.5M for Leo Ventures.", body: "Raising taught me more about clarity than any pitch I'd ever heard.", image: getUrl("photo-1450101499163-c8848c66ca85", 800) },
-  { type: "memory", eyebrow: "SEPTEMBER 2024", year: "2024", headline: "20+ global events, hosted.", body: "Convening became a form of investing — earlier than capital, often more lasting.", images: [getUrl("photo-1492684223066-81342ee5ff30", 500), getUrl("photo-1540575467063-178a50c2df87", 500), getUrl("photo-1519671482749-fd09be7ccebf", 500), getUrl("photo-1470229722913-7c0e2dbbafd3", 500), getUrl("photo-1511578314322-379afb476865", 500), getUrl("photo-1530023367847-a683933f4172", 500), getUrl("photo-1505236858219-8359eb29e329", 500), getUrl("photo-1522158637959-30385a09e0da", 500)] },
-  { type: "grid", eyebrow: "DECEMBER 2024", year: "2024", headline: "Three firms: Asva, Leo, DCF.", body: "Different theses, shared backbone. Learned to architect, not just operate.", images: [getUrl("photo-1486325212027-8081e485255e", 600), getUrl("photo-1497366216548-37526070297c", 500), getUrl("photo-1497366811353-6870744d04b2", 450), getUrl("photo-1554224155-6726b3ff858f", 380)] },
-  { type: "solo", eyebrow: "JANUARY 2025", year: "2025", headline: "NODO. $10M Series A. Acquired.", body: "The full arc in one deal — early conviction, patient build, clean exit.", image: getUrl("photo-1554224155-6726b3ff858f", 800) },
-  { type: "solo", eyebrow: "APRIL 2025", year: "2025", headline: "Yellow Capital. Portfolio Manager.", body: "Came back to the title I'd watched from the outside seven years earlier.", image: getUrl("photo-1496588152823-86ff7695e68f", 800) },
-  { type: "memory", eyebrow: "NOVEMBER 2025", year: "2025", headline: "Married.", body: "Some chapters are not professional.", images: [getUrl("photo-1519741497674-611481863552", 500), getUrl("photo-1525258946800-98cfd641d0de", 500), getUrl("photo-1606216794074-735e91aa5c44", 500), getUrl("photo-1519225421980-715cb0215aed", 500), getUrl("photo-1511795409834-ef04bbd61622", 500), getUrl("photo-1583939003579-730e3918a45a", 500), getUrl("photo-1465495976277-4387d4b0b4c6", 500), getUrl("photo-1469371670807-013ccf25f16a", 500)] },
-  { type: "memory-closing", eyebrow: "SINCE", year: "NOW", headline: "Sailing across VC, market making, AI.", body: "Three currents, one boat. Still learning which way the wind actually blows.", images: [getUrl("photo-1500627964684-141351970a7f", 500), getUrl("photo-1507525428034-b723cf961d3e", 500), getUrl("photo-1502163140606-888448ae8cfe", 500), getUrl("photo-1493558103817-58b2924bce98", 500), getUrl("photo-1505142468610-359e7d316be0", 500), getUrl("photo-1518837695005-2083093ee35b", 500), getUrl("photo-1496950866446-3253e1470e8e", 500), getUrl("photo-1483728642387-6c3bdd6c93e5", 500)] },
+  { type: "beat", eyebrow: "01. 2018", year: "2018", headline: "Yellow Bags shuts down.", body: "The first lesson — that conviction without distribution is just a hobby.", images: [imgYellowBags] },
+  { type: "beat", eyebrow: "EARLY 2020", year: "2020", headline: "Pandemic blockade. LinkedIn rants.", body: "Locked in, writing publicly for the first time. The audience came before the plan did.", images: imgPandemic },
+  { type: "beat", eyebrow: "LATE 2020", year: "2020", headline: "Neurotech Design: 3 → 18.", body: "Built a team in the middle of a shutdown. Learned that culture compounds faster than headcount.", images: [imgNeurotech] },
+  { type: "beat", eyebrow: "2021", year: "2021", headline: "Web3, freelance.", body: "Traded certainty for surface area. Every client was a tutorial in a new corner of the stack.", images: imgWeb3 },
+  { type: "beat", eyebrow: "JUNE 2021", year: "2021", headline: "NewTribe Capital.", body: "The first real seat at the table. Thesis-writing replaced thesis-reading.", images: [imgNewTribe] },
+  { type: "beat", eyebrow: "MARCH 2022", year: "2022", headline: "Best VC Award. 450+ KOLs.", body: "Distribution, finally on my side of the table. The network became the product.", images: imgBestVC },
+  { type: "beat", eyebrow: "MARCH 2022", year: "2022", headline: "250+ projects. $200M+ AUM.", body: "Scale teaches you which of your instincts were actually principles.", images: imgProjects },
+  { type: "beat", eyebrow: "DECEMBER 2022", year: "2022", headline: "14 cities in 12 months.", body: "Conferences as research. Every flight bought a lesson the deck couldn't.", images: imgCities },
+  { type: "beat", eyebrow: "NOVEMBER 2023", year: "2023", headline: "$1.5M for Leo Ventures.", body: "Raising taught me more about clarity than any pitch I'd ever heard.", images: [imgLeo] },
+  { type: "beat", eyebrow: "SEPTEMBER 2024", year: "2024", headline: "20+ global events, hosted.", body: "Convening became a form of investing — earlier than capital, often more lasting.", images: imgEvents },
+  { type: "beat", eyebrow: "DECEMBER 2024", year: "2024", headline: "Three firms: Asva, Leo, DCF.", body: "Different theses, shared backbone. Learned to architect, not just operate.", images: imgFirms },
+  { type: "beat", eyebrow: "JANUARY 2025", year: "2025", headline: "NODO. $10M Series A. Acquired.", body: "The full arc in one deal — early conviction, patient build, clean exit.", images: [imgNodo] },
+  { type: "beat", eyebrow: "APRIL 2025", year: "2025", headline: "Yellow Capital. Portfolio Manager.", body: "Came back to the title I'd watched from the outside seven years earlier.", images: [imgYellowCap] },
+  { type: "beat", eyebrow: "NOVEMBER 2025", year: "2025", headline: "Married.", body: "Some chapters are not professional.", images: imgMarried },
+  { type: "beat-closing", eyebrow: "SINCE", year: "NOW", headline: "Sailing across VC, market making, AI.", body: "Three currents, one boat. Still learning which way the wind actually blows.", images: imgSailing },
 ];
 
 const TESTIMONIALS = [
-  { layout: "A", quote: "Vivek can hold three theses in his head at once and still remember what you ordered for dinner six months ago. That's the part most people miss about him.", attribution: "Arjun Mehta · GP at a Singapore-based fund, friend since 2021", photo: getUrl("photo-1507003211169-0a1dd7228f2d", 600) },
-  { layout: "B", quote: "He invested when nobody else would take the call. Then he kept showing up — not because the round was hot, but because he'd actually read the docs.", attribution: "Priya Krishnan · Founder, NODO (acq. 2025)", photo: getUrl("photo-1494790108377-be9c29b29330", 600) },
-  { layout: "A", quote: "We were sleeping on a Bangkok hotel floor in 2022 because the conference had overbooked. He was already drafting an investment memo on his phone. I knew then this wasn't going to be a normal career.", attribution: "Kabir Shah · Co-founder, Leo Ventures", photo: getUrl("photo-1500648767791-00dcc994a43e", 600) },
-  { layout: "B", quote: "The Yellow Bags story isn't a failure story to anyone who knows him. It's the first chapter. Every founder I've sent his way has come back saying, 'I wish my last investor had asked these questions.'", attribution: "Anika Rao · Operating Partner, DCF Capital", photo: getUrl("photo-1438761681033-6461ffad8d80", 600) },
-  { layout: "A", quote: "I've watched him build three firms in the time it takes most people to build a deck. The thing nobody writes about is how patient he is with the parts that don't show up on a CV.", attribution: "Rohan Iyer · Childhood friend, now an unrelated professional witness", photo: getUrl("photo-1472099645785-5658abf4ff4e", 600) }
+  { quote: "Vivek can hold three theses in his head at once and still remember what you ordered for dinner six months ago. That's the part most people miss about him.", attribution: "Arjun Mehta", context: "GP at a Singapore-based fund, friend since 2021", photo: getUrl("photo-1507003211169-0a1dd7228f2d", 600) },
+  { quote: "He invested when nobody else would take the call. Then he kept showing up — not because the round was hot, but because he'd actually read the docs.", attribution: "Priya Krishnan", context: "Founder, NODO (acq. 2025)", photo: getUrl("photo-1494790108377-be9c29b29330", 600) },
+  { quote: "We were sleeping on a Bangkok hotel floor in 2022 because the conference had overbooked. He was already drafting an investment memo on his phone. I knew then this wasn't going to be a normal career.", attribution: "Kabir Shah", context: "Co-founder, Leo Ventures", photo: getUrl("photo-1500648767791-00dcc994a43e", 600) },
+  { quote: "The Yellow Bags story isn't a failure story to anyone who knows him. It's the first chapter. Every founder I've sent his way has come back saying, 'I wish my last investor had asked these questions.'", attribution: "Anika Rao", context: "Operating Partner, DCF Capital", photo: getUrl("photo-1438761681033-6461ffad8d80", 600) },
+  { quote: "I've watched him build three firms in the time it takes most people to build a deck. The thing nobody writes about is how patient he is with the parts that don't show up on a CV.", attribution: "Rohan Iyer", context: "Childhood friend, now an unrelated professional witness", photo: getUrl("photo-1472099645785-5658abf4ff4e", 600) }
 ];
 
 const LANDER_IMAGES = [
@@ -39,22 +56,10 @@ const LANDER_IMAGES = [
 
 const easeOutExpo = [0.22, 1, 0.36, 1];
 
-const LIFECYCLES = [
-  [0.00, 0.10, 0.55, 0.70],
-  [0.05, 0.15, 0.60, 0.75],
-  [0.12, 0.22, 0.65, 0.80],
-  [0.18, 0.28, 0.70, 0.85],
-  [0.25, 0.35, 0.75, 0.90],
-  [0.32, 0.42, 0.80, 0.95],
-  [0.40, 0.50, 0.85, 1.00],
-  [0.48, 0.58, 0.90, 1.00]
-];
-
 const BeatText = ({ children, delay = 0, className, style, inViewAmount = 0.5 }) => (
   <motion.div
     initial={{ opacity: 0, y: 24 }}
     whileInView={{ opacity: 1, y: 0 }}
-    exit={{ opacity: 0, y: -16 }}
     viewport={{ amount: inViewAmount, margin: "0px 0px -20% 0px" }}
     transition={{ duration: 0.6, ease: easeOutExpo, delay }}
     className={className}
@@ -84,21 +89,20 @@ const WordFade = ({ text, delayOffset = 0, className, style }) => {
   );
 };
 
-// Uses exact CSS classes defined in index.css
-const CinematicImage = ({ src, alt, className, style, isWarm = false, isBW = false, imgStyle }) => {
-  const wrapperClass = `cinematic-image ${isWarm ? 'warm-vignette' : ''} ${isBW ? 'is-bw' : ''} ${className || ''}`;
+const CinematicImage = ({ src, alt, style }) => {
   return (
-    <div className={wrapperClass} style={style}>
-      <img src={src} alt={alt || "visual"} style={imgStyle} loading="lazy" />
+    <div className="cinematic-image w-full h-full" style={style}>
+      <img src={src} alt={alt || "visual"} loading="lazy" />
     </div>
   );
 };
 
-const useTilt = (maxRotation = 6) => {
+const useTilt = (maxRotation = 5) => {
   const [rotateX, setRotateX] = useState(0);
   const [rotateY, setRotateY] = useState(0);
   const springX = useSpring(rotateX, { stiffness: 200, damping: 20 });
   const springY = useSpring(rotateY, { stiffness: 200, damping: 20 });
+  
   const handleMouseMove = (e) => {
     if (!e.currentTarget) return;
     const rect = e.currentTarget.getBoundingClientRect();
@@ -108,118 +112,57 @@ const useTilt = (maxRotation = 6) => {
     setRotateY(xPct * maxRotation);
   };
   const handleMouseLeave = () => { setRotateX(0); setRotateY(0); };
+  
   return { springX, springY, handleMouseMove, handleMouseLeave };
 };
 
-const SoloBeat = ({ image, headline, delay = 0.12 }) => {
-  const { springX, springY, handleMouseMove, handleMouseLeave } = useTilt(6);
+const BeatImageStack = ({ images, beatProgress, isBeat14 }) => {
+  const { springX, springY, handleMouseMove, handleMouseLeave } = useTilt(5);
+  const N = images.length;
+  
+  const borderStyle = isBeat14 ? { borderColor: 'rgba(212, 168, 87, 0.3)' } : {};
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 1.04 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.98 }}
       viewport={{ amount: 0.5 }}
-      transition={{ opacity: { duration: 0.7 }, scale: { duration: 0.7, ease: easeOutExpo }, delay }}
-      className="w-full h-full flex items-center justify-end rounded-[2px]"
+      transition={{ opacity: { duration: 0.7 }, scale: { duration: 0.7, ease: easeOutExpo }, delay: 0.12 }}
+      className="w-full aspect-[4/5] max-w-[640px] max-h-[80vh] relative overflow-hidden rounded-[2px]"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{ perspective: 1200, rotateX: springX, rotateY: springY }}
+      style={{ perspective: 1400, rotateX: springX, rotateY: springY, border: '1px solid var(--hairline)', ...borderStyle }}
     >
-      <CinematicImage src={image} alt={headline} className="w-full h-full rounded-[2px]" />
+      {images.map((src, i) => {
+        const startVisible = i / N - 0.05;
+        const fullyVisible = i / N;
+        const startFadeOut = (i + 1) / N;
+        const endFadeOut = (i + 1) / N + 0.05;
+
+        // The first image starts visible. The last image stays visible.
+        const inputRange = [
+          Math.max(0, startVisible), 
+          Math.max(0, fullyVisible), 
+          Math.min(1, startFadeOut), 
+          Math.min(1, endFadeOut)
+        ];
+        
+        const outputRange = [
+          i === 0 ? 1 : 0, 
+          1, 
+          i === N - 1 ? 1 : 1, 
+          i === N - 1 ? 1 : 0
+        ];
+
+        const opacity = useTransform(beatProgress, inputRange, outputRange);
+        
+        return (
+          <motion.div key={i} className="absolute inset-0" style={{ opacity }}>
+            <CinematicImage src={src} alt="beat" style={{ border: 'none' }} />
+          </motion.div>
+        );
+      })}
     </motion.div>
-  );
-};
-
-const GridBeat = ({ images, beatProgress, delay = 0.12 }) => {
-  const { springX, springY, handleMouseMove, handleMouseLeave } = useTilt(4);
-  const yA = useTransform(beatProgress, [0, 1], [-24, 24]);
-  const yB = useTransform(beatProgress, [0, 1], [32, -32]);
-  const yC = useTransform(beatProgress, [0, 1], [-16, 16]);
-  const yD = useTransform(beatProgress, [0, 1], [24, -24]);
-
-  const configs = [
-    { src: images[0], top: '0%', right: '0%', width: '60%', aspectRatio: '4/5', zIndex: 3, delay: 0, y: yA },
-    { src: images[1], top: '18%', left: '0%', width: '50%', aspectRatio: '1/1', zIndex: 2, delay: 0.1, y: yB },
-    { src: images[2], bottom: '8%', right: '12%', width: '45%', aspectRatio: '3/4', zIndex: 4, delay: 0.18, y: yC },
-    { src: images[3], bottom: '0%', left: '8%', width: '38%', aspectRatio: '1/1', zIndex: 1, delay: 0.26, y: yD },
-  ];
-
-  return (
-    <motion.div
-      className="w-[56vw] max-w-[720px] h-[78vh] max-h-[820px] mx-auto relative"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ perspective: 1400, rotateX: springX, rotateY: springY }}
-    >
-      {configs.map((img, idx) => (
-        <motion.div
-          key={idx}
-          initial={{ opacity: 0, scale: 0.94 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ amount: 0.5 }}
-          transition={{ opacity: { duration: 0.6 }, scale: { duration: 0.6, ease: easeOutExpo }, delay: delay + img.delay }}
-          className="absolute overflow-hidden rounded-[2px]"
-          style={{ 
-            top: img.top, bottom: img.bottom, left: img.left, right: img.right, 
-            width: img.width, aspectRatio: img.aspectRatio, zIndex: img.zIndex, y: img.y
-          }}
-        >
-          <div style={{ maskImage: 'radial-gradient(ellipse at center, black 55%, black 75%, transparent 100%)', WebkitMaskImage: 'radial-gradient(ellipse at center, black 55%, black 75%, transparent 100%)' }} className="w-full h-full">
-            <CinematicImage src={img.src} alt={`grid-${idx}`} className="w-full h-full" />
-          </div>
-        </motion.div>
-      ))}
-    </motion.div>
-  );
-};
-
-const MemoryImage = ({ img, idx, beatProgress, isBeat14, isClosing }) => {
-  let inS = LIFECYCLES[idx][0];
-  let inE = isBeat14 ? inS + 0.15 : LIFECYCLES[idx][1];
-  let outS = isBeat14 ? LIFECYCLES[idx][2] - 0.05 : LIFECYCLES[idx][2];
-  let outE = isBeat14 ? LIFECYCLES[idx][3] + 0.05 : LIFECYCLES[idx][3];
-
-  const opacity = useTransform(beatProgress, [inS, inE, outS, outE], [0, 0.85, 0.85, 0]);
-  
-  const driftDir = idx % 2 === 0 ? -1 : 1;
-  const baseDrift = useTransform(beatProgress, [0, 1], [-20 * driftDir, 20 * driftDir]);
-  
-  const dissolveY = useTransform(beatProgress, [0.7, 1], [0, 200]);
-  const y = isClosing ? useTransform(() => baseDrift.get() + dissolveY.get()) : baseDrift;
-  
-  return (
-    <motion.div
-      className="absolute overflow-hidden rounded-[2px]"
-      style={{ 
-        top: img.top, left: img.left, width: img.width, aspectRatio: img.aspectRatio, 
-        rotate: img.rotate, opacity, y, zIndex: img.zIndex
-      }}
-    >
-      <div style={{ maskImage: 'radial-gradient(ellipse at center, black 55%, black 75%, transparent 100%)', WebkitMaskImage: 'radial-gradient(ellipse at center, black 55%, black 75%, transparent 100%)' }} className="w-full h-full">
-        <CinematicImage src={img.src} alt="memory" className="w-full h-full" isWarm={isBeat14} />
-      </div>
-    </motion.div>
-  );
-};
-
-const MemoryBeat = ({ images, isBeat14, isClosing, beatProgress }) => {
-  const configs = [
-    { top: '8%', left: '12%', width: '38%', aspectRatio: '4/5', rotate: '-2deg' },
-    { top: '4%', left: '58%', width: '32%', aspectRatio: '1/1', rotate: '1.5deg' },
-    { top: '28%', left: '38%', width: '30%', aspectRatio: '3/4', rotate: '-1deg' },
-    { top: '22%', left: '72%', width: '26%', aspectRatio: '4/5', rotate: '2.5deg' },
-    { top: '50%', left: '8%', width: '34%', aspectRatio: '1/1', rotate: '1deg' },
-    { top: '56%', left: '48%', width: '30%', aspectRatio: '3/4', rotate: '-2deg' },
-    { top: '72%', left: '24%', width: '28%', aspectRatio: '4/5', rotate: '1.5deg' },
-    { top: '78%', left: '64%', width: '32%', aspectRatio: '1/1', rotate: '-1.5deg' },
-  ];
-
-  return (
-    <div className="absolute right-0 top-0 w-[50vw] h-[100vh] -mr-[4vw] pointer-events-none">
-      {configs.map((cfg, idx) => (
-        <MemoryImage key={idx} img={{...cfg, src: images[idx]}} idx={idx} beatProgress={beatProgress} isBeat14={isBeat14} isClosing={isClosing} />
-      ))}
-    </div>
   );
 };
 
@@ -230,46 +173,41 @@ const TimelineSection = ({ beat, index, setActiveBeat }) => {
   useEffect(() => { if (inView) setActiveBeat(index); }, [inView, index, setActiveBeat]);
   
   const isBeat14 = index === 13;
-  const isClosing = beat.type === "memory-closing";
-  const isSolo = beat.type === "solo";
 
   return (
-    <section ref={ref} className={`w-full relative snap-center snap-always z-10 py-12 md:py-0 ${isSolo ? 'beat-solo' : 'min-h-[720px] h-[100vh] grid grid-cols-1 md:grid-cols-2 gap-[96px]'}`}>
-      <div className="flex flex-col justify-center h-full px-6 md:px-0 relative z-20">
-        <BeatText delay={0} className="mb-4">
-          <p className="text-[0.75rem] uppercase tracking-[0.18em] font-display font-medium text-ink-soft">{beat.eyebrow}</p>
+    <section ref={ref} className="w-full min-h-[100vh] max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-[38fr_62fr] gap-12 md:gap-[6vw] items-center relative snap-center snap-always z-10 py-12 md:py-0">
+      <div className="flex flex-col justify-center h-full relative z-20">
+        <BeatText delay={0} className="mb-[24px]">
+          <p className="text-[0.75rem] uppercase tracking-[0.22em] font-display font-medium text-ink-soft">{beat.eyebrow}</p>
         </BeatText>
-        <BeatText delay={0} className="mb-0">
-          <h2 className="text-[4.5rem] md:text-[7.5rem] font-serif text-ink leading-[0.9] tracking-[-0.04em]" style={{ fontVariationSettings: '"opsz" 144', fontStyle: 'italic', fontWeight: 300 }}>
+        <BeatText delay={0} className="mb-[32px]">
+          <h2 className="text-[clamp(5rem,7vw,7.5rem)] font-serif text-ink leading-[0.9] tracking-[-0.04em]" style={{ fontVariationSettings: '"opsz" 144', fontStyle: 'italic', fontWeight: 300 }}>
             {beat.year}
           </h2>
         </BeatText>
-        <BeatText delay={0.08} className="">
-          <h3 className="font-display font-medium text-ink leading-[1.1] tracking-[-0.02em] mt-[24px] mb-[28px] text-[clamp(2rem,3.5vw,2.875rem)]">{beat.headline}</h3>
+        <BeatText delay={0.08} className="mb-[28px]">
+          <h3 className="font-display font-medium text-ink leading-[1.1] tracking-[-0.02em] text-[clamp(2rem,3.5vw,2.875rem)]">{beat.headline}</h3>
         </BeatText>
         <BeatText delay={0.16} className="max-w-md">
-          <p className="font-display font-normal text-[1.0625rem] text-ink leading-[1.55] tracking-normal">{beat.body}</p>
+          <p className="font-display font-normal text-[1.0625rem] text-ink leading-[1.55] tracking-normal opacity-100">{beat.body}</p>
         </BeatText>
       </div>
 
-      <div className={`${isSolo ? 'image-column' : 'flex items-center justify-center h-full px-6 md:pr-[4vw] md:pl-0'} ${beat.type.startsWith('memory') ? 'static' : 'relative z-10'}`}>
-        {beat.type === "solo" && <SoloBeat image={beat.image} headline={beat.headline} />}
-        {beat.type === "grid" && <GridBeat images={beat.images} beatProgress={beatProgress} />}
-        {beat.type.startsWith("memory") && <MemoryBeat images={beat.images} beatProgress={beatProgress} isBeat14={isBeat14} isClosing={isClosing} />}
+      <div className="flex items-center md:justify-end w-full h-[60vh] md:h-full relative z-10">
+        <BeatImageStack images={beat.images} beatProgress={beatProgress} isBeat14={isBeat14} />
       </div>
     </section>
   );
 };
 
 const CinemaWallLander = ({ globalScrollYProgress }) => {
-  const wallOpacity = useTransform(globalScrollYProgress, [0, 0.05, 0.08], [1, 1, 0]);
-  const wallVisibility = useTransform(globalScrollYProgress, [0, 0.08, 0.081], ['visible', 'visible', 'hidden']);
-  const wallPointerEvents = useTransform(globalScrollYProgress, [0, 0.08, 0.081], ['auto', 'auto', 'none']);
-  const zIndex = useTransform(globalScrollYProgress, [0, 0.08, 0.081], [50, 50, -1]);
+  const wallOpacity = useTransform(globalScrollYProgress, [0, 0.05, 0.06], [1, 1, 0]);
+  const wallVisibility = useTransform(globalScrollYProgress, [0, 0.06, 0.07], ['visible', 'visible', 'hidden']);
+  const wallPointerEvents = useTransform(globalScrollYProgress, [0, 0.06, 0.07], ['auto', 'auto', 'none']);
+  const zIndex = useTransform(globalScrollYProgress, [0, 0.06, 0.07], [50, 50, -10]);
   
   const smudgeOpacity = useTransform(globalScrollYProgress, [0, 0.04], [1, 0]);
 
-  // Layout grid mappings for the 16 images
   const gridClasses = [
     "col-start-1 col-end-3 row-start-1 row-end-3",
     "col-start-3 col-end-4 row-start-1 row-end-2",
@@ -290,7 +228,7 @@ const CinemaWallLander = ({ globalScrollYProgress }) => {
   ];
 
   return (
-    <motion.section style={{ opacity: wallOpacity, visibility: wallVisibility, pointerEvents: wallPointerEvents, zIndex }} className="w-[100vw] h-[100vh] fixed top-0 left-0 bg-white z-50">
+    <motion.section style={{ opacity: wallOpacity, visibility: wallVisibility, pointerEvents: wallPointerEvents, zIndex }} className="w-[100vw] h-[100vh] fixed top-0 left-0 bg-bg z-50">
       <div className="cinema-wall">
         {LANDER_IMAGES.map((src, i) => (
           <motion.div 
@@ -300,7 +238,7 @@ const CinemaWallLander = ({ globalScrollYProgress }) => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: i * 0.04 }}
           >
-            <img src={src} className="w-full h-full object-cover grayscale contrast-95 brightness-105" alt="wall" />
+            <img src={src} className="w-full h-full object-cover" style={{ filter: 'grayscale(100%) contrast(1.1) brightness(0.55)' }} alt="wall" />
           </motion.div>
         ))}
       </div>
@@ -336,7 +274,7 @@ const CinemaWallLander = ({ globalScrollYProgress }) => {
           </h1>
 
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 1.9 }} className="mt-[64px] flex flex-col items-center">
-            <div className="relative w-[1px] h-[48px] bg-ink overflow-hidden">
+            <div className="relative w-[1px] h-[48px] overflow-hidden" style={{ backgroundColor: 'rgba(242, 239, 233, 0.6)' }}>
               <motion.div animate={{ y: ["-100%", "100%", "100%"], opacity: [1, 1, 0] }} transition={{ duration: 1.6, repeat: Infinity, ease: "linear" }} className="absolute top-0 left-1/2 -translate-x-1/2 w-[3px] h-[3px] rounded-full bg-accent" />
             </div>
             <span className="text-[0.6875rem] font-display font-medium uppercase tracking-[0.3em] text-ink-soft mt-4">SCROLL</span>
@@ -347,52 +285,101 @@ const CinemaWallLander = ({ globalScrollYProgress }) => {
   );
 };
 
-const TestimonialSpread = ({ data, isEven }) => {
-  const QuoteBlock = () => (
-    <div className="flex flex-col justify-center h-full px-6">
-      <div className="font-serif text-accent text-3xl mb-6 font-light">—</div>
-      <WordFade text={data.quote} className="font-serif text-[clamp(1.75rem,3vw,2.75rem)] leading-[1.25] text-ink mb-8" style={{ fontVariationSettings: '"opsz" 144', fontStyle: 'italic', fontWeight: 300 }} />
-      <div className="w-[60px] h-[1px] bg-hairline mb-4"></div>
-      <BeatText delay={0.4} inViewAmount={0.3}>
-        <p className="font-display font-medium text-[0.875rem] text-ink">{data.attribution}</p>
-      </BeatText>
-    </div>
-  );
+const TestimonialsSection = () => {
+  const trackRef = useRef(null);
+  
+  const handleWheel = (e) => {
+    if (!trackRef.current) return;
+    if (e.deltaY !== 0) {
+      e.preventDefault();
+      trackRef.current.scrollLeft += e.deltaY;
+    }
+  };
 
-  const PhotoBlock = () => (
-    <div className="flex items-center justify-center h-full px-6">
-      <motion.div
-        initial={{ opacity: 0, scale: 1.04 }} whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ amount: 0.5 }} transition={{ duration: 0.7, ease: easeOutExpo }}
-        className="w-full max-w-[480px] aspect-[4/5] mx-auto rounded-[2px]"
-      >
-        <CinematicImage src={data.photo} isBW className="w-full h-full rounded-[2px]" />
-      </motion.div>
-    </div>
-  );
+  const handleMouseDown = (e) => {
+    if (!trackRef.current) return;
+    let startX = e.pageX - trackRef.current.offsetLeft;
+    let scrollLeft = trackRef.current.scrollLeft;
+    const mouseMoveHandler = (ev) => {
+      ev.preventDefault();
+      const x = ev.pageX - trackRef.current.offsetLeft;
+      const walk = (x - startX) * 2;
+      trackRef.current.scrollLeft = scrollLeft - walk;
+    };
+    const mouseUpHandler = () => {
+      window.removeEventListener('mousemove', mouseMoveHandler);
+      window.removeEventListener('mouseup', mouseUpHandler);
+    };
+    window.addEventListener('mousemove', mouseMoveHandler);
+    window.addEventListener('mouseup', mouseUpHandler);
+  };
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (el) {
+      el.addEventListener('wheel', handleWheel, { passive: false });
+      return () => el.removeEventListener('wheel', handleWheel);
+    }
+  }, []);
 
   return (
-    <section className="w-full min-h-[90vh] grid grid-cols-1 md:grid-cols-2 gap-[96px] relative snap-center max-w-[1440px] mx-auto px-[clamp(24px,5vw,96px)] py-12 md:py-0">
-      {isEven ? <><PhotoBlock /><QuoteBlock /></> : <><QuoteBlock /><PhotoBlock /></>}
+    <section className="w-full bg-bg relative z-10 py-[8vh] min-h-[100vh]">
+      <div className="flex flex-col items-center justify-center mb-[48px]">
+        <BeatText delay={0} className="mb-[12px]">
+          <p className="text-[0.75rem] uppercase tracking-[0.22em] font-display font-medium text-ink-soft text-center">INTERLUDE — VOICES</p>
+        </BeatText>
+        <WordFade text="Friends, on the record." className="font-serif text-[clamp(2.5rem,5vw,4.5rem)] text-ink text-center mb-[48px]" style={{ fontVariationSettings: '"opsz" 144', fontStyle: 'italic', fontWeight: 300 }} delayOffset={0.1} />
+        <motion.div initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ amount: 0.5 }} transition={{ duration: 0.8, delay: 0.4, ease: easeOutExpo }} className="w-[80px] h-[1px] bg-hairline origin-center" />
+      </div>
+      
+      <div 
+        ref={trackRef} 
+        className="testimonials-track"
+        onMouseDown={handleMouseDown}
+      >
+        {TESTIMONIALS.map((t, i) => (
+          <motion.div 
+            key={i} 
+            className="testimonial-card"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ amount: 0.2 }}
+            transition={{ duration: 0.7, delay: i * 0.15, ease: easeOutExpo }}
+          >
+            <div className="w-full h-[280px] relative overflow-hidden">
+              <img src={t.photo} className="w-full h-full object-cover" style={{ filter: 'grayscale(100%) contrast(1.1) brightness(0.85)' }} alt={t.attribution} />
+              <div className="absolute inset-0 pointer-events-none mix-blend-multiply z-10" style={{ background: 'radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.2) 80%, rgba(0,0,0,0.45) 100%)' }} />
+            </div>
+            <div className="flex-1 flex flex-col p-[32px_28px]">
+              <div className="font-serif text-[1.5rem] text-accent mb-[12px]" style={{ fontVariationSettings: '"opsz" 144', fontStyle: 'italic', fontWeight: 300 }}>—</div>
+              <p className="font-serif text-[1.0625rem] text-ink leading-[1.4] flex-grow" style={{ fontVariationSettings: '"opsz" 144', fontStyle: 'italic', fontWeight: 300 }}>{t.quote}</p>
+              <div className="mt-auto">
+                <div className="w-[60px] h-[1px] mb-[16px]" style={{ backgroundColor: 'rgba(10, 196, 224, 0.6)' }}></div>
+                <h4 className="font-display font-medium text-[0.875rem] text-ink">{t.attribution}</h4>
+                <p className="font-display font-normal text-[0.75rem] text-ink-soft mt-[4px]">{t.context}</p>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+      
+      <motion.div 
+        className="flex justify-center mt-[32px]"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.8 }}
+      >
+        <p className="font-display font-medium text-[0.6875rem] uppercase tracking-[0.3em] text-ink-soft text-center flex items-center gap-2">
+          DRAG OR SCROLL 
+          <motion.span animate={{ x: [0, 8, 0], opacity: [1, 0.5, 1] }} transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}>→</motion.span>
+        </p>
+      </motion.div>
     </section>
   );
 };
 
-const TestimonialsSection = () => (
-  <div className="w-full bg-white relative z-10 pt-32">
-    <section className="w-full h-[100vh] flex flex-col items-center justify-center snap-center">
-      <BeatText delay={0} className="mb-12">
-        <p className="text-[0.75rem] uppercase tracking-[0.22em] font-display font-medium text-ink-soft text-center">INTERLUDE — VOICES</p>
-      </BeatText>
-      <WordFade text="Friends, on the record." className="font-serif text-[clamp(3rem,6.5vw,6rem)] text-ink text-center" style={{ fontVariationSettings: '"opsz" 144', fontStyle: 'italic', fontWeight: 300 }} delayOffset={0.1} />
-      <motion.div initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ amount: 0.5 }} transition={{ duration: 0.8, delay: 0.4, ease: easeOutExpo }} className="w-[80px] h-[1px] bg-ink mt-12 origin-center" />
-    </section>
-    {TESTIMONIALS.map((t, i) => <TestimonialSpread key={i} data={t} isEven={i % 2 !== 0} />)}
-  </div>
-);
-
 const Footer = () => (
-  <section className="w-full min-h-[80vh] flex flex-col justify-center items-center bg-white relative z-10 px-[clamp(24px,5vw,96px)] snap-end">
+  <section className="w-full min-h-[80vh] flex flex-col justify-center items-center bg-bg relative z-10 px-[clamp(24px,5vw,96px)] snap-end pt-32">
     <div className="max-w-[720px] w-full flex flex-col items-center">
       <BeatText delay={0} className="mb-12">
         <p className="text-[0.75rem] uppercase tracking-[0.22em] font-display font-medium text-ink-soft">STAY IN TOUCH</p>
@@ -407,11 +394,11 @@ const Footer = () => (
         ))}
       </motion.div>
     </div>
-    <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ amount: 0.5 }} transition={{ duration: 0.6, delay: 0.8 }} className="w-full mt-[120px]">
+    <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ amount: 0.5 }} transition={{ duration: 0.6, delay: 0.8 }} className="w-full mt-[120px] pb-12">
       <div className="w-full h-[1px] bg-hairline"></div>
       <div className="flex justify-between items-center mt-6 w-full max-w-[1440px] mx-auto px-[clamp(24px,5vw,96px)]">
-        <span className="font-display font-medium text-[0.6875rem] text-ink-soft">Vivek Mehata</span>
-        <span className="font-serif text-[0.6875rem] text-ink-soft" style={{ fontVariationSettings: '"opsz" 144', fontStyle: 'italic', fontWeight: 300 }}>© 2026 — All chapters in progress.</span>
+        <span className="font-display font-medium text-[0.6875rem] text-ink-faint">Vivek Mehata</span>
+        <span className="font-serif text-[0.6875rem] text-ink-faint" style={{ fontVariationSettings: '"opsz" 144', fontStyle: 'italic', fontWeight: 300 }}>© 2026 — All chapters in progress.</span>
       </div>
     </motion.div>
   </section>
@@ -434,23 +421,22 @@ const ScrollNarrative = () => {
   const beatsRef = useRef(null);
   const { scrollYProgress: beatsScroll } = useScroll({ target: beatsRef, offset: ["start start", "end end"] });
   
-  const trueBgColor = useTransform(beatsScroll, [0.84, 0.93], ["#FFFFFF", "#FBEFD0"]);
+  const trueBgColor = useTransform(beatsScroll, [0.84, 0.93], ["#0E0E10", "#1A1410"]);
   const horizonScaleY = useTransform(beatsScroll, [0, 0.04, 0.10, 1], [0, 0, 0.08, 1]);
   
-  // The horizon line "leveling" rotation should fire AFTER beat 15 reaches beat-progress 1.0
   useEffect(() => {
     return beatsScroll.onChange((latest) => {
       if (latest > 0.99 && !hasClosed) {
         setIsClosing(true);
-        setTimeout(() => setHasClosed(true), 300);
+        setTimeout(() => setHasClosed(true), 1000); // Wait for rotation
       }
     });
   }, [beatsScroll, hasClosed]);
 
-  const horizonOpacity = useTransform(scrollYProgress, [0.65, 0.7, 0.9, 1], [1, 0.4, 0.4, 0]);
+  const horizonOpacity = useTransform(scrollYProgress, [0.65, 0.7, 0.9, 1], [0.5, 0.5, 0.5, 0]);
 
   return (
-    <div ref={containerRef} className="relative w-full bg-white">
+    <div ref={containerRef} className="relative w-full">
       <motion.div className="fixed inset-0 z-[-1] pointer-events-none transition-colors duration-200" style={{ backgroundColor: trueBgColor }} />
       <CinemaWallLander globalScrollYProgress={scrollYProgress} />
 
@@ -458,8 +444,8 @@ const ScrollNarrative = () => {
         <div className="fixed top-0 bottom-0 left-[50%] -translate-x-[50%] z-0 pointer-events-none flex justify-center w-[20px]">
           <motion.div 
             className="absolute top-0 w-[1.5px] bg-ink origin-top"
-            style={{ height: '100vh', scaleY: hasClosed ? 0.6 : horizonScaleY, rotate: hasClosed ? 90 : 0, opacity: horizonOpacity }}
-            transition={{ rotate: { duration: 0.8, ease: [0.83, 0, 0.17, 1] }, scaleY: { duration: 0.8, ease: [0.83, 0, 0.17, 1] } }}
+            style={{ height: '100vh', scaleY: isClosing ? 0.6 : horizonScaleY, rotate: isClosing ? 90 : 0, opacity: horizonOpacity }}
+            transition={{ rotate: { duration: 1, ease: [0.83, 0, 0.17, 1] }, scaleY: { duration: 1, ease: [0.83, 0, 0.17, 1] } }}
           />
           {BEATS.map((_, i) => {
             const isActive = activeBeat === i;
@@ -469,8 +455,8 @@ const ScrollNarrative = () => {
             return (
               <motion.div
                 key={i}
-                className={`absolute rounded-full border border-ink ${isActive ? 'bg-accent border-accent w-[6px] h-[6px]' : 'bg-white w-[4px] h-[4px] border-ink-faint'}`}
-                style={{ top: `${adjustedTop}vh`, opacity: hasClosed ? 0 : dotOpacity, x: "-50%" }}
+                className={`absolute rounded-full border border-ink ${isActive ? 'bg-accent border-accent w-[6px] h-[6px]' : 'bg-transparent w-[4px] h-[4px] border-ink-faint'}`}
+                style={{ top: `${adjustedTop}vh`, opacity: isClosing ? 0 : dotOpacity, x: "-50%" }}
                 animate={{ scale: isActive ? 1.4 : 1 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               />
@@ -478,14 +464,16 @@ const ScrollNarrative = () => {
           })}
         </div>
 
-        <motion.div
-          className="fixed left-1/2 top-1/2 -translate-x-1/2 mt-8 z-20 pointer-events-none"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: hasClosed ? 1 : 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-        >
-          <span className="font-serif text-[1rem] text-ink" style={{ fontVariationSettings: '"opsz" 144', fontStyle: 'italic', fontWeight: 300 }}>— still sailing</span>
-        </motion.div>
+        {hasClosed && activeBeat === BEATS.length - 1 && (
+          <motion.div
+            className="fixed left-1/2 top-1/2 -translate-x-1/2 mt-8 z-20 pointer-events-none"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <span className="font-serif text-[1rem] text-ink-soft" style={{ fontVariationSettings: '"opsz" 144', fontStyle: 'italic', fontWeight: 300 }}>— still sailing</span>
+          </motion.div>
+        )}
 
         <div className="relative z-10 pb-[10vh]">
           {BEATS.map((beat, i) => (
