@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #F8F7F4;
-  --paper-warm: #F6E7BC;
-  --ink: #0B2D72;
-  --ink-soft: #0B2D7299;
+  --paper: #FFFFFF;
+  --paper-warm: #FBEFD0;
+  --ink: #0A2463;
+  --ink-soft: #0A246399;
+  --ink-faint: #0A246333;
   --accent: #0992C2;
-  --hairline: #0B2D721A;
+  --hairline: #0A246314;
 }
 
 @theme {
@@ -14,6 +15,7 @@
   --color-paper-warm: var(--paper-warm);
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
   --color-accent: var(--accent);
   --color-hairline: var(--hairline);
 
