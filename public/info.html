@@ -1,0 +1,1968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Viivek Mehata — An Editorial Timeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Poppins:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* =========================================================
+     PALETTE — Dark Modern Alchemist (deeper)
+     ========================================================= */
+  :root {
+    --ink:        #070C18;   /* deep ink-navy canvas, near-black with navy soul */
+    --ink-2:      #0B1224;   /* slightly lifted */
+    --ink-3:      #0F1830;   /* card/raised surface */
+    --cream:      #F4F1EA;   /* warm cream type ink */
+    --cream-dim:  #C8C3B4;   /* secondary cream */
+    --cream-mute: #6E6B62;   /* tertiary, eyebrows */
+    --sea:        #0AC4E0;   /* hero accent */
+    --blue:       #0992C2;   /* secondary accent */
+    --navy:       #0B2D72;   /* original navy spec */
+    --gold:       #F6E7BC;   /* marriage takeover */
+    --gold-ink:   #4A3B12;   /* type on gold */
+    --gold-dim:   #8C7434;   /* secondary on gold */
+  }
+
+  /* =========================================================
+     RESET & BASE
+     ========================================================= */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  body {
+    background: var(--ink);
+    color: var(--cream);
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-weight: 300;
+    line-height: 1.5;
+    overflow-x: hidden;
+    cursor: default;
+  }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; text-decoration: none; }
+  button { background: none; border: none; color: inherit; font: inherit; cursor: pointer; }
+
+  /* Subtle global grain — applied to whole page via fixed overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+  }
+
+  /* =========================================================
+     TYPOGRAPHY HELPERS
+     ========================================================= */
+  .display {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 0.95;
+  }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: var(--cream-mute);
+  }
+  .body-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--cream-dim);
+    font-weight: 300;
+    max-width: 38ch;
+  }
+  .sea-em {
+    color: var(--sea);
+    font-style: italic;
+  }
+  .blue-em { color: var(--blue); }
+
+  /* =========================================================
+     NAVIGATION (fixed)
+     ========================================================= */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 28px 40px;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+    transition: opacity .4s ease;
+  }
+  .nav > * { pointer-events: auto; }
+  .nav-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    color: var(--cream);
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .nav-mark::after {
+    content: '';
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--sea);
+    align-self: center;
+    margin-bottom: 2px;
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50%      { opacity: 1;   transform: scale(1.3); }
+  }
+  .nav-links {
+    display: flex; gap: 28px; align-items: center;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+  .nav-links a {
+    color: var(--cream-dim);
+    transition: color .25s ease;
+    position: relative;
+  }
+  .nav-links a:hover { color: var(--cream); }
+  .nav-links a.active {
+    color: var(--cream);
+  }
+  .nav-links a.active::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -6px;
+    height: 1px;
+    background: var(--sea);
+  }
+  .nav-menu {
+    width: 26px; height: 26px;
+    display: flex; flex-direction: column; justify-content: center;
+    gap: 4px;
+    cursor: pointer;
+  }
+  .nav-menu span {
+    height: 1px;
+    background: var(--cream);
+    transition: all .25s ease;
+  }
+  .nav-menu span:nth-child(1) { width: 100%; }
+  .nav-menu span:nth-child(2) { width: 60%; margin-left: auto; }
+
+  /* Marriage chapter inverts nav colors */
+  body.is-golden .nav-mark { color: var(--gold-ink); }
+  body.is-golden .nav-mark::after { background: var(--gold-dim); }
+  body.is-golden .nav-links a { color: var(--gold-dim); }
+  body.is-golden .nav-links a.active { color: var(--gold-ink); }
+  body.is-golden .nav-links a.active::after { background: var(--gold-ink); }
+  body.is-golden .nav-menu span { background: var(--gold-ink); }
+
+  /* =========================================================
+     HORIZON LINE (the "sailing" mechanic)
+     A thin Sea line on the right edge that climbs as you scroll,
+     and "levels out" horizontally near the end.
+     ========================================================= */
+  .horizon {
+    position: fixed;
+    right: 40px;
+    top: 0;
+    height: 100vh;
+    width: 1px;
+    z-index: 90;
+    pointer-events: none;
+    transition: opacity .4s ease;
+  }
+  .horizon-track {
+    position: absolute;
+    right: 0; bottom: 0;
+    width: 1px;
+    background: var(--sea);
+    height: 0;
+    transform-origin: right bottom;
+    box-shadow: 0 0 10px rgba(10, 196, 224, 0.4);
+    transition: height .15s linear;
+  }
+  .horizon-cap {
+    position: absolute;
+    right: -3px;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--sea);
+    box-shadow: 0 0 12px var(--sea);
+    transition: bottom .15s linear, all .8s cubic-bezier(.7,.05,.3,1);
+  }
+  .horizon-meta {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: rotate(-90deg) translate(50%, 0);
+    transform-origin: right center;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cream-mute);
+    white-space: nowrap;
+    transition: color .4s ease;
+  }
+  body.is-golden .horizon-track { background: var(--gold-ink); box-shadow: 0 0 8px rgba(74,59,18,0.3); }
+  body.is-golden .horizon-cap   { background: var(--gold-ink); box-shadow: 0 0 12px rgba(74,59,18,0.4); }
+  body.is-golden .horizon-meta  { color: var(--gold-dim); }
+
+  /* When body has .horizon-leveled, the line sweeps to horizontal */
+  body.horizon-leveled .horizon { right: 0; left: 0; width: 100%; height: 1px; top: auto; bottom: 80px; }
+  body.horizon-leveled .horizon-track { width: 100%; height: 1px !important; }
+  body.horizon-leveled .horizon-cap { right: auto; left: 100%; bottom: -3px; }
+  body.horizon-leveled .horizon-meta { display: none; }
+
+  /* =========================================================
+     MAIN SCROLL CONTAINER + SNAP
+     ========================================================= */
+  main {
+    scroll-snap-type: y proximity;
+    scroll-behavior: smooth;
+  }
+  section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    position: relative;
+  }
+
+  /* =========================================================
+     LANDER
+     ========================================================= */
+  .lander {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  /* subtle radial vignette */
+  .lander::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 40%, rgba(10, 196, 224, 0.06), transparent 60%),
+      radial-gradient(ellipse at 80% 90%, rgba(9, 146, 194, 0.05), transparent 70%);
+    pointer-events: none;
+  }
+  .lander-eyebrow {
+    margin-bottom: 60px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.2s forwards;
+  }
+  .lander-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(36px, 5.5vw, 76px);
+    line-height: 1.05;
+    text-align: center;
+    max-width: 22ch;
+    color: var(--cream);
+    letter-spacing: -0.015em;
+  }
+  .lander-quote span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 1s ease forwards;
+  }
+  .lander-quote span:nth-child(1) { animation-delay: 0.4s; }
+  .lander-quote span:nth-child(2) { animation-delay: 0.55s; }
+  .lander-quote span:nth-child(3) { animation-delay: 0.7s; }
+  .lander-quote span:nth-child(4) { animation-delay: 0.85s; }
+  .lander-quote span:nth-child(5) { animation-delay: 1.0s; }
+  .lander-quote span:nth-child(6) { animation-delay: 1.15s; }
+  .lander-quote span:nth-child(7) { animation-delay: 1.3s; }
+  .lander-quote span:nth-child(8) { animation-delay: 1.45s; }
+  .lander-quote span:nth-child(9) { animation-delay: 1.6s; }
+  .lander-quote span:nth-child(10) { animation-delay: 1.75s; }
+  .lander-quote span:nth-child(11) { animation-delay: 1.9s; }
+  .lander-quote .test {
+    color: var(--sea);
+    text-shadow: 0 0 30px rgba(10, 196, 224, 0.4);
+  }
+
+  .lander-meta {
+    margin-top: 80px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cream-mute);
+    opacity: 0;
+    animation: fadeUp 1s ease 2.4s forwards;
+  }
+  .lander-meta .line { width: 60px; height: 1px; background: var(--cream-mute); }
+
+  .lander-cue {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--cream-mute);
+    opacity: 0;
+    animation: fadeUp 1s ease 2.7s forwards, bob 2.5s ease-in-out 3.2s infinite;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .lander-cue::after {
+    content: '';
+    width: 1px; height: 48px;
+    background: linear-gradient(to bottom, var(--cream-mute), transparent);
+  }
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bob {
+    0%, 100% { transform: translate(-50%, 0); }
+    50%      { transform: translate(-50%, 8px); }
+  }
+
+  /* =========================================================
+     INDEX SECTION (revealed on first scroll past lander)
+     A literary table of contents — hover to ink-fill in Sea
+     ========================================================= */
+  .index-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 8vw 60px;
+    position: relative;
+  }
+  .index-section .index-eyebrow {
+    margin-bottom: 36px;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .index-section .index-eyebrow .line {
+    flex: 1;
+    height: 1px;
+    background: var(--cream-mute);
+    opacity: 0.3;
+  }
+  .index-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .index-item {
+    display: grid;
+    grid-template-columns: 100px 1fr 200px;
+    align-items: baseline;
+    padding: 13px 0;
+    border-bottom: 1px solid rgba(244, 241, 234, 0.08);
+    cursor: pointer;
+    transition: padding .35s cubic-bezier(.7,.05,.3,1);
+    position: relative;
+    overflow: hidden;
+  }
+  .index-item:hover { padding-left: 24px; }
+  .index-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--sea);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform .4s cubic-bezier(.7,.05,.3,1);
+  }
+  .index-item:hover::before { transform: scaleY(1); }
+  .index-year {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 30px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--cream-dim);
+    transition: color .35s ease;
+  }
+  .index-item:hover .index-year { color: var(--sea); }
+  .index-title {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.4;
+    color: var(--cream);
+    letter-spacing: -0.005em;
+  }
+  .index-meta {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream-mute);
+    text-align: right;
+  }
+
+  /* =========================================================
+     CHAPTER (paced) — Left text / Right image
+     ========================================================= */
+  .chapter {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 0 8vw;
+    gap: 6vw;
+    position: relative;
+  }
+  .chapter-text { padding-right: 4vw; }
+  .chapter-eyebrow {
+    margin-bottom: 24px;
+    color: var(--sea);
+  }
+  .chapter-year {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(80px, 11vw, 160px);
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    margin-bottom: 36px;
+    color: var(--cream);
+  }
+  .chapter-headline {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    color: var(--cream);
+    max-width: 14ch;
+  }
+  .chapter-body {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--cream-dim);
+    max-width: 38ch;
+    font-weight: 300;
+  }
+
+  /* Document variant — for press releases / newspaper clippings (wide aspect) */
+  .chapter-media.is-document {
+    aspect-ratio: 5/4;
+  }
+  .chapter-media.is-document .chapter-media-frame {
+    background: #0E1730;
+    padding: 28px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(10, 196, 224, 0.2),
+                inset 0 0 0 1px rgba(244, 241, 234, 0.04);
+  }
+  .chapter-media.is-document .chapter-media-frame img {
+    object-fit: contain;
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    filter: none;
+    transform: none !important;
+  }
+  /* Subtle clipping marks on document corners */
+  .chapter-media.is-document .chapter-media-frame::before,
+  .chapter-media.is-document .chapter-media-frame::after {
+    content: '';
+    position: absolute;
+    width: 14px; height: 14px;
+    border: 1px solid var(--sea);
+    opacity: 0.4;
+  }
+  .chapter-media.is-document .chapter-media-frame::before {
+    top: 8px; left: 8px;
+    border-right: none; border-bottom: none;
+  }
+  .chapter-media.is-document .chapter-media-frame::after {
+    bottom: 8px; right: 8px;
+    border-left: none; border-top: none;
+  }
+
+  /* Image treatment — magazine frame */
+  .chapter-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/5;
+    max-height: 80vh;
+  }
+  .chapter-media-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(10, 196, 224, 0.15);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: transform 1s cubic-bezier(.2,.7,.2,1), opacity 1s ease;
+  }
+  .chapter.in-view .chapter-media-frame {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .chapter-media img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 1.5s cubic-bezier(.2,.7,.2,1);
+    filter: saturate(0.92) contrast(1.05);
+  }
+  .chapter.in-view .chapter-media img {
+    transform: scale(1.02);
+  }
+  /* Subtle parallax companion image — second photo offset behind */
+  .chapter-media-companion {
+    position: absolute;
+    width: 38%;
+    aspect-ratio: 3/4;
+    top: -8%;
+    left: -12%;
+    z-index: -1;
+    opacity: 0.7;
+    overflow: hidden;
+    transform: rotate(-3deg) translateY(30px);
+    transition: transform 1.2s cubic-bezier(.2,.7,.2,1) 0.2s, opacity 1.2s ease 0.2s;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  }
+  .chapter.in-view .chapter-media-companion {
+    transform: rotate(-3deg) translateY(0);
+    opacity: 0.85;
+  }
+  .chapter-media-companion img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: saturate(0.85) contrast(1.05) brightness(0.9);
+  }
+
+  /* Caption under the main image */
+  .chapter-caption {
+    margin-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream-mute);
+    font-weight: 400;
+  }
+  .chapter-caption .left  { display: flex; gap: 8px; align-items: baseline; }
+  .chapter-caption .left  .num {
+    color: var(--sea);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .chapter-caption .dot {
+    width: 3px; height: 3px;
+    background: currentColor;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 8px;
+    vertical-align: middle;
+    opacity: 0.5;
+  }
+
+  /* Reverse chapter (image left / text right) for variation */
+  .chapter.reverse {
+    grid-template-columns: 1fr 1fr;
+  }
+  .chapter.reverse .chapter-text { order: 2; padding-right: 0; padding-left: 4vw; }
+  .chapter.reverse .chapter-media { order: 1; }
+  .chapter.reverse .chapter-media-companion { left: auto; right: -12%; transform: rotate(3deg) translateY(30px); }
+  .chapter.reverse.in-view .chapter-media-companion { transform: rotate(3deg) translateY(0); }
+
+  /* =========================================================
+     PUNCTUATION SECTION — full-viewport quote, near-empty
+     ========================================================= */
+  .punctuation {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10vw;
+    text-align: center;
+    position: relative;
+  }
+  .punctuation::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1px; height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--sea), transparent);
+    opacity: 0.3;
+    margin-top: -180px;
+  }
+  .punctuation-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(28px, 3.5vw, 56px);
+    line-height: 1.25;
+    color: var(--cream);
+    max-width: 22ch;
+    letter-spacing: -0.01em;
+  }
+  .punctuation-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 80px;
+    color: var(--sea);
+    opacity: 0.5;
+    line-height: 0;
+    margin-bottom: 30px;
+  }
+  .punctuation-attribution {
+    margin-top: 50px;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--cream-mute);
+  }
+
+  /* =========================================================
+     RAIL — pinned horizontal scroll for cities & events
+     ========================================================= */
+  .rail {
+    height: 400vh; /* tall, so vertical scroll progress drives horizontal translate */
+    position: relative;
+  }
+  .rail-pin {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .rail-header {
+    padding: 100px 8vw 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 4vw;
+  }
+  .rail-header-left { max-width: 50%; }
+  .rail-eyebrow { margin-bottom: 16px; color: var(--sea); }
+  .rail-year {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(56px, 7vw, 96px);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+  .rail-headline {
+    font-size: clamp(20px, 2vw, 28px);
+    font-weight: 300;
+    line-height: 1.25;
+    color: var(--cream);
+  }
+  .rail-progress {
+    text-align: right;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--cream-mute);
+    line-height: 1.8;
+    min-width: 120px;
+    padding-top: 8px;
+  }
+  .rail-progress .count {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 28px;
+    color: var(--cream);
+    text-transform: none;
+    letter-spacing: 0;
+    display: block;
+  }
+  .rail-progress-bar {
+    width: 100px;
+    height: 1px;
+    background: rgba(244, 241, 234, 0.15);
+    margin-left: auto;
+    margin-top: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .rail-progress-bar::after {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 0%;
+    background: var(--sea);
+    transition: width .15s linear;
+  }
+  .rail-track {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 24px;
+  }
+  .rail-strip {
+    display: flex;
+    gap: 32px;
+    padding: 0 8vw;
+    will-change: transform;
+    transition: transform 0s linear;
+    align-items: center;
+  }
+  /* City card / event card */
+  .rail-card {
+    flex: 0 0 auto;
+    width: 340px;
+    height: 58vh;
+    max-height: 520px;
+    position: relative;
+    overflow: hidden;
+    transform-origin: center center;
+    transition: transform .6s cubic-bezier(.2,.7,.2,1);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(10, 196, 224, 0.1);
+  }
+  .rail-card.tall  { height: 64vh; max-height: 580px; }
+  .rail-card.short { height: 50vh; max-height: 440px; }
+  .rail-card img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: saturate(0.95) contrast(1.05);
+    transition: transform 1.2s cubic-bezier(.2,.7,.2,1);
+  }
+  .rail-card:hover img { transform: scale(1.06); }
+  .rail-card-overlay {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 24px 24px 20px;
+    background: linear-gradient(to top, rgba(10, 18, 38, 0.95) 0%, rgba(10, 18, 38, 0) 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .rail-card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 24px;
+    color: var(--cream);
+    letter-spacing: -0.01em;
+  }
+  .rail-card-meta {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--cream-mute);
+    text-align: right;
+  }
+  .rail-card-num {
+    position: absolute;
+    top: 18px; left: 18px;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--cream);
+    background: rgba(10, 18, 38, 0.6);
+    backdrop-filter: blur(6px);
+    padding: 4px 10px;
+    border: 1px solid rgba(244, 241, 234, 0.15);
+  }
+  /* End-of-rail terminator card (just text) */
+  .rail-card.terminator {
+    background: var(--ink);
+    box-shadow: none;
+    width: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+  }
+  .rail-card.terminator .display {
+    font-size: 32px;
+    color: var(--cream-mute);
+    line-height: 1.2;
+  }
+  .rail-card.terminator .display em { color: var(--sea); font-style: italic; }
+
+  /* =========================================================
+     MARRIAGE — golden takeover
+     ========================================================= */
+  .chapter-marriage {
+    background: var(--gold);
+    color: var(--gold-ink);
+    transition: background .8s cubic-bezier(.4,.1,.3,1);
+  }
+  .chapter-marriage .chapter-eyebrow,
+  .chapter-marriage .chapter-headline,
+  .chapter-marriage .chapter-year {
+    color: var(--gold-ink);
+  }
+  .chapter-marriage .chapter-eyebrow { color: var(--gold-dim); }
+  .chapter-marriage .chapter-body { color: var(--gold-dim); }
+  .chapter-marriage .chapter-caption { color: var(--gold-dim); }
+  .chapter-marriage .chapter-caption .left .num { color: var(--gold-ink); }
+  .chapter-marriage .chapter-media-frame {
+    box-shadow: 0 30px 80px rgba(74, 59, 18, 0.25),
+                0 0 0 1px rgba(74, 59, 18, 0.15);
+  }
+  .chapter-marriage .chapter-media img {
+    filter: saturate(1.05) contrast(1.02);
+  }
+
+  /* =========================================================
+     NOW — placeholder rail (Still Sailing)
+     ========================================================= */
+  .now-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px 8vw;
+    position: relative;
+  }
+  .now-header {
+    margin-bottom: 60px;
+    max-width: 600px;
+  }
+  .now-eyebrow { margin-bottom: 16px; color: var(--sea); }
+  .now-year {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(80px, 11vw, 160px);
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    margin-bottom: 30px;
+  }
+  .now-headline {
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 300;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--cream);
+    max-width: 18ch;
+  }
+  .now-headline em { color: var(--sea); font-style: italic; font-family: 'Cormorant Garamond', serif; }
+  .now-rail {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--cream-mute) transparent;
+  }
+  .now-card {
+    flex: 0 0 auto;
+    width: 320px;
+    height: 200px;
+    border: 1px solid rgba(244, 241, 234, 0.1);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: rgba(244, 241, 234, 0.02);
+    transition: all .35s cubic-bezier(.2,.7,.2,1);
+  }
+  .now-card:hover {
+    border-color: var(--sea);
+    background: rgba(10, 196, 224, 0.04);
+    transform: translateY(-4px);
+  }
+  .now-card-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--sea);
+  }
+  .now-card-title {
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--cream);
+  }
+  .now-card-meta {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--cream-mute);
+  }
+  .now-cue {
+    margin-top: 24px;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cream-mute);
+  }
+
+  /* =========================================================
+     FRIENDS SECTION — full-bleed end-to-end grid
+     ========================================================= */
+  .friends-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 100px 0 0;
+  }
+  .friends-header {
+    text-align: center;
+    margin-bottom: 70px;
+    padding: 0 4vw;
+  }
+  .friends-eyebrow { margin-bottom: 24px; color: var(--sea); }
+  .friends-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(40px, 5vw, 72px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .friends-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    flex: 1;
+  }
+  .friend-card {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(244, 241, 234, 0.06);
+    transition: background .35s ease;
+  }
+  .friend-card:last-child { border-right: none; }
+  .friend-card:hover { background: rgba(10, 196, 224, 0.03); }
+  .friend-card-photo {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background:
+      radial-gradient(ellipse at center, rgba(10, 196, 224, 0.08), transparent 70%),
+      linear-gradient(135deg, var(--ink-2) 0%, var(--ink-3) 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .friend-card-photo::before {
+    content: 'VM';
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 96px;
+    color: var(--cream);
+    opacity: 0.06;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .friend-card-photo::after {
+    content: 'Photo · 4:5';
+    position: absolute;
+    bottom: 16px; left: 16px;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cream-mute);
+    opacity: 0.4;
+  }
+  .friend-card-photo img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: saturate(0.92) contrast(1.05);
+  }
+  .friend-card-photo img + ::before,
+  .friend-card-photo:has(img)::before { display: none; }
+  .friend-card-body {
+    padding: 32px 32px 36px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .friend-card-rule {
+    width: 32px; height: 1px;
+    background: var(--sea);
+    margin-bottom: 22px;
+  }
+  .friend-card-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 1.45;
+    color: var(--cream);
+    margin-bottom: 28px;
+    flex: 1;
+  }
+  .friend-card-credit {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .friend-card-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--cream);
+    letter-spacing: 0.02em;
+  }
+  .friend-card-role {
+    font-size: 11px;
+    color: var(--cream-mute);
+    letter-spacing: 0.03em;
+  }
+
+  /* =========================================================
+     CONTACT FOOTER — two-column with photo bleed
+     ========================================================= */
+  .contact {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0;
+    align-items: stretch;
+    position: relative;
+  }
+  .contact-photo {
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+  }
+  .contact-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    filter: saturate(0.85) contrast(1.08) brightness(0.85);
+  }
+  /* Right-edge gradient blend that fades into the canvas */
+  .contact-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to right, transparent 35%, var(--ink) 100%),
+      linear-gradient(to top, rgba(7, 12, 24, 0.4), transparent 30%);
+    pointer-events: none;
+  }
+  /* Subtle border on the photo edge */
+  .contact-photo-meta {
+    position: absolute;
+    top: 80px; left: 32px;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cream);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .contact-photo-meta::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--sea);
+  }
+  .contact-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px 8vw 100px 4vw;
+    max-width: 600px;
+    position: relative;
+    z-index: 1;
+  }
+  .contact-eyebrow {
+    margin-bottom: 28px;
+    color: var(--sea);
+  }
+  .contact-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(40px, 4.5vw, 72px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+    text-align: left;
+  }
+  .contact-title em { color: var(--sea); font-style: italic; }
+  .contact-tagline {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--cream-dim);
+    margin-bottom: 48px;
+    max-width: 38ch;
+    font-weight: 300;
+  }
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 60px;
+    border-top: 1px solid rgba(244, 241, 234, 0.1);
+  }
+  .contact-link {
+    display: grid;
+    grid-template-columns: 36px 1fr auto;
+    align-items: center;
+    gap: 20px;
+    padding: 18px 0;
+    font-size: 16px;
+    letter-spacing: 0.02em;
+    color: var(--cream);
+    border-bottom: 1px solid rgba(244, 241, 234, 0.1);
+    transition: padding-left .35s cubic-bezier(.7,.05,.3,1), color .25s ease;
+    position: relative;
+  }
+  .contact-link::before {
+    content: attr(data-num);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--sea);
+    opacity: 0.7;
+  }
+  .contact-link::after {
+    content: '→';
+    color: var(--cream-mute);
+    transition: transform .35s cubic-bezier(.7,.05,.3,1), color .25s ease;
+    font-size: 14px;
+  }
+  .contact-link:hover {
+    color: var(--sea);
+    padding-left: 12px;
+  }
+  .contact-link:hover::after {
+    color: var(--sea);
+    transform: translateX(8px);
+  }
+  .contact-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--cream-mute);
+    padding-top: 28px;
+    border-top: 1px solid rgba(244, 241, 234, 0.06);
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  /* =========================================================
+     RESPONSIVE
+     ========================================================= */
+  @media (max-width: 900px) {
+    .nav { padding: 20px 24px; }
+    .horizon { right: 16px; }
+    .horizon-meta { display: none; }
+    .lander, .punctuation, .index-section, .now-section { padding-left: 24px; padding-right: 24px; }
+    .chapter {
+      grid-template-columns: 1fr;
+      padding: 100px 24px;
+      gap: 40px;
+      min-height: auto;
+    }
+    .chapter-text { padding: 0; }
+    .chapter.reverse .chapter-text { padding: 0; }
+    .chapter.reverse { grid-template-columns: 1fr; }
+    .chapter.reverse .chapter-text { order: 1; }
+    .chapter.reverse .chapter-media { order: 2; }
+    .chapter-media-companion { display: none; }
+    .index-item {
+      grid-template-columns: 80px 1fr;
+    }
+    .index-item .index-meta { display: none; }
+    .rail-header { padding: 80px 24px 0; flex-direction: column; }
+    .rail-header-left { max-width: 100%; }
+    .rail-progress { text-align: left; }
+    .rail-card { width: 280px; }
+    .friends-section { padding: 80px 0 0; }
+    .friends-header { padding: 0 24px; margin-bottom: 50px; }
+    .friends-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .friend-card:nth-child(2n) { border-right: none; }
+    .friend-card:nth-child(-n+2) { border-bottom: 1px solid rgba(244, 241, 234, 0.06); }
+    .friend-card-body { padding: 24px 20px 28px; }
+    .friend-card-quote { font-size: 17px; }
+    .contact {
+      grid-template-columns: 1fr;
+    }
+    .contact-photo {
+      min-height: 50vh;
+      max-height: 60vh;
+    }
+    .contact-photo::after {
+      background:
+        linear-gradient(to bottom, transparent 35%, var(--ink) 100%),
+        linear-gradient(to top, rgba(7, 12, 24, 0.4), transparent 30%);
+    }
+    .contact-content {
+      padding: 60px 24px 40px;
+      max-width: 100%;
+    }
+    .contact-link { font-size: 15px; padding: 16px 0; }
+    .contact-foot { font-size: 9px; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="nav-mark">VM<span class="nav-dot-spacer"></span></div>
+  <div class="nav-links">
+    <a href="/work">WORK</a>
+    <a href="/info" class="active">INFO</a>
+    <div class="nav-menu" aria-label="Menu"><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- ============ HORIZON LINE ============ -->
+<div class="horizon" aria-hidden="true">
+  <div class="horizon-track" id="horizon-track"></div>
+  <div class="horizon-cap" id="horizon-cap"></div>
+  <div class="horizon-meta">— still sailing</div>
+</div>
+
+<main id="main">
+
+  <!-- ============ LANDER ============ -->
+  <section class="lander" id="lander">
+    <div class="eyebrow lander-eyebrow">An Editorial Timeline · 2018 — Now</div>
+    <h1 class="lander-quote">
+      <span>Every</span> <span>chapter</span> <span>taught</span> <span>me</span> <span>something</span>
+      <span>the</span> <span>next</span> <span>one</span> <span>would</span>&nbsp;<span class="test">test</span><span>.</span>
+    </h1>
+    <div class="lander-meta">
+      <span class="line"></span>
+      <span>Eleven chapters · Two horizons</span>
+      <span class="line"></span>
+    </div>
+    <div class="lander-cue">Begin</div>
+  </section>
+
+  <!-- ============ INDEX (table of contents) ============ -->
+  <section class="index-section" id="index">
+    <div class="eyebrow index-eyebrow">
+      <span class="line"></span>
+      <span>Index of chapters</span>
+      <span class="line"></span>
+    </div>
+    <div class="index-list">
+      <a href="#ch-2018" class="index-item">
+        <div class="index-year">2018</div>
+        <div class="index-title">Yellow Bags — the first lesson</div>
+        <div class="index-meta">Chapter 01</div>
+      </a>
+      <a href="#ch-2020" class="index-item">
+        <div class="index-year">2020</div>
+        <div class="index-title">Pandemic. Neurotech 3 → 18.</div>
+        <div class="index-meta">Chapter 02</div>
+      </a>
+      <a href="#ch-2021" class="index-item">
+        <div class="index-year">2021</div>
+        <div class="index-title">NewTribe Capital — the other side of the table</div>
+        <div class="index-meta">Chapter 03</div>
+      </a>
+      <a href="#ch-cities" class="index-item">
+        <div class="index-year">2022</div>
+        <div class="index-title">14 cities in 12 months</div>
+        <div class="index-meta">Chapter 04 · Rail</div>
+      </a>
+      <a href="#ch-events" class="index-item">
+        <div class="index-year">2024</div>
+        <div class="index-title">20+ events convened</div>
+        <div class="index-meta">Chapter 05 · Rail</div>
+      </a>
+      <a href="#ch-firms" class="index-item">
+        <div class="index-year">2024</div>
+        <div class="index-title">Three firms — Asva, Leo, DCF</div>
+        <div class="index-meta">Chapter 06</div>
+      </a>
+      <a href="#ch-yellow" class="index-item">
+        <div class="index-year">2025</div>
+        <div class="index-title">Yellow Capital — portfolio manager</div>
+        <div class="index-meta">Chapter 07</div>
+      </a>
+      <a href="#ch-marriage" class="index-item">
+        <div class="index-year">Nov '25</div>
+        <div class="index-title">The anchor</div>
+        <div class="index-meta">Chapter 08</div>
+      </a>
+      <a href="#ch-now" class="index-item">
+        <div class="index-year">Now</div>
+        <div class="index-title">Still sailing — VC, market making, AI</div>
+        <div class="index-meta">Chapter 09</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ 2018 — Yellow Bags ============ -->
+  <section class="chapter" id="ch-2018" data-chapter="2018">
+    <div class="chapter-text">
+      <div class="eyebrow chapter-eyebrow">2018 · The First Lesson</div>
+      <h2 class="chapter-year">2018</h2>
+      <h3 class="chapter-headline">Yellow Bags<br>shut down.</h3>
+      <p class="chapter-body">A first venture, a first failure. The lesson wasn't about product — it was about distribution, conviction, and how long you can stay in a room nobody else is in. Everything after was shaped by it.</p>
+    </div>
+    <div class="chapter-media">
+      <div class="chapter-media-companion">
+        <img src="images/02-2018-yellowbags/img_20180324_204126585.jpg" alt="Pitch at Bombay Cafe" loading="lazy">
+      </div>
+      <div class="chapter-media-frame">
+        <img src="images/02-2018-yellowbags/dsc_5257.jpg" alt="TEDxJNEC stage talk" loading="lazy">
+      </div>
+      <div class="chapter-caption">
+        <div class="left"><span class="num">01</span><span>TEDxJNEC · Stage talk</span></div>
+        <div>Mumbai · 2018</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2020 — Pandemic + Neurotech (combined) ============ -->
+  <section class="chapter reverse" id="ch-2020" data-chapter="2020">
+    <div class="chapter-media">
+      <div class="chapter-media-companion">
+        <img src="images/03-2020-pandemic/1636785995914.jpg" alt="Lockdown video call" loading="lazy">
+      </div>
+      <div class="chapter-media-frame">
+        <img src="images/03-2020-pandemic/img_20220809_141751.jpg" alt="Working through lockdown" loading="lazy">
+      </div>
+      <div class="chapter-caption">
+        <div class="left"><span class="num">02</span><span>Lockdown studio · Building anyway</span></div>
+        <div>Home · 2020</div>
+      </div>
+    </div>
+    <div class="chapter-text">
+      <div class="eyebrow chapter-eyebrow">2020 · Held in Place, Then Released</div>
+      <h2 class="chapter-year">2020</h2>
+      <h3 class="chapter-headline">Pandemic blockade.<br>Neurotech 3 → 18.</h3>
+      <p class="chapter-body">The world stopped. So I started writing — long-form rants on LinkedIn that nobody asked for and a few people actually read. While everyone froze, we built Neurotech from three to eighteen. Culture compounds faster than headcount when there's nowhere else to go.</p>
+    </div>
+  </section>
+
+  <!-- ============ 2021 — NewTribe Capital ============ -->
+  <section class="chapter" id="ch-2021" data-chapter="2021">
+    <div class="chapter-text">
+      <div class="eyebrow chapter-eyebrow">June 2021 · Crossing Over</div>
+      <h2 class="chapter-year">2021</h2>
+      <h3 class="chapter-headline">NewTribe Capital.<br>The other side<br>of the table.</h3>
+      <p class="chapter-body">After a year of Web3 freelancing — writing thesis after thesis for funds I'd never met — NewTribe gave me the seat. Distribution stopped being someone else's job. It became the product.</p>
+    </div>
+    <div class="chapter-media">
+      <div class="chapter-media-companion">
+        <img src="images/04-2021-newtribe/img_20230313_151811.jpg" alt="At work" loading="lazy">
+      </div>
+      <div class="chapter-media-frame">
+        <img src="images/04-2021-newtribe/img-20230313-wa0022.jpg" alt="The first real seat at the table" loading="lazy">
+      </div>
+      <div class="chapter-caption">
+        <div class="left"><span class="num">03</span><span>The first real seat at the table</span></div>
+        <div>Hilton · 2021</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PUNCTUATION 1 — Wanderer ============ -->
+  <section class="punctuation" id="punc-1">
+    <div class="punctuation-mark">"</div>
+    <p class="punctuation-quote">
+      You know that's the good thing about being<br>
+      a <span class="sea-em">wanderer</span> — you get to choose your ending.
+    </p>
+    <div class="punctuation-attribution">— A note from the road</div>
+  </section>
+
+  <!-- ============ 2022 — CITIES RAIL ============ -->
+  <section class="rail" id="ch-cities" data-chapter="2022-cities">
+    <div class="rail-pin">
+      <div class="rail-header">
+        <div class="rail-header-left">
+          <div class="eyebrow rail-eyebrow">2022 · On the Road</div>
+          <h2 class="rail-year">2022</h2>
+          <h3 class="rail-headline">14 cities. 12 months.<br>One thesis tested everywhere.</h3>
+        </div>
+        <div class="rail-progress">
+          <span class="count" id="cities-count">01 / 14</span>
+          Cities walked
+          <div class="rail-progress-bar" id="cities-bar"></div>
+        </div>
+      </div>
+      <div class="rail-track">
+        <div class="rail-strip" id="cities-strip">
+          <div class="rail-card tall">
+            <span class="rail-card-num">01 / 14</span>
+            <img src="images/05-2022-cities/jaipur.jpg" alt="Jaipur" loading="lazy">
+            <div class="rail-card-overlay">
+              <div class="rail-card-name">Jaipur</div>
+              <div class="rail-card-meta">Pink City<br>April</div>
+            </div>
+          </div>
+          <div class="rail-card short">
+            <span class="rail-card-num">02 / 14</span>
+            <img src="images/05-2022-cities/udaipur.jpg" alt="Udaipur" loading="lazy">
+            <div class="rail-card-overlay">
+              <div class="rail-card-name">Udaipur</div>
+              <div class="rail-card-meta">Aravalli<br>May</div>
+            </div>
+          </div>
+          <div class="rail-card">
+            <span class="rail-card-num">03 / 14</span>
+            <img src="images/05-2022-cities/jodhpur.jpg" alt="Jodhpur" loading="lazy">
+            <div class="rail-card-overlay">
+              <div class="rail-card-name">Jodhpur</div>
+              <div class="rail-card-meta">Blue<br>June</div>
+            </div>
+          </div>
+          <div class="rail-card tall">
+            <span class="rail-card-num">04 / 14</span>
+            <img src="images/05-2022-cities/jaisalmer.jpg" alt="Jaisalmer" loading="lazy">
+            <div class="rail-card-overlay">
+              <div class="rail-card-name">Jaisalmer</div>
+              <div class="rail-card-meta">Golden<br>July</div>
+            </div>
+          </div>
+          <div class="rail-card short">
+            <span class="rail-card-num">05 / 14</span>
+            <img src="images/05-2022-cities/pushkar.jpg" alt="Pushkar" loading="lazy">
+            <div class="rail-card-overlay">
+              <div class="rail-card-name">Pushkar</div>
+              <div class="rail-card-meta">Lake<br>August</div>
+            </div>
+          </div>
+          <div class="rail-card">
+            <span class="rail-card-num">06 / 14</span>
+            <img src="images/05-2022-cities/varanasi.jpg" alt="Varanasi" loading="lazy">
+            <div class="rail-card-overlay">
+              <div class="rail-card-name">Varanasi</div>
+              <div class="rail-card-meta">Ghats<br>September</div>
+            </div>
+          </div>
+          <div class="rail-card tall">
+            <span class="rail-card-num">07 / 14</span>
+            <img src="images/05-2022-cities/rishikesh.jpg" alt="Rishikesh" loading="lazy">
+            <div class="rail-card-overlay">
+              <div class="rail-card-name">Rishikesh</div>
+              <div class="rail-card-meta">Ganga<br>October</div>
+            </div>
+          </div>
+          <div class="rail-card">
+            <span class="rail-card-num">08 / 14</span>
+            <img src="images/05-2022-cities/delhi.jpg" alt="Delhi" loading="lazy">
+            <div class="rail-card-overlay">
+              <div class="rail-card-name">Delhi</div>
+              <div class="rail-card-meta">Capital<br>October</div>
+            </div>
+          </div>
+          <div class="rail-card short">
+            <span class="rail-card-num">09 / 14</span>
+            <img src="images/05-2022-cities/hyderabad.jpg" alt="Hyderabad" loading="lazy">
+            <div class="rail-card-overlay">
+              <div class="rail-card-name">Hyderabad</div>
+              <div class="rail-card-meta">Charminar<br>November</div>
+            </div>
+          </div>
+          <div class="rail-card">
+            <span class="rail-card-num">10 / 14</span>
+            <img src="images/05-2022-cities/pune.jpg" alt="Pune" loading="lazy">
+            <div class="rail-card-overlay">
+              <div class="rail-card-name">Pune</div>
+              <div class="rail-card-meta">Sahyadri<br>November</div>
+            </div>
+          </div>
+          <div class="rail-card tall">
+            <span class="rail-card-num">11 / 14</span>
+            <img src="images/05-2022-cities/nashik.jpg" alt="Nashik" loading="lazy">
+            <div class="rail-card-overlay">
+              <div class="rail-card-name">Nashik</div>
+              <div class="rail-card-meta">Vineyard<br>November</div>
+            </div>
+          </div>
+          <div class="rail-card short">
+            <span class="rail-card-num">12 / 14</span>
+            <img src="images/05-2022-cities/halong-bay.jpg" alt="Ha Long Bay" loading="lazy">
+            <div class="rail-card-overlay">
+              <div class="rail-card-name">Ha Long Bay</div>
+              <div class="rail-card-meta">Vietnam<br>December</div>
+            </div>
+          </div>
+          <div class="rail-card">
+            <span class="rail-card-num">13 / 14</span>
+            <img src="images/05-2022-cities/ninh-binh.jpg" alt="Ninh Binh" loading="lazy">
+            <div class="rail-card-overlay">
+              <div class="rail-card-name">Ninh Binh</div>
+              <div class="rail-card-meta">Inland sea<br>December</div>
+            </div>
+          </div>
+          <div class="rail-card tall">
+            <span class="rail-card-num">14 / 14</span>
+            <img src="images/05-2022-cities/sapa-valley.jpg" alt="Sapa Valley" loading="lazy">
+            <div class="rail-card-overlay">
+              <div class="rail-card-name">Sapa Valley</div>
+              <div class="rail-card-meta">Highlands<br>December</div>
+            </div>
+          </div>
+          <div class="rail-card terminator">
+            <p class="display">14 cities.<br>One <em>thesis</em>.<br>Tested.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2024 — EVENTS RAIL ============ -->
+  <section class="rail" id="ch-events" data-chapter="2024-events">
+    <div class="rail-pin">
+      <div class="rail-header">
+        <div class="rail-header-left">
+          <div class="eyebrow rail-eyebrow">September 2024 · Convening</div>
+          <h2 class="rail-year">2024</h2>
+          <h3 class="rail-headline">20+ events hosted.<br>Convening became a form of investing.</h3>
+        </div>
+        <div class="rail-progress">
+          <span class="count" id="events-count">01 / 09</span>
+          Rooms convened
+          <div class="rail-progress-bar" id="events-bar"></div>
+        </div>
+      </div>
+      <div class="rail-track">
+        <div class="rail-strip" id="events-strip">
+          <div class="rail-card tall">
+            <span class="rail-card-num">01 / 09</span>
+            <img src="images/06-2024-events/01-hero.jpg" alt="Founders' dinner" loading="lazy">
+            <div class="rail-card-overlay">
+              <div class="rail-card-name">Founders' dinner</div>
+              <div class="rail-card-meta">Closed table<br>2024</div>
+            </div>
+          </div>
+          <div class="rail-card">
+            <span class="rail-card-num">02 / 09</span>
+            <img src="images/06-2024-events/img_20240919_174022718.jpg" alt="Conference floor" loading="lazy">
+            <div class="rail-card-overlay">
+              <div class="rail-card-name">Conference floor</div>
+              <div class="rail-card-meta">Token2049<br>September</div>
+            </div>
+          </div>
+          <div class="rail-card short">
+            <span class="rail-card-num">03 / 09</span>
+            <img src="images/06-2024-events/img_20240919_174732123.jpg" alt="Side event" loading="lazy">
+            <div class="rail-card-overlay">
+              <div class="rail-card-name">Side event</div>
+              <div class="rail-card-meta">Singapore<br>September</div>
+            </div>
+          </div>
+          <div class="rail-card tall">
+            <span class="rail-card-num">04 / 09</span>
+            <img src="images/06-2024-events/img_20240919_141551_317.jpg" alt="Networking" loading="lazy">
+            <div class="rail-card-overlay">
+              <div class="rail-card-name">After-hours</div>
+              <div class="rail-card-meta">Marina Bay<br>September</div>
+            </div>
+          </div>
+          <div class="rail-card">
+            <span class="rail-card-num">05 / 09</span>
+            <img src="images/06-2024-events/img_20240526_035055_660.jpg" alt="Roundtable" loading="lazy">
+            <div class="rail-card-overlay">
+              <div class="rail-card-name">Roundtable</div>
+              <div class="rail-card-meta">Dubai<br>May</div>
+            </div>
+          </div>
+          <div class="rail-card short">
+            <span class="rail-card-num">06 / 09</span>
+            <img src="images/06-2024-events/img_20240416_120859322.jpg" alt="Token launch" loading="lazy">
+            <div class="rail-card-overlay">
+              <div class="rail-card-name">Token launch</div>
+              <div class="rail-card-meta">Closed event<br>April</div>
+            </div>
+          </div>
+          <div class="rail-card tall">
+            <span class="rail-card-num">07 / 09</span>
+            <img src="images/06-2024-events/_mg_9587.jpg" alt="On stage" loading="lazy">
+            <div class="rail-card-overlay">
+              <div class="rail-card-name">On stage</div>
+              <div class="rail-card-meta">Keynote<br>2024</div>
+            </div>
+          </div>
+          <div class="rail-card">
+            <span class="rail-card-num">08 / 09</span>
+            <img src="images/06-2024-events/img_6173.jpg" alt="Founders dinner" loading="lazy">
+            <div class="rail-card-overlay">
+              <div class="rail-card-name">Closed dinner</div>
+              <div class="rail-card-meta">Founders<br>2024</div>
+            </div>
+          </div>
+          <div class="rail-card short">
+            <span class="rail-card-num">09 / 09</span>
+            <img src="images/06-2024-events/093a8978.jpg" alt="Panel" loading="lazy">
+            <div class="rail-card-overlay">
+              <div class="rail-card-name">Panel</div>
+              <div class="rail-card-meta">Industry<br>2024</div>
+            </div>
+          </div>
+          <div class="rail-card terminator">
+            <p class="display">Convening<br>is <em>investing</em>,<br>earlier.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PUNCTUATION 2 — Luck ============ -->
+  <section class="punctuation" id="punc-2">
+    <div class="punctuation-mark">"</div>
+    <p class="punctuation-quote">
+      The whole world runs on <span class="sea-em">luck</span>.<br>
+      The question is — what do you do with it?
+    </p>
+    <div class="punctuation-attribution">— Working notes</div>
+  </section>
+
+  <!-- ============ 2024 — Three Firms ============ -->
+  <section class="chapter" id="ch-firms" data-chapter="2024-firms">
+    <div class="chapter-text">
+      <div class="eyebrow chapter-eyebrow">December 2024 · The Build-Out</div>
+      <h2 class="chapter-year">2024</h2>
+      <h3 class="chapter-headline">Three firms.<br>Asva. Leo.<br>DCF.</h3>
+      <p class="chapter-body">By the end of the year, three new houses stood: Asva, Leo Ventures, DCF Capital. Different theses, same operator. Building plurals — because no single fund can carry every conviction.</p>
+    </div>
+    <div class="chapter-media is-document">
+      <div class="chapter-media-frame">
+        <img src="images/07-2024-threefirms/01-hero.jpg" alt="Leo Ventures launch press release" loading="lazy">
+      </div>
+      <div class="chapter-caption">
+        <div class="left"><span class="num">06</span><span>Leo Ventures · Launch press</span></div>
+        <div>GlobeNewswire · Nov 2023</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ April 2025 — Yellow Capital ============ -->
+  <section class="chapter reverse" id="ch-yellow" data-chapter="2025-yellow">
+    <div class="chapter-media">
+      <div class="chapter-media-frame">
+        <img src="images/08-april2025-yellowcapital/img_20251203_113925052.jpg" alt="At Binance Blockchain Week" loading="lazy">
+      </div>
+      <div class="chapter-caption">
+        <div class="left"><span class="num">07</span><span>Binance Blockchain Week · Humans of Binance</span></div>
+        <div>Dubai · Dec 2025</div>
+      </div>
+    </div>
+    <div class="chapter-text">
+      <div class="eyebrow chapter-eyebrow">April 2025 · The Mandate</div>
+      <h2 class="chapter-year">2025</h2>
+      <h3 class="chapter-headline">Yellow Capital —<br>portfolio manager.</h3>
+      <p class="chapter-body">A bigger book, a tighter playbook. Less about discovering new theses, more about earning compounding outcomes from the ones already in motion. The work goes from finding to finishing.</p>
+    </div>
+  </section>
+
+  <!-- ============ Nov 2025 — MARRIAGE (golden takeover) ============ -->
+  <section class="chapter chapter-marriage" id="ch-marriage" data-chapter="2025-marriage" data-golden="true">
+    <div class="chapter-text">
+      <div class="eyebrow chapter-eyebrow">November 2025 · The Anchor</div>
+      <h2 class="chapter-year">2025</h2>
+      <h3 class="chapter-headline">A different<br>kind of yes.</h3>
+      <p class="chapter-body">Every chapter so far was about choosing what to build. This one is about choosing who to build with. The horizon line stops moving for a moment — not because the journey is done, but because the compass finally has a fixed point.</p>
+    </div>
+    <div class="chapter-media">
+      <div class="chapter-media-companion">
+        <img src="images/08-nov2025-marriage/0n5a4035.jpg" alt="Wedding ceremony" loading="lazy">
+      </div>
+      <div class="chapter-media-frame">
+        <img src="images/08-nov2025-marriage/01-hero.jpg" alt="Wedding portrait" loading="lazy">
+      </div>
+      <div class="chapter-caption">
+        <div class="left"><span class="num">08</span><span>The anchor · A fixed point on the compass</span></div>
+        <div>November · 2025</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NOW — Still Sailing (placeholder rail) ============ -->
+  <section class="now-section" id="ch-now" data-chapter="now">
+    <div class="now-header">
+      <div class="eyebrow now-eyebrow">Since Then · Open Water</div>
+      <h2 class="now-year">Now</h2>
+      <h3 class="now-headline">Still sailing — across <em>VC,<br>market making, AI</em>.</h3>
+    </div>
+    <div class="now-rail">
+      <div class="now-card">
+        <div class="now-card-num">i.</div>
+        <div class="now-card-title">Venture<br>Capital</div>
+        <div class="now-card-meta">Yellow · Asva · Leo · DCF</div>
+      </div>
+      <div class="now-card">
+        <div class="now-card-num">ii.</div>
+        <div class="now-card-title">Market<br>Making</div>
+        <div class="now-card-meta">Liquidity · Distribution</div>
+      </div>
+      <div class="now-card">
+        <div class="now-card-num">iii.</div>
+        <div class="now-card-title">Applied<br>AI</div>
+        <div class="now-card-meta">Tools · Workflows · Bets</div>
+      </div>
+      <div class="now-card">
+        <div class="now-card-num">iv.</div>
+        <div class="now-card-title">Writing</div>
+        <div class="now-card-meta">Publicly · Often · Honestly</div>
+      </div>
+      <div class="now-card">
+        <div class="now-card-num">v.</div>
+        <div class="now-card-title">Whatever<br>comes next</div>
+        <div class="now-card-meta">More to add — soon</div>
+      </div>
+    </div>
+    <div class="now-cue">→ Drag or scroll the rail · More chapters coming</div>
+  </section>
+
+  <!-- ============ FRIENDS (placeholder per user) ============ -->
+  <section class="friends-section" id="friends">
+    <div class="friends-header">
+      <div class="eyebrow friends-eyebrow">Witnesses</div>
+      <h2 class="friends-title">Friends, on the record.</h2>
+    </div>
+    <div class="friends-grid">
+      <div class="friend-card">
+        <div class="friend-card-photo"></div>
+        <div class="friend-card-body">
+          <div class="friend-card-rule"></div>
+          <p class="friend-card-quote">"Real testimonials, real photos, real names — coming soon."</p>
+          <div class="friend-card-credit">
+            <div class="friend-card-name">Placeholder</div>
+            <div class="friend-card-role">To be replaced</div>
+          </div>
+        </div>
+      </div>
+      <div class="friend-card">
+        <div class="friend-card-photo"></div>
+        <div class="friend-card-body">
+          <div class="friend-card-rule"></div>
+          <p class="friend-card-quote">"Real testimonials, real photos, real names — coming soon."</p>
+          <div class="friend-card-credit">
+            <div class="friend-card-name">Placeholder</div>
+            <div class="friend-card-role">To be replaced</div>
+          </div>
+        </div>
+      </div>
+      <div class="friend-card">
+        <div class="friend-card-photo"></div>
+        <div class="friend-card-body">
+          <div class="friend-card-rule"></div>
+          <p class="friend-card-quote">"Real testimonials, real photos, real names — coming soon."</p>
+          <div class="friend-card-credit">
+            <div class="friend-card-name">Placeholder</div>
+            <div class="friend-card-role">To be replaced</div>
+          </div>
+        </div>
+      </div>
+      <div class="friend-card">
+        <div class="friend-card-photo"></div>
+        <div class="friend-card-body">
+          <div class="friend-card-rule"></div>
+          <p class="friend-card-quote">"Real testimonials, real photos, real names — coming soon."</p>
+          <div class="friend-card-credit">
+            <div class="friend-card-name">Placeholder</div>
+            <div class="friend-card-role">To be replaced</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <footer class="contact" id="contact">
+    <div class="contact-photo">
+      <div class="contact-photo-meta">Viivek Mehata · 2025</div>
+      <img src="images/03-2020-neurotech/img-20201125-wa0005.jpg" alt="Viivek Mehata" loading="lazy">
+    </div>
+    <div class="contact-content">
+      <div class="eyebrow contact-eyebrow">Stay in touch</div>
+      <h2 class="contact-title">Find me where the <em>work</em> lives.</h2>
+      <p class="contact-tagline">Building across VC, market making, and AI. Always up for a conversation about a thesis worth holding — or a chapter worth starting.</p>
+      <div class="contact-links">
+        <a class="contact-link" data-num="i."   href="https://x.com/mehtaandmore" target="_blank" rel="noopener">Twitter / X</a>
+        <a class="contact-link" data-num="ii."  href="https://www.linkedin.com/in/viivek-mehata16/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="contact-link" data-num="iii." href="https://t.me/Viivek16" target="_blank" rel="noopener">Telegram</a>
+        <a class="contact-link" data-num="iv."  href="mailto:vivekmehta.vm31@gmail.com">Email</a>
+      </div>
+      <div class="contact-foot">
+        <span>Editorial portfolio</span>
+        <span>2018 — Now · Still sailing</span>
+      </div>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+(function(){
+  // ===========================================================
+  // HORIZON LINE — climbs with scroll progress; levels at the end
+  // ===========================================================
+  const horizonTrack = document.getElementById('horizon-track');
+  const horizonCap   = document.getElementById('horizon-cap');
+
+  function updateHorizon() {
+    const docH  = document.documentElement.scrollHeight - window.innerHeight;
+    const scr   = window.scrollY;
+    const prog  = Math.max(0, Math.min(1, scr / docH));
+
+    // Climb: the line height grows with progress (in px relative to viewport)
+    const trackH = prog * window.innerHeight;
+    horizonTrack.style.height = trackH + 'px';
+
+    // Cap follows the top of the track
+    horizonCap.style.bottom = (trackH - 3) + 'px';
+
+    // Level out near the very end
+    if (prog > 0.97) {
+      document.body.classList.add('horizon-leveled');
+    } else {
+      document.body.classList.remove('horizon-leveled');
+    }
+  }
+
+  // ===========================================================
+  // RAILS — pinned horizontal scroll driven by section progress
+  // ===========================================================
+  const rails = document.querySelectorAll('.rail');
+  function updateRails() {
+    rails.forEach(rail => {
+      const rect = rail.getBoundingClientRect();
+      const total = rail.offsetHeight - window.innerHeight;
+      const scrolledIn = -rect.top;
+      const prog = Math.max(0, Math.min(1, scrolledIn / total));
+
+      const strip = rail.querySelector('.rail-strip');
+      if (!strip) return;
+
+      // How far the strip needs to translate
+      const stripW = strip.scrollWidth;
+      const visibleW = window.innerWidth;
+      const maxTranslate = Math.max(0, stripW - visibleW + 80);
+      strip.style.transform = `translateX(${-prog * maxTranslate}px)`;
+
+      // Update progress indicator
+      const railId = rail.id;
+      const cards = strip.querySelectorAll('.rail-card:not(.terminator)');
+      const totalCards = cards.length;
+      const currentCard = Math.min(totalCards, Math.max(1, Math.ceil(prog * totalCards)));
+      const padCur = String(currentCard).padStart(2, '0');
+      const padTot = String(totalCards).padStart(2, '0');
+
+      const countEl = rail.querySelector('.rail-progress .count');
+      const barEl = rail.querySelector('.rail-progress-bar');
+      if (countEl) countEl.textContent = `${padCur} / ${padTot}`;
+      if (barEl) {
+        const fill = barEl.querySelector('::after');
+        barEl.style.setProperty('--fill', (prog * 100) + '%');
+        // Use a child element since pseudo can't be styled by JS directly via :: syntax
+        let bar = barEl.querySelector('.bar-fill');
+        if (!bar) {
+          bar = document.createElement('div');
+          bar.className = 'bar-fill';
+          bar.style.cssText = 'position:absolute;inset:0 auto 0 0;background:var(--sea);width:0%;transition:width .15s linear;';
+          barEl.appendChild(bar);
+        }
+        bar.style.width = (prog * 100) + '%';
+      }
+    });
+  }
+
+  // ===========================================================
+  // GOLDEN TAKEOVER — when marriage chapter is in viewport
+  // ===========================================================
+  const marriageSection = document.getElementById('ch-marriage');
+  function updateGolden() {
+    if (!marriageSection) return;
+    const rect = marriageSection.getBoundingClientRect();
+    const inView = rect.top < window.innerHeight * 0.5 && rect.bottom > window.innerHeight * 0.5;
+    document.body.classList.toggle('is-golden', inView);
+  }
+
+  // ===========================================================
+  // CHAPTER VISIBILITY — fade-in image frames
+  // ===========================================================
+  const chapters = document.querySelectorAll('.chapter');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in-view');
+      }
+    });
+  }, { threshold: 0.2 });
+  chapters.forEach(ch => obs.observe(ch));
+
+  // ===========================================================
+  // SCROLL HANDLER (consolidated)
+  // ===========================================================
+  let ticking = false;
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateHorizon();
+        updateRails();
+        updateGolden();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', () => { updateRails(); updateHorizon(); });
+
+  // Init
+  requestAnimationFrame(() => {
+    updateHorizon();
+    updateRails();
+    updateGolden();
+  });
+
+  // ===========================================================
+  // SMOOTH SCROLL for index links
+  // ===========================================================
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const href = a.getAttribute('href');
+      if (href.length > 1) {
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
