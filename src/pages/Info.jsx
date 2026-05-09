@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import styles from './Info.module.css';
-import { Link } from 'react-router-dom';
 
 const Info = () => {
   const containerRef = useRef(null);
@@ -136,15 +135,7 @@ const Info = () => {
 
   return (
     <div className={styles.container} ref={containerRef}>
-      {/* ============ NAV ============ */}
-      <nav className={styles.nav}>
-        <div className={styles.navMark}>VM<span className="nav-dot-spacer"></span></div>
-        <div className={styles.navLinks}>
-          <Link to="/">WORK</Link>
-          <Link to="/info" className="active">INFO</Link>
-          <div className={styles.navMenu} aria-label="Menu"><span></span><span></span></div>
-        </div>
-      </nav>
+
 
       {/* ============ HORIZON LINE ============ */}
       <div className={styles.horizon} aria-hidden="true">
@@ -158,8 +149,10 @@ const Info = () => {
         <section className={`${styles.section} ${styles.lander}`} id="lander">
           <div className={`${styles.eyebrow} ${styles.landerEyebrow}`}>An Editorial Timeline · 2018 — Now</div>
           <h1 className={styles.landerQuote}>
-            <span>Every</span> <span>chapter</span> <span>taught</span> <span>me</span> <span>something</span>
-            <span>the</span> <span>next</span> <span>one</span> <span>would</span>&nbsp;<span className={styles.testWord}>test</span><span>.</span>
+            <span>Every</span>{' '}<span>chapter</span>{' '}<span>taught</span>{' '}
+            <span>me</span>{' '}<span>something</span>{' '}<span>the</span>{' '}
+            <span>next</span>{' '}<span>one</span>{' '}<span>would</span>{' '}
+            <span className={styles.testWord}>test</span><span>.</span>
           </h1>
           <div className={styles.landerMeta}>
             <span className={styles.landerMetaLine}></span>
@@ -291,22 +284,22 @@ const Info = () => {
             <div className={styles.railTrack}>
               <div className={styles.railStrip} id="cities-strip">
                 {[
-                  { num: '01 / 14', name: 'Jaipur', meta: 'Pink City<br>April', img: '05-2022-cities/jaipur.jpg', size: styles.tall },
-                  { num: '02 / 14', name: 'Udaipur', meta: 'Aravalli<br>May', img: '05-2022-cities/udaipur.jpg', size: styles.short },
-                  { num: '03 / 14', name: 'Jodhpur', meta: 'Blue<br>June', img: '05-2022-cities/jodhpur.jpg', size: '' },
-                  { num: '04 / 14', name: 'Jaisalmer', meta: 'Golden<br>July', img: '05-2022-cities/jaisalmer.jpg', size: styles.tall },
-                  { num: '05 / 14', name: 'Pushkar', meta: 'Lake<br>August', img: '05-2022-cities/pushkar.jpg', size: styles.short },
-                  { num: '06 / 14', name: 'Varanasi', meta: 'Ghats<br>September', img: '05-2022-cities/varanasi.jpg', size: '' },
-                  { num: '07 / 14', name: 'Rishikesh', meta: 'Ganga<br>October', img: '05-2022-cities/rishikesh.jpg', size: styles.tall },
-                  { num: '08 / 14', name: 'Delhi', meta: 'Capital<br>October', img: '05-2022-cities/delhi.jpg', size: '' },
-                  { num: '09 / 14', name: 'Hyderabad', meta: 'Charminar<br>November', img: '05-2022-cities/hyderabad.jpg', size: styles.short },
-                  { num: '10 / 14', name: 'Pune', meta: 'Sahyadri<br>November', img: '05-2022-cities/pune.jpg', size: '' },
-                  { num: '11 / 14', name: 'Nashik', meta: 'Vineyard<br>November', img: '05-2022-cities/nashik.jpg', size: styles.tall },
-                  { num: '12 / 14', name: 'Ha Long Bay', meta: 'Vietnam<br>December', img: '05-2022-cities/halong-bay.jpg', size: styles.short },
-                  { num: '13 / 14', name: 'Ninh Binh', meta: 'Inland sea<br>December', img: '05-2022-cities/ninh-binh.jpg', size: '' },
-                  { num: '14 / 14', name: 'Sapa Valley', meta: 'Highlands<br>December', img: '05-2022-cities/sapa-valley.jpg', size: styles.tall },
+                  { num: '01 / 14', name: 'Jaipur', meta: 'Pink City<br>April', img: '05-2022-cities/jaipur.jpg' },
+                  { num: '02 / 14', name: 'Udaipur', meta: 'Aravalli<br>May', img: '05-2022-cities/udaipur.jpg' },
+                  { num: '03 / 14', name: 'Jodhpur', meta: 'Blue<br>June', img: '05-2022-cities/jodhpur.jpg' },
+                  { num: '04 / 14', name: 'Jaisalmer', meta: 'Golden<br>July', img: '05-2022-cities/jaisalmer.jpg' },
+                  { num: '05 / 14', name: 'Pushkar', meta: 'Lake<br>August', img: '05-2022-cities/pushkar.jpg' },
+                  { num: '06 / 14', name: 'Varanasi', meta: 'Ghats<br>September', img: '05-2022-cities/varanasi.jpg' },
+                  { num: '07 / 14', name: 'Rishikesh', meta: 'Ganga<br>October', img: '05-2022-cities/rishikesh.jpg' },
+                  { num: '08 / 14', name: 'Delhi', meta: 'Capital<br>October', img: '05-2022-cities/delhi.jpg' },
+                  { num: '09 / 14', name: 'Hyderabad', meta: 'Charminar<br>November', img: '05-2022-cities/hyderabad.jpg' },
+                  { num: '10 / 14', name: 'Pune', meta: 'Sahyadri<br>November', img: '05-2022-cities/pune.jpg' },
+                  { num: '11 / 14', name: 'Nashik', meta: 'Vineyard<br>November', img: '05-2022-cities/nashik.jpg' },
+                  { num: '12 / 14', name: 'Ha Long Bay', meta: 'Vietnam<br>December', img: '05-2022-cities/halong-bay.jpg' },
+                  { num: '13 / 14', name: 'Ninh Binh', meta: 'Inland sea<br>December', img: '05-2022-cities/ninh-binh.jpg' },
+                  { num: '14 / 14', name: 'Sapa Valley', meta: 'Highlands<br>December', img: '05-2022-cities/sapa-valley.jpg' },
                 ].map((c, i) => (
-                  <div className={`${styles.railCard} ${c.size}`} key={i}>
+                  <div className={styles.railCard} key={i}>
                     <span className={styles.railCardNum}>{c.num}</span>
                     <img src={`/images/info/${c.img}`} alt={c.name} loading="lazy" />
                     <div className={styles.railCardOverlay}>
@@ -341,17 +334,17 @@ const Info = () => {
             <div className={styles.railTrack}>
               <div className={styles.railStrip} id="events-strip">
                 {[
-                  { num: '01 / 09', name: "Founders' dinner", meta: 'Closed table<br>2024', img: '06-2024-events/01-hero.jpg', size: styles.tall },
-                  { num: '02 / 09', name: 'Conference floor', meta: 'Token2049<br>September', img: '06-2024-events/img_20240919_174022718.jpg', size: '' },
-                  { num: '03 / 09', name: 'Side event', meta: 'Singapore<br>September', img: '06-2024-events/img_20240919_174732123.jpg', size: styles.short },
-                  { num: '04 / 09', name: 'After-hours', meta: 'Marina Bay<br>September', img: '06-2024-events/img_20240919_141551_317.jpg', size: styles.tall },
-                  { num: '05 / 09', name: 'Roundtable', meta: 'Dubai<br>May', img: '06-2024-events/img_20240526_035055_660.jpg', size: '' },
-                  { num: '06 / 09', name: 'Token launch', meta: 'Closed event<br>April', img: '06-2024-events/img_20240416_120859322.jpg', size: styles.short },
-                  { num: '07 / 09', name: 'On stage', meta: 'Keynote<br>2024', img: '06-2024-events/_mg_9587.jpg', size: styles.tall },
-                  { num: '08 / 09', name: 'Closed dinner', meta: 'Founders<br>2024', img: '06-2024-events/img_6173.jpg', size: '' },
-                  { num: '09 / 09', name: 'Panel', meta: 'Industry<br>2024', img: '06-2024-events/093a8978.jpg', size: styles.short },
+                  { num: '01 / 09', name: "Founders' dinner", meta: 'Closed table<br>2024', img: '06-2024-events/01-hero.jpg' },
+                  { num: '02 / 09', name: 'Conference floor', meta: 'Token2049<br>September', img: '06-2024-events/img_20240919_174022718.jpg' },
+                  { num: '03 / 09', name: 'Side event', meta: 'Singapore<br>September', img: '06-2024-events/img_20240919_174732123.jpg' },
+                  { num: '04 / 09', name: 'After-hours', meta: 'Marina Bay<br>September', img: '06-2024-events/img_20240919_141551_317.jpg' },
+                  { num: '05 / 09', name: 'Roundtable', meta: 'Dubai<br>May', img: '06-2024-events/img_20240526_035055_660.jpg' },
+                  { num: '06 / 09', name: 'Token launch', meta: 'Closed event<br>April', img: '06-2024-events/img_20240416_120859322.jpg' },
+                  { num: '07 / 09', name: 'On stage', meta: 'Keynote<br>2024', img: '06-2024-events/_mg_9587.jpg' },
+                  { num: '08 / 09', name: 'Closed dinner', meta: 'Founders<br>2024', img: '06-2024-events/img_6173.jpg' },
+                  { num: '09 / 09', name: 'Panel', meta: 'Industry<br>2024', img: '06-2024-events/093a8978.jpg' },
                 ].map((c, i) => (
-                  <div className={`${styles.railCard} ${c.size}`} key={i}>
+                  <div className={styles.railCard} key={i}>
                     <span className={styles.railCardNum}>{c.num}</span>
                     <img src={`/images/info/${c.img}`} alt={c.name} loading="lazy" />
                     <div className={styles.railCardOverlay}>
