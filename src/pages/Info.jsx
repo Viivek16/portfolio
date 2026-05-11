@@ -509,7 +509,7 @@ const Info = () => {
                 <img src="/images/friends/juliet-su.jpg" alt="Juliet Su, Managing Partner at NewTribe Capital" loading="lazy" />
               </div>
               <div className={styles.friendBody}>
-                <span className={styles.friendRoman}>i.</span>
+                
                 <blockquote className={styles.friendQuote}>
                   Viivek was the only person who stood by during the tough times of the fund and he managed it all single-handedly — the marketing, branding, partnerships, dealflow, execution, event management and whatnot. One of the best ones I've ever worked with.
                 </blockquote>
@@ -525,7 +525,7 @@ const Info = () => {
                 <img src="/images/friends/Karan-aneja.jpg" alt="Karan Aneja, Senior Analyst at Pi42 Ventures" loading="lazy" />
               </div>
               <div className={styles.friendBody}>
-                <span className={styles.friendRoman}>ii.</span>
+                
                 <blockquote className={styles.friendQuote}>
                   I still recall the first hand-shake with Viivek at the Palm Residences, Dubai, and today he's the guy I often run into for any sort of advice in my life.
                 </blockquote>
@@ -541,7 +541,7 @@ const Info = () => {
                 <img src="/images/friends/Srushti-shirsat.jpg" alt="Srushti Shirsat, Founder at HRBP" loading="lazy" />
               </div>
               <div className={styles.friendBody}>
-                <span className={styles.friendRoman}>iii.</span>
+                
                 <blockquote className={styles.friendQuote}>
                   Viivek has never turned me down, be it for the top-tier Series A company or a pre-seed stage project — he just fits in very well everywhere.
                 </blockquote>
@@ -557,7 +557,7 @@ const Info = () => {
                 <img src="/images/friends/zhanna-manzyk.jpg" alt="Zhanna Manzyk, CEO at Jaya Talent" loading="lazy" />
               </div>
               <div className={styles.friendBody}>
-                <span className={styles.friendRoman}>iv.</span>
+                
                 <blockquote className={styles.friendQuote}>
                   A few years ago, I had the pleasure of collaborating with Viivek — and it was genuinely one of those working relationships you don't forget. Highly professional, deeply ethical, and exactly the kind of talent that makes any project better.
                 </blockquote>
@@ -573,7 +573,7 @@ const Info = () => {
                 <img src="/images/friends/sowmya-raghavan.jpg" alt="Sowmya Raghavan, Ex-CEO of NODO Inc." loading="lazy" />
               </div>
               <div className={styles.friendBody}>
-                <span className={styles.friendRoman}>v.</span>
+                
                 <blockquote className={styles.friendQuote}>
                   I've known him for 4 years and he completely turned around our marketing strategies while showing amazing results. On top of it, he was our go-to guy for any sort of VC connects which further led to a successful raise. I've since worked with him on all projects of mine.
                 </blockquote>
