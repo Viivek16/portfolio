@@ -19,10 +19,23 @@ const Info = () => {
       if (horizonTrackRef.current) horizonTrackRef.current.style.height = trackH + 'px';
       if (horizonCapRef.current) horizonCapRef.current.style.bottom = (trackH - 3) + 'px';
 
-      if (prog > 0.97) {
-        document.body.classList.add('horizon-leveled');
-      } else {
-        document.body.classList.remove('horizon-leveled');
+      // Fade out at friends section
+      const friendsSection = document.getElementById('friends');
+      const nowSection = document.getElementById('ch-now');
+      if (friendsSection && nowSection) {
+        const fadeStart = nowSection.getBoundingClientRect().bottom - (window.innerHeight * 0.3);
+        const fadeEnd = friendsSection.getBoundingClientRect().top;
+        const fadeRange = fadeEnd - fadeStart;
+        
+        let opacity = 1;
+        if (fadeStart < 0 && fadeEnd > 0) {
+          opacity = Math.max(0, 1 - (Math.abs(fadeStart) / fadeRange));
+        } else if (fadeEnd <= 0) {
+          opacity = 0;
+        }
+        
+        const horizon = document.querySelector('.' + styles.horizon);
+        if (horizon) horizon.style.opacity = opacity;
       }
     }
 
@@ -98,7 +111,7 @@ const Info = () => {
     const friendObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add(styles.isVisible);
+          entry.target.classList.add('is-visible');
           friendObserver.unobserve(entry.target);
         }
       });
@@ -352,23 +365,19 @@ const Info = () => {
             <div className={styles.railTrack}>
               <div className={styles.railStrip} id="events-strip">
                 {[
-                  { num: '01 / 09', name: "Founders' dinner", meta: 'Closed table<br>2024', img: '06-2024-events/01-hero.jpg' },
-                  { num: '02 / 09', name: 'Conference floor', meta: 'Token2049<br>September', img: '06-2024-events/img_20240919_174022718.jpg' },
-                  { num: '03 / 09', name: 'Side event', meta: 'Singapore<br>September', img: '06-2024-events/img_20240919_174732123.jpg' },
-                  { num: '04 / 09', name: 'After-hours', meta: 'Marina Bay<br>September', img: '06-2024-events/img_20240919_141551_317.jpg' },
-                  { num: '05 / 09', name: 'Roundtable', meta: 'Dubai<br>May', img: '06-2024-events/img_20240526_035055_660.jpg' },
-                  { num: '06 / 09', name: 'Token launch', meta: 'Closed event<br>April', img: '06-2024-events/img_20240416_120859322.jpg' },
-                  { num: '07 / 09', name: 'On stage', meta: 'Keynote<br>2024', img: '06-2024-events/_mg_9587.jpg' },
-                  { num: '08 / 09', name: 'Closed dinner', meta: 'Founders<br>2024', img: '06-2024-events/img_6173.jpg' },
-                  { num: '09 / 09', name: 'Panel', meta: 'Industry<br>2024', img: '06-2024-events/093a8978.jpg' },
+                  { num: '01 / 09', img: '06-2024-events/01-hero.jpg' },
+                  { num: '02 / 09', img: '06-2024-events/img_20240919_174022718.jpg' },
+                  { num: '03 / 09', img: '06-2024-events/img_20240919_174732123.jpg' },
+                  { num: '04 / 09', img: '06-2024-events/img_20240919_141551_317.jpg' },
+                  { num: '05 / 09', img: '06-2024-events/img_20240526_035055_660.jpg' },
+                  { num: '06 / 09', img: '06-2024-events/img_20240416_120859322.jpg' },
+                  { num: '07 / 09', img: '06-2024-events/_mg_9587.jpg' },
+                  { num: '08 / 09', img: '06-2024-events/img_6173.jpg' },
+                  { num: '09 / 09', img: '06-2024-events/093a8978.jpg' },
                 ].map((c, i) => (
                   <div className={styles.railCard} key={i}>
                     <span className={styles.railCardNum}>{c.num}</span>
-                    <img src={`/images/info/${c.img}`} alt={c.name} loading="lazy" />
-                    <div className={styles.railCardOverlay}>
-                      <div className={styles.railCardName}>{c.name}</div>
-                      <div className={styles.railCardMeta} dangerouslySetInnerHTML={{ __html: c.meta }} />
-                    </div>
+                    <img src={`/images/info/${c.img}`} alt="Event capture" loading="lazy" />
                   </div>
                 ))}
                 <div className={`${styles.railCard} ${styles.terminator}`}>
