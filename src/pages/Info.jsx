@@ -287,15 +287,7 @@ const Info = () => {
           </div>
         </section>
 
-        {/* ============ PUNCTUATION 1 ============ */}
-        <section className={`${styles.section} ${styles.punctuation}`} id="punc-1">
-          <div className={styles.punctuationMark}>"</div>
-          <p className={styles.punctuationQuote}>
-            You know that's the good thing about being<br/>
-            a <span className={styles.seaEm}>wanderer</span> — you get to choose your ending.
-          </p>
-          <div className={styles.punctuationAttribution}>— A note from the road</div>
-        </section>
+        
 
         {/* ============ 2022 — CITIES RAIL ============ */}
         <section className={`${styles.section} ${styles.rail}`} id="ch-cities" data-chapter="2022-cities">
@@ -345,6 +337,16 @@ const Info = () => {
               </div>
             </div>
           </div>
+        </section>
+
+        {/* ============ PUNCTUATION 1 ============ */}
+        <section className={`${styles.section} ${styles.punctuation}`} id="punc-1">
+          <div className={styles.punctuationMark}>"</div>
+          <p className={styles.punctuationQuote}>
+            You know that's the good thing about being<br/>
+            a <span className={styles.seaEm}>wanderer</span> — you get to choose your ending.
+          </p>
+          <div className={styles.punctuationAttribution}>— A note from the road</div>
         </section>
 
         {/* ============ 2024 — EVENTS RAIL ============ */}
@@ -585,24 +587,30 @@ const Info = () => {
         </section>
 
         {/* ============ CONTACT ============ */}
-        <footer className={styles.contact} id="contact">
+        <footer className={styles.contact} id="ch-footer">
           <div className={styles.contactPhoto}>
-            <div className={styles.contactPhotoMeta}>Viivek Mehata · 2025</div>
+            <div className={styles.contactPhotoFade}></div>
             <img src="/images/info/03-2020-neurotech/img-20201125-wa0005.jpg" alt="Viivek Mehata" loading="lazy" />
           </div>
           <div className={styles.contactContent}>
-            <div className={`${styles.eyebrow} ${styles.contactEyebrow}`}>Stay in touch</div>
-            <h2 className={styles.contactTitle}>Find me where the <em>work</em> lives.</h2>
-            <p className={styles.contactTagline}>Building across VC, market making, and AI. Always up for a conversation about a thesis worth holding — or a chapter worth starting.</p>
-            <div className={styles.contactLinks}>
-              <a className={styles.contactLink} data-num="i."   href="https://x.com/mehtaandmore" target="_blank" rel="noopener noreferrer">Twitter / X</a>
-              <a className={styles.contactLink} data-num="ii."  href="https://www.linkedin.com/in/viivek-mehata16/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-              <a className={styles.contactLink} data-num="iii." href="https://t.me/Viivek16" target="_blank" rel="noopener noreferrer">Telegram</a>
-              <a className={styles.contactLink} data-num="iv."  href="mailto:vivekmehta.vm31@gmail.com">Email</a>
+            <div className={styles.contactContentInner}>
+              <div className={`${styles.eyebrow} ${styles.contactEyebrow}`}>Stay in touch</div>
+              <h2 className={styles.contactTitle}>Find me where the <em>work</em> lives.</h2>
+              <p className={styles.contactTagline}>Building across VC, market making, and AI. Always up for a conversation about a thesis worth holding — or a chapter worth starting.</p>
+              <div className={styles.contactLinks}>
+                <a className={styles.contactLink} data-num="i."   href="https://x.com/mehtaandmore" target="_blank" rel="noopener noreferrer">Twitter / X</a>
+                <a className={styles.contactLink} data-num="ii."  href="https://www.linkedin.com/in/viivek-mehata16/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a className={styles.contactLink} data-num="iii." href="https://t.me/Viivek16" target="_blank" rel="noopener noreferrer">Telegram</a>
+                <a className={styles.contactLink} data-num="iv."  href="mailto:vivekmehta.vm31@gmail.com">Email</a>
+              </div>
+              <p className={styles.contactSignature}>Until the next chapter — V.</p>
             </div>
-            <div className={styles.contactFoot}>
-              <span>Editorial portfolio</span>
-              <span>2018 — Now · Still sailing</span>
+          </div>
+          <div className={styles.contactFoot}>
+            <div className={styles.contactFootInner}>
+              <div className={styles.footLeft}>Editorial portfolio</div>
+              <div className={styles.footCenter}>2018 — Now</div>
+              <div className={styles.footRight}>Still sailing</div>
             </div>
           </div>
         </footer>
