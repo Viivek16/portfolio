@@ -828,103 +828,142 @@
 }
 .friendsGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 0;
-  flex: 1;
+  padding: 0;
+  /* Subtle vertical dividers between cards */
+  border-left: 1px solid rgba(244, 241, 234, 0.1);
 }
+
 .friendCard {
-  display: flex;
-  flex-direction: column;
-  border-right: 1px solid rgba(244, 241, 234, 0.06);
-  transition: background .35s ease;
-}
-.friendCard:last-child { border-right: none; }
-.friendCard:hover { background: rgba(10, 196, 224, 0.03); }
-.friendCardPhoto {
-  width: 100%;
-  aspect-ratio: 1/1;
-  background:
-    radial-gradient(ellipse at center, rgba(10, 196, 224, 0.08), transparent 70%),
-    linear-gradient(135deg, var(--ink-2) 0%, var(--ink-3) 100%);
   position: relative;
-  overflow: hidden;
-  display: flex; align-items: center; justify-content: center;
-}
-.friendCardPhoto::before {
-  content: 'VM';
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-weight: 300;
-  font-size: 56px;
-  color: var(--cream);
-  opacity: 0.06;
-  line-height: 1;
-  letter-spacing: -0.02em;
-}
-.friendCardPhoto::after {
-  content: 'Photo · 4:5';
-  position: absolute;
-  bottom: 16px; left: 16px;
-  font-size: 9px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--cream-mute);
-  opacity: 0.4;
-}
-.friendCardPhoto img {
-  width: 100%; height: 100%; object-fit: cover;
-  filter: grayscale(1) saturate(0.9) contrast(1.05);
-  transition: filter .5s cubic-bezier(.2,.7,.2,1);
-}
-.friendCard:hover .friendCardPhoto img {
-  filter: grayscale(0) saturate(1) contrast(1.05);
-}
-.friendCardPhoto img + ::before,
-.friendCardPhoto:has(img)::before { display: none; }
-.friendCardBody {
-  padding: 22px 22px 26px;
+  padding: 48px clamp(20px, 2vw, 36px) 56px;
+  border-right: 1px solid rgba(244, 241, 234, 0.1);
   display: flex;
   flex-direction: column;
+  
+  /* Stagger entry — set initial state */
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 700ms cubic-bezier(0.22, 0.61, 0.36, 1), transform 700ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+:global(.is-visible).friendCard {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.friendCard:nth-child(1) { transition-delay: 0ms; }
+.friendCard:nth-child(2) { transition-delay: 80ms; }
+.friendCard:nth-child(3) { transition-delay: 160ms; }
+.friendCard:nth-child(4) { transition-delay: 240ms; }
+.friendCard:nth-child(5) { transition-delay: 320ms; }
+
+.friendPhoto {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 28px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.friendPhoto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  filter: brightness(0.95) contrast(1.02) saturate(0.98);
+  transition: filter 500ms ease, transform 700ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.friendCard:hover .friendPhoto img {
+  filter: brightness(1.04) contrast(1.05) saturate(1.05);
+  transform: scale(1.025);
+}
+
+.friendBody {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
   flex: 1;
 }
-.friendCardRule {
-  width: 22px; height: 1px;
-  background: var(--sea);
-  margin-bottom: 14px;
-}
-.friendCardQuote {
+
+.friendRoman {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
   font-weight: 400;
-  font-size: 15px;
-  line-height: 1.5;
+  font-size: 0.875rem;
+  color: var(--sea);
+  opacity: 0.75;
+  letter-spacing: 0.02em;
+}
+
+.friendQuote {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  font-size: 0.9375rem;
+  line-height: 1.65;
   color: var(--cream);
-  margin-bottom: 18px;
+  opacity: 0.92;
+  font-weight: 400;
+  letter-spacing: 0.005em;
   flex: 1;
 }
-.friendCardCredit {
+
+.friendQuote::before {
+  content: "\201C";
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.6em;
+  line-height: 0;
+  color: var(--sea);
+  margin-right: 4px;
+  vertical-align: -0.25em;
+}
+
+.friendQuote::after {
+  content: "\201D";
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.6em;
+  line-height: 0;
+  color: var(--sea);
+  margin-left: 2px;
+  vertical-align: -0.25em;
+}
+
+.friendAttrib {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  margin-top: 8px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(244, 241, 234, 0.1);
 }
-.friendCardName {
-  font-size: 13px;
+
+.friendName {
+  font-size: 0.875rem;
   font-weight: 500;
+  letter-spacing: 0.01em;
   color: var(--cream);
-  letter-spacing: 0.02em;
 }
-.friendCardRole {
-  font-size: 11px;
-  color: var(--cream-mute);
-  letter-spacing: 0.03em;
+
+.friendRole {
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cream-soft, var(--cream-dim));
+  opacity: 0.7;
 }
 
 /* =========================================================
    CONTACT FOOTER
    ========================================================= */
 .contact {
-  height: 85vh;
-  min-height: 720px;
+  height: auto;
+  min-height: 100vh;
   display: grid;
   grid-template-columns: 0.9fr 1fr;
   padding: 0;
@@ -1059,6 +1098,13 @@
 /* =========================================================
    RESPONSIVE
    ========================================================= */
+@media (max-width: 1399px) {
+  .friendsGrid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 1023px) {
+  .friendsGrid { grid-template-columns: repeat(2, 1fr); }
+  .friendCard { padding: 36px 20px 44px; }
+}
 @media (max-width: 900px) {
   .nav { padding: 20px 24px; }
   .horizon { right: 16px; }
@@ -1087,12 +1133,14 @@
   .friendsSection { padding: 80px 0 0; }
   .friendsHeader { padding: 0 24px; margin-bottom: 50px; }
   .friendsGrid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
   }
-  .friendCard:nth-child(2n) { border-right: none; }
-  .friendCard:nth-child(-n+2) { border-bottom: 1px solid rgba(244, 241, 234, 0.06); }
-  .friendCardBody { padding: 24px 20px 28px; }
-  .friendCardQuote { font-size: 17px; }
+  .friendCard { 
+    padding: 32px 24px 40px;
+    border-bottom: 1px solid rgba(244, 241, 234, 0.1);
+    border-right: none;
+  }
+  .friendCard:last-child { border-bottom: none; }
   .contact {
     grid-template-columns: 1fr;
   }
