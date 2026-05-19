@@ -125,10 +125,11 @@ const Info = () => {
     // CHAPTER VISIBILITY
     // ===========================================================
     const chapters = document.querySelectorAll(`.${styles.chapter}, .${styles.nowSection}`);
-    const obs = new IntersectionObserver((entries) => {
+    const obs = new IntersectionObserver((entries, observer) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
           e.target.classList.add('in-view');
+          observer.unobserve(e.target);
         }
       });
     }, { threshold: 0.2 });
