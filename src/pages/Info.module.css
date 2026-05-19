@@ -721,6 +721,28 @@
   overflow: hidden;
 }
 
+.nowGradientTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 180px;
+  background: linear-gradient(to bottom, #F6E7BC 0%, #0A1A3E 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.nowGradientBottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 180px;
+  background: linear-gradient(to bottom, #0A1A3E 0%, #080c18 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
 .nowHorizonWrapper {
   position: absolute;
   top: 0;
@@ -728,7 +750,7 @@
   left: 0;
   right: 40px;
   pointer-events: none;
-  z-index: 0;
+  z-index: 2;
 }
 
 .nowHorizonSvg {
@@ -757,7 +779,7 @@
 
 .nowHeroTop {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   height: 60vh;
   display: flex;
   flex-direction: column;
@@ -859,7 +881,7 @@
   height: 40vh;
   display: flex;
   justify-content: center;
-  z-index: 2;
+  z-index: 3;
 }
 
 .nowPillars {

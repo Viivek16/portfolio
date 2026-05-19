@@ -6,16 +6,25 @@ const Info = () => {
   const horizonTrackRef = useRef(null);
   const horizonCapRef = useRef(null);
   const nowHorizonPathRef = useRef(null);
+  const [horizonD, setHorizonD] = React.useState('');
 
   useEffect(() => {
     function setPathLength() {
       const svg = document.querySelector(`.${styles.nowHorizonSvg}`);
-      if (svg && nowHorizonPathRef.current) {
+      if (svg) {
         const rect = svg.getBoundingClientRect();
-        const vertLen = rect.height * 0.6;
-        const horizLen = rect.width;
-        const totalLen = vertLen + horizLen;
-        nowHorizonPathRef.current.style.setProperty('--path-len', totalLen);
+        const width = rect.width;
+        const height = rect.height;
+        const bendY = height * 0.6;
+        
+        const d = `M ${width} 0 L ${width} ${bendY} L 0 ${bendY}`;
+        setHorizonD(d);
+        
+        requestAnimationFrame(() => {
+          if (!nowHorizonPathRef.current) return;
+          const totalLen = nowHorizonPathRef.current.getTotalLength();
+          nowHorizonPathRef.current.style.setProperty('--path-len', totalLen);
+        });
       }
     }
     setPathLength();
@@ -482,14 +491,19 @@ const Info = () => {
 
         {/* ============ NOW (Horizon Continues) ============ */}
         <section className={`${styles.section} ${styles.nowSection}`} id="ch-now" data-chapter="now">
+          <div className={styles.nowGradientTop}></div>
+          <div className={styles.nowGradientBottom}></div>
+          
           <div className={styles.nowHorizonWrapper}>
-            <svg className={styles.nowHorizonSvg} viewBox="0 0 1000 1000" preserveAspectRatio="none">
-              <path 
-                ref={nowHorizonPathRef}
-                d="M 1000,0 L 1000,600 L 0,600" 
-                vectorEffect="non-scaling-stroke" 
-                className={styles.nowHorizonPath} 
-              />
+            <svg className={styles.nowHorizonSvg}>
+              {horizonD && (
+                <path 
+                  id="horizon-line"
+                  ref={nowHorizonPathRef}
+                  d={horizonD} 
+                  className={styles.nowHorizonPath} 
+                />
+              )}
             </svg>
           </div>
 
@@ -648,7 +662,7 @@ const Info = () => {
 
             <article className={styles.friendCard}>
               <div className={styles.friendPhoto}>
-                <img src="/images/friends/sowmya-raghavan.jpg" alt="Sowmya Raghavan, Ex-CEO of NODO Inc." loading="lazy" />
+                <img src="/images/friends/Sowmya-Raghavan.jpg" alt="Sowmya Raghavan, Ex-CEO of NODO Inc." loading="lazy" />
               </div>
               <div className={styles.friendBody}>
                 
