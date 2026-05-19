@@ -205,12 +205,11 @@ const Info = () => {
               { id: 'ch-2018', year: '2018', title: 'Yellow Bags — the first lesson', meta: 'Chapter 01' },
               { id: 'ch-2020', year: '2020', title: 'Pandemic. Neurotech 3 → 18.', meta: 'Chapter 02' },
               { id: 'ch-2021', year: '2021', title: 'NewTribe Capital — the other side of the table', meta: 'Chapter 03' },
-              { id: 'ch-cities', year: '2022', title: '14 cities in 12 months', meta: 'Chapter 04 · Rail' },
-              { id: 'ch-events', year: '2024', title: '20+ events convened', meta: 'Chapter 05 · Rail' },
+              { id: 'ch-cities', year: '2022', title: '14 cities in 12 months', meta: 'Chapter 04' },
+              { id: 'ch-events', year: '2024', title: '20+ events convened', meta: 'Chapter 05' },
               { id: 'ch-firms', year: '2024', title: 'Three firms — Asva, Leo, DCF', meta: 'Chapter 06' },
               { id: 'ch-yellow', year: '2025', title: 'Yellow Capital — portfolio manager', meta: 'Chapter 07' },
-              { id: 'ch-marriage', year: "Nov '25", title: 'The anchor', meta: 'Chapter 08' },
-              { id: 'ch-now', year: 'Now', title: 'Still sailing — VC, market making, AI', meta: 'Chapter 09' }
+              { id: 'ch-now', year: 'Now', title: 'Still sailing — VC, market making, AI', meta: 'Chapter 08' }
             ].map((item, i) => (
               <a href={`#${item.id}`} className={styles.indexItem} key={i} onClick={(e) => handleScrollTo(e, `#${item.id}`)}>
                 <div className={styles.indexYear}>{item.year}</div>
@@ -226,8 +225,8 @@ const Info = () => {
           <div className={styles.chapterText}>
             <div className={`${styles.eyebrow} ${styles.chapterEyebrow}`}>2018 · The First Lesson</div>
             <h2 className={styles.chapterYear}>2018</h2>
-            <h3 className={styles.chapterHeadline}>Yellow Bags<br/>shut down.</h3>
-            <p className={styles.chapterBody}>A first venture, a first failure. The lesson wasn't about product — it was about distribution, conviction, and how long you can stay in a room nobody else is in. Everything after was shaped by it.</p>
+            <h3 className={styles.chapterHeadline}>First startup built and shut down.</h3>
+            <p className={styles.chapterBody}>Yellow Bags was a celebrity-wear apparel shopping platform for retail users that shut down due to legal and compliance reasons within the first six months.</p>
           </div>
           <div className={styles.chapterMedia}>
             <div className={styles.chapterMediaCompanion}>
@@ -260,8 +259,8 @@ const Info = () => {
           <div className={styles.chapterText}>
             <div className={`${styles.eyebrow} ${styles.chapterEyebrow}`}>2020 · Held in Place, Then Released</div>
             <h2 className={styles.chapterYear}>2020</h2>
-            <h3 className={styles.chapterHeadline}>Pandemic blockade.<br/>Neurotech 3 → 18.</h3>
-            <p className={styles.chapterBody}>The world stopped. So I started writing — long-form rants on LinkedIn that nobody asked for and a few people actually read. While everyone froze, we built Neurotech from three to eighteen. Culture compounds faster than headcount when there's nowhere else to go.</p>
+            <h3 className={styles.chapterHeadline}>Pandemic hit. Built Neurotech Design</h3>
+            <p className={styles.chapterBody}>During the pandemic, while everyone froze, I met my co-founder to build wellness-based smart home appliances through Neurotech Design. Further scaled it to 3 to 18 members, completely bootstrapped.</p>
           </div>
         </section>
 
@@ -270,8 +269,8 @@ const Info = () => {
           <div className={styles.chapterText}>
             <div className={`${styles.eyebrow} ${styles.chapterEyebrow}`}>June 2021 · Crossing Over</div>
             <h2 className={styles.chapterYear}>2021</h2>
-            <h3 className={styles.chapterHeadline}>NewTribe Capital.<br/>The other side<br/>of the table.</h3>
-            <p className={styles.chapterBody}>After a year of Web3 freelancing — writing thesis after thesis for funds I'd never met — NewTribe gave me the seat. Distribution stopped being someone else's job. It became the product.</p>
+            <h3 className={styles.chapterHeadline}>Joined NewTribe Capital after months of freelancing.</h3>
+            <p className={styles.chapterBody}>After freelancing for some early-stage projects and relentlessly job searching for 6 months on AngelList, I finally got my first break at NewTribe Capital as the Head of Marketing.</p>
           </div>
           <div className={styles.chapterMedia}>
             <div className={styles.chapterMediaCompanion}>
@@ -296,7 +295,7 @@ const Info = () => {
               <div className={styles.railHeaderLeft}>
                 <div className={`${styles.eyebrow} ${styles.railEyebrow}`}>2022 · On the Road</div>
                 <h2 className={styles.railYear}>2022</h2>
-                <h3 className={styles.railHeadline}>14 cities. 12 months.<br/>One thesis tested everywhere.</h3>
+                <h3 className={styles.railHeadline}>Excelled my yearly resolution by traveling to 14 cities in 12 months.</h3>
               </div>
               <div className={styles.railProgress}>
                 <span className={styles.railProgressCount} id="cities-count">01 / 14</span>
@@ -332,7 +331,7 @@ const Info = () => {
                   </div>
                 ))}
                 <div className={`${styles.railCard} ${styles.terminator}`}>
-                  <p className={styles.display}>14 cities.<br/>One <em>thesis</em>.<br/>Tested.</p>
+                  <p className={styles.display}>14 cities sparked my love for travel.</p>
                 </div>
               </div>
             </div>
@@ -356,7 +355,7 @@ const Info = () => {
               <div className={styles.railHeaderLeft}>
                 <div className={`${styles.eyebrow} ${styles.railEyebrow}`}>September 2024 · Convening</div>
                 <h2 className={styles.railYear}>2024</h2>
-                <h3 className={styles.railHeadline}>20+ events hosted.<br/>Convening became a form of investing.</h3>
+                <h3 className={styles.railHeadline}>20+ Global Web3 events hosted. Strengthening relations and building presence.</h3>
               </div>
               <div className={styles.railProgress}>
                 <span className={styles.railProgressCount} id="events-count">01 / 09</span>
@@ -405,8 +404,8 @@ const Info = () => {
           <div className={styles.chapterText}>
             <div className={`${styles.eyebrow} ${styles.chapterEyebrow}`}>December 2024 · The Build-Out</div>
             <h2 className={styles.chapterYear}>2024</h2>
-            <h3 className={styles.chapterHeadline}>Three firms.<br/>Asva. Leo.<br/>DCF.</h3>
-            <p className={styles.chapterBody}>By the end of the year, three new houses stood: Asva, Leo Ventures, DCF Capital. Different theses, same operator. Building plurals — because no single fund can carry every conviction.</p>
+            <h3 className={styles.chapterHeadline}>Set up 3 VC firms across India, Singapore and the UAE.</h3>
+            <p className={styles.chapterBody}>By late 2024, I had helped set up Asva Ventures in India, Leo Ventures in Singapore, and Digital Consensus Fund (DCF) in the UAE. Each of these funds helped build strong connections with regulators, family offices, lawyers, LPs, and financial controllers.</p>
           </div>
           <div className={`${styles.chapterMedia} ${styles.isDocument}`}>
             <div className={styles.chapterMediaFrame}>
@@ -433,8 +432,8 @@ const Info = () => {
           <div className={styles.chapterText}>
             <div className={`${styles.eyebrow} ${styles.chapterEyebrow}`}>April 2025 · The Mandate</div>
             <h2 className={styles.chapterYear}>2025</h2>
-            <h3 className={styles.chapterHeadline}>Yellow Capital —<br/>portfolio manager.</h3>
-            <p className={styles.chapterBody}>A bigger book, a tighter playbook. Less about discovering new theses, more about earning compounding outcomes from the ones already in motion. The work goes from finding to finishing.</p>
+            <h3 className={styles.chapterHeadline}>Joined Yellow Capital as Portfolio Manager.</h3>
+            <p className={styles.chapterBody}>After over 5 years of pure VC investing, it was time to switch gears and go deep into market making, treasury building, and to the core of the token economy with Yellow Capital.</p>
           </div>
         </section>
 
@@ -444,7 +443,7 @@ const Info = () => {
             <div className={`${styles.eyebrow} ${styles.chapterEyebrow}`}>November 2025 · The Anchor</div>
             <h2 className={styles.chapterYear}>2025</h2>
             <h3 className={styles.chapterHeadline}>A different<br/>kind of yes.</h3>
-            <p className={styles.chapterBody}>Every chapter so far was about choosing what to build. This one is about choosing who to build with. The horizon line stops moving for a moment — not because the journey is done, but because the compass finally has a fixed point.</p>
+            <p className={styles.chapterBody}>After years of solo traveling, working with multiple Web3 projects, and a lot of hustle life, it was now time to build a family. Got married to the love of my life.</p>
           </div>
           <div className={styles.chapterMedia}>
             <div className={styles.chapterMediaCompanion}>
@@ -465,7 +464,7 @@ const Info = () => {
           <div className={styles.nowHeader}>
             <div className={`${styles.eyebrow} ${styles.nowEyebrow}`}>Since Then · Open Water</div>
             <h2 className={styles.nowYear}>Now</h2>
-            <h3 className={styles.nowHeadline}>Still sailing — across <em>VC,<br/>market making, AI</em>.</h3>
+            <h3 className={styles.nowHeadline}>Still sailing across VC, Market Making, and AI.</h3>
           </div>
           <div className={styles.nowRail}>
             <div className={styles.nowCard}>
