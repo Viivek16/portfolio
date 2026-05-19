@@ -94,7 +94,7 @@ const Info = () => {
     // ===========================================================
     // CHAPTER VISIBILITY
     // ===========================================================
-    const chapters = document.querySelectorAll(`.${styles.chapter}`);
+    const chapters = document.querySelectorAll(`.${styles.chapter}, .${styles.nowSection}`);
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
@@ -462,10 +462,8 @@ const Info = () => {
         {/* ============ NOW (Horizon Continues) ============ */}
         <section className={`${styles.section} ${styles.nowSection}`} id="ch-now" data-chapter="now">
           <div className={styles.nowHorizonWrapper}>
-            <svg className={styles.nowHorizonSvg} viewBox="0 0 100 100" preserveAspectRatio="none">
-              <path d="M 100,0 L 100,60" vectorEffect="non-scaling-stroke" pathLength="1" className={styles.nowHorizonVert} />
-              <path d="M 100,60 L 0,60" vectorEffect="non-scaling-stroke" pathLength="1" className={styles.nowHorizonHoriz} />
-            </svg>
+            <div className={styles.nowHorizonVert}></div>
+            <div className={styles.nowHorizonHoriz}></div>
           </div>
 
           <div className={styles.nowHeroTop}>

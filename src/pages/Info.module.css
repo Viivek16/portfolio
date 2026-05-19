@@ -743,31 +743,38 @@
   z-index: 0;
 }
 
-.nowHorizonSvg {
-  width: 100%;
-  height: 100%;
-  overflow: visible;
+.nowHorizonVert {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 0;
+  background: rgba(242, 237, 224, 0.4);
 }
 
-.nowHorizonVert, .nowHorizonHoriz {
-  fill: none;
-  stroke: rgba(242, 237, 224, 0.4);
-  stroke-width: 1px;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
+.nowHorizonHoriz {
+  position: absolute;
+  top: 60vh;
+  right: 0;
+  height: 1px;
+  width: 0;
+  background: rgba(242, 237, 224, 0.4);
 }
 
 :global(.in-view) .nowHorizonVert {
-  animation: drawHorizon 1.4s cubic-bezier(0.4, 0, 0.2, 1) 1.8s forwards;
+  animation: drawVert 1.4s cubic-bezier(0.4, 0, 0.2, 1) 1.8s forwards;
 }
 
 :global(.in-view) .nowHorizonHoriz {
-  animation: drawHorizon 1.4s cubic-bezier(0.4, 0, 0.2, 1) 3.0s forwards;
+  animation: drawHoriz 1.4s cubic-bezier(0.4, 0, 0.2, 1) 3.0s forwards;
 }
 
-@keyframes drawHorizon {
-  0% { stroke-dashoffset: 1; }
-  100% { stroke-dashoffset: 0; }
+@keyframes drawVert {
+  to { height: 60vh; }
+}
+
+@keyframes drawHoriz {
+  to { width: 100%; }
 }
 
 .nowHeroTop {
@@ -957,11 +964,22 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .nowEyebrow, .nowWordmark, .nowTagline, .nowHorizonVert, .nowHorizonHoriz, .nowBuoySvg, .nowAnchorDrop, .nowPillarContent {
+  .nowEyebrow, .nowWordmark, .nowTagline, .nowBuoySvg, .nowPillarContent {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
-    stroke-dashoffset: 0 !important;
+  }
+  .nowHorizonVert {
+    animation: none !important;
+    height: 60vh !important;
+  }
+  .nowHorizonHoriz {
+    animation: none !important;
+    width: 100% !important;
+  }
+  .nowAnchorDrop {
+    animation: none !important;
+    transform: scaleY(1) !important;
   }
   .nowBuoyPulse {
     display: none;
