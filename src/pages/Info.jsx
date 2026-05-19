@@ -459,41 +459,81 @@ const Info = () => {
           </div>
         </section>
 
-        {/* ============ NOW ============ */}
+        {/* ============ NOW (Horizon Continues) ============ */}
         <section className={`${styles.section} ${styles.nowSection}`} id="ch-now" data-chapter="now">
-          <div className={styles.nowHeader}>
-            <div className={`${styles.eyebrow} ${styles.nowEyebrow}`}>Since Then · Open Water</div>
-            <h2 className={styles.nowYear}>Now</h2>
-            <h3 className={styles.nowHeadline}>Still sailing across VC, Market Making, and AI.</h3>
+          <div className={styles.nowHorizonWrapper}>
+            <svg className={styles.nowHorizonSvg} viewBox="0 0 100 100" preserveAspectRatio="none">
+              <path d="M 100,0 L 100,60" vectorEffect="non-scaling-stroke" pathLength="1" className={styles.nowHorizonVert} />
+              <path d="M 100,60 L 0,60" vectorEffect="non-scaling-stroke" pathLength="1" className={styles.nowHorizonHoriz} />
+            </svg>
           </div>
-          <div className={styles.nowRail}>
-            <div className={styles.nowCard}>
-              <div className={styles.nowCardNum}>i.</div>
-              <div className={styles.nowCardTitle}>Venture<br/>Capital</div>
-              <div className={styles.nowCardMeta}>Yellow · Asva · Leo · DCF</div>
-            </div>
-            <div className={styles.nowCard}>
-              <div className={styles.nowCardNum}>ii.</div>
-              <div className={styles.nowCardTitle}>Market<br/>Making</div>
-              <div className={styles.nowCardMeta}>Liquidity · Distribution</div>
-            </div>
-            <div className={styles.nowCard}>
-              <div className={styles.nowCardNum}>iii.</div>
-              <div className={styles.nowCardTitle}>Applied<br/>AI</div>
-              <div className={styles.nowCardMeta}>Tools · Workflows · Bets</div>
-            </div>
-            <div className={styles.nowCard}>
-              <div className={styles.nowCardNum}>iv.</div>
-              <div className={styles.nowCardTitle}>Writing</div>
-              <div className={styles.nowCardMeta}>Publicly · Often · Honestly</div>
-            </div>
-            <div className={styles.nowCard}>
-              <div className={styles.nowCardNum}>v.</div>
-              <div className={styles.nowCardTitle}>Whatever<br/>comes next</div>
-              <div className={styles.nowCardMeta}>More to add — soon</div>
+
+          <div className={styles.nowHeroTop}>
+            <div className={`${styles.eyebrow} ${styles.nowEyebrow}`}>SINCE THEN · OPEN WATER</div>
+            <h2 className={styles.nowWordmark}>Now</h2>
+            <div className={styles.nowTagline}>
+              <div>Still sailing across</div>
+              <div className={styles.nowTaglineEm}>VC, Market Making, AI.</div>
             </div>
           </div>
-          <div className={styles.nowCue}>→ Drag or scroll the rail · More chapters coming</div>
+
+          <div className={styles.nowPillarsWrapper}>
+            <div className={styles.nowPillars}>
+              <div className={styles.nowPillar}>
+                <div className={styles.nowBuoyGroup}>
+                  <svg className={styles.nowBuoySvg} width="40" height="40" viewBox="0 0 40 40">
+                    <circle cx="20" cy="20" r="3.5" className={styles.nowBuoyDot} />
+                    <circle cx="20" cy="20" r="4" className={styles.nowBuoyPulse}>
+                      <animate attributeName="r" values="4;20" dur="2.8s" repeatCount="indefinite" begin="5.7s" />
+                      <animate attributeName="opacity" values="0.7;0" dur="2.8s" repeatCount="indefinite" begin="5.7s" />
+                    </circle>
+                  </svg>
+                  <div className={styles.nowAnchorDrop}></div>
+                </div>
+                <div className={styles.nowPillarContent}>
+                  <div className={styles.nowPillarNum}>i.</div>
+                  <h4 className={styles.nowPillarName}>VC × Marketing</h4>
+                  <p className={styles.nowPillarBody}>A marketer at heart, a VC by profession. Still up for all things exciting in the Web3 venture and growth space.</p>
+                </div>
+              </div>
+
+              <div className={styles.nowPillar}>
+                <div className={styles.nowBuoyGroup}>
+                  <svg className={styles.nowBuoySvg} width="40" height="40" viewBox="0 0 40 40">
+                    <circle cx="20" cy="20" r="3.5" className={styles.nowBuoyDot} />
+                    <circle cx="20" cy="20" r="4" className={styles.nowBuoyPulse}>
+                      <animate attributeName="r" values="4;20" dur="2.8s" repeatCount="indefinite" begin="5.95s" />
+                      <animate attributeName="opacity" values="0.7;0" dur="2.8s" repeatCount="indefinite" begin="5.95s" />
+                    </circle>
+                  </svg>
+                  <div className={styles.nowAnchorDrop}></div>
+                </div>
+                <div className={styles.nowPillarContent}>
+                  <div className={styles.nowPillarNum}>ii.</div>
+                  <h4 className={styles.nowPillarName}>Market Making</h4>
+                  <p className={styles.nowPillarBody}>A year at Yellow Capital landed it — market making is the need of the hour for every token listing on a CEX.</p>
+                </div>
+              </div>
+
+              <div className={styles.nowPillar}>
+                <div className={styles.nowBuoyGroup}>
+                  <svg className={styles.nowBuoySvg} width="40" height="40" viewBox="0 0 40 40">
+                    <circle cx="20" cy="20" r="3.5" className={styles.nowBuoyDot} />
+                    <circle cx="20" cy="20" r="4" className={styles.nowBuoyPulse}>
+                      <animate attributeName="r" values="4;20" dur="2.8s" repeatCount="indefinite" begin="6.2s" />
+                      <animate attributeName="opacity" values="0.7;0" dur="2.8s" repeatCount="indefinite" begin="6.2s" />
+                    </circle>
+                  </svg>
+                  <div className={styles.nowAnchorDrop}></div>
+                </div>
+                <div className={styles.nowPillarContent}>
+                  <div className={styles.nowPillarNum}>iii.</div>
+                  <h4 className={styles.nowPillarName}>Applied AI</h4>
+                  <p className={styles.nowPillarBody}>Learning the core, building apps and solutions with real users, putting them to work across real-life workflows.</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* ============ FRIENDS ============ */}
