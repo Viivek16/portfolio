@@ -5,6 +5,27 @@ const Info = () => {
   const containerRef = useRef(null);
   const horizonTrackRef = useRef(null);
   const horizonCapRef = useRef(null);
+  const nowHorizonPathRef = useRef(null);
+
+  useEffect(() => {
+    function setPathLength() {
+      const svg = document.querySelector(`.${styles.nowHorizonSvg}`);
+      if (svg && nowHorizonPathRef.current) {
+        const rect = svg.getBoundingClientRect();
+        const vertLen = rect.height * 0.6;
+        const horizLen = rect.width;
+        const totalLen = vertLen + horizLen;
+        nowHorizonPathRef.current.style.setProperty('--path-len', totalLen);
+      }
+    }
+    setPathLength();
+    const timeoutId = setTimeout(setPathLength, 100);
+    window.addEventListener('resize', setPathLength);
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', setPathLength);
+    };
+  }, []);
 
   useEffect(() => {
     // ===========================================================
@@ -462,8 +483,14 @@ const Info = () => {
         {/* ============ NOW (Horizon Continues) ============ */}
         <section className={`${styles.section} ${styles.nowSection}`} id="ch-now" data-chapter="now">
           <div className={styles.nowHorizonWrapper}>
-            <div className={styles.nowHorizonVert}></div>
-            <div className={styles.nowHorizonHoriz}></div>
+            <svg className={styles.nowHorizonSvg} viewBox="0 0 1000 1000" preserveAspectRatio="none">
+              <path 
+                ref={nowHorizonPathRef}
+                d="M 1000,0 L 1000,600 L 0,600" 
+                vectorEffect="non-scaling-stroke" 
+                className={styles.nowHorizonPath} 
+              />
+            </svg>
           </div>
 
           <div className={styles.nowHeroTop}>
@@ -473,6 +500,14 @@ const Info = () => {
               <div>Still sailing across</div>
               <div className={styles.nowTaglineEm}>VC, Market Making, AI.</div>
             </div>
+
+            <div className={styles.nowPullQuote}>
+              <div className={styles.nowPullQuoteInner}>
+                Three currents.<br/>
+                One vessel.<br/>
+                Still moving.
+              </div>
+            </div>
           </div>
 
           <div className={styles.nowPillarsWrapper}>
@@ -480,9 +515,10 @@ const Info = () => {
               <div className={styles.nowPillar}>
                 <div className={styles.nowBuoyGroup}>
                   <svg className={styles.nowBuoySvg} width="40" height="40" viewBox="0 0 40 40">
-                    <circle cx="20" cy="20" r="3.5" className={styles.nowBuoyDot} />
-                    <circle cx="20" cy="20" r="4" className={styles.nowBuoyPulse}>
-                      <animate attributeName="r" values="4;20" dur="2.8s" repeatCount="indefinite" begin="5.7s" />
+                    <circle cx="20" cy="20" r="4.5" className={styles.nowBuoyDot} />
+                    <circle cx="20" cy="20" r="7" className={styles.nowBuoyHalo} />
+                    <circle cx="20" cy="20" r="4.5" className={styles.nowBuoyPulse}>
+                      <animate attributeName="r" values="4.5;22" dur="2.8s" repeatCount="indefinite" begin="5.7s" />
                       <animate attributeName="opacity" values="0.7;0" dur="2.8s" repeatCount="indefinite" begin="5.7s" />
                     </circle>
                   </svg>
@@ -492,15 +528,17 @@ const Info = () => {
                   <div className={styles.nowPillarNum}>i.</div>
                   <h4 className={styles.nowPillarName}>VC × Marketing</h4>
                   <p className={styles.nowPillarBody}>A marketer at heart, a VC by profession. Still up for all things exciting in the Web3 venture and growth space.</p>
+                  <div className={styles.nowPillarTag}>YELLOW · ASVA · LEO · DCF</div>
                 </div>
               </div>
 
               <div className={styles.nowPillar}>
                 <div className={styles.nowBuoyGroup}>
                   <svg className={styles.nowBuoySvg} width="40" height="40" viewBox="0 0 40 40">
-                    <circle cx="20" cy="20" r="3.5" className={styles.nowBuoyDot} />
-                    <circle cx="20" cy="20" r="4" className={styles.nowBuoyPulse}>
-                      <animate attributeName="r" values="4;20" dur="2.8s" repeatCount="indefinite" begin="5.95s" />
+                    <circle cx="20" cy="20" r="4.5" className={styles.nowBuoyDot} />
+                    <circle cx="20" cy="20" r="7" className={styles.nowBuoyHalo} />
+                    <circle cx="20" cy="20" r="4.5" className={styles.nowBuoyPulse}>
+                      <animate attributeName="r" values="4.5;22" dur="2.8s" repeatCount="indefinite" begin="5.95s" />
                       <animate attributeName="opacity" values="0.7;0" dur="2.8s" repeatCount="indefinite" begin="5.95s" />
                     </circle>
                   </svg>
@@ -510,15 +548,17 @@ const Info = () => {
                   <div className={styles.nowPillarNum}>ii.</div>
                   <h4 className={styles.nowPillarName}>Market Making</h4>
                   <p className={styles.nowPillarBody}>A year at Yellow Capital landed it — market making is the need of the hour for every token listing on a CEX.</p>
+                  <div className={styles.nowPillarTag}>LIQUIDITY · DISTRIBUTION · CEX LISTINGS</div>
                 </div>
               </div>
 
               <div className={styles.nowPillar}>
                 <div className={styles.nowBuoyGroup}>
                   <svg className={styles.nowBuoySvg} width="40" height="40" viewBox="0 0 40 40">
-                    <circle cx="20" cy="20" r="3.5" className={styles.nowBuoyDot} />
-                    <circle cx="20" cy="20" r="4" className={styles.nowBuoyPulse}>
-                      <animate attributeName="r" values="4;20" dur="2.8s" repeatCount="indefinite" begin="6.2s" />
+                    <circle cx="20" cy="20" r="4.5" className={styles.nowBuoyDot} />
+                    <circle cx="20" cy="20" r="7" className={styles.nowBuoyHalo} />
+                    <circle cx="20" cy="20" r="4.5" className={styles.nowBuoyPulse}>
+                      <animate attributeName="r" values="4.5;22" dur="2.8s" repeatCount="indefinite" begin="6.2s" />
                       <animate attributeName="opacity" values="0.7;0" dur="2.8s" repeatCount="indefinite" begin="6.2s" />
                     </circle>
                   </svg>
@@ -528,6 +568,7 @@ const Info = () => {
                   <div className={styles.nowPillarNum}>iii.</div>
                   <h4 className={styles.nowPillarName}>Applied AI</h4>
                   <p className={styles.nowPillarBody}>Learning the core, building apps and solutions with real users, putting them to work across real-life workflows.</p>
+                  <div className={styles.nowPillarTag}>TOOLS · WORKFLOWS · REAL USERS</div>
                 </div>
               </div>
             </div>
