@@ -290,7 +290,7 @@ const Info = () => {
           <div className={styles.chapterText}>
             <div className={`${styles.eyebrow} ${styles.chapterEyebrow}`}>June 2021 · Crossing Over</div>
             <h2 className={styles.chapterYear}>2021</h2>
-            <h3 className={styles.chapterHeadline}>Joined NewTribe Capital after months of freelancing.</h3>
+            <h3 className={styles.chapterHeadline}>Joined NewTribe<br/>Capital after months<br/>of freelancing.</h3>
             <p className={styles.chapterBody}>After freelancing for some early-stage projects and relentlessly job searching for 6 months on AngelList, I finally got my first break at NewTribe Capital as the Head of Marketing.</p>
           </div>
           <div className={styles.chapterMedia}>
@@ -316,7 +316,7 @@ const Info = () => {
               <div className={styles.railHeaderLeft}>
                 <div className={`${styles.eyebrow} ${styles.railEyebrow}`}>2022 · On the Road</div>
                 <h2 className={styles.railYear}>2022</h2>
-                <h3 className={styles.railHeadline}>Excelled my yearly resolution by traveling to 14 cities in 12 months.</h3>
+                <h3 className={styles.railHeadline}>Excelled my yearly resolution by<br/>traveling to 14 cities in 12 months.</h3>
               </div>
               <div className={styles.railProgress}>
                 <span className={styles.railProgressCount} id="cities-count">01 / 14</span>
@@ -376,7 +376,7 @@ const Info = () => {
               <div className={styles.railHeaderLeft}>
                 <div className={`${styles.eyebrow} ${styles.railEyebrow}`}>September 2024 · Convening</div>
                 <h2 className={styles.railYear}>2024</h2>
-                <h3 className={styles.railHeadline}>20+ Global Web3 events hosted. Strengthening relations and building presence.</h3>
+                <h3 className={styles.railHeadline}>20+ Global Web3 events hosted.<br/>Strengthening relations and building presence.</h3>
               </div>
               <div className={styles.railProgress}>
                 <span className={styles.railProgressCount} id="events-count">01 / 09</span>
@@ -453,7 +453,7 @@ const Info = () => {
           <div className={styles.chapterText}>
             <div className={`${styles.eyebrow} ${styles.chapterEyebrow}`}>April 2025 · The Mandate</div>
             <h2 className={styles.chapterYear}>2025</h2>
-            <h3 className={styles.chapterHeadline}>Joined Yellow Capital as Portfolio Manager.</h3>
+            <h3 className={styles.chapterHeadline}>Joined Yellow Capital<br/>as a Portfolio Manager</h3>
             <p className={styles.chapterBody}>After over 5 years of pure VC investing, it was time to switch gears and go deep into market making, treasury building, and to the core of the token economy with Yellow Capital.</p>
           </div>
         </section>
