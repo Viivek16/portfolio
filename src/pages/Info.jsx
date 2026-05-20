@@ -17,7 +17,7 @@ const Info = () => {
         const height = rect.height;
         const bendY = height * 0.6;
         
-        const d = `M ${width} 0 L ${width} ${bendY} L 0 ${bendY}`;
+        const d = `M ${width},0 V ${bendY} H 0`;
         setHorizonD(d);
         
         requestAnimationFrame(() => {
@@ -49,19 +49,14 @@ const Info = () => {
       if (horizonTrackRef.current) horizonTrackRef.current.style.height = trackH + 'px';
       if (horizonCapRef.current) horizonCapRef.current.style.bottom = (trackH - 3) + 'px';
 
-      // Fade out at friends section
-      const friendsSection = document.getElementById('friends');
       const nowSection = document.getElementById('ch-now');
-      if (friendsSection && nowSection) {
-        const fadeStart = nowSection.getBoundingClientRect().bottom - (window.innerHeight * 0.3);
-        const fadeEnd = friendsSection.getBoundingClientRect().top;
-        const fadeRange = fadeEnd - fadeStart;
+      if (nowSection) {
+        const rect = nowSection.getBoundingClientRect();
+        const fadeStart = rect.top;
         
         let opacity = 1;
-        if (fadeStart < 0 && fadeEnd > 0) {
-          opacity = Math.max(0, 1 - (Math.abs(fadeStart) / fadeRange));
-        } else if (fadeEnd <= 0) {
-          opacity = 0;
+        if (fadeStart < window.innerHeight) {
+          opacity = Math.max(0, fadeStart / (window.innerHeight * 0.5));
         }
         
         const horizon = document.querySelector('.' + styles.horizon);
