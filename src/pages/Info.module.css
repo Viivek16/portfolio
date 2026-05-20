@@ -818,7 +818,8 @@
   height: 60vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+  padding-top: 12vh;
   padding-left: 8vw;
   padding-right: 8vw;
 }
