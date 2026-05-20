@@ -366,9 +366,6 @@
   position: relative;
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5),
-              0 0 0 1px rgba(10, 196, 224, 0.15);
   transform: translateY(20px);
   opacity: 0;
   transition: transform 1s cubic-bezier(.2,.7,.2,1), opacity 1s ease;
@@ -393,10 +390,8 @@
   left: -12%;
   z-index: -1;
   opacity: 0.7;
-  overflow: hidden;
   transform: rotate(-3deg) translateY(30px);
   transition: transform 1.2s cubic-bezier(.2,.7,.2,1) 0.2s, opacity 1.2s ease 0.2s;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
 }
 :global(.in-view) .chapterMediaCompanion {
   transform: rotate(-3deg) translateY(0);
@@ -700,10 +695,7 @@
 .chapterMarriage .chapterBody { color: var(--gold-dim); }
 .chapterMarriage .chapterCaption { color: var(--gold-dim); }
 .chapterMarriage .chapterCaptionLeft .chapterCaptionNum { color: var(--gold-ink); }
-.chapterMarriage .chapterMediaFrame {
-  box-shadow: 0 30px 80px rgba(74, 59, 18, 0.25),
-              0 0 0 1px rgba(74, 59, 18, 0.15);
-}
+/* Custom shadow handled via .chapterMarriage .imageMat */
 .chapterMarriage .chapterMedia img {
   filter: saturate(1.05) contrast(1.02);
 }
@@ -1150,10 +1142,7 @@
   position: relative;
   aspect-ratio: 4 / 5;
   width: 100%;
-  overflow: hidden;
   margin-bottom: 22px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.025);
 }
 
 .friendPhoto img {
@@ -1162,12 +1151,16 @@
   object-fit: cover;
   object-position: center 30%;
   filter: grayscale(100%) brightness(0.88) contrast(1.02);
-  transition: filter 500ms ease, transform 600ms cubic-bezier(0.22,0.61,0.36,1);
+  transition: filter 500ms ease;
 }
 
 .friendCard:hover .friendPhoto img {
   filter: grayscale(0%) brightness(1.02) contrast(1.05);
-  transform: scale(1.03);
+}
+
+.friendCard:hover .imageMat {
+  transform: scale(1.025);
+  box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.85), 0 20px 40px -8px rgba(0, 0, 0, 0.65);
 }
 
 .friendBody {
@@ -1486,4 +1479,88 @@
 
 @media (max-width: 639px) {
   .friendsGrid { grid-template-columns: 1fr; gap: 16px; }
+}
+
+/* =========================================================
+   IMAGE MAT TREATMENT (FIX 4)
+   ========================================================= */
+.imageMat {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  background: rgba(248, 247, 244, 0.05);
+  border-radius: 12px;
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.7), 0 10px 25px -8px rgba(0, 0, 0, 0.5);
+  transition: transform 600ms cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 600ms cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-sizing: border-box;
+}
+
+.imageMat img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.imageMat:hover {
+  transform: scale(1.025);
+  box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.85), 0 20px 40px -8px rgba(0, 0, 0, 0.65);
+}
+
+/* Golden Takeover Theme Override */
+.chapterMarriage .imageMat {
+  background: rgba(74, 59, 18, 0.05);
+  box-shadow: 0 30px 60px -15px rgba(74, 59, 18, 0.35), 0 10px 25px -8px rgba(74, 59, 18, 0.2);
+}
+
+.chapterMarriage .imageMat:hover {
+  box-shadow: 0 40px 80px -15px rgba(74, 59, 18, 0.45), 0 20px 40px -8px rgba(74, 59, 18, 0.3);
+}
+
+/* Document Variant Reset */
+.isDocument .imageMat {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  border-radius: 0;
+  transition: transform 600ms cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.isDocument .imageMat img {
+  border-radius: 0;
+  object-fit: contain;
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  filter: none;
+  transform: none !important;
+}
+
+.isDocument .imageMat:hover {
+  transform: scale(1.025);
+  box-shadow: none;
+}
+
+/* Reduced Motion Mode */
+@media (prefers-reduced-motion: reduce) {
+  .imageMat {
+    transition: box-shadow 600ms cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  }
+  .imageMat:hover {
+    transform: none !important;
+    box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.85), 0 20px 40px -8px rgba(0, 0, 0, 0.65) !important;
+  }
+  .friendCard:hover .imageMat {
+    transform: none !important;
+    box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.85), 0 20px 40px -8px rgba(0, 0, 0, 0.65) !important;
+  }
+  .chapterMarriage .imageMat:hover {
+    transform: none !important;
+    box-shadow: 0 40px 80px -15px rgba(74, 59, 18, 0.45), 0 20px 40px -8px rgba(74, 59, 18, 0.3) !important;
+  }
+  .isDocument .imageMat:hover {
+    transform: none !important;
+  }
 }

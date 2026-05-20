@@ -271,10 +271,14 @@ const Info = () => {
           </div>
           <div className={styles.chapterMedia}>
             <div className={styles.chapterMediaCompanion}>
-              <img src="/images/info/02-2018-yellowbags/img_20180324_204126585.jpg" alt="Pitch at Bombay Cafe" loading="lazy" />
+              <div className={styles.imageMat}>
+                <img src="/images/info/02-2018-yellowbags/img_20180324_204126585.jpg" alt="Pitch at Bombay Cafe" loading="lazy" />
+              </div>
             </div>
             <div className={styles.chapterMediaFrame}>
-              <img src="/images/info/02-2018-yellowbags/dsc_5257.jpg" alt="TEDxJNEC stage talk" loading="lazy" />
+              <div className={styles.imageMat}>
+                <img src="/images/info/02-2018-yellowbags/dsc_5257.jpg" alt="TEDxJNEC stage talk" loading="lazy" />
+              </div>
             </div>
             <div className={styles.chapterCaption}>
               <div className={styles.chapterCaptionLeft}><span className={styles.chapterCaptionNum}>01</span><span>TEDxJNEC · Stage talk</span></div>
@@ -287,10 +291,14 @@ const Info = () => {
         <section className={`${styles.section} ${styles.chapter} ${styles.reverse}`} id="ch-2020" data-chapter="2020">
           <div className={styles.chapterMedia}>
             <div className={styles.chapterMediaCompanion}>
-              <img src="/images/info/03-2020-pandemic/1636785995914.jpg" alt="Lockdown video call" loading="lazy" />
+              <div className={styles.imageMat}>
+                <img src="/images/info/03-2020-pandemic/1636785995914.jpg" alt="Lockdown video call" loading="lazy" />
+              </div>
             </div>
             <div className={styles.chapterMediaFrame}>
-              <img src="/images/info/03-2020-pandemic/img_20220809_141751.jpg" alt="Working through lockdown" loading="lazy" />
+              <div className={styles.imageMat}>
+                <img src="/images/info/03-2020-pandemic/img_20220809_141751.jpg" alt="Working through lockdown" loading="lazy" />
+              </div>
             </div>
             <div className={styles.chapterCaption}>
               <div className={styles.chapterCaptionLeft}><span className={styles.chapterCaptionNum}>02</span><span>Lockdown studio · Building anyway</span></div>
@@ -315,10 +323,14 @@ const Info = () => {
           </div>
           <div className={styles.chapterMedia}>
             <div className={styles.chapterMediaCompanion}>
-              <img src="/images/info/04-2021-newtribe/img_20230313_151811.jpg" alt="At work" loading="lazy" />
+              <div className={styles.imageMat}>
+                <img src="/images/info/04-2021-newtribe/img_20230313_151811.jpg" alt="At work" loading="lazy" />
+              </div>
             </div>
             <div className={styles.chapterMediaFrame}>
-              <img src="/images/info/04-2021-newtribe/img-20230313-wa0022.jpg" alt="The first real seat at the table" loading="lazy" />
+              <div className={styles.imageMat}>
+                <img src="/images/info/04-2021-newtribe/img-20230313-wa0022.jpg" alt="The first real seat at the table" loading="lazy" />
+              </div>
             </div>
             <div className={styles.chapterCaption}>
               <div className={styles.chapterCaptionLeft}><span className={styles.chapterCaptionNum}>03</span><span>The first real seat at the table</span></div>
@@ -450,7 +462,9 @@ const Info = () => {
           </div>
           <div className={`${styles.chapterMedia} ${styles.isDocument}`}>
             <div className={styles.chapterMediaFrame}>
-              <img src="/images/info/07-2024-threefirms/01-hero.jpg" alt="Leo Ventures launch press release" loading="lazy" />
+              <div className={styles.imageMat}>
+                <img src="/images/info/07-2024-threefirms/01-hero.jpg" alt="Leo Ventures launch press release" loading="lazy" />
+              </div>
             </div>
             <div className={styles.chapterCaption}>
               <div className={styles.chapterCaptionLeft}><span className={styles.chapterCaptionNum}>06</span><span>Leo Ventures · Launch press</span></div>
@@ -463,7 +477,9 @@ const Info = () => {
         <section className={`${styles.section} ${styles.chapter} ${styles.reverse}`} id="ch-yellow" data-chapter="2025-yellow">
           <div className={styles.chapterMedia}>
             <div className={styles.chapterMediaFrame}>
-              <img src="/images/info/08-april2025-yellowcapital/img_20251203_113925052.jpg" alt="At Binance Blockchain Week" loading="lazy" />
+              <div className={styles.imageMat}>
+                <img src="/images/info/08-april2025-yellowcapital/img_20251203_113925052.jpg" alt="At Binance Blockchain Week" loading="lazy" />
+              </div>
             </div>
             <div className={styles.chapterCaption}>
               <div className={styles.chapterCaptionLeft}><span className={styles.chapterCaptionNum}>07</span><span>Binance Blockchain Week · Humans of Binance</span></div>
@@ -488,10 +504,14 @@ const Info = () => {
           </div>
           <div className={styles.chapterMedia}>
             <div className={styles.chapterMediaCompanion}>
-              <img src="/images/info/08-nov2025-marriage/0n5a4035.jpg" alt="Wedding ceremony" loading="lazy" />
+              <div className={styles.imageMat}>
+                <img src="/images/info/08-nov2025-marriage/0n5a4035.jpg" alt="Wedding ceremony" loading="lazy" />
+              </div>
             </div>
             <div className={styles.chapterMediaFrame}>
-              <img src="/images/info/08-nov2025-marriage/01-hero.jpg" alt="Wedding portrait" loading="lazy" />
+              <div className={styles.imageMat}>
+                <img src="/images/info/08-nov2025-marriage/01-hero.jpg" alt="Wedding portrait" loading="lazy" />
+              </div>
             </div>
             <div className={styles.chapterCaption}>
               <div className={styles.chapterCaptionLeft}><span className={styles.chapterCaptionNum}>08</span><span>The anchor · A fixed point on the compass</span></div>
@@ -609,7 +629,9 @@ const Info = () => {
           <div className={styles.friendsGrid}>
             <article className={styles.friendCard}>
               <div className={styles.friendPhoto}>
-                <img src="/images/friends/juliet-su.jpg" alt="Juliet Su, Managing Partner at NewTribe Capital" loading="lazy" />
+                <div className={styles.imageMat}>
+                  <img src="/images/friends/juliet-su.jpg" alt="Juliet Su, Managing Partner at NewTribe Capital" loading="lazy" />
+                </div>
               </div>
               <div className={styles.friendBody}>
                 
@@ -622,10 +644,12 @@ const Info = () => {
                 </div>
               </div>
             </article>
-
+ 
             <article className={styles.friendCard}>
               <div className={styles.friendPhoto}>
-                <img src="/images/friends/Karan-aneja.jpg" alt="Karan Aneja, Senior Analyst at Pi42 Ventures" loading="lazy" />
+                <div className={styles.imageMat}>
+                  <img src="/images/friends/Karan-aneja.jpg" alt="Karan Aneja, Senior Analyst at Pi42 Ventures" loading="lazy" />
+                </div>
               </div>
               <div className={styles.friendBody}>
                 
@@ -638,10 +662,12 @@ const Info = () => {
                 </div>
               </div>
             </article>
-
+ 
             <article className={styles.friendCard}>
               <div className={styles.friendPhoto}>
-                <img src="/images/friends/Srushti-shirsat.jpg" alt="Srushti Shirsat, Founder at HRBP" loading="lazy" />
+                <div className={styles.imageMat}>
+                  <img src="/images/friends/Srushti-shirsat.jpg" alt="Srushti Shirsat, Founder at HRBP" loading="lazy" />
+                </div>
               </div>
               <div className={styles.friendBody}>
                 
@@ -654,10 +680,12 @@ const Info = () => {
                 </div>
               </div>
             </article>
-
+ 
             <article className={styles.friendCard}>
               <div className={styles.friendPhoto}>
-                <img src="/images/friends/zhanna-manzyk.jpg" alt="Zhanna Manzyk, CEO at Jaya Talent" loading="lazy" />
+                <div className={styles.imageMat}>
+                  <img src="/images/friends/zhanna-manzyk.jpg" alt="Zhanna Manzyk, CEO at Jaya Talent" loading="lazy" />
+                </div>
               </div>
               <div className={styles.friendBody}>
                 
@@ -670,10 +698,12 @@ const Info = () => {
                 </div>
               </div>
             </article>
-
+ 
             <article className={styles.friendCard}>
               <div className={styles.friendPhoto}>
-                <img src="/images/friends/Sowmya-Raghavan.jpg" alt="Sowmya Raghavan, Ex-CEO of NODO Inc." loading="lazy" />
+                <div className={styles.imageMat}>
+                  <img src="/images/friends/Sowmya-Raghavan.jpg" alt="Sowmya Raghavan, Ex-CEO of NODO Inc." loading="lazy" />
+                </div>
               </div>
               <div className={styles.friendBody}>
                 
