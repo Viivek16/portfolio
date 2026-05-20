@@ -214,7 +214,6 @@ const Info = () => {
   return (
     <div className={styles.container} ref={containerRef}>
 
-
       {/* ============ HORIZON LINE ============ */}
       <div className={styles.horizon} aria-hidden="true">
         <div className={styles.horizonTrack} ref={horizonTrackRef}></div>
