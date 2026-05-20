@@ -704,7 +704,7 @@
    NOW (Horizon Continues)
    ========================================================= */
 .nowSection {
-  min-height: 100vh;
+  min-height: 180vh;
   position: relative;
   background: #080C18; /* Near-black navy spec */
   padding: 0;
@@ -718,7 +718,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 90vh;
+  height: 80vh;
   /* sRGB fallback for older browsers */
   background: linear-gradient(
     to bottom,
@@ -758,7 +758,7 @@
 
 .nowHorizonWrapper {
   position: absolute;
-  top: 0;
+  top: 80vh;
   bottom: 0;
   left: 0;
   right: 40px;
@@ -795,6 +795,7 @@
   position: relative;
   z-index: 3;
   height: 60vh;
+  margin-top: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -889,7 +890,7 @@
 
 .nowPillarsWrapper {
   position: absolute;
-  top: 60vh;
+  top: 140vh;
   left: 0;
   right: 0;
   height: 40vh;
