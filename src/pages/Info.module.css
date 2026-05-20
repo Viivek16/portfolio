@@ -493,10 +493,10 @@
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
   font-weight: 300;
-  font-size: clamp(24px, 3vw, 44px);
-  line-height: 1.35;
+  font-size: clamp(28px, 3.5vw, 56px);
+  line-height: 1.25;
   color: var(--cream);
-  max-width: 26ch;
+  max-width: 22ch;
   letter-spacing: -0.01em;
 }
 .punctuationMark {
@@ -1181,8 +1181,8 @@
   font-family: 'Cormorant Garamond', serif !important;
   font-style: italic;
   font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.65;
+  font-size: 19px;
+  line-height: 1.45;
   color: var(--cream);
   opacity: 0.82;
   letter-spacing: 0.005em;
@@ -1446,10 +1446,7 @@
   .railCard { width: 280px; }
   .friendsSection { padding: 80px 0 0; }
   .friendsHeader { padding: 0 24px; margin-bottom: 50px; }
-
-
-
-
+  .friendQuote { font-size: 17px; }
 }
 
 @media (max-width: 768px) {
