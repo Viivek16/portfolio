@@ -279,7 +279,7 @@ const Info = () => {
               <img src="/images/info/02-2018-yellowbags/img_20180324_204126585.jpg" alt="Pitch at Bombay Cafe" loading="lazy" />
             </div>
             <div className={styles.chapterMediaFrame}>
-              <img src="/images/info/02-2018-yellowbags/dsc_5257.jpg" alt="TEDxJNEC stage talk" loading="lazy" />
+              <EditorialImage src="/images/info/02-2018-yellowbags/dsc_5257.jpg" alt="TEDxJNEC stage talk" />
             </div>
             <div className={styles.chapterCaption}>
               <div className={styles.chapterCaptionLeft}><span className={styles.chapterCaptionNum}>01</span><span>TEDxJNEC · Stage talk</span></div>
