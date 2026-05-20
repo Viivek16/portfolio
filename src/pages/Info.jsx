@@ -315,7 +315,10 @@ const Info = () => {
           <div className={styles.chapterText}>
             <div className={`${styles.eyebrow} ${styles.chapterEyebrow}`}>June 2021 · Crossing Over</div>
             <h2 className={styles.chapterYear}>2021</h2>
-            <h3 className={styles.chapterHeadline}>Joined NewTribe<br/>Capital after months<br/>of freelancing.</h3>
+            <h3 className={styles.chapterHeadline}>
+              <span className={styles.blockLine}>Joined NewTribe Capital</span>
+              <span className={styles.blockLine}>after months of freelancing.</span>
+            </h3>
             <p className={styles.chapterBody}>After freelancing for some early-stage projects and relentlessly job searching for 6 months on AngelList, I finally got my first break at NewTribe Capital as the Head of Marketing.</p>
           </div>
           <div className={styles.chapterMedia}>
