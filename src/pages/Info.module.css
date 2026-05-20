@@ -682,9 +682,46 @@
    MARRIAGE
    ========================================================= */
 .chapterMarriage {
+  position: relative;
   background: var(--gold);
   color: var(--gold-ink);
   transition: background .8s cubic-bezier(.4,.1,.3,1);
+}
+.chapterMarriage::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40vh;
+  /* sRGB fallback for older browsers */
+  background: linear-gradient(
+    to bottom,
+    #F6E7BC 0%,
+    #FAD4C0 25%,
+    #D4A3A9 50%,
+    #6373A1 75%,
+    #080C18 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+@supports (background: linear-gradient(in oklch to bottom, red, blue)) {
+  .chapterMarriage::after {
+    background: linear-gradient(
+      in oklch to bottom,
+      #F6E7BC 0%,
+      #FAD4C0 25%,
+      #D4A3A9 50%,
+      #6373A1 75%,
+      #080C18 100%
+    );
+  }
+}
+.chapterMarriage .chapterText,
+.chapterMarriage .chapterMedia {
+  position: relative;
+  z-index: 2;
 }
 .chapterMarriage .chapterEyebrow,
 .chapterMarriage .chapterHeadline,
@@ -704,7 +741,7 @@
    NOW (Horizon Continues)
    ========================================================= */
 .nowSection {
-  min-height: 180vh;
+  min-height: 100vh;
   position: relative;
   background: #080C18; /* Near-black navy spec */
   padding: 0;
@@ -714,35 +751,7 @@
 }
 
 .nowGradientTop {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 80vh;
-  /* sRGB fallback for older browsers */
-  background: linear-gradient(
-    to bottom,
-    #F6E7BC 0%,
-    #FAD4C0 25%,
-    #D4A3A9 50%,
-    #6373A1 75%,
-    #080C18 100%
-  );
-  pointer-events: none;
-  z-index: 1;
-}
-
-@supports (background: linear-gradient(in oklch to bottom, red, blue)) {
-  .nowGradientTop {
-    background: linear-gradient(
-      in oklch to bottom,
-      #F6E7BC 0%,
-      #FAD4C0 25%,
-      #D4A3A9 50%,
-      #6373A1 75%,
-      #080C18 100%
-    );
-  }
+  display: none;
 }
 
 .nowGradientBottom {
@@ -758,7 +767,7 @@
 
 .nowHorizonWrapper {
   position: absolute;
-  top: 80vh;
+  top: 0;
   bottom: 0;
   left: 0;
   right: 40px;
@@ -795,7 +804,6 @@
   position: relative;
   z-index: 3;
   height: 60vh;
-  margin-top: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -890,7 +898,7 @@
 
 .nowPillarsWrapper {
   position: absolute;
-  top: 140vh;
+  top: 60vh;
   left: 0;
   right: 0;
   height: 40vh;
