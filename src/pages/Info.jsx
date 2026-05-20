@@ -478,7 +478,10 @@ const Info = () => {
           <div className={styles.chapterText}>
             <div className={`${styles.eyebrow} ${styles.chapterEyebrow}`}>April 2025 · The Mandate</div>
             <h2 className={styles.chapterYear}>2025</h2>
-            <h3 className={styles.chapterHeadline}>Joined Yellow Capital<br/>as a Portfolio Manager</h3>
+            <h3 className={styles.chapterHeadline}>
+              <span className={styles.blockLine}>Joined Yellow Capital</span>
+              <span className={styles.blockLine}>as a Portfolio Manager</span>
+            </h3>
             <p className={styles.chapterBody}>After over 5 years of pure VC investing, it was time to switch gears and go deep into market making, treasury building, and to the core of the token economy with Yellow Capital.</p>
           </div>
         </section>

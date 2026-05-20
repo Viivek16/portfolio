@@ -65,6 +65,7 @@
   font-style: italic;
 }
 .blueEm { color: var(--blue); }
+.blockLine { display: block; }
 
 /* Removed internal navigation overrides */
 
