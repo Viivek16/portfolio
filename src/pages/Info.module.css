@@ -695,8 +695,11 @@
 }
 @media (min-width: 901px) {
   .chapterMarriage {
-    min-height: 130vh;
-    padding-bottom: 40vh;
+    min-height: 125vh;
+    padding-bottom: 30vh;
+  }
+  .chapterMarriage::after {
+    height: 30vh;
   }
 }
 .chapterMarriage::after {
@@ -705,7 +708,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 40vh;
+  height: 20vh;
   /* sRGB fallback for older browsers */
   background: linear-gradient(
     to bottom,
