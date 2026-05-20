@@ -914,7 +914,7 @@
   top: 60vh;
   left: 0;
   right: 0;
-  height: 40vh;
+  height: 30vh;
   display: flex;
   justify-content: center;
   z-index: 3;
@@ -1069,7 +1069,7 @@
 .friendsSection {
   position: relative;
   background: var(--ink);
-  padding-top: clamp(140px, 16vh, 220px);
+  padding-top: clamp(80px, 8vh, 120px);
   padding-bottom: clamp(140px, 16vh, 220px);
   display: flex;
   flex-direction: column;
