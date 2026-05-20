@@ -625,7 +625,10 @@
   filter: saturate(0.95) contrast(1.05);
   transition: transform 1.2s cubic-bezier(.2,.7,.2,1);
 }
-.railCard:hover img { transform: scale(1.06); }
+.railCard:hover .imageMat {
+  transform: scale(1.025);
+  box-shadow: 0 40px 80px -15px rgba(0,0,0,0.95), 0 15px 30px -8px rgba(0,0,0,0.75), 0 0 0 1px rgba(248, 247, 244, 0.1);
+}
 .railCardOverlay {
   position: absolute;
   inset: auto 0 0 0;
@@ -1135,7 +1138,6 @@
 .friendCard:hover {
   transform: translateY(-8px);
   background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(9, 146, 194, 0.18);
 }
 
 .friendCard:nth-child(1) { transition-delay: 0ms, 0ms, 0ms; }
@@ -1167,10 +1169,7 @@
   filter: grayscale(0%) brightness(1.02) contrast(1.05);
 }
 
-.friendCard:hover .imageMat {
-  transform: scale(1.025);
-  box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.95), 0 15px 30px -8px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(248, 247, 244, 0.1);
-}
+/* friendCard:hover .imageMat removed */
 
 .friendBody {
   display: flex;
@@ -1500,6 +1499,8 @@
   box-shadow: 0 30px 60px -15px rgba(0,0,0,0.85), 0 10px 25px -8px rgba(0,0,0,0.6), 0 0 0 1px rgba(248, 247, 244, 0.06);
   transition: transform 600ms cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 600ms cubic-bezier(0.25, 0.8, 0.25, 1);
   box-sizing: border-box;
+  transform-origin: center center;
+  will-change: transform;
 }
 
 .imageMat img {
@@ -1558,7 +1559,7 @@
     transform: none !important;
     box-shadow: 0 40px 80px -15px rgba(0,0,0,0.95), 0 15px 30px -8px rgba(0,0,0,0.75), 0 0 0 1px rgba(248, 247, 244, 0.1) !important;
   }
-  .friendCard:hover .imageMat {
+  .railCard:hover .imageMat {
     transform: none !important;
     box-shadow: 0 40px 80px -15px rgba(0,0,0,0.95), 0 15px 30px -8px rgba(0,0,0,0.75), 0 0 0 1px rgba(248, 247, 244, 0.1) !important;
   }
