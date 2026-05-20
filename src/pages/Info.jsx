@@ -492,9 +492,6 @@ const Info = () => {
             <p className={styles.chapterBody}>After years of solo traveling, working with multiple Web3 projects, and a lot of hustle life, it was now time to build a family. Got married to the love of my life.</p>
           </div>
           <div className={styles.chapterMedia}>
-            <div className={styles.chapterMediaCompanion}>
-              <EditorialImage src="/images/info/08-nov2025-marriage/0n5a4035.jpg" alt="Wedding ceremony" />
-            </div>
             <div className={styles.chapterMediaFrame}>
               <EditorialImage src="/images/info/08-nov2025-marriage/01-hero.jpg" alt="Wedding portrait" />
             </div>
