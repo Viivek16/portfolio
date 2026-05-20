@@ -693,11 +693,44 @@
   color: var(--gold-ink);
   transition: background .8s cubic-bezier(.4,.1,.3,1);
 }
+.chapterMarriage::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 20vh;
+  /* sRGB fallback for older browsers */
+  background: linear-gradient(
+    to bottom,
+    #080C18 0%,
+    #6373A1 25%,
+    #D4A3A9 50%,
+    #FAD4C0 75%,
+    #F6E7BC 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+@supports (background: linear-gradient(in oklch to bottom, red, blue)) {
+  .chapterMarriage::before {
+    background: linear-gradient(
+      in oklch to bottom,
+      #080C18 0%,
+      #6373A1 25%,
+      #D4A3A9 50%,
+      #FAD4C0 75%,
+      #F6E7BC 100%
+    );
+  }
+}
 @media (min-width: 901px) {
   .chapterMarriage {
-    min-height: 125vh;
+    min-height: 155vh;
+    padding-top: 30vh;
     padding-bottom: 30vh;
   }
+  .chapterMarriage::before,
   .chapterMarriage::after {
     height: 30vh;
   }
