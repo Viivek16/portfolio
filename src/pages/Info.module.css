@@ -382,6 +382,9 @@
 :global(.in-view) .chapterMedia img {
   transform: scale(1.02);
 }
+:global(.in-view) .chapterMedia .imageMat img {
+  transform: none !important;
+}
 .chapterMediaCompanion {
   position: absolute;
   width: 38%;

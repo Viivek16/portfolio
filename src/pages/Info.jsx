@@ -276,10 +276,10 @@ const Info = () => {
           </div>
           <div className={styles.chapterMedia}>
             <div className={styles.chapterMediaCompanion}>
-              <EditorialImage src="/images/info/02-2018-yellowbags/img_20180324_204126585.jpg" alt="Pitch at Bombay Cafe" />
+              <img src="/images/info/02-2018-yellowbags/img_20180324_204126585.jpg" alt="Pitch at Bombay Cafe" loading="lazy" />
             </div>
             <div className={styles.chapterMediaFrame}>
-              <EditorialImage src="/images/info/02-2018-yellowbags/dsc_5257.jpg" alt="TEDxJNEC stage talk" />
+              <img src="/images/info/02-2018-yellowbags/dsc_5257.jpg" alt="TEDxJNEC stage talk" loading="lazy" />
             </div>
             <div className={styles.chapterCaption}>
               <div className={styles.chapterCaptionLeft}><span className={styles.chapterCaptionNum}>01</span><span>TEDxJNEC · Stage talk</span></div>
@@ -292,7 +292,7 @@ const Info = () => {
         <section className={`${styles.section} ${styles.chapter} ${styles.reverse}`} id="ch-2020" data-chapter="2020">
           <div className={styles.chapterMedia}>
             <div className={styles.chapterMediaCompanion}>
-              <EditorialImage src="/images/info/03-2020-pandemic/1636785995914.jpg" alt="Lockdown video call" />
+              <img src="/images/info/03-2020-pandemic/1636785995914.jpg" alt="Lockdown video call" loading="lazy" />
             </div>
             <div className={styles.chapterMediaFrame}>
               <EditorialImage src="/images/info/03-2020-pandemic/img_20220809_141751.jpg" alt="Working through lockdown" />
@@ -320,7 +320,7 @@ const Info = () => {
           </div>
           <div className={styles.chapterMedia}>
             <div className={styles.chapterMediaCompanion}>
-              <EditorialImage src="/images/info/04-2021-newtribe/img_20230313_151811.jpg" alt="At work" />
+              <img src="/images/info/04-2021-newtribe/img_20230313_151811.jpg" alt="At work" loading="lazy" />
             </div>
             <div className={styles.chapterMediaFrame}>
               <EditorialImage src="/images/info/04-2021-newtribe/img-20230313-wa0022.jpg" alt="The first real seat at the table" />
