@@ -700,14 +700,15 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 20vh;
+  height: 12vh;
   /* sRGB fallback for older browsers */
   background: linear-gradient(
     to bottom,
     #080C18 0%,
-    #6373A1 25%,
-    #D4A3A9 50%,
-    #FAD4C0 75%,
+    #2A2840 25%,
+    #4A3F50 50%,
+    #8A7A70 75%,
+    #C8B89C 90%,
     #F6E7BC 100%
   );
   pointer-events: none;
@@ -718,20 +719,23 @@
     background: linear-gradient(
       in oklch to bottom,
       #080C18 0%,
-      #6373A1 25%,
-      #D4A3A9 50%,
-      #FAD4C0 75%,
+      #2A2840 25%,
+      #4A3F50 50%,
+      #8A7A70 75%,
+      #C8B89C 90%,
       #F6E7BC 100%
     );
   }
 }
 @media (min-width: 901px) {
   .chapterMarriage {
-    min-height: 155vh;
-    padding-top: 30vh;
+    min-height: 143vh;
+    padding-top: 18vh;
     padding-bottom: 30vh;
   }
-  .chapterMarriage::before,
+  .chapterMarriage::before {
+    height: 18vh;
+  }
   .chapterMarriage::after {
     height: 30vh;
   }
