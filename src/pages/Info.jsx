@@ -119,7 +119,7 @@ const Info = () => {
     // ===========================================================
     // CHAPTER VISIBILITY
     // ===========================================================
-    const chapters = document.querySelectorAll(`.${styles.chapter}, .${styles.nowSection}`);
+    const chapters = document.querySelectorAll(`.${styles.chapter}`);
     const obs = new IntersectionObserver((entries, observer) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
@@ -129,6 +129,20 @@ const Info = () => {
       });
     }, { threshold: 0.2 });
     chapters.forEach(ch => obs.observe(ch));
+
+    const nowSectionEl = document.querySelector(`.${styles.nowSection}`);
+    let nowObs;
+    if (nowSectionEl) {
+      nowObs = new IntersectionObserver((entries, observer) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in-view');
+            observer.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '-100px 0px' });
+      nowObs.observe(nowSectionEl);
+    }
 
     // ===========================================================
     // FRIEND CARDS STAGGER
@@ -176,6 +190,7 @@ const Info = () => {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', () => { updateRails(); updateHorizon(); });
       obs.disconnect();
+      if (nowObs) nowObs.disconnect();
       friendObserver.disconnect();
       document.body.classList.remove('is-golden');
       document.body.classList.remove('horizon-leveled');
