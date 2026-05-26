@@ -1,0 +1,270 @@
+/* =========================================================
+   STYLING FOR WORK SECTIONS (STATS & ABOUT)
+   ========================================================= */
+
+.statsSection {
+  padding-top: 96px;
+  padding-bottom: 96px;
+  padding-left: 8vw;
+  padding-right: 8vw;
+  background-color: var(--bg-primary); /* Near-black navy (#070C18) */
+  color: var(--ink); /* Warm off-white */
+}
+
+.eyebrow {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+}
+
+.statsEyebrow {
+  margin-bottom: 56px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 0.5px solid var(--hairline);
+  border-bottom: 0.5px solid var(--hairline);
+}
+
+.statsCell {
+  padding: 32px 24px;
+}
+
+/* First cell of each row has padding-left 0 */
+.statsGrid > .statsCell:nth-child(3n+1) {
+  padding-left: 0;
+}
+
+/* Outer top + bottom of grid: 0.5px hairline border. Between rows: 0.5px hairline border-top on row 2 cells. */
+@media (min-width: 1024px) {
+  .statsGrid > .statsCell:nth-child(n+4) {
+    border-top: 0.5px solid var(--hairline);
+  }
+  /* Between columns: 0.5px hairline-faint border-left on cells 2 and 3 of each row (NOT on cell 1) */
+  .statsGrid > .statsCell:nth-child(3n+2),
+  .statsGrid > .statsCell:nth-child(3n+3) {
+    border-left: 0.5px solid var(--hairline-faint);
+  }
+}
+
+/* Tablet: 2 columns x 3 rows (<1024px) */
+@media (max-width: 1023px) and (min-width: 640px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  /* Row 2 (cells 3,4) and Row 3 (cells 5,6) get a top border */
+  .statsGrid > .statsCell:nth-child(n+3) {
+    border-top: 0.5px solid var(--hairline);
+  }
+  /* Column 2 gets a left border */
+  .statsGrid > .statsCell:nth-child(2n+2) {
+    border-left: 0.5px solid var(--hairline-faint);
+  }
+  /* Override padding-left 0 logic for 2-column layout */
+  .statsGrid > .statsCell {
+    padding-left: 24px;
+  }
+  .statsGrid > .statsCell:nth-child(2n+1) {
+    padding-left: 0;
+  }
+}
+
+/* Mobile: 1 column x 6 rows (<640px) */
+@media (max-width: 639px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+  /* Row 2,3,4,5,6 get a top border */
+  .statsGrid > .statsCell:nth-child(n+2) {
+    border-top: 0.5px solid var(--hairline);
+  }
+  /* No left borders on mobile */
+  .statsGrid > .statsCell {
+    border-left: none !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+.statNum {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(56px, 6.5vw, 84px);
+  color: var(--ink);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+}
+
+.statAccent {
+  color: var(--accent-cyan);
+}
+
+.statLabel {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(244, 241, 234, 0.55);
+  margin-top: 16px;
+  line-height: 1.4;
+}
+
+/* =========================================================
+   SECTION 3 - ABOUT
+   ========================================================= */
+
+.aboutDivider {
+  height: 1px;
+  background-color: var(--hairline);
+  margin-top: 80px;
+  margin-left: 8vw;
+  margin-right: 8vw;
+}
+
+.aboutSection {
+  padding-top: 96px;
+  padding-bottom: 96px;
+  padding-left: 8vw;
+  padding-right: 8vw;
+  background-color: var(--bg-primary);
+  color: var(--ink);
+}
+
+.aboutEyebrow {
+  margin-bottom: 36px;
+}
+
+.aboutHeadline {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(48px, 6vw, 64px);
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+  margin-bottom: 40px;
+}
+
+.aboutHeadline .accentDot {
+  color: var(--accent-cyan);
+}
+
+.aboutProse {
+  max-width: 560px;
+}
+
+.aboutProse p {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 14.5px;
+  color: rgba(244, 241, 234, 0.78);
+  line-height: 1.85;
+  margin-bottom: 22px;
+}
+
+.aboutProse p:last-child {
+  margin-bottom: 0;
+}
+
+.aboutProse strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.accentEm {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--accent-cyan);
+}
+
+.stripContainer {
+  margin-top: 56px;
+}
+
+.stripEyebrow {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(244, 241, 234, 0.45);
+  margin-bottom: 24px;
+}
+
+.firmStrip {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border-top: 0.5px solid var(--hairline);
+  padding-top: 28px;
+}
+
+.firmEntry {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: rgba(244, 241, 234, 0.82);
+  text-transform: uppercase;
+  padding-left: 22px;
+  padding-right: 22px;
+  border-right: 0.5px solid rgba(244, 241, 234, 0.12);
+}
+
+.firmEntry:first-child {
+  padding-left: 0;
+}
+
+.firmEntry:last-child {
+  border-right: none;
+}
+
+.firmSpecial {
+  text-transform: lowercase;
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(244, 241, 234, 0.45);
+}
+
+/* Mobile wrapping layout for Built & Operated At strip */
+@media (max-width: 639px) {
+  .firmStrip {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 0;
+    padding-top: 24px;
+  }
+  
+  .firmEntry {
+    padding-left: 0 !important;
+    padding-right: 14px !important;
+    border-right: none !important;
+    border-bottom: 0.5px solid rgba(244, 241, 234, 0.06);
+    padding-bottom: 8px;
+  }
+  
+  .firmEntry:nth-child(odd) {
+    border-right: 0.5px solid rgba(244, 241, 234, 0.06) !important;
+    padding-left: 0 !important;
+    padding-right: 16px !important;
+  }
+  
+  .firmEntry:nth-child(even) {
+    padding-left: 16px !important;
+    padding-right: 0 !important;
+  }
+
+  .firmEntry:nth-last-child(-n+2) {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}

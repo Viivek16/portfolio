@@ -35,9 +35,19 @@ const Navigation = () => {
 }
 
 function App() {
+  const location = useLocation()
+
   return (
-    <div className="antialiased text-text-primary bg-bg-primary min-h-screen">
+    <div className="antialiased text-text-primary bg-bg-primary min-h-screen relative overflow-x-hidden">
       <Navigation />
+      
+      {location.pathname !== '/info' && (
+        <div aria-hidden="true">
+          <div className="static-horizon" />
+          <div className="static-horizon-meta">— still sailing</div>
+        </div>
+      )}
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/info" element={<Info />} />
