@@ -2,13 +2,6 @@ import React, { useRef, useEffect } from 'react';
 import { motion, useInView, useReducedMotion, animate, stagger } from 'framer-motion';
 import SplitType from 'split-type';
 import styles from './WorkSections.module.css';
-import infoStyles from '../pages/Info.module.css';
-
-const EditorialImage = ({ src, alt, className = '' }) => (
-  <div className={`${infoStyles.imageMat} ${className}`}>
-    <img src={src} alt={alt} loading="lazy" />
-  </div>
-);
 
 const firms = [
   { name: 'YELLOW CAPITAL', url: 'https://www.yellowcapital.com' },
@@ -147,11 +140,13 @@ const WorkAbout = () => {
           transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
         >
           <div className={styles.cinematicWrapper}>
-            <EditorialImage 
-              src="/work/work-about-cinematic.jpg" 
-              alt="Cinematic workspace" 
-              className={styles.cinematicImage}
-            />
+            <div className={styles.reelTrack}>
+              <img src="/work/reel-1.jpg" alt="Cinematic lifestyle 1" className={styles.reelImage} loading="lazy" />
+              <img src="/work/reel-2.jpg" alt="Cinematic lifestyle 2" className={styles.reelImage} loading="lazy" />
+              <img src="/work/reel-3.jpg" alt="Cinematic lifestyle 3" className={styles.reelImage} loading="lazy" />
+              <img src="/work/reel-4.jpg" alt="Cinematic lifestyle 4" className={styles.reelImage} loading="lazy" />
+              <img src="/work/reel-1.jpg" alt="Cinematic lifestyle 1 clone" className={styles.reelImage} aria-hidden="true" loading="lazy" />
+            </div>
           </div>
         </motion.div>
       </div>
