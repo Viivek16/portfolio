@@ -96,6 +96,45 @@ const WorkAbout = () => {
               Three things hold my attention right now. Capital that finds the right founders early. Distribution that compounds beyond the launch. And AI tooling that quietly multiplies the work behind both.
             </p>
           </div>
+
+          {/* Firm Strip */}
+          <div className={styles.stripContainer} ref={firmStripRef}>
+            <div className={styles.stripEyebrow}>— BUILT & OPERATED AT</div>
+            
+            <div className={styles.firmStrip}>
+              <motion.div
+                className={styles.firmStripHairline}
+                initial={prefersReducedMotion ? { opacity: 0 } : { clipPath: 'inset(0 100% 0 0)' }}
+                animate={isFirmStripInView ? (prefersReducedMotion ? { opacity: 1 } : { clipPath: 'inset(0 0 0 0)' }) : {}}
+                transition={{ duration: 0.7, delay: 0.8, ease: 'easeOut' }}
+                aria-hidden="true"
+              />
+
+              {firms.map((firm, index) => (
+                <motion.div
+                  key={index}
+                  className={styles.firmCell}
+                  initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
+                  animate={isFirmStripInView ? (prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }) : {}}
+                  transition={{ duration: 0.5, delay: index * 0.06, ease: 'easeOut' }}
+                >
+                  {firm.isTextOnly ? (
+                    <span className={styles.firmTextOnly}>{firm.name}</span>
+                  ) : (
+                    <a
+                      href={firm.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${firm.name} — opens in new tab`}
+                      className={styles.firmLink}
+                    >
+                      <span className={styles.firmText}>{firm.name}</span>
+                    </a>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
         
         {/* Right Column: Cinematic Image */}
@@ -117,45 +156,6 @@ const WorkAbout = () => {
             <span className={styles.captionRight}>PUNE · 2025</span>
           </div>
         </motion.div>
-      </div>
-      
-      {/* Firm Strip */}
-      <div className={styles.stripContainer} ref={firmStripRef}>
-        <div className={styles.stripEyebrow}>— BUILT & OPERATED AT</div>
-        
-        <div className={styles.firmStrip}>
-          <motion.div
-            className={styles.firmStripHairline}
-            initial={prefersReducedMotion ? { opacity: 0 } : { clipPath: 'inset(0 100% 0 0)' }}
-            animate={isFirmStripInView ? (prefersReducedMotion ? { opacity: 1 } : { clipPath: 'inset(0 0 0 0)' }) : {}}
-            transition={{ duration: 0.7, delay: 0.86, ease: 'easeOut' }}
-            aria-hidden="true"
-          />
-
-          {firms.map((firm, index) => (
-            <motion.div
-              key={index}
-              className={styles.firmCell}
-              initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
-              animate={isFirmStripInView ? (prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }) : {}}
-              transition={{ duration: 0.5, delay: index * 0.06, ease: 'easeOut' }}
-            >
-              {firm.isTextOnly ? (
-                <span className={styles.firmTextOnly}>{firm.name}</span>
-              ) : (
-                <a
-                  href={firm.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${firm.name} — opens in new tab`}
-                  className={styles.firmLink}
-                >
-                  <span className={styles.firmText}>{firm.name}</span>
-                </a>
-              )}
-            </motion.div>
-          ))}
-        </div>
       </div>
     </section>
   );

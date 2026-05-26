@@ -326,7 +326,7 @@
 
 /* Firm Strip */
 .stripContainer {
-  margin-top: 96px;
+  margin-top: 64px;
   position: relative;
 }
 
@@ -337,15 +337,15 @@
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: rgba(244, 241, 234, 0.45);
-  margin-bottom: 22px;
+  margin-bottom: 24px;
 }
 
 .firmStrip {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: baseline;
-  padding-top: 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 24px;
+  row-gap: 20px;
+  padding-top: 28px;
   position: relative;
 }
 
@@ -389,7 +389,7 @@
   bottom: -4px;
   left: 0;
   height: 1px;
-  background: var(--accent-cyan);
+  background: #0AC4E0;
   width: 0%;
   transition: width 200ms ease-out;
 }
@@ -407,13 +407,13 @@
 /* Mobile wrapping layout */
 @media (max-width: 639px) {
   .firmStrip {
-    flex-wrap: wrap;
-    gap: 24px;
+    grid-template-columns: 1fr;
+    row-gap: 16px;
   }
   
   .firmCell {
-    flex: 0 0 calc(50% - 12px);
-    margin-bottom: 20px;
+    padding: 6px 0;
+    text-align: center;
   }
   
   /* Tap to toggle hover equivalent for touch devices */
