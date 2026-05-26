@@ -328,22 +328,26 @@
 .reelTrack {
   display: flex;
   flex-direction: column;
+  gap: 0;
   width: 100%;
   height: 500%;
-  animation: reelLoop 28s linear infinite;
+  animation: cinematicContinuousPan 28s linear infinite;
   will-change: transform;
 }
 
 .reelImage {
   width: 100%;
   height: 390px;
+  margin: 0;
+  padding: 0;
+  display: block;
   object-fit: cover;
   object-position: center 35%;
 }
 
-@keyframes reelLoop {
+@keyframes cinematicContinuousPan {
   0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(0, -80%, 0); }
+  100% { transform: translate3d(0, -1560px, 0); }
 }
 
 /* Firm Strip */
