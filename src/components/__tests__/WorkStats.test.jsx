@@ -5,17 +5,17 @@ import WorkStats from '../WorkStats'
 describe('WorkStats Component', () => {
   it('renders the eyebrow', () => {
     render(<WorkStats />)
-    const eyebrow = screen.getByText('— the numbers')
+    const eyebrow = screen.getByText('— impact')
     expect(eyebrow).toBeInTheDocument()
   })
 
   it('renders all six stats correctly', () => {
     render(<WorkStats />)
-    expect(screen.getByText('YEARS IN WEB3')).toBeInTheDocument()
-    expect(screen.getByText('PROJECTS MANAGED')).toBeInTheDocument()
-    expect(screen.getByText('IN AUM')).toBeInTheDocument()
-    expect(screen.getByText('GLOBAL EVENTS HOSTED')).toBeInTheDocument()
-    expect(screen.getByText('VC CONNECTIONS')).toBeInTheDocument()
-    expect(screen.getByText('PROJECTS SCALED TO TGE')).toBeInTheDocument()
+    expect(screen.getByText('Years in Web3')).toBeInTheDocument()
+    expect(screen.getByText('Deals Evaluated')).toBeInTheDocument()
+    expect(screen.getByText('Fund Size Supported')).toBeInTheDocument()
+    expect(screen.getByText('Ecosystem Partners')).toBeInTheDocument()
+    expect(screen.getByText('Global KOLs')).toBeInTheDocument()
+    expect(screen.getByText('Events Hosted')).toBeInTheDocument()
   })
 })

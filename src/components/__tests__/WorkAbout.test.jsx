@@ -5,7 +5,7 @@ import WorkAbout from '../WorkAbout'
 describe('WorkAbout Component', () => {
   it('renders the eyebrow and headline', () => {
     render(<WorkAbout />)
-    expect(screen.getByText('— focus')).toBeInTheDocument()
+    expect(screen.getByText('— THE STORY')).toBeInTheDocument()
     // The headline spans "About" and "." separately due to animation wrappers
     expect(screen.getByText('About')).toBeInTheDocument()
     expect(screen.getByText('.')).toBeInTheDocument()
@@ -13,16 +13,16 @@ describe('WorkAbout Component', () => {
 
   it('renders the story text paragraphs', () => {
     render(<WorkAbout />)
-    expect(screen.getByText(/early-stage technical foundations/i)).toBeInTheDocument()
+    expect(screen.getByText(/venture associate, marketer, and operator/i)).toBeInTheDocument()
   })
 
   it('renders built & operated at firms', () => {
     render(<WorkAbout />)
-    expect(screen.getByAltText('Yellow Capital')).toBeInTheDocument()
-    expect(screen.getByAltText('NewTribe Capital')).toBeInTheDocument()
-    expect(screen.getByAltText('Digital Consensus Fund')).toBeInTheDocument()
+    expect(screen.getByText('YELLOW CAPITAL')).toBeInTheDocument()
+    expect(screen.getByText('NEWTRIBE CAPITAL')).toBeInTheDocument()
+    expect(screen.getByText('DIGITAL CONSENSUS FUND')).toBeInTheDocument()
     expect(screen.getByText('LEO VENTURES')).toBeInTheDocument()
-    expect(screen.getByAltText('Asva Capital')).toBeInTheDocument()
-    expect(screen.getByAltText('Digitata Capital')).toBeInTheDocument()
+    expect(screen.getByText('ASVA CAPITAL')).toBeInTheDocument()
+    expect(screen.getByText('DIGITATA CAPITAL')).toBeInTheDocument()
   })
 })

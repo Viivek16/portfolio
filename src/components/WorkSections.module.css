@@ -38,6 +38,9 @@
   padding: 32px 24px;
   position: relative;
   cursor: default;
+  transform-origin: center center;
+  will-change: transform;
+  transition: transform 420ms ease-out;
 }
 
 /* Tablet (2 cols) */
@@ -98,36 +101,34 @@
   z-index: 2;
 }
 
-/* Specific hairline positions */
 .topHairline { top: 0; }
 .middleHairline { top: 50%; }
 .bottomHairline { bottom: 0; }
-
 .vertLine1 { left: 33.333%; bottom: 50%; }
 .vertLine2 { left: 66.666%; bottom: 50%; }
 .vertLine3 { left: 33.333%; top: 50%; }
 .vertLine4 { left: 66.666%; top: 50%; }
 
-/* Hide absolute motion lines on tablet/mobile where native borders are used */
 @media (max-width: 1023px) {
   .horizontalHairline, .verticalHairline {
     display: none !important;
   }
 }
 
-/* Hover Micro-states (Motion 4) */
+/* Hover pop-up overlay */
 .cellBorderOverlay {
   position: absolute;
   inset: 0;
-  border: 0.5px solid rgba(242, 239, 233, 0.22);
+  border: 0.5px solid rgba(244, 241, 234, 0.10); /* var(--hairline) equivalent */
   pointer-events: none;
-  opacity: 0;
-  transition: opacity 320ms ease;
+  transition: border-color 420ms ease-out, box-shadow 420ms ease-out;
   z-index: 10;
 }
 
 .statNumWrapper {
-  transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+  /* wrapper itself doesn't translate on hover anymore, the cell does */
+  position: relative;
+  z-index: 11;
 }
 
 .statNum {
@@ -144,7 +145,7 @@
 
 .statAccent {
   color: var(--accent-cyan);
-  transition: color 320ms ease;
+  transition: color 420ms ease-out;
   display: inline-block;
 }
 
@@ -161,17 +162,25 @@
 
 /* Desktop Hover */
 @media (hover: hover) and (pointer: fine) {
-  .statsCell:hover .cellBorderOverlay {
-    opacity: 1;
-    transition: opacity 240ms ease-out;
+  .statsCell:hover {
+    transform: translateY(-4px) scale(1.04);
+    transition: transform 360ms ease-out;
   }
-  .statsCell:hover .statNumWrapper {
-    transform: translateY(-2px);
-    transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1);
+  .statsCell:hover .cellBorderOverlay {
+    border-color: rgba(244, 241, 234, 0.28);
+    box-shadow: 0 12px 40px -10px rgba(10, 196, 224, 0.18);
+    transition: border-color 360ms ease-out, box-shadow 360ms ease-out;
   }
   .statsCell:hover .statAccent {
     color: #1BD4ED;
-    transition: color 240ms ease-out;
+    transition: color 360ms ease-out;
+  }
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  .statsCell, .statsCell:hover {
+    transform: none !important;
   }
 }
 
@@ -205,13 +214,19 @@
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
   gap: 56px;
+  align-items: stretch;
 }
 
 @media (max-width: 1023px) {
   .aboutGrid {
     grid-template-columns: 1fr;
     gap: 64px;
+    align-items: start;
   }
+}
+
+.aboutTextCol {
+  height: 100%;
 }
 
 .aboutHeadline {
@@ -255,35 +270,40 @@
 }
 
 /* Hide split-type lines initially for JS animation */
-.aboutProse p .line {
+.aboutProse p :global(.line) {
   opacity: 0;
   transform: translateY(16px);
 }
 
-/* Editorial Image */
-.imageMat {
-  background-color: #111;
-  padding: 12px;
-  border: 1px solid var(--hairline-faint);
+/* Editorial Image Column */
+.aboutImageCol {
+  display: flex;
+  flex-direction: column;
 }
 
-.imageMat img {
+.cinematicWrapper {
+  flex-grow: 1;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  display: block;
+  overflow: hidden;
 }
 
 .cinematicImage {
-  aspect-ratio: 4 / 5;
-  padding: 0; /* Override mat padding for edge-to-edge if needed, or keep for mat effect */
+  padding: 0;
+}
+
+.cinematicImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
 }
 
 .imageCaption {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-top: 16px;
+  margin-top: 12px;
 }
 
 .captionLeft {
@@ -317,13 +337,14 @@
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: rgba(244, 241, 234, 0.45);
-  margin-bottom: 24px;
+  margin-bottom: 22px;
 }
 
 .firmStrip {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: baseline;
   padding-top: 32px;
   position: relative;
 }
@@ -338,73 +359,70 @@
 }
 
 .firmCell {
-  padding: 0 16px;
-  border-right: 0.5px solid rgba(244, 241, 234, 0.10);
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
+  padding: 0;
 }
 
-.firmCell:first-child {
-  padding-left: 0;
-}
-
-.firmCell:last-child {
-  border-right: none;
-  padding-right: 0;
-}
-
-.firmLink {
-  display: block;
-  transition: transform 380ms ease;
-}
-
-.firmLogo {
-  /* Target optical height of 24px */
-  height: 24px;
-  width: auto;
-  object-fit: contain;
-  /* Default monochrome state */
-  filter: grayscale(100%) brightness(2.4) opacity(0.55);
-  transition: filter 380ms ease, opacity 380ms ease;
-  display: block;
-}
-
-.firmTextOnly {
+.firmLink, .firmTextOnly {
   font-family: 'Poppins', sans-serif;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 13px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: rgba(244, 241, 234, 0.55);
+  display: block;
+}
+
+.firmTextOnly {
   cursor: default;
 }
 
-/* Firm Strip Hover State */
+.firmText {
+  position: relative;
+  display: inline-block;
+  transition: color 200ms ease-out;
+}
+
+.firmText::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  height: 1px;
+  background: var(--accent-cyan);
+  width: 0%;
+  transition: width 200ms ease-out;
+}
+
+/* Hover State for Linked Firms */
 @media (hover: hover) and (pointer: fine) {
-  .firmCell:hover .firmLink {
-    transform: translateY(-2px);
-    transition: transform 280ms ease-out;
+  .firmLink:hover .firmText {
+    color: var(--ink);
   }
-  .firmCell:hover .firmLogo {
-    filter: none;
-    opacity: 1;
-    transition: filter 280ms ease-out, opacity 280ms ease-out;
+  .firmLink:hover .firmText::after {
+    width: 100%;
   }
 }
 
-/* Mobile wrapping layout for Built & Operated At strip */
+/* Mobile wrapping layout */
 @media (max-width: 639px) {
   .firmStrip {
     flex-wrap: wrap;
-    gap: 20px 0;
+    gap: 24px;
   }
   
   .firmCell {
-    flex: 0 0 50%;
-    padding: 12px 12px !important;
-    border-right: none !important;
-    justify-content: flex-start;
+    flex: 0 0 calc(50% - 12px);
+    margin-bottom: 20px;
+  }
+  
+  /* Tap to toggle hover equivalent for touch devices */
+  .firmLink:active .firmText {
+    color: var(--ink);
+    transition-duration: 1.5s;
+  }
+  .firmLink:active .firmText::after {
+    width: 100%;
+    transition-duration: 1.5s;
   }
 }
