@@ -2,13 +2,16 @@
    STYLING FOR WORK SECTIONS (STATS & ABOUT)
    ========================================================= */
 
+/* =========================================================
+   SECTION 2 - STATS
+   ========================================================= */
 .statsSection {
   padding-top: 96px;
   padding-bottom: 96px;
   padding-left: 8vw;
   padding-right: 8vw;
-  background-color: var(--bg-primary); /* Near-black navy (#070C18) */
-  color: var(--ink); /* Warm off-white */
+  background-color: var(--bg-primary);
+  color: var(--ink);
 }
 
 .eyebrow {
@@ -27,68 +30,104 @@
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border-top: 0.5px solid var(--hairline);
-  border-bottom: 0.5px solid var(--hairline);
+  position: relative;
 }
 
+/* Base styling for grid cells */
 .statsCell {
   padding: 32px 24px;
+  position: relative;
+  cursor: default;
 }
 
-/* First cell of each row has padding-left 0 */
-.statsGrid > .statsCell:nth-child(3n+1) {
-  padding-left: 0;
-}
-
-/* Outer top + bottom of grid: 0.5px hairline border. Between rows: 0.5px hairline border-top on row 2 cells. */
-@media (min-width: 1024px) {
-  .statsGrid > .statsCell:nth-child(n+4) {
-    border-top: 0.5px solid var(--hairline);
-  }
-  /* Between columns: 0.5px hairline-faint border-left on cells 2 and 3 of each row (NOT on cell 1) */
-  .statsGrid > .statsCell:nth-child(3n+2),
-  .statsGrid > .statsCell:nth-child(3n+3) {
-    border-left: 0.5px solid var(--hairline-faint);
-  }
-}
-
-/* Tablet: 2 columns x 3 rows (<1024px) */
+/* Tablet (2 cols) */
 @media (max-width: 1023px) and (min-width: 640px) {
   .statsGrid {
     grid-template-columns: repeat(2, 1fr);
-  }
-  /* Row 2 (cells 3,4) and Row 3 (cells 5,6) get a top border */
-  .statsGrid > .statsCell:nth-child(n+3) {
     border-top: 0.5px solid var(--hairline);
+    border-bottom: 0.5px solid var(--hairline);
   }
-  /* Column 2 gets a left border */
-  .statsGrid > .statsCell:nth-child(2n+2) {
-    border-left: 0.5px solid var(--hairline-faint);
-  }
-  /* Override padding-left 0 logic for 2-column layout */
-  .statsGrid > .statsCell {
+  .statsCell {
     padding-left: 24px;
   }
-  .statsGrid > .statsCell:nth-child(2n+1) {
+  .statsCell:nth-child(2n+1) {
     padding-left: 0;
+  }
+  .statsCell:nth-child(n+3) {
+    border-top: 0.5px solid var(--hairline);
+  }
+  .statsCell:nth-child(2n+2) {
+    border-left: 0.5px solid var(--hairline-faint);
   }
 }
 
-/* Mobile: 1 column x 6 rows (<640px) */
+/* Mobile (1 col) */
 @media (max-width: 639px) {
   .statsGrid {
     grid-template-columns: 1fr;
+    border-top: 0.5px solid var(--hairline);
+    border-bottom: 0.5px solid var(--hairline);
   }
-  /* Row 2,3,4,5,6 get a top border */
-  .statsGrid > .statsCell:nth-child(n+2) {
+  .statsCell {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .statsCell:nth-child(n+2) {
     border-top: 0.5px solid var(--hairline);
   }
-  /* No left borders on mobile */
-  .statsGrid > .statsCell {
-    border-left: none !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+}
+
+/* Motion Hairlines (Desktop Only) */
+.horizontalHairline {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0.5px;
+  background-color: var(--hairline);
+  z-index: 2;
+}
+
+.verticalHairline {
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 0.5px;
+  background-color: var(--hairline-faint);
+  z-index: 2;
+}
+
+/* Specific hairline positions */
+.topHairline { top: 0; }
+.middleHairline { top: 50%; }
+.bottomHairline { bottom: 0; }
+
+.vertLine1 { left: 33.333%; bottom: 50%; }
+.vertLine2 { left: 66.666%; bottom: 50%; }
+.vertLine3 { left: 33.333%; top: 50%; }
+.vertLine4 { left: 66.666%; top: 50%; }
+
+/* Hide absolute motion lines on tablet/mobile where native borders are used */
+@media (max-width: 1023px) {
+  .horizontalHairline, .verticalHairline {
+    display: none !important;
   }
+}
+
+/* Hover Micro-states (Motion 4) */
+.cellBorderOverlay {
+  position: absolute;
+  inset: 0;
+  border: 0.5px solid rgba(242, 239, 233, 0.22);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 320ms ease;
+  z-index: 10;
+}
+
+.statNumWrapper {
+  transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .statNum {
@@ -99,10 +138,14 @@
   color: var(--ink);
   line-height: 0.95;
   letter-spacing: -0.01em;
+  display: flex;
+  align-items: baseline;
 }
 
 .statAccent {
   color: var(--accent-cyan);
+  transition: color 320ms ease;
+  display: inline-block;
 }
 
 .statLabel {
@@ -114,6 +157,22 @@
   color: rgba(244, 241, 234, 0.55);
   margin-top: 16px;
   line-height: 1.4;
+}
+
+/* Desktop Hover */
+@media (hover: hover) and (pointer: fine) {
+  .statsCell:hover .cellBorderOverlay {
+    opacity: 1;
+    transition: opacity 240ms ease-out;
+  }
+  .statsCell:hover .statNumWrapper {
+    transform: translateY(-2px);
+    transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .statsCell:hover .statAccent {
+    color: #1BD4ED;
+    transition: color 240ms ease-out;
+  }
 }
 
 /* =========================================================
@@ -141,6 +200,20 @@
   margin-bottom: 36px;
 }
 
+/* Two-column layout */
+.aboutGrid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 56px;
+}
+
+@media (max-width: 1023px) {
+  .aboutGrid {
+    grid-template-columns: 1fr;
+    gap: 64px;
+  }
+}
+
 .aboutHeadline {
   font-family: 'Fraunces', serif;
   font-style: italic;
@@ -150,14 +223,17 @@
   letter-spacing: -0.015em;
   line-height: 1.05;
   margin-bottom: 40px;
+  display: flex;
+  align-items: baseline;
 }
 
-.aboutHeadline .accentDot {
+.headlineWord {
+  display: inline-block;
+}
+
+.accentDot {
   color: var(--accent-cyan);
-}
-
-.aboutProse {
-  max-width: 560px;
+  display: inline-block;
 }
 
 .aboutProse p {
@@ -178,15 +254,60 @@
   font-weight: 500;
 }
 
-.accentEm {
-  font-family: 'Fraunces', serif;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--accent-cyan);
+/* Hide split-type lines initially for JS animation */
+.aboutProse p .line {
+  opacity: 0;
+  transform: translateY(16px);
 }
 
+/* Editorial Image */
+.imageMat {
+  background-color: #111;
+  padding: 12px;
+  border: 1px solid var(--hairline-faint);
+}
+
+.imageMat img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cinematicImage {
+  aspect-ratio: 4 / 5;
+  padding: 0; /* Override mat padding for edge-to-edge if needed, or keep for mat effect */
+}
+
+.imageCaption {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 16px;
+}
+
+.captionLeft {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 11px;
+  color: rgba(244, 241, 234, 0.6);
+  letter-spacing: 0;
+}
+
+.captionRight {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  color: rgba(244, 241, 234, 0.45);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Firm Strip */
 .stripContainer {
-  margin-top: 56px;
+  margin-top: 96px;
+  position: relative;
 }
 
 .stripEyebrow {
@@ -202,69 +323,88 @@
 .firmStrip {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  border-top: 0.5px solid var(--hairline);
-  padding-top: 28px;
+  justify-content: space-between;
+  padding-top: 32px;
+  position: relative;
 }
 
-.firmEntry {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 400;
-  font-size: 13px;
-  letter-spacing: 0.04em;
-  color: rgba(244, 241, 234, 0.82);
-  text-transform: uppercase;
-  padding-left: 22px;
-  padding-right: 22px;
-  border-right: 0.5px solid rgba(244, 241, 234, 0.12);
+.firmStripHairline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0.5px;
+  background-color: rgba(244, 241, 234, 0.14);
 }
 
-.firmEntry:first-child {
+.firmCell {
+  padding: 0 16px;
+  border-right: 0.5px solid rgba(244, 241, 234, 0.10);
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.firmCell:first-child {
   padding-left: 0;
 }
 
-.firmEntry:last-child {
+.firmCell:last-child {
   border-right: none;
+  padding-right: 0;
 }
 
-.firmSpecial {
-  text-transform: lowercase;
-  font-family: 'Fraunces', serif;
-  font-weight: 300;
-  font-style: italic;
-  color: rgba(244, 241, 234, 0.45);
+.firmLink {
+  display: block;
+  transition: transform 380ms ease;
+}
+
+.firmLogo {
+  /* Target optical height of 24px */
+  height: 24px;
+  width: auto;
+  object-fit: contain;
+  /* Default monochrome state */
+  filter: grayscale(100%) brightness(2.4) opacity(0.55);
+  transition: filter 380ms ease, opacity 380ms ease;
+  display: block;
+}
+
+.firmTextOnly {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(244, 241, 234, 0.55);
+  cursor: default;
+}
+
+/* Firm Strip Hover State */
+@media (hover: hover) and (pointer: fine) {
+  .firmCell:hover .firmLink {
+    transform: translateY(-2px);
+    transition: transform 280ms ease-out;
+  }
+  .firmCell:hover .firmLogo {
+    filter: none;
+    opacity: 1;
+    transition: filter 280ms ease-out, opacity 280ms ease-out;
+  }
 }
 
 /* Mobile wrapping layout for Built & Operated At strip */
 @media (max-width: 639px) {
   .firmStrip {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px 0;
-    padding-top: 24px;
+    flex-wrap: wrap;
+    gap: 20px 0;
   }
   
-  .firmEntry {
-    padding-left: 0 !important;
-    padding-right: 14px !important;
+  .firmCell {
+    flex: 0 0 50%;
+    padding: 12px 12px !important;
     border-right: none !important;
-    border-bottom: 0.5px solid rgba(244, 241, 234, 0.06);
-    padding-bottom: 8px;
-  }
-  
-  .firmEntry:nth-child(odd) {
-    border-right: 0.5px solid rgba(244, 241, 234, 0.06) !important;
-    padding-left: 0 !important;
-    padding-right: 16px !important;
-  }
-  
-  .firmEntry:nth-child(even) {
-    padding-left: 16px !important;
-    padding-right: 0 !important;
-  }
-
-  .firmEntry:nth-last-child(-n+2) {
-    border-bottom: none;
-    padding-bottom: 0;
+    justify-content: flex-start;
   }
 }
