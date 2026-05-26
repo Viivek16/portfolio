@@ -60,7 +60,7 @@ const WorkAbout = () => {
   }, [isInView, prefersReducedMotion]);
 
   return (
-    <section ref={containerRef} className={styles.aboutSection} aria-label="About my focus">
+    <section ref={containerRef} className={styles.aboutSection} aria-label="About the story">
       <div className={styles.aboutGrid}>
         {/* Left Column: Text */}
         <div className={styles.aboutTextCol}>
@@ -119,7 +119,9 @@ const WorkAbout = () => {
                   transition={{ duration: 0.5, delay: index * 0.06, ease: 'easeOut' }}
                 >
                   {firm.isTextOnly ? (
-                    <span className={styles.firmTextOnly}>{firm.name}</span>
+                    <span className={styles.firmTextOnly}>
+                      <span className={styles.firmText}>{firm.name}</span>
+                    </span>
                   ) : (
                     <a
                       href={firm.url}
@@ -150,10 +152,6 @@ const WorkAbout = () => {
               alt="Cinematic workspace" 
               className={styles.cinematicImage}
             />
-          </div>
-          <div className={styles.imageCaption}>
-            <span className={styles.captionLeft}>the operator's seat</span>
-            <span className={styles.captionRight}>PUNE · 2025</span>
           </div>
         </motion.div>
       </div>

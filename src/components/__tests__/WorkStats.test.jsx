@@ -5,7 +5,7 @@ import WorkStats from '../WorkStats'
 describe('WorkStats Component', () => {
   it('renders the eyebrow', () => {
     render(<WorkStats />)
-    const eyebrow = screen.getByText('— impact')
+    const eyebrow = screen.getByText('— THE NUMBERS')
     expect(eyebrow).toBeInTheDocument()
   })
 

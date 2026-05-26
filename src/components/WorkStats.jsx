@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import styles from './WorkSections.module.css';
 
@@ -15,21 +15,24 @@ const WorkStats = () => {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, amount: 0.6 });
   const prefersReducedMotion = useReducedMotion();
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [scanComplete, setScanComplete] = useState(false);
 
-  const lineVariants = {
+  const getLineVariant = (delay, duration) => ({
     hidden: prefersReducedMotion ? { opacity: 0 } : { clipPath: 'inset(0 100% 0 0)' },
     visible: prefersReducedMotion ? { opacity: 1 } : { 
       clipPath: 'inset(0 0 0 0)',
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+      transition: { duration, ease: 'easeOut', delay }
     }
-  };
-  const vertLineVariants = {
+  });
+
+  const getVertLineVariant = (delay, duration) => ({
     hidden: prefersReducedMotion ? { opacity: 0 } : { clipPath: 'inset(0 0 100% 0)' },
     visible: prefersReducedMotion ? { opacity: 1 } : { 
       clipPath: 'inset(0 0 0 0)',
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }
+      transition: { duration, ease: 'easeOut', delay }
     }
-  };
+  });
 
   return (
     <section 
@@ -37,17 +40,38 @@ const WorkStats = () => {
       className={styles.statsSection}
       aria-label="Impact Statistics"
     >
-      <div className={`${styles.eyebrow} ${styles.statsEyebrow}`}>— impact</div>
+      <motion.div 
+        className={`${styles.eyebrow} ${styles.statsEyebrow}`}
+        initial={{ opacity: 0 }}
+        animate={isInView ? { opacity: 1 } : {}}
+        transition={{ duration: 0.2 }}
+      >
+        — THE NUMBERS
+      </motion.div>
       
       <div className={styles.statsGrid}>
-        <motion.div className={`${styles.horizontalHairline} ${styles.topHairline}`} variants={lineVariants} initial="hidden" animate={isInView ? "visible" : "hidden"} />
-        <motion.div className={`${styles.horizontalHairline} ${styles.middleHairline}`} variants={lineVariants} initial="hidden" animate={isInView ? "visible" : "hidden"} />
-        <motion.div className={`${styles.horizontalHairline} ${styles.bottomHairline}`} variants={lineVariants} initial="hidden" animate={isInView ? "visible" : "hidden"} />
+        {/* Scanline */}
+        {!prefersReducedMotion && !scanComplete && (
+          <motion.div 
+            className={styles.scanline}
+            initial={{ top: '0%', opacity: 0 }}
+            animate={isInView ? { top: '100%', opacity: [0, 1, 1, 0] } : {}}
+            transition={{
+              top: { duration: 1.6, delay: 0.5, ease: "easeInOut" },
+              opacity: { duration: 1.9, delay: 0.5, times: [0, 0.1, 0.84, 1] }
+            }}
+            onAnimationComplete={() => setScanComplete(true)}
+          />
+        )}
+
+        <motion.div className={`${styles.horizontalHairline} ${styles.topHairline}`} variants={getLineVariant(0.5, 0.6)} initial="hidden" animate={isInView ? "visible" : "hidden"} />
+        <motion.div className={`${styles.horizontalHairline} ${styles.middleHairline}`} variants={getLineVariant(1.3, 0.6)} initial="hidden" animate={isInView ? "visible" : "hidden"} />
+        <motion.div className={`${styles.horizontalHairline} ${styles.bottomHairline}`} variants={getLineVariant(2.1, 0.4)} initial="hidden" animate={isInView ? "visible" : "hidden"} />
         
-        <motion.div className={`${styles.verticalHairline} ${styles.vertLine1}`} variants={vertLineVariants} initial="hidden" animate={isInView ? "visible" : "hidden"} />
-        <motion.div className={`${styles.verticalHairline} ${styles.vertLine2}`} variants={vertLineVariants} initial="hidden" animate={isInView ? "visible" : "hidden"} />
-        <motion.div className={`${styles.verticalHairline} ${styles.vertLine3}`} variants={vertLineVariants} initial="hidden" animate={isInView ? "visible" : "hidden"} />
-        <motion.div className={`${styles.verticalHairline} ${styles.vertLine4}`} variants={vertLineVariants} initial="hidden" animate={isInView ? "visible" : "hidden"} />
+        <motion.div className={`${styles.verticalHairline} ${styles.vertLine1}`} variants={getVertLineVariant(0.7, 1.4)} initial="hidden" animate={isInView ? "visible" : "hidden"} />
+        <motion.div className={`${styles.verticalHairline} ${styles.vertLine2}`} variants={getVertLineVariant(0.7, 1.4)} initial="hidden" animate={isInView ? "visible" : "hidden"} />
+        <motion.div className={`${styles.verticalHairline} ${styles.vertLine3}`} variants={getVertLineVariant(0.7, 1.4)} initial="hidden" animate={isInView ? "visible" : "hidden"} />
+        <motion.div className={`${styles.verticalHairline} ${styles.vertLine4}`} variants={getVertLineVariant(0.7, 1.4)} initial="hidden" animate={isInView ? "visible" : "hidden"} />
 
         {statsData.map((stat, i) => {
           let content;
@@ -59,15 +83,23 @@ const WorkStats = () => {
             content = <>{numPart}<span className={styles.statAccent}>{suffix}</span></>;
           }
 
+          // Row 1: i < 3, Row 2: i >= 3
+          const cellDelay = i < 3 ? 0.95 : 1.65;
+          const isHovered = hoveredIndex === i;
+          const isOtherHovered = hoveredIndex !== null && hoveredIndex !== i;
+
           return (
             <motion.div 
               key={i} 
-              className={styles.statsCell}
-              initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
-              animate={isInView ? (prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }) : {}}
-              transition={{ duration: 0.8, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className={`${styles.statsCell} ${isHovered ? styles.cellHovered : ''} ${isOtherHovered ? styles.cellDimmed : ''}`}
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.25, delay: cellDelay, ease: "easeOut" }}
+              onMouseEnter={() => setHoveredIndex(i)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              onTouchStart={() => setHoveredIndex(i)}
+              onTouchEnd={() => setHoveredIndex(null)}
             >
-              <div className={styles.cellBorderOverlay} />
               <div className={styles.statNumWrapper}>
                 <div className={styles.statNum}>
                   {content}

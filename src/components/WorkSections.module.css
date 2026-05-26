@@ -39,8 +39,21 @@
   position: relative;
   cursor: default;
   transform-origin: center center;
-  will-change: transform;
-  transition: transform 420ms ease-out;
+  will-change: transform, opacity, box-shadow;
+  transition: all 400ms ease-out;
+}
+
+.cellHovered {
+  transform: scale(1.04) translateY(-4px);
+  box-shadow: 0 0 0 1px rgba(10,196,224,0.35),
+              0 16px 48px -12px rgba(10,196,224,0.2);
+  transition: all 360ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+  z-index: 5;
+}
+
+.cellDimmed {
+  opacity: 0.15;
+  transition: opacity 300ms ease-out;
 }
 
 /* Tablet (2 cols) */
@@ -78,6 +91,21 @@
   .statsCell:nth-child(n+2) {
     border-top: 0.5px solid var(--hairline);
   }
+  .cellDimmed {
+    opacity: 1 !important;
+  }
+}
+
+/* Scanline */
+.scanline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #0AC4E0;
+  box-shadow: 0 0 12px 2px rgba(10, 196, 224, 0.6);
+  z-index: 10;
+  pointer-events: none;
 }
 
 /* Motion Hairlines (Desktop Only) */
@@ -86,8 +114,15 @@
   position: absolute;
   left: 0;
   right: 0;
-  height: 0.5px;
-  background-color: var(--hairline);
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(236, 231, 221, 0.14) 10%,
+    rgba(236, 231, 221, 0.14) 90%,
+    transparent 100%
+  );
+  border: none;
   z-index: 2;
 }
 
@@ -96,8 +131,15 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 0.5px;
-  background-color: var(--hairline-faint);
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(236, 231, 221, 0.08) 12%,
+    rgba(236, 231, 221, 0.08) 88%,
+    transparent 100%
+  );
+  border: none;
   z-index: 2;
 }
 
@@ -115,18 +157,7 @@
   }
 }
 
-/* Hover pop-up overlay */
-.cellBorderOverlay {
-  position: absolute;
-  inset: 0;
-  border: 0.5px solid rgba(244, 241, 234, 0.10); /* var(--hairline) equivalent */
-  pointer-events: none;
-  transition: border-color 420ms ease-out, box-shadow 420ms ease-out;
-  z-index: 10;
-}
-
 .statNumWrapper {
-  /* wrapper itself doesn't translate on hover anymore, the cell does */
   position: relative;
   z-index: 11;
 }
@@ -326,7 +357,7 @@
 
 /* Firm Strip */
 .stripContainer {
-  margin-top: 64px;
+  margin-top: 56px;
   position: relative;
 }
 
@@ -337,15 +368,15 @@
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: rgba(244, 241, 234, 0.45);
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .firmStrip {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  column-gap: 24px;
-  row-gap: 20px;
-  padding-top: 28px;
+  column-gap: 20px;
+  row-gap: 16px;
+  padding-top: 24px;
   position: relative;
 }
 
@@ -366,8 +397,8 @@
 .firmLink, .firmTextOnly {
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
-  font-size: 13px;
-  letter-spacing: 0.04em;
+  font-size: 12px;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: rgba(244, 241, 234, 0.55);
   display: block;
@@ -386,7 +417,7 @@
 .firmText::after {
   content: '';
   position: absolute;
-  bottom: -4px;
+  bottom: -3px;
   left: 0;
   height: 1px;
   background: #0AC4E0;
@@ -394,12 +425,14 @@
   transition: width 200ms ease-out;
 }
 
-/* Hover State for Linked Firms */
+/* Hover State for Linked Firms and Leo Ventures */
 @media (hover: hover) and (pointer: fine) {
-  .firmLink:hover .firmText {
+  .firmLink:hover .firmText,
+  .firmTextOnly:hover .firmText {
     color: var(--ink);
   }
-  .firmLink:hover .firmText::after {
+  .firmLink:hover .firmText::after,
+  .firmTextOnly:hover .firmText::after {
     width: 100%;
   }
 }
@@ -417,11 +450,13 @@
   }
   
   /* Tap to toggle hover equivalent for touch devices */
-  .firmLink:active .firmText {
+  .firmLink:active .firmText,
+  .firmTextOnly:active .firmText {
     color: var(--ink);
     transition-duration: 1.5s;
   }
-  .firmLink:active .firmText::after {
+  .firmLink:active .firmText::after,
+  .firmTextOnly:active .firmText::after {
     width: 100%;
     transition-duration: 1.5s;
   }
