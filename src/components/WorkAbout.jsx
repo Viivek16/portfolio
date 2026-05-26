@@ -140,13 +140,10 @@ const WorkAbout = () => {
           transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
         >
           <div className={styles.cinematicWrapper}>
-            <div className={styles.reelTrack}>
-              <img src="/work/reel-1.jpg" alt="Cinematic lifestyle 1" className={styles.reelImage} loading="lazy" />
-              <img src="/work/reel-2.jpg" alt="Cinematic lifestyle 2" className={styles.reelImage} loading="lazy" />
-              <img src="/work/reel-3.jpg" alt="Cinematic lifestyle 3" className={styles.reelImage} loading="lazy" />
-              <img src="/work/reel-4.jpg" alt="Cinematic lifestyle 4" className={styles.reelImage} loading="lazy" />
-              <img src="/work/reel-1.jpg" alt="Cinematic lifestyle 1 clone" className={styles.reelImage} aria-hidden="true" loading="lazy" />
-            </div>
+            <img src="/work/reel-1.jpg" alt="Cinematic lifestyle 1" className={styles.slideImage} style={{ animationDelay: '0s' }} loading="lazy" />
+            <img src="/work/reel-2.jpg" alt="Cinematic lifestyle 2" className={styles.slideImage} style={{ animationDelay: '5s' }} loading="lazy" />
+            <img src="/work/reel-3.jpg" alt="Cinematic lifestyle 3" className={styles.slideImage} style={{ animationDelay: '10s' }} loading="lazy" />
+            <img src="/work/reel-4.jpg" alt="Cinematic lifestyle 4" className={styles.slideImage} style={{ animationDelay: '15s' }} loading="lazy" />
           </div>
         </motion.div>
       </div>

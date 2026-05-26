@@ -315,39 +315,64 @@
 
 .cinematicWrapper {
   width: 100%;
-  height: 390px;
-  max-height: 390px;
+  height: 100%;
+  min-height: 580px;
   overflow: hidden;
   position: relative;
-  border-radius: 16px;
+  border-radius: 20px;
   background-color: var(--ink-faint);
-  mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
 }
 
-.reelTrack {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+.slideImage {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 500%;
-  animation: cinematicContinuousPan 28s linear infinite;
-  will-change: transform;
-}
-
-.reelImage {
-  width: 100%;
-  height: 390px;
-  margin: 0;
-  padding: 0;
-  display: block;
+  height: 100%;
   object-fit: cover;
   object-position: center 35%;
+  animation-name: cinematicSlideHoldExit;
+  animation-duration: 20s;
+  animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+  opacity: 0;
+  visibility: hidden;
 }
 
-@keyframes cinematicContinuousPan {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(0, -1560px, 0); }
+@keyframes cinematicSlideHoldExit {
+  0% {
+    transform: translate3d(0, 100%, 0);
+    opacity: 0;
+    visibility: hidden;
+  }
+  1% {
+    transform: translate3d(0, 100%, 0);
+    opacity: 1;
+    visibility: visible;
+  }
+  5% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+    visibility: visible;
+  }
+  21% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+    visibility: visible;
+  }
+  25% {
+    transform: translate3d(0, -100%, 0);
+    opacity: 0;
+    visibility: hidden;
+  }
+  100% {
+    transform: translate3d(0, -100%, 0);
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
 /* Firm Strip */
