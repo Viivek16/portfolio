@@ -1,0 +1,499 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Poppins:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
+  
+  .work-mockup {
+    background: #070C18;
+    color: #F4F1EA;
+    font-family: 'Poppins', sans-serif;
+    padding: 3rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    border: 1px solid rgba(10, 196, 224, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .work-mockup::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+  }
+
+  .accent-sea {
+    color: #0AC4E0;
+  }
+  
+  .serif-title {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  /* Lander section */
+  .work-lander {
+    text-align: center;
+    padding: 3rem 0;
+    border-bottom: 1px solid rgba(244, 241, 234, 0.08);
+    position: relative;
+  }
+
+  .work-lander .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #6E6B62;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .work-lander h1 {
+    font-size: 3rem;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+  }
+
+  /* Index of Works */
+  .work-index {
+    max-width: 800px;
+    margin: 2.5rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .index-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 120px;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(244, 241, 234, 0.08);
+    font-size: 0.9rem;
+    align-items: baseline;
+    opacity: 0.85;
+    transition: all 0.3s ease;
+  }
+
+  .index-row:hover {
+    opacity: 1;
+    border-bottom-color: #0AC4E0;
+    padding-left: 0.5rem;
+  }
+
+  .index-year {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: #C8C3B4;
+  }
+
+  .index-title {
+    font-weight: 400;
+  }
+
+  .index-meta {
+    text-align: right;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: #6E6B62;
+    text-transform: uppercase;
+  }
+
+  /* Split layout section */
+  .work-split-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(244, 241, 234, 0.08);
+  }
+
+  @media(max-width: 768px) {
+    .work-split-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .chapter-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .chapter-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 5rem;
+    line-height: 0.85;
+    margin-bottom: 1.5rem;
+    color: #F4F1EA;
+    opacity: 0.9;
+  }
+
+  .chapter-tag {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #0AC4E0;
+    margin-bottom: 0.5rem;
+  }
+
+  .chapter-headline {
+    font-size: 2.2rem;
+    font-weight: 300;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  .chapter-meta-block {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: #C8C3B4;
+    border-left: 2px solid rgba(10, 196, 224, 0.3);
+    padding-left: 1rem;
+  }
+
+  .meta-item strong {
+    color: #F4F1EA;
+    display: block;
+    margin-bottom: 0.2rem;
+    font-size: 0.9rem;
+  }
+
+  .chapter-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .document-mock-frame {
+    background: #0E1730;
+    width: 100%;
+    aspect-ratio: 4/3;
+    border: 1px solid rgba(10, 196, 224, 0.2);
+    border-radius: 4px;
+    padding: 1.5rem;
+    position: relative;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+  }
+
+  .document-mock-frame::before {
+    content: '';
+    position: absolute;
+    top: 6px; left: 6px;
+    width: 10px; height: 10px;
+    border-top: 1px solid #0AC4E0;
+    border-left: 1px solid #0AC4E0;
+    opacity: 0.4;
+  }
+
+  .document-mock-frame::after {
+    content: '';
+    position: absolute;
+    bottom: 6px; right: 6px;
+    width: 10px; height: 10px;
+    border-bottom: 1px solid #0AC4E0;
+    border-right: 1px solid #0AC4E0;
+    opacity: 0.4;
+  }
+
+  .mock-doc-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+    color: #C8C3B4;
+    border-bottom: 1px solid rgba(244, 241, 234, 0.1);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .mock-chart-line {
+    height: 6px;
+    background: rgba(10, 196, 224, 0.15);
+    margin-bottom: 0.5rem;
+    border-radius: 2px;
+  }
+
+  .mock-chart-line.filled {
+    background: linear-gradient(90deg, #0AC4E0, #0992C2);
+  }
+
+  .mock-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .mock-stat {
+    border: 1px solid rgba(244, 241, 234, 0.05);
+    padding: 0.75rem;
+    background: rgba(244, 241, 234, 0.01);
+  }
+
+  .mock-stat-val {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    color: #0AC4E0;
+  }
+
+  .mock-stat-lbl {
+    font-size: 9px;
+    text-transform: uppercase;
+    color: #6E6B62;
+    letter-spacing: 0.05em;
+  }
+
+  /* Rail Section */
+  .mock-rail-section {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(244, 241, 234, 0.08);
+  }
+
+  .rail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 1.5rem;
+  }
+
+  .rail-title {
+    font-size: 1.5rem;
+    font-weight: 300;
+  }
+
+  .rail-progress {
+    font-size: 0.75rem;
+    color: #6E6B62;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .rail-cards-wrap {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+  }
+
+  .rail-mock-card {
+    flex: 0 0 240px;
+    border: 1px solid rgba(10, 196, 224, 0.15);
+    background: rgba(244, 241, 234, 0.02);
+    padding: 1.5rem;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+  }
+
+  .rail-mock-card:hover {
+    border-color: #0AC4E0;
+    background: rgba(10, 196, 224, 0.05);
+  }
+
+  .rail-card-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: #6E6B62;
+  }
+
+  .rail-card-title {
+    font-size: 1.2rem;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    margin-top: 1rem;
+  }
+
+  .rail-card-stat {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #0AC4E0;
+  }
+
+  /* Interaction Block */
+  .approval-block {
+    margin-top: 3rem;
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    text-align: center;
+  }
+
+  .approval-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  .approval-btn {
+    border: 2px solid var(--border);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .approval-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .approval-btn.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+</style>
+
+<h2>Approach 1: The Editorial "Folio of Ventures"</h2>
+<p class="subtitle">Mockup showcasing typographic scale, Dark Modern Alchemist color scheme, and split narrative layout.</p>
+
+<div class="work-mockup">
+  <!-- Lander -->
+  <div class="work-lander">
+    <span class="eyebrow">A FOLIO OF VENTURES · 2018 — NOW</span>
+    <h1 class="serif-title">
+      Building trust in <span class="accent-sea">liquidity</span>,<br>
+      designing systems in <span class="accent-sea">AI</span>.
+    </h1>
+    <div style="font-size: 11px; letter-spacing: 0.3em; color: #6E6B62; text-transform: uppercase;">
+      Five Ventures · One Thesis
+    </div>
+  </div>
+
+  <!-- Index -->
+  <div class="work-index">
+    <div class="index-row">
+      <span class="index-year">2025</span>
+      <span class="index-title">Yellow Capital — Portfolio Manager & Market Making</span>
+      <span class="index-meta">Venture 01</span>
+    </div>
+    <div class="index-row">
+      <span class="index-year">2024</span>
+      <span class="index-title">Three VC Funds — Regulatory build-out (Asva, Leo, DCF)</span>
+      <span class="index-meta">Venture 02</span>
+    </div>
+    <div class="index-row">
+      <span class="index-year">2021</span>
+      <span class="index-title">NewTribe Capital — Head of Marketing</span>
+      <span class="index-meta">Venture 03</span>
+    </div>
+    <div class="index-row">
+      <span class="index-year">2020</span>
+      <span class="index-title">Neurotech Design — Co-founder & Hardware Builder</span>
+      <span class="index-meta">Venture 04</span>
+    </div>
+    <div class="index-row">
+      <span class="index-year">2018</span>
+      <span class="index-title">Yellow Bags — Celebrity-wear shopping startup</span>
+      <span class="index-meta">Venture 05</span>
+    </div>
+  </div>
+
+  <!-- Split Grid (Venture 1 Showcase) -->
+  <div class="work-split-grid">
+    <div class="chapter-left">
+      <div class="chapter-num">01</div>
+      <div class="chapter-tag">2025 — NOW · MARKET MAKING & TREASURY</div>
+      <h3 class="chapter-headline serif-title">Yellow Capital</h3>
+      <div class="chapter-meta-block">
+        <div class="meta-item">
+          <strong>The Mandate</strong>
+          Structuring token economy, CEX listing campaigns, and treasury distribution for emerging Web3 ecosystems.
+        </div>
+        <div class="meta-item">
+          <strong>The Impact</strong>
+          Coordinated listing campaigns across Tier-1 centralized exchanges, maintaining deep orderbook health and stable liquidity grids.
+        </div>
+        <div class="meta-item">
+          <strong>The Thesis</strong>
+          Liquidity is not a state of matter; it's a state of trust.
+        </div>
+      </div>
+    </div>
+    
+    <div class="chapter-right">
+      <div class="document-mock-frame">
+        <div class="mock-doc-title">
+          <span>Yellow Capital // Liquidity Ledger</span>
+          <span style="color: #0AC4E0; font-size: 0.8rem;">● Live</span>
+        </div>
+        <div style="font-size: 0.75rem; color: #6E6B62; margin-bottom: 1rem;">ORDERBOOK HEALTH TRACKER (T-1)</div>
+        <div class="mock-chart-line filled" style="width: 85%;"></div>
+        <div class="mock-chart-line filled" style="width: 72%;"></div>
+        <div class="mock-chart-line" style="width: 40%;"></div>
+        <div class="mock-stats-grid">
+          <div class="mock-stat">
+            <div class="mock-stat-val">Tier-1</div>
+            <div class="mock-stat-lbl">CEX Network</div>
+          </div>
+          <div class="mock-stat">
+            <div class="mock-stat-val">24/7</div>
+            <div class="mock-stat-lbl">Active Grid</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rail Section -->
+  <div class="mock-rail-section">
+    <div class="rail-header">
+      <h3 class="rail-title serif-title">The Numbers on the Record</h3>
+      <span class="rail-progress">Key metrics tracked</span>
+    </div>
+    <div class="rail-cards-wrap">
+      <div class="rail-mock-card">
+        <span class="rail-card-num">01 / 05</span>
+        <span class="rail-card-title">Assets Under Management</span>
+        <span class="rail-card-stat">$200M+ AUM</span>
+      </div>
+      <div class="rail-mock-card">
+        <span class="rail-card-num">02 / 05</span>
+        <span class="rail-card-title">VC Funds Launched</span>
+        <span class="rail-card-stat">3 Funds</span>
+      </div>
+      <div class="rail-mock-card">
+        <span class="rail-card-num">03 / 05</span>
+        <span class="rail-card-title">Global Web3 Events</span>
+        <span class="rail-card-stat">20+ Convened</span>
+      </div>
+      <div class="rail-mock-card">
+        <span class="rail-card-num">04 / 05</span>
+        <span class="rail-card-title">Team Scaling</span>
+        <span class="rail-card-stat">18 Members</span>
+      </div>
+      <div class="rail-mock-card">
+        <span class="rail-card-num">05 / 05</span>
+        <span class="rail-card-title">Solo Travel Spark</span>
+        <span class="rail-card-stat">14 Cities</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="approval-block">
+  <h3>Does this layout outline and visual direction feel correct?</h3>
+  <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">Clicking an option below records your feedback to our state file.</p>
+  <div class="approval-buttons">
+    <button class="approval-btn" data-choice="approve" onclick="toggleSelect(this)">Approve & Start Design Spec</button>
+    <button class="approval-btn" data-choice="modify" onclick="toggleSelect(this)">Looks good, but make tweaks</button>
+  </div>
+</div>
