@@ -11,11 +11,11 @@ describe('WorkStats Component', () => {
 
   it('renders all six stats correctly', () => {
     render(<WorkStats />)
-    expect(screen.getByText('Years in Web3')).toBeInTheDocument()
-    expect(screen.getByText('Deals Evaluated')).toBeInTheDocument()
-    expect(screen.getByText('Fund Size Supported')).toBeInTheDocument()
-    expect(screen.getByText('Ecosystem Partners')).toBeInTheDocument()
-    expect(screen.getByText('Global KOLs')).toBeInTheDocument()
-    expect(screen.getByText('Events Hosted')).toBeInTheDocument()
+    expect(screen.getByText('Years of Experience')).toBeInTheDocument()
+    expect(screen.getByText('Portfolio Managed')).toBeInTheDocument()
+    expect(screen.getByText('AUM')).toBeInTheDocument()
+    expect(screen.getByText('Global Events Hosted')).toBeInTheDocument()
+    expect(screen.getByText('KOLs Community Built')).toBeInTheDocument()
+    expect(screen.getByText('VC Connections')).toBeInTheDocument()
   })
 })

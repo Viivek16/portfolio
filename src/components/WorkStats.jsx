@@ -3,12 +3,12 @@ import { motion, useInView, useReducedMotion } from 'framer-motion';
 import styles from './WorkSections.module.css';
 
 const statsData = [
-  { val: '6+', label: 'Years in Web3' },
-  { val: '200+', label: 'Deals Evaluated' },
-  { val: '$250M+', label: 'Fund Size Supported', accent: '$', num: '250', suffix: 'M+' },
-  { val: '25+', label: 'Ecosystem Partners' },
-  { val: '250+', label: 'Global KOLs' },
-  { val: '20+', label: 'Events Hosted' }
+  { val: '6+', label: 'Years of Experience' },
+  { val: '200+', label: 'Portfolio Managed' },
+  { val: '$250M+', label: 'AUM' },
+  { val: '25+', label: 'Global Events Hosted' },
+  { val: '450+', label: 'KOLs Community Built' },
+  { val: '260+', label: 'VC Connections' }
 ];
 
 const WorkStats = () => {
@@ -60,15 +60,6 @@ const WorkStats = () => {
         <motion.div className={`${styles.verticalHairline} ${styles.vertLine4}`} variants={getVertLineVariant(0.7, 1.4)} initial="hidden" animate={isInView ? "visible" : "hidden"} />
 
         {statsData.map((stat, i) => {
-          let content;
-          if (stat.accent) {
-            content = <><span className={styles.statAccent}>{stat.accent}</span>{stat.num}{stat.suffix}</>;
-          } else {
-            const numPart = stat.val.match(/\d+/)[0];
-            const suffix = stat.val.replace(/\d+/, '');
-            content = <>{numPart}<span className={styles.statAccent}>{suffix}</span></>;
-          }
-
           // Row 1: i < 3, Row 2: i >= 3
           const cellDelay = i < 3 ? 0.95 : 1.65;
           const isHovered = hoveredIndex === i;
@@ -88,7 +79,7 @@ const WorkStats = () => {
             >
               <div className={styles.statNumWrapper}>
                 <div className={styles.statNum}>
-                  {content}
+                  {stat.val}
                 </div>
                 <div className={styles.statLabel}>{stat.label}</div>
               </div>
