@@ -40,8 +40,8 @@ const WorkAbout = () => {
       const prev = frontIndex;
 
       // 1. Animate current front card off-screen
-      cardEls[prev].classList.remove(styles.posFront);
-      cardEls[prev].classList.add(styles.posExiting);
+      cardEls[prev].classList.remove(styles['pos-front']);
+      cardEls[prev].classList.add(styles['pos-exiting']);
 
       setTimeout(() => {
         // 2. Advance the front pointer
@@ -50,10 +50,10 @@ const WorkAbout = () => {
         // 3. Update all card positions
         cardEls.forEach((el, i) => {
           const diff = (i - frontIndex + TOTAL) % TOTAL;
-          const posClass = diff === 0 ? styles.posFront
-                         : diff === 1 ? styles.posMid
-                         : diff === 2 ? styles.posBack
-                         : styles.posHidden;
+          const posClass = diff === 0 ? styles['pos-front']
+                         : diff === 1 ? styles['pos-mid']
+                         : diff === 2 ? styles['pos-back']
+                         : styles['pos-hidden'];
 
           if (i === prev) {
             // Snap the exited card to pos-hidden with NO transition
@@ -77,7 +77,7 @@ const WorkAbout = () => {
     
     const handleMouseMove = (e) => {
       const frontEl = cardEls[frontIndex];
-      if (!frontEl.classList.contains(styles.posFront)) return;
+      if (!frontEl.classList.contains(styles['pos-front'])) return;
       const rect = stackWrapper.getBoundingClientRect();
       const mx = (e.clientX - rect.left) / rect.width - 0.5;
       const my = (e.clientY - rect.top) / rect.height - 0.5;
@@ -222,41 +222,42 @@ const WorkAbout = () => {
           transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
         >
           <div className={styles.stackWrapper} ref={stackWrapperRef}>
-            {/* 
-              card 1 (front): /assets/images/about/photo-1.jpg // TODO: confirm exact filenames with Viivek
-              card 2:         /assets/images/about/photo-2.jpg // TODO: confirm exact filenames with Viivek
-              card 3:         /assets/images/about/photo-3.jpg // TODO: confirm exact filenames with Viivek
-              card 4 (back):  /assets/images/about/photo-4.jpg // TODO: confirm exact filenames with Viivek
-            */}
-            
             <div 
-              className={`${styles.photoCard} ${styles.posFront}`} 
-              ref={el => cardRefs.current[0] = el}
-              style={{ backgroundImage: 'url(/assets/images/about/photo-1.jpg)' }}
+              className={`${styles.photoCard} ${styles['pos-front']}`} 
+              ref={el => { cardRefs.current[0] = el; }}
+              style={{ 
+                backgroundImage: 'url(/assets/images/about/photo-1.jpg)' // TODO: confirm exact filenames with Viivek
+              }}
             >
               <div className={styles.cardShimmer}></div>
             </div>
 
             <div 
-              className={`${styles.photoCard} ${styles.posMid}`} 
-              ref={el => cardRefs.current[1] = el}
-              style={{ backgroundImage: 'url(/assets/images/about/photo-2.jpg)' }}
+              className={`${styles.photoCard} ${styles['pos-mid']}`} 
+              ref={el => { cardRefs.current[1] = el; }}
+              style={{ 
+                backgroundImage: 'url(/assets/images/about/photo-2.jpg)' // TODO: confirm exact filenames with Viivek
+              }}
             >
               <div className={styles.cardShimmer}></div>
             </div>
 
             <div 
-              className={`${styles.photoCard} ${styles.posBack}`} 
-              ref={el => cardRefs.current[2] = el}
-              style={{ backgroundImage: 'url(/assets/images/about/photo-3.jpg)' }}
+              className={`${styles.photoCard} ${styles['pos-back']}`} 
+              ref={el => { cardRefs.current[2] = el; }}
+              style={{ 
+                backgroundImage: 'url(/assets/images/about/photo-3.jpg)' // TODO: confirm exact filenames with Viivek
+              }}
             >
               <div className={styles.cardShimmer}></div>
             </div>
 
             <div 
-              className={`${styles.photoCard} ${styles.posHidden}`} 
-              ref={el => cardRefs.current[3] = el}
-              style={{ backgroundImage: 'url(/assets/images/about/photo-4.jpg)' }}
+              className={`${styles.photoCard} ${styles['pos-hidden']}`} 
+              ref={el => { cardRefs.current[3] = el; }}
+              style={{ 
+                backgroundImage: 'url(/assets/images/about/photo-4.jpg)' // TODO: confirm exact filenames with Viivek
+              }}
             >
               <div className={styles.cardShimmer}></div>
             </div>
