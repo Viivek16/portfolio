@@ -21,6 +21,88 @@ const WorkAbout = () => {
   const isFirmStripInView = useInView(firmStripRef, { once: true, amount: 0.7 });
   const prefersReducedMotion = useReducedMotion();
 
+  // Photo Stack Logic
+  const stackWrapperRef = useRef(null);
+  const cardRefs = useRef([]);
+
+  useEffect(() => {
+    if (!stackWrapperRef.current || cardRefs.current.length === 0) return;
+
+    let frontIndex = 0;
+    let busy = false;
+    const TOTAL = 4;
+    const cardEls = cardRefs.current;
+
+    function shuffle() {
+      if (busy) return;
+      busy = true;
+
+      const prev = frontIndex;
+
+      // 1. Animate current front card off-screen
+      cardEls[prev].classList.remove(styles.posFront);
+      cardEls[prev].classList.add(styles.posExiting);
+
+      setTimeout(() => {
+        // 2. Advance the front pointer
+        frontIndex = (frontIndex + 1) % TOTAL;
+
+        // 3. Update all card positions
+        cardEls.forEach((el, i) => {
+          const diff = (i - frontIndex + TOTAL) % TOTAL;
+          const posClass = diff === 0 ? styles.posFront
+                         : diff === 1 ? styles.posMid
+                         : diff === 2 ? styles.posBack
+                         : styles.posHidden;
+
+          if (i === prev) {
+            // Snap the exited card to pos-hidden with NO transition
+            el.style.transition = 'none';
+            el.className = `${styles.photoCard} ${posClass}`;
+            void el.offsetWidth; // force reflow
+            el.style.transition = '';
+          } else {
+            el.className = `${styles.photoCard} ${posClass}`;
+          }
+        });
+
+        busy = false;
+      }, 870); // slightly longer than exit animation duration
+    }
+
+    const intervalId = setInterval(shuffle, 4500);
+
+    // Mouse tilt
+    const stackWrapper = stackWrapperRef.current;
+    
+    const handleMouseMove = (e) => {
+      const frontEl = cardEls[frontIndex];
+      if (!frontEl.classList.contains(styles.posFront)) return;
+      const rect = stackWrapper.getBoundingClientRect();
+      const mx = (e.clientX - rect.left) / rect.width - 0.5;
+      const my = (e.clientY - rect.top) / rect.height - 0.5;
+      // Apply tilt only to the card, NOT the wrapper (wrapper handles float)
+      frontEl.style.transform =
+        `perspective(900px) rotateY(${mx * 10}deg) rotateX(${my * -8}deg) scale(1.03)`;
+      frontEl.style.transition = 'transform 0.1s ease';
+    };
+
+    const handleMouseLeave = () => {
+      const frontEl = cardEls[frontIndex];
+      frontEl.style.transform = '';
+      frontEl.style.transition = 'transform 0.6s ease';
+    };
+
+    stackWrapper.addEventListener('mousemove', handleMouseMove);
+    stackWrapper.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      clearInterval(intervalId);
+      stackWrapper.removeEventListener('mousemove', handleMouseMove);
+      stackWrapper.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
+
   // SplitType for prose
   useEffect(() => {
     if (!proseRef.current || prefersReducedMotion) return;
@@ -132,18 +214,52 @@ const WorkAbout = () => {
           </div>
         </div>
         
-        {/* Right Column: Cinematic Image */}
+        {/* Right Column: 4-Card Photo Stack */}
         <motion.div 
           className={styles.aboutImageCol}
           initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 24 }}
           animate={isInView ? (prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }) : {}}
           transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
         >
-          <div className={styles.cinematicWrapper}>
-            <img src="/work/reel-1.jpg" alt="Cinematic lifestyle 1" className={styles.slideImage} style={{ animationDelay: '0s' }} loading="lazy" />
-            <img src="/work/reel-2.jpg" alt="Cinematic lifestyle 2" className={styles.slideImage} style={{ animationDelay: '5s' }} loading="lazy" />
-            <img src="/work/reel-3.jpg" alt="Cinematic lifestyle 3" className={styles.slideImage} style={{ animationDelay: '10s' }} loading="lazy" />
-            <img src="/work/reel-4.jpg" alt="Cinematic lifestyle 4" className={styles.slideImage} style={{ animationDelay: '15s' }} loading="lazy" />
+          <div className={styles.stackWrapper} ref={stackWrapperRef}>
+            {/* 
+              card 1 (front): /assets/images/about/photo-1.jpg // TODO: confirm exact filenames with Viivek
+              card 2:         /assets/images/about/photo-2.jpg // TODO: confirm exact filenames with Viivek
+              card 3:         /assets/images/about/photo-3.jpg // TODO: confirm exact filenames with Viivek
+              card 4 (back):  /assets/images/about/photo-4.jpg // TODO: confirm exact filenames with Viivek
+            */}
+            
+            <div 
+              className={`${styles.photoCard} ${styles.posFront}`} 
+              ref={el => cardRefs.current[0] = el}
+              style={{ backgroundImage: 'url(/assets/images/about/photo-1.jpg)' }}
+            >
+              <div className={styles.cardShimmer}></div>
+            </div>
+
+            <div 
+              className={`${styles.photoCard} ${styles.posMid}`} 
+              ref={el => cardRefs.current[1] = el}
+              style={{ backgroundImage: 'url(/assets/images/about/photo-2.jpg)' }}
+            >
+              <div className={styles.cardShimmer}></div>
+            </div>
+
+            <div 
+              className={`${styles.photoCard} ${styles.posBack}`} 
+              ref={el => cardRefs.current[2] = el}
+              style={{ backgroundImage: 'url(/assets/images/about/photo-3.jpg)' }}
+            >
+              <div className={styles.cardShimmer}></div>
+            </div>
+
+            <div 
+              className={`${styles.photoCard} ${styles.posHidden}`} 
+              ref={el => cardRefs.current[3] = el}
+              style={{ backgroundImage: 'url(/assets/images/about/photo-4.jpg)' }}
+            >
+              <div className={styles.cardShimmer}></div>
+            </div>
           </div>
         </motion.div>
       </div>

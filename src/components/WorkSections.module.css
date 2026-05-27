@@ -313,66 +313,103 @@
   height: 100%;
 }
 
-.cinematicWrapper {
-  width: 100%;
-  height: 100%;
-  min-height: 580px;
-  overflow: hidden;
+/* Animated Photo Stack */
+@keyframes stackFloat {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-14px); }
+  100% { transform: translateY(0px); }
+}
+
+.stackWrapper {
   position: relative;
-  border-radius: 20px;
-  background-color: var(--ink-faint);
-  mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+  width: 480px;
+  height: 600px;
+  animation: stackFloat 4.5s ease-in-out infinite;
+  margin: 0 auto;
 }
 
-.slideImage {
+.photoCard {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 35%;
-  animation-name: cinematicSlideHoldExit;
-  animation-duration: 20s;
-  animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
-  animation-iteration-count: infinite;
-  will-change: transform, opacity;
-  opacity: 0;
-  visibility: hidden;
+  top: 30px;
+  left: 30px;
+  width: 420px;
+  height: 540px;
+  border-radius: 24px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.85s cubic-bezier(0.34, 1.06, 0.64, 1), opacity 0.7s ease;
 }
 
-@keyframes cinematicSlideHoldExit {
-  0% {
-    transform: translate3d(0, 100%, 0);
-    opacity: 0;
-    visibility: hidden;
+/* Make it responsive for smaller screens if needed */
+@media (max-width: 1023px) {
+  .stackWrapper {
+    width: 100%;
+    max-width: 480px;
   }
-  1% {
-    transform: translate3d(0, 100%, 0);
-    opacity: 1;
-    visibility: visible;
+  .photoCard {
+    width: calc(100% - 60px);
   }
-  5% {
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-    visibility: visible;
-  }
-  21% {
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-    visibility: visible;
-  }
-  25% {
-    transform: translate3d(0, -100%, 0);
-    opacity: 0;
-    visibility: hidden;
-  }
-  100% {
-    transform: translate3d(0, -100%, 0);
-    opacity: 0;
-    visibility: hidden;
-  }
+}
+
+.posFront {
+  transform: rotate(0deg) translate(0, 0) scale(1);
+  opacity: 1;
+  z-index: 4;
+  box-shadow:
+    0 60px 120px rgba(0, 0, 0, 0.90),
+    0 30px 60px  rgba(0, 0, 0, 0.70),
+    0 10px 25px  rgba(9, 146, 194, 0.10),
+    0 0 0 1px    rgba(255, 255, 255, 0.04) inset;
+}
+
+.posMid {
+  transform: rotate(-4.5deg) translate(-24px, 16px) scale(0.93);
+  opacity: 1;
+  z-index: 3;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.50);
+}
+
+.posBack {
+  transform: rotate(-9deg) translate(-46px, 30px) scale(0.87);
+  opacity: 0.85;
+  z-index: 2;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.posHidden {
+  transform: rotate(-14deg) translate(-66px, 44px) scale(0.81);
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.posExiting {
+  transform: rotate(22deg) translate(240px, -70px) scale(0.68) !important;
+  opacity: 0 !important;
+  z-index: 10 !important;
+  transition: transform 0.85s cubic-bezier(0.6, 0, 0.9, 0.4) !important,
+              opacity 0.6s ease !important;
+  pointer-events: none !important;
+}
+
+@keyframes shimmerMove {
+  0%   { transform: translateX(-200%) skewX(-15deg); }
+  45%  { transform: translateX(350%)  skewX(-15deg); }
+  100% { transform: translateX(350%)  skewX(-15deg); }
+}
+
+.cardShimmer {
+  position: absolute;
+  inset: 0;
+  width: 70px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent);
+  pointer-events: none;
+  animation: none;
+}
+
+.posFront .cardShimmer {
+  animation: shimmerMove 6s ease-in-out infinite;
 }
 
 /* Firm Strip */
