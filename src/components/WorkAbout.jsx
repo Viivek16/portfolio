@@ -268,7 +268,7 @@ const WorkAbout = () => {
               className={`${styles.photoCard} ${styles['pos-front']}`} 
               ref={el => { cardRefs.current[0] = el; }}
               style={{ 
-                backgroundImage: 'url(/work/reel-1.jpg)' // TODO: confirm exact filenames with Viivek
+                backgroundImage: 'url(/images/about/093A8978.png)' // TODO: confirm exact filenames with Viivek
               }}
             >
               <div className={styles.cardShimmer}></div>
@@ -278,7 +278,7 @@ const WorkAbout = () => {
               className={`${styles.photoCard} ${styles['pos-mid']}`} 
               ref={el => { cardRefs.current[1] = el; }}
               style={{ 
-                backgroundImage: 'url(/work/reel-2.jpg)' // TODO: confirm exact filenames with Viivek
+                backgroundImage: 'url(/images/about/IMG-20260517-WA0070.jpg)' // TODO: confirm exact filenames with Viivek
               }}
             >
               <div className={styles.cardShimmer}></div>
@@ -288,7 +288,7 @@ const WorkAbout = () => {
               className={`${styles.photoCard} ${styles['pos-back']}`} 
               ref={el => { cardRefs.current[2] = el; }}
               style={{ 
-                backgroundImage: 'url(/work/reel-3.jpg)' // TODO: confirm exact filenames with Viivek
+                backgroundImage: 'url(/images/about/IMG_20240919_174732123.jpg)' // TODO: confirm exact filenames with Viivek
               }}
             >
               <div className={styles.cardShimmer}></div>
@@ -298,7 +298,7 @@ const WorkAbout = () => {
               className={`${styles.photoCard} ${styles['pos-hidden']}`} 
               ref={el => { cardRefs.current[3] = el; }}
               style={{ 
-                backgroundImage: 'url(/work/reel-4.jpg)' // TODO: confirm exact filenames with Viivek
+                backgroundImage: 'url(/images/about/_MG_9587.JPG)' // TODO: confirm exact filenames with Viivek
               }}
             >
               <div className={styles.cardShimmer}></div>
