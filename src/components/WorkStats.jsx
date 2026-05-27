@@ -16,7 +16,6 @@ const WorkStats = () => {
   const isInView = useInView(containerRef, { once: true, amount: 0.6 });
   const prefersReducedMotion = useReducedMotion();
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  const [scanComplete, setScanComplete] = useState(false);
 
   const getLineVariant = (delay, duration) => ({
     hidden: prefersReducedMotion ? { opacity: 0 } : { clipPath: 'inset(0 100% 0 0)' },
@@ -50,19 +49,6 @@ const WorkStats = () => {
       </motion.div>
       
       <div className={styles.statsGrid}>
-        {/* Scanline */}
-        {!prefersReducedMotion && !scanComplete && (
-          <motion.div 
-            className={styles.scanline}
-            initial={{ top: '0%', opacity: 0 }}
-            animate={isInView ? { top: '100%', opacity: [0, 1, 1, 0] } : {}}
-            transition={{
-              top: { duration: 1.6, delay: 0.5, ease: "easeInOut" },
-              opacity: { duration: 1.9, delay: 0.5, times: [0, 0.1, 0.84, 1] }
-            }}
-            onAnimationComplete={() => setScanComplete(true)}
-          />
-        )}
 
         <motion.div className={`${styles.horizontalHairline} ${styles.topHairline}`} variants={getLineVariant(0.5, 0.6)} initial="hidden" animate={isInView ? "visible" : "hidden"} />
         <motion.div className={`${styles.horizontalHairline} ${styles.middleHairline}`} variants={getLineVariant(1.3, 0.6)} initial="hidden" animate={isInView ? "visible" : "hidden"} />

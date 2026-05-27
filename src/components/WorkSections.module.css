@@ -7,7 +7,7 @@
    ========================================================= */
 .statsSection {
   padding-top: 96px;
-  padding-bottom: 96px;
+  padding-bottom: 48px;
   padding-left: 8vw;
   padding-right: 8vw;
   background-color: var(--bg-primary);
@@ -96,17 +96,7 @@
   }
 }
 
-/* Scanline */
-.scanline {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: #0AC4E0;
-  box-shadow: 0 0 12px 2px rgba(10, 196, 224, 0.6);
-  z-index: 10;
-  pointer-events: none;
-}
+
 
 /* Motion Hairlines (Desktop Only) */
 .horizontalHairline {
@@ -228,7 +218,7 @@
 }
 
 .aboutSection {
-  padding-top: 96px;
+  padding-top: 48px;
   padding-bottom: 96px;
   padding-left: 8vw;
   padding-right: 8vw;
@@ -322,8 +312,8 @@
 
 .stackWrapper {
   position: relative;
-  width: 480px;
-  height: 600px;
+  width: 560px;
+  height: 680px;
   animation: stackFloat 4.5s ease-in-out infinite;
   margin: 0 auto;
 }
@@ -332,8 +322,8 @@
   position: absolute;
   top: 30px;
   left: 30px;
-  width: 420px;
-  height: 540px;
+  width: 500px;
+  height: 620px;
   border-radius: 24px;
   overflow: hidden;
   background-size: cover;
@@ -345,7 +335,7 @@
 @media (max-width: 1023px) {
   .stackWrapper {
     width: 100%;
-    max-width: 480px;
+    max-width: 560px;
   }
   .photoCard {
     width: calc(100% - 60px);

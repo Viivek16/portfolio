@@ -18,7 +18,6 @@ const WorkAbout = () => {
   const firmStripRef = useRef(null);
   
   const isInView = useInView(containerRef, { once: true, amount: 0.5 });
-  const isFirmStripInView = useInView(firmStripRef, { once: true, amount: 0.7 });
   const prefersReducedMotion = useReducedMotion();
 
   // Photo Stack Logic
@@ -115,7 +114,7 @@ const WorkAbout = () => {
     return () => split.revert();
   }, [prefersReducedMotion]);
 
-  // Prose animation
+  // Prose and Firm Strip animation
   useEffect(() => {
     if (prefersReducedMotion || !isInView || !proseRef.current) return;
     
@@ -132,6 +131,48 @@ const WorkAbout = () => {
         currentDelay += ((lines.length - 1) * 0.06) + 0.2;
       }
     });
+
+    // Staggered reveal for "BUILT & OPERATED AT" block
+    if (firmStripRef.current) {
+      // 1. — BUILT & OPERATED AT sub-heading label
+      const stripEyebrowEl = firmStripRef.current.parentElement?.querySelector(`.${styles.stripEyebrow}`);
+      if (stripEyebrowEl) {
+        animate(stripEyebrowEl,
+          { opacity: [0, 1], y: [16, 0] },
+          { delay: currentDelay, duration: 0.6, ease: "easeOut" }
+        );
+      }
+
+      // Hairline (starts in sync with the eyebrow)
+      const hairlineEl = firmStripRef.current.querySelector(`.${styles.firmStripHairline}`);
+      if (hairlineEl) {
+        animate(hairlineEl,
+          { clipPath: ['inset(0 100% 0 0)', 'inset(0 0 0 0)'] },
+          { delay: currentDelay, duration: 0.7, ease: 'easeOut' }
+        );
+      }
+
+      currentDelay += 0.2; // Stagger rhythm (0.2s)
+
+      // 2. First row of firm names (cells 0, 1, 2)
+      const cells = firmStripRef.current.querySelectorAll(`.${styles.firmCell}`);
+      if (cells && cells.length > 0) {
+        const row1 = Array.from(cells).slice(0, 3);
+        animate(row1,
+          { opacity: [0, 1], y: [16, 0] },
+          { delay: currentDelay, duration: 0.6, ease: "easeOut" }
+        );
+
+        currentDelay += 0.2; // Stagger rhythm (0.2s)
+
+        // 3. Second row of firm names (cells 3, 4, 5)
+        const row2 = Array.from(cells).slice(3, 6);
+        animate(row2,
+          { opacity: [0, 1], y: [16, 0] },
+          { delay: currentDelay, duration: 0.6, ease: "easeOut" }
+        );
+      }
+    }
   }, [isInView, prefersReducedMotion]);
 
   return (
@@ -174,14 +215,17 @@ const WorkAbout = () => {
 
           {/* Firm Strip */}
           <div className={styles.stripContainer} ref={firmStripRef}>
-            <div className={styles.stripEyebrow}>— BUILT & OPERATED AT</div>
+            <motion.div 
+              className={styles.stripEyebrow}
+              initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
+            >
+              — BUILT & OPERATED AT
+            </motion.div>
             
             <div className={styles.firmStrip}>
-              <motion.div
+              <div
                 className={styles.firmStripHairline}
-                initial={prefersReducedMotion ? { opacity: 0 } : { clipPath: 'inset(0 100% 0 0)' }}
-                animate={isFirmStripInView ? (prefersReducedMotion ? { opacity: 1 } : { clipPath: 'inset(0 0 0 0)' }) : {}}
-                transition={{ duration: 0.7, delay: 0.8, ease: 'easeOut' }}
+                style={prefersReducedMotion ? {} : { clipPath: 'inset(0 100% 0 0)' }}
                 aria-hidden="true"
               />
 
@@ -189,9 +233,7 @@ const WorkAbout = () => {
                 <motion.div
                   key={index}
                   className={styles.firmCell}
-                  initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
-                  animate={isFirmStripInView ? (prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }) : {}}
-                  transition={{ duration: 0.5, delay: index * 0.06, ease: 'easeOut' }}
+                  initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
                 >
                   {firm.isTextOnly ? (
                     <span className={styles.firmTextOnly}>
@@ -226,7 +268,7 @@ const WorkAbout = () => {
               className={`${styles.photoCard} ${styles['pos-front']}`} 
               ref={el => { cardRefs.current[0] = el; }}
               style={{ 
-                backgroundImage: 'url(/assets/images/about/photo-1.jpg)' // TODO: confirm exact filenames with Viivek
+                backgroundImage: 'url(/work/reel-1.jpg)' // TODO: confirm exact filenames with Viivek
               }}
             >
               <div className={styles.cardShimmer}></div>
@@ -236,7 +278,7 @@ const WorkAbout = () => {
               className={`${styles.photoCard} ${styles['pos-mid']}`} 
               ref={el => { cardRefs.current[1] = el; }}
               style={{ 
-                backgroundImage: 'url(/assets/images/about/photo-2.jpg)' // TODO: confirm exact filenames with Viivek
+                backgroundImage: 'url(/work/reel-2.jpg)' // TODO: confirm exact filenames with Viivek
               }}
             >
               <div className={styles.cardShimmer}></div>
@@ -246,7 +288,7 @@ const WorkAbout = () => {
               className={`${styles.photoCard} ${styles['pos-back']}`} 
               ref={el => { cardRefs.current[2] = el; }}
               style={{ 
-                backgroundImage: 'url(/assets/images/about/photo-3.jpg)' // TODO: confirm exact filenames with Viivek
+                backgroundImage: 'url(/work/reel-3.jpg)' // TODO: confirm exact filenames with Viivek
               }}
             >
               <div className={styles.cardShimmer}></div>
@@ -256,7 +298,7 @@ const WorkAbout = () => {
               className={`${styles.photoCard} ${styles['pos-hidden']}`} 
               ref={el => { cardRefs.current[3] = el; }}
               style={{ 
-                backgroundImage: 'url(/assets/images/about/photo-4.jpg)' // TODO: confirm exact filenames with Viivek
+                backgroundImage: 'url(/work/reel-4.jpg)' // TODO: confirm exact filenames with Viivek
               }}
             >
               <div className={styles.cardShimmer}></div>
