@@ -164,7 +164,7 @@
   }
 
   .static-horizon {
-    position: absolute;
+    position: fixed; /* Changed to fixed so it stays visible while scrolling */
     right: 40px;
     top: 0;
     bottom: 0;
@@ -172,6 +172,40 @@
     background-color: var(--hairline);
     pointer-events: none;
     z-index: 40;
+  }
+  .static-horizon-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    background-color: var(--accent-cyan);
+    transition: height 0.1s ease-out;
+  }
+  .static-horizon-dot {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #06091A;
+    border: 1px solid rgba(248, 247, 244, 0.3);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .static-horizon-dot.active {
+    background-color: var(--accent-cyan);
+    border-color: var(--accent-cyan);
+    transform: translate(-50%, -50%) scale(1.5);
+    box-shadow: 0 0 10px var(--accent-cyan);
+  }
+  .static-horizon-dot.dot-1 {
+    top: 30%;
+  }
+  .static-horizon-dot.dot-2 {
+    top: 60%;
+  }
+  .static-horizon-dot.dot-3 {
+    top: 90%;
   }
   .static-horizon-meta {
     position: fixed;

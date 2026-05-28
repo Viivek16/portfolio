@@ -2,15 +2,6 @@ import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 import ImpactSection from '../ImpactSection'
 
-// Mock intersection observer for framer motion
-const mockIntersectionObserver = vi.fn()
-mockIntersectionObserver.mockReturnValue({
-  observe: () => null,
-  unobserve: () => null,
-  disconnect: () => null
-})
-window.IntersectionObserver = mockIntersectionObserver
-
 describe('ImpactSection Component', () => {
   it('renders the case study cards with correct data', () => {
     render(<ImpactSection />)

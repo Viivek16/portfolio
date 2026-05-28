@@ -5,14 +5,14 @@ import Hero from '../Hero'
 describe('Hero Component', () => {
   it('renders the main heading', () => {
     render(<Hero />)
-    const heading = screen.getByRole('heading', { name: /VIIVEK MEHATA/i })
+    const heading = screen.getByRole('heading', { name: /Viivek.*Mehata/i })
     expect(heading).toBeInTheDocument()
     expect(heading).toHaveClass('font-display')
   })
 
   it('renders a full-screen portrait image', () => {
     render(<Hero />)
-    const image = screen.getByRole('img', { name: /portrait of viivek/i })
+    const image = screen.getByRole('img', { name: /Viivek Mehata Portrait/i })
     expect(image).toBeInTheDocument()
     // It should fill the screen
     expect(image).toHaveClass('w-full', 'h-full', 'object-cover')

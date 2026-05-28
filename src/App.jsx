@@ -36,6 +36,20 @@ const Navigation = () => {
 
 function App() {
   const location = useLocation()
+  const [sailingProgress, setSailingProgress] = React.useState(0)
+
+  React.useEffect(() => {
+    const handleScroll = (e) => {
+      if (e.detail && typeof e.detail.p === 'number') {
+        setSailingProgress(e.detail.p)
+      }
+    }
+    
+    window.addEventListener('work-scroll', handleScroll)
+    return () => {
+      window.removeEventListener('work-scroll', handleScroll)
+    }
+  }, [])
 
   return (
     <div className="antialiased text-text-primary bg-bg-primary min-h-screen relative overflow-x-hidden">
@@ -43,7 +57,12 @@ function App() {
       
       {location.pathname !== '/info' && (
         <div aria-hidden="true">
-          <div className="static-horizon" />
+          <div className="static-horizon">
+            <div className="static-horizon-fill" style={{ height: `${sailingProgress * 100}%` }} />
+            <div className={`static-horizon-dot dot-1 ${sailingProgress >= 0.3 ? 'active' : ''}`} />
+            <div className={`static-horizon-dot dot-2 ${sailingProgress >= 0.6 ? 'active' : ''}`} />
+            <div className={`static-horizon-dot dot-3 ${sailingProgress >= 0.9 ? 'active' : ''}`} />
+          </div>
           <div className="static-horizon-meta">— still sailing</div>
         </div>
       )}

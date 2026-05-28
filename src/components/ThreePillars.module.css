@@ -1,0 +1,746 @@
+/* =========================================================
+   STYLING FOR SECTION 4 - THREE PILLARS
+   ========================================================= */
+
+/* Brand & Typography Tokens local mapping */
+.pillarsSection {
+  background-color: #06091A;
+  color: #F8F7F4;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  user-select: none;
+}
+
+/* 1. SECTION HEADER */
+.header {
+  padding: 52px 52px 32px 52px;
+  position: relative;
+  z-index: 10;
+}
+
+.eyebrow {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 9.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #0AC4E0; /* Sea / Accent */
+  margin-bottom: 8px;
+}
+
+.title {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(36px, 5vw, 48px);
+  line-height: 1.1;
+  color: #F8F7F4;
+  margin-bottom: 12px;
+}
+
+.titleAccent {
+  color: #0AC4E0;
+}
+
+.subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: rgba(248, 247, 244, 0.52); /* Dim text */
+  max-width: 400px;
+}
+
+/* 2. BACKGROUND DEPTH */
+.noiseOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.025;
+  mix-blend-mode: overlay;
+  z-index: 1;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.orb1 {
+  width: 540px;
+  height: 540px;
+  background: radial-gradient(circle, rgba(9, 146, 194, 0.17) 0%, transparent 70%);
+  top: -120px;
+  left: -80px;
+  filter: blur(90px);
+}
+
+.orb2 {
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(10, 196, 224, 0.09) 0%, transparent 70%);
+  top: 160px;
+  right: -100px;
+  filter: blur(90px);
+}
+
+.orb3 {
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(11, 45, 114, 0.38) 0%, transparent 70%);
+  bottom: 0px;
+  left: 35%;
+  filter: blur(90px);
+}
+
+/* 3. SCROLL STACKING ZONE */
+.scrollContainer {
+  height: 540px;
+  overflow-y: scroll;
+  scrollbar-width: none; /* Hide scrollbar Firefox */
+  position: relative;
+  z-index: 5;
+}
+
+.scrollContainer::-webkit-scrollbar {
+  display: none; /* Hide scrollbar Chrome/Safari */
+}
+
+.scrollInner {
+  height: 1900px; /* Tall inner height for scrolling */
+  position: relative;
+}
+
+.stickyStage {
+  position: sticky;
+  top: 0;
+  height: 540px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 4. THREE GLASSMORPHIC CARDS */
+.cardBase {
+  position: absolute;
+  width: calc(100% - 104px);
+  height: 480px;
+  background: rgba(255, 255, 255, 0.045);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid rgba(248, 247, 244, 0.10);
+  border-radius: 20px;
+  box-shadow: 
+    0 28px 80px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(248, 247, 244, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  will-change: transform, filter, opacity;
+  
+  /* Modern CSS origin-aware transition as recommended by Emil Kowalski */
+  transition: 
+    border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: center center;
+}
+
+/* Card Hover states with touch guards */
+@media (hover: hover) and (pointer: fine) {
+  .cardBase:hover {
+    border-color: rgba(10, 196, 224, 0.28) !important;
+    box-shadow: 
+      0 28px 80px rgba(0, 0, 0, 0.55),
+      0 0 48px rgba(10, 196, 224, 0.07),
+      inset 0 1px 0 rgba(248, 247, 244, 0.12),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
+    transform: scale(1.012) translateY(-4px) !important;
+    z-index: 10 !important;
+  }
+}
+
+/* Card 1 & 2 Grid layouts */
+.cardGrid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  height: 100%;
+}
+
+.leftCol {
+  padding: 38px 36px 36px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.cardEyebrow {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: rgba(248, 247, 244, 0.4);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.cardTitle {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.15;
+  color: #F8F7F4;
+  margin-bottom: 16px;
+}
+
+.cardBody {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: rgba(248, 247, 244, 0.72);
+  margin-bottom: 20px;
+}
+
+/* Pill list styling */
+.pillsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.pill {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: rgba(248, 247, 244, 0.6);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(248, 247, 244, 0.08);
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+
+/* Stats layout inside card */
+.statsRow {
+  border-top: 0.5px solid rgba(248, 247, 244, 0.07);
+  padding-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.statNum {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 26px;
+  color: #0AC4E0; /* Sea / Accent */
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.statLabel {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(248, 247, 244, 0.52);
+}
+
+/* Right Col: Image Container */
+.rightCol {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-left: 1px solid rgba(248, 247, 244, 0.07);
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Fallback placeholder visual layer */
+.placeholderWrapper {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, rgba(9, 146, 194, 0.08) 0%, rgba(11, 45, 114, 0.35) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Grid crosshatch overlay */
+.crosshatch {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(248, 247, 244, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(248, 247, 244, 0.06) 1px, transparent 1px);
+  background-size: 16px 16px;
+  pointer-events: none;
+}
+
+.placeholderLabel {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 24px;
+  color: #0AC4E0;
+  z-index: 2;
+}
+
+/* CARD 3 — Full-Width AI Card */
+.fullCol {
+  padding: 36px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  
+  /* Dissolving bottom edge */
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
+}
+
+.card3Grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 24px;
+}
+
+.toolSubLabel {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: #0AC4E0;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+/* Tools chip cluster */
+.toolChipsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.toolChip {
+  display: flex;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  color: #0AC4E0;
+  background: rgba(10, 196, 224, 0.06);
+  border: 0.5px solid rgba(10, 196, 224, 0.28);
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.25s ease;
+}
+
+.toolDot {
+  width: 5px;
+  height: 5px;
+  background-color: #0AC4E0;
+  border-radius: 50%;
+  margin-right: 7px;
+  box-shadow: 0 0 6px #0AC4E0;
+}
+
+/* Features details section */
+.bottomFeatureGrid {
+  border-top: 0.5px solid rgba(248, 247, 244, 0.07);
+  padding-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.featureBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.featureTitle {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: rgba(248, 247, 244, 0.4);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.featureText {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 1.6;
+  color: rgba(248, 247, 244, 0.78);
+}
+
+
+/* 5. AI TOOLS STRIP SECTION */
+.visualConnector {
+  height: 36px;
+  margin-top: -2px; /* Flush layout connector */
+  border-left: 1px solid rgba(248, 247, 244, 0.06);
+  border-right: 1px solid rgba(248, 247, 244, 0.06);
+  margin-left: 52px;
+  margin-right: 52px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.018) 0%, transparent 100%);
+  position: relative;
+  z-index: 5;
+}
+
+/* Centered vertical connection line */
+.visualConnector::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, rgba(10, 196, 224, 0.25) 0%, transparent 100%);
+  transform: translateX(-50%);
+}
+
+.stripSection {
+  padding: 0 52px 40px 52px;
+  position: relative;
+  z-index: 6;
+  
+  /* Initial state */
+  opacity: 0;
+  transform: translateY(44px);
+  transition: 
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.revealed {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Horizontal scroller label track */
+.stripLabelWrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.stripLabel {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: #0AC4E0;
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin-right: 16px;
+}
+
+.stripLine {
+  flex-grow: 1;
+  height: 0.5px;
+  background: rgba(248, 247, 244, 0.06);
+}
+
+/* Scroll Container */
+.scrollerTrack {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  cursor: grab;
+}
+
+.scrollerTrack:active {
+  cursor: grabbing;
+}
+
+.scrollerTrack::-webkit-scrollbar {
+  display: none;
+}
+
+/* Portrait Card: 190px x 270px */
+.toolCard {
+  flex: 0 0 190px;
+  width: 190px;
+  height: 270px;
+  border-radius: 16px;
+  border: 1px solid rgba(248, 247, 244, 0.08);
+  overflow: hidden;
+  position: relative;
+  will-change: transform, box-shadow, border-color;
+  
+  /* Transition settings */
+  transition: 
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    
+  /* Stagger animations initial state */
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.revealed .toolCard {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hover scales card and shows details */
+@media (hover: hover) and (pointer: fine) {
+  .toolCard:hover {
+    transform: scale(1.065) translateY(-8px) !important;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6) !important;
+    border-color: rgba(10, 196, 224, 0.3) !important;
+    z-index: 10 !important;
+  }
+  
+  .toolCard:hover .hoverPanel {
+    transform: translateY(0) !important;
+  }
+}
+
+/* Card Visual Sections */
+.cardGradient {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.cardTopRow {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 3;
+}
+
+.cardCategory {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 8.5px;
+  color: #0AC4E0;
+  background: rgba(6, 9, 26, 0.5);
+  border: 0.5px solid rgba(10, 196, 224, 0.2);
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.liveBadge {
+  display: flex;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 8px;
+  color: rgba(248, 247, 244, 0.8);
+  background: rgba(6, 9, 26, 0.5);
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.liveBadgeDot {
+  width: 4px;
+  height: 4px;
+  background-color: #0AC4E0;
+  border-radius: 50%;
+  margin-right: 4px;
+  box-shadow: 0 0 4px #0AC4E0;
+}
+
+/* Static base bottom layer */
+.staticBottomLayer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 12px;
+  background: linear-gradient(to top, rgba(6, 9, 26, 0.85) 0%, transparent 100%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.staticName {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #F8F7F4;
+  line-height: 1.2;
+}
+
+.staticType {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 8px;
+  letter-spacing: 0.05em;
+  color: #0AC4E0;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* Glass panel overlay that slides up on hover */
+.hoverPanel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 18px 14px;
+  background: rgba(6, 9, 26, 0.82);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-top: 0.5px solid rgba(248, 247, 244, 0.1);
+  transform: translateY(100%);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 36px); /* Height spans almost full card on reveal */
+  justify-content: space-between;
+}
+
+.hoverName {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #F8F7F4;
+  line-height: 1.1;
+}
+
+.hoverType {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 8px;
+  color: #0AC4E0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.hoverDesc {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+  font-size: 11px;
+  line-height: 1.5;
+  color: rgba(248, 247, 244, 0.65);
+  margin-top: 8px;
+  flex-grow: 1;
+}
+
+.hoverCta {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 8.5px;
+  color: #0AC4E0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+/* Adaptive Breakpoints for Glass Cards Grid */
+@media (max-width: 1023px) {
+  .cardGrid {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 180px;
+  }
+  
+  .rightCol {
+    border-left: none;
+    border-top: 1px solid rgba(248, 247, 244, 0.07);
+  }
+  
+  .leftCol {
+    padding: 24px 24px 16px 24px;
+  }
+  
+  .statsRow {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 12px;
+  }
+  
+  .cardBase {
+    height: 480px;
+  }
+  
+  .scrollContainer {
+    height: 520px;
+  }
+  
+  .stickyStage {
+    height: 520px;
+  }
+  
+  .card3Grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 639px) {
+  .header {
+    padding: 36px 24px 24px 24px;
+  }
+  
+  .cardBase {
+    width: calc(100% - 48px);
+    left: 24px;
+    height: 480px;
+  }
+  
+  .leftCol {
+    padding: 20px;
+  }
+  
+  .cardTitle {
+    font-size: 26px;
+  }
+  
+  .cardBody {
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  
+  .statsRow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .visualConnector {
+    margin-left: 24px;
+    margin-right: 24px;
+  }
+  
+  .stripSection {
+    padding: 0 24px 40px 24px;
+  }
+  
+  .scrollerTrack {
+    gap: 10px;
+  }
+}
