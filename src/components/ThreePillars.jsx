@@ -49,7 +49,10 @@ const ThreePillars = () => {
       gc3.style.willChange = 'transform, opacity';
 
       // Blockers (dimming)
-      if (b1) b1.style.opacity = lerp(0, 0.85, p2);
+      if (b1) {
+        b1.style.opacity = lerp(0, 0.85, p2);
+        b1.style.transform = gc1.style.transform;
+      }
       if (b2) {
         b2.style.opacity = lerp(0, 0.85, p3);
         b2.style.transform = gc2.style.transform; // Make blocker 2 follow card 2
@@ -172,7 +175,7 @@ const ThreePillars = () => {
           >
             {/* ── existing Card 1 content — DO NOT CHANGE TEXT OR STATS ── */}
             {/* Grid layout: text left, image right */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', height: '100%', minHeight: '680px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', height: '100%' }}>
               <div style={{ padding: '48px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 {/* Label */}
                 <div>
