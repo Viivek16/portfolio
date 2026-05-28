@@ -38,6 +38,7 @@ const ThreePillars = () => {
     }
 
     // Dispatch custom event for sailing bar
+    console.log('ThreePillars scroll progress p:', p);
     window.dispatchEvent(new CustomEvent('work-scroll', { detail: { p } }));
 
     // FIX 3: Stacking calculations
