@@ -49,17 +49,17 @@ const ThreePillars = () => {
       gc3.style.willChange = 'transform, opacity';
 
       // Blockers (dimming)
-      if (b1) b1.style.opacity = lerp(0, 0.65, p2);
+      if (b1) b1.style.opacity = lerp(0, 0.85, p2);
       if (b2) {
-        b2.style.opacity = lerp(0, 0.65, p3);
+        b2.style.opacity = lerp(0, 0.85, p3);
         b2.style.transform = gc2.style.transform; // Make blocker 2 follow card 2
       }
 
       // AI tools strip
       if (strip) {
-        const show = p >= 0.82;
+        const show = p >= 0.88;
         strip.style.opacity       = show ? '1' : '0';
-        strip.style.transform     = show ? 'translateY(-20px)' : 'translateY(120px)';
+        strip.style.transform     = show ? 'translateY(0px)' : 'translateY(120px)';
         strip.style.pointerEvents = show ? 'auto' : 'none';
 
         // Pop each tool card
@@ -110,7 +110,7 @@ const ThreePillars = () => {
           padding: '0 4vw',
           paddingTop: '40px',
           paddingBottom: '24px',
-          overflow: 'hidden',
+          overflow: 'visible',
         }}
       >
 
@@ -351,7 +351,7 @@ const ThreePillars = () => {
             ref={stripRef}
             style={{
               position: 'absolute',
-              bottom: '40px',
+              bottom: '24px',
               left: 0,
               right: 0,
               zIndex: 50,
@@ -360,7 +360,7 @@ const ThreePillars = () => {
               transition: 'opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1)',
               pointerEvents: 'none',
               display: 'flex',
-              gap: '12px',
+              gap: '16px',
               width: '100%',
               maxWidth: '1400px',
               margin: '0 auto',
@@ -372,7 +372,6 @@ const ThreePillars = () => {
               { name: 'YC CRM', cat: 'CRM', link: '#', stat: 'Pipeline tracking', gradient: 'linear-gradient(160deg, #061428, #0992C2 60%, #06091A)' },
               { name: 'Tradepoint', cat: 'Dev', link: '#', stat: 'Research to prod', gradient: 'linear-gradient(160deg, #042030, #0AC4E0 60%, #0B2D72)' },
               { name: 'BingX', cat: 'Trade', link: '#', stat: 'Trading assistant', gradient: 'linear-gradient(160deg, #08112A, #0B2D72 45%, #0AC4E0)' },
-              { name: 'Fincal', cat: 'Finance', link: '#', stat: 'ROI modeling', gradient: 'linear-gradient(160deg, #061824, #0992C2 50%, #0B2D72)' },
             ].map((tool, i) => (
               <a
                 key={tool.name}
@@ -380,7 +379,7 @@ const ThreePillars = () => {
                 style={{
                   flex: 1,
                   minWidth: 0,
-                  height: '380px',
+                  height: '460px',
                   borderRadius: '16px',
                   background: tool.gradient,
                   border: '1px solid rgba(248,247,244,0.12)',
