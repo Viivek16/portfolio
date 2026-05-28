@@ -225,15 +225,10 @@ const ThreePillars = () => {
           <div
             ref={block1Ref}
             style={{
-              position: 'absolute',
-              top: 0, left: 0, right: 0,
-              minHeight: '680px',
-              borderRadius: '20px',
-              background: 'rgba(6,9,26,0.90)',
-              pointerEvents: 'none',
-              opacity: 0,
-              transition: 'opacity 0.35s ease',
-              zIndex: 15,
+              position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+              maxWidth: '1100px', margin: '0 auto',
+              background: '#070C18', opacity: 0, zIndex: 15, pointerEvents: 'none',
+              borderRadius: '20px'
             }}
           />
 
@@ -243,13 +238,14 @@ const ThreePillars = () => {
             className="gc gc2"
             style={{
               position: 'absolute',
-              top: 0, left: 0, right: 0,
-              minHeight: '680px',
+              top: 0, left: 0, right: 0, bottom: 0,
               zIndex: 20,
               opacity: 0,
+              maxWidth: '1100px',
+              margin: '0 auto',
             }}
           >
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', height: '100%', minHeight: '680px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 480px', height: '100%' }}>
               <div style={{ padding: '48px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <div>
                   <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '10px', letterSpacing: '0.22em', color: '#0AC4E0', marginBottom: '16px' }}>
@@ -271,12 +267,18 @@ const ThreePillars = () => {
                     ))}
                   </div>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
-                    {[['$10M', 'SERIES A RAISED'], ['20+', 'EVENTS HOSTED'], ['14', 'CITIES IN 12 MOS']].map(([num, label]) => (
-                      <div key={label}>
-                        <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontStyle: 'normal', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>
-                        <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '9px', letterSpacing: '0.12em', color: 'rgba(248,247,244,0.45)', marginTop: '4px' }}>{label}</p>
-                      </div>
-                    ))}
+                    <div>
+                      <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 300, fontStyle: 'normal', fontSize: '28px', color: '#0992C2', margin: 0 }}>320%</p>
+                      <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '11px', color: 'rgba(248,247,244,0.6)', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Growth YoY</p>
+                    </div>
+                    <div>
+                      <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 300, fontStyle: 'normal', fontSize: '28px', color: '#0992C2', margin: 0 }}>14M+</p>
+                      <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '11px', color: 'rgba(248,247,244,0.6)', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Impressions</p>
+                    </div>
+                    <div>
+                      <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 300, fontStyle: 'normal', fontSize: '28px', color: '#0992C2', margin: 0 }}>5+</p>
+                      <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '11px', color: 'rgba(248,247,244,0.6)', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Acquisitions</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -299,15 +301,10 @@ const ThreePillars = () => {
           <div
             ref={block2Ref}
             style={{
-              position: 'absolute',
-              top: 0, left: 0, right: 0,
-              minHeight: '680px',
-              borderRadius: '20px',
-              background: 'rgba(6,9,26,0.90)',
-              pointerEvents: 'none',
-              opacity: 0,
-              transition: 'opacity 0.35s ease',
-              zIndex: 25,
+              position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+              maxWidth: '1100px', margin: '0 auto',
+              background: '#070C18', opacity: 0, zIndex: 25, pointerEvents: 'none',
+              borderRadius: '20px'
             }}
           />
 
@@ -317,10 +314,11 @@ const ThreePillars = () => {
             className="gc gc3"
             style={{
               position: 'absolute',
-              top: 0, left: 0, right: 0,
-              minHeight: '680px',
+              top: 0, left: 0, right: 0, bottom: 0,
               zIndex: 30,
               opacity: 0,
+              maxWidth: '1100px',
+              margin: '0 auto',
               WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 50%, rgba(0,0,0,0.1) 70%, transparent 100%)',
               maskImage: 'linear-gradient(to bottom, black 0%, black 50%, rgba(0,0,0,0.1) 70%, transparent 100%)',
             }}

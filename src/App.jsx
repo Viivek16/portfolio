@@ -52,7 +52,7 @@ function App() {
   }, [])
 
   return (
-    <div className="antialiased text-text-primary bg-bg-primary min-h-screen relative overflow-x-hidden">
+    <div className="antialiased text-text-primary bg-bg-primary min-h-screen relative">
       <Navigation />
       
       {location.pathname !== '/info' && (

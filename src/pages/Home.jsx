@@ -6,7 +6,7 @@ import ThreePillars from '../components/ThreePillars'
 
 const Home = () => {
   return (
-    <main className="relative w-full bg-bg-primary overflow-x-hidden">
+    <main className="relative w-full bg-bg-primary">
       <Hero />
       <WorkStats />
       <WorkAbout />

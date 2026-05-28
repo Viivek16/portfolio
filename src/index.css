@@ -45,6 +45,7 @@
   body {
     @apply text-ink font-display antialiased selection:bg-accent selection:text-bg;
     background-color: var(--bg);
+    overflow-x: hidden;
   }
 }
 
