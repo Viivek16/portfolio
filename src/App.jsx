@@ -59,9 +59,9 @@ function App() {
         <div aria-hidden="true">
           <div className="static-horizon">
             <div className="static-horizon-fill" style={{ height: `${sailingProgress * 100}%` }} />
-            <div className={`static-horizon-dot dot-1 ${sailingProgress >= 0.3 ? 'active' : ''}`} />
-            <div className={`static-horizon-dot dot-2 ${sailingProgress >= 0.6 ? 'active' : ''}`} />
-            <div className={`static-horizon-dot dot-3 ${sailingProgress >= 0.9 ? 'active' : ''}`} />
+            <div className={`static-horizon-dot dot-1 ${sailingProgress >= 0.30 ? 'active' : ''}`} />
+            <div className={`static-horizon-dot dot-2 ${sailingProgress >= 0.62 ? 'active' : ''}`} />
+            <div className={`static-horizon-dot dot-3 ${sailingProgress >= 0.90 ? 'active' : ''}`} />
           </div>
           <div className="static-horizon-meta">— still sailing</div>
         </div>

@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import styles from './ThreePillars.module.css';
 
-const clamp = (val) => Math.min(Math.max(val, 0), 1);
+const clamp = (val, min = 0, max = 1) => Math.min(Math.max(val, min), max);
 const lerp = (start, end, t) => start + (end - start) * t;
 const easeInOutQuad = (t) => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
 
@@ -10,6 +10,11 @@ const ThreePillars = () => {
   const card1Ref = useRef(null);
   const card2Ref = useRef(null);
   const card3Ref = useRef(null);
+  
+  // FIX 4: Block overlays to prevent background content bleed
+  const card1OverlayRef = useRef(null);
+  const card2OverlayRef = useRef(null);
+  
   const stripRef = useRef(null);
   const scrollerRef = useRef(null);
 
@@ -27,40 +32,51 @@ const ThreePillars = () => {
 
     const p = scrollTop / maxScroll;
 
-    // Dispatch custom event for sailing bar
+    // Dispatch custom event for sailing bar (Dot threshold logic: VC 0.30, Marketing 0.62, AI 0.90)
     window.dispatchEvent(new CustomEvent('work-scroll', { detail: { p } }));
 
-    // Calculate stacking animations driven by scroll p
-    const e2 = easeInOutQuad(clamp((p - 0.28) / 0.32));
-    const e3 = easeInOutQuad(clamp((p - 0.58) / 0.32));
+    // FIX 3: Stacking calculations
+    const e2 = easeInOutQuad(clamp((p - 0.30) / 0.30, 0, 1));
+    const e3 = easeInOutQuad(clamp((p - 0.62) / 0.30, 0, 1));
 
-    // Card 1 properties: scale 1 -> 0.94, translateY 0 -> -18px, filter brightness 1 -> 0.62
+    // Card 1 properties: scale 1.0 -> 0.93, translateY 0 -> -24px, filter brightness 1 -> 0.62
     if (card1Ref.current) {
-      const scaleVal = lerp(1, 0.94, e2);
-      const tyVal = lerp(0, -18, e2);
+      const scaleVal = lerp(1.0, 0.93, e2);
+      const tyVal = lerp(0, -24, e2);
       const brightnessVal = lerp(1, 0.62, e2);
-      card1Ref.current.style.transform = `scale(${scaleVal}) translateY(${tyVal}px)`;
+      card1Ref.current.style.transform = `translateY(${tyVal}px) scale(${scaleVal})`;
       card1Ref.current.style.filter = `brightness(${brightnessVal})`;
     }
 
-    // Card 2 properties: opacity, scale 1 -> 0.94, translateY 380px -> 0, filter brightness 1 -> 0.62
+    // FIX 4: Card 1 content block overlay gets applied when e2 >= 0.85
+    if (card1OverlayRef.current) {
+      card1OverlayRef.current.style.opacity = e2 >= 0.85 ? 1 : 0;
+    }
+
+    // Card 2 properties: opacity, scale 1.0 -> 0.93 (on e3), translateY entry (100% -> 0% on e2) + push (-24px on e3)
     if (card2Ref.current) {
       const opVal = e2 > 0.01 ? 1 : 0;
-      const scaleVal = lerp(1, 0.94, e3);
-      const tyVal = lerp(380, 0, e2);
+      const scaleVal = lerp(1.0, 0.93, e3);
+      const tyEntry = 100 * (1 - e2);
+      const tyPush = lerp(0, -24, e3);
       const brightnessVal = lerp(1, 0.62, e3);
       card2Ref.current.style.opacity = opVal;
-      card2Ref.current.style.transform = `translateY(${tyVal}px) scale(${scaleVal})`;
+      card2Ref.current.style.transform = `translateY(calc(${tyEntry}% + ${tyPush}px)) scale(${scaleVal})`;
       card2Ref.current.style.filter = `brightness(${brightnessVal})`;
       card2Ref.current.style.pointerEvents = opVal > 0 ? 'auto' : 'none';
     }
 
-    // Card 3 properties: opacity, translateY 380px -> 0
+    // FIX 4: Card 2 content block overlay gets applied when e3 >= 0.85
+    if (card2OverlayRef.current) {
+      card2OverlayRef.current.style.opacity = e3 >= 0.85 ? 1 : 0;
+    }
+
+    // Card 3 properties: opacity, translateY entry (100% -> 0% on e3), scale is always 1.0
     if (card3Ref.current) {
       const opVal = e3 > 0.01 ? 1 : 0;
-      const tyVal = lerp(380, 0, e3);
+      const tyVal = 100 * (1 - e3);
       card3Ref.current.style.opacity = opVal;
-      card3Ref.current.style.transform = `translateY(${tyVal}px)`;
+      card3Ref.current.style.transform = `translateY(${tyVal}%)`;
       card3Ref.current.style.pointerEvents = opVal > 0 ? 'auto' : 'none';
     }
 
@@ -111,7 +127,7 @@ const ThreePillars = () => {
       if (!isDown) return;
       e.preventDefault();
       const x = e.pageX - scroller.offsetLeft;
-      const walk = (x - startX) * 1.5; // Drag sensitivity multiplier
+      const walk = (x - startX) * 1.3; // Drag sensitivity multiplier (1.3)
       scroller.scrollLeft = scrollLeft - walk;
     };
 
@@ -147,7 +163,7 @@ const ThreePillars = () => {
       name: 'YC CRM',
       gradient: 'linear-gradient(160deg, #061428 0%, #0992C2 50%, #06091A 100%)',
       category: 'CRM',
-      desc: 'AI-assisted pipeline tracking for the Yellow Capital portfolio',
+      desc: 'AI-assisted pipeline for the Yellow Capital deal portfolio',
       link: '#'
     },
     {
@@ -199,180 +215,190 @@ const ThreePillars = () => {
         </p>
       </div>
 
-      {/* Stacking Zone */}
-      <div ref={containerRef} className={styles.scrollContainer}>
+      {/* Stacking Zone - id="sb" scroll box */}
+      <div ref={containerRef} id="sb" className={styles.scrollContainer}>
         <div className={styles.scrollInner}>
           <div className={styles.stickyStage}>
             
             {/* CARD 1: Venture Capital */}
-            <div ref={card1Ref} className={styles.cardBase} style={{ zIndex: 1 }}>
-              <div className={styles.cardGrid}>
-                <div className={styles.leftCol}>
-                  <div>
-                    <div className={styles.cardEyebrow}>01 / Venture Capital</div>
-                    <h3 className={styles.cardTitle}>The Deal Maker.</h3>
-                    <p className={styles.cardBody}>
-                      From evaluating 800+ decks to managing $200M+ AUM across four funds — built from inside the table, not above it. My edge is founder empathy: I've signed term sheets and felt payroll anxiety in equal measure.
-                    </p>
+            <div ref={card1Ref} className={styles.cardBase} style={{ zIndex: 10 }}>
+              <div ref={card1OverlayRef} className={styles.gcBlockOverlay} />
+              
+              <div className={styles.gcContent}>
+                <div className={styles.cardGrid}>
+                  <div className={styles.leftCol}>
+                    <div>
+                      <div className={styles.cardEyebrow}>01 / Venture Capital</div>
+                      <h3 className={styles.cardTitle}>The Deal Maker.</h3>
+                      <p className={styles.cardBody}>
+                        From evaluating 800+ decks to managing $200M+ AUM across four funds — built from inside the table, not above it. My edge is founder empathy: I've signed term sheets and felt payroll anxiety in equal measure.
+                      </p>
+                    </div>
+                    <div>
+                      <div className={styles.pillsRow}>
+                        <span className={styles.pill}>NewTribe Capital</span>
+                        <span className={styles.pill}>DCF</span>
+                        <span className={styles.pill}>Leo Ventures</span>
+                        <span className={styles.pill}>Asva</span>
+                      </div>
+                      <div className={styles.statsRow}>
+                        <div className={styles.statItem}>
+                          <span className={styles.statNum}>$200M+</span>
+                          <span className={styles.statLabel}>AUM Managed</span>
+                        </div>
+                        <div className={styles.statItem}>
+                          <span className={styles.statNum}>450+</span>
+                          <span className={styles.statLabel}>KOL Network</span>
+                        </div>
+                        <div className={styles.statItem}>
+                          <span className={styles.statNum}>4</span>
+                          <span className={styles.statLabel}>Funds Built</span>
+                        </div>
+                        <div className={styles.statItem}>
+                          <span className={styles.statNum}>250+</span>
+                          <span className={styles.statLabel}>Projects</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <div className={styles.pillsRow}>
-                      <span className={styles.pill}>NewTribe Capital</span>
-                      <span className={styles.pill}>DCF</span>
-                      <span className={styles.pill}>Leo Ventures</span>
-                      <span className={styles.pill}>Asva</span>
-                    </div>
-                    <div className={styles.statsRow}>
-                      <div className={styles.statItem}>
-                        <span className={styles.statNum}>$200M+</span>
-                        <span className={styles.statLabel}>AUM Managed</span>
+                  
+                  <div className={styles.rightCol}>
+                    {!vcImageError ? (
+                      <img 
+                        src="/assets/images/work/vc-hero.jpg" 
+                        alt="Viivek Mehata at a VC panel" 
+                        className={styles.cardImage}
+                        onError={() => setVcImageError(true)}
+                      />
+                    ) : (
+                      <div className={styles.placeholderWrapper}>
+                        <div className={styles.crosshatch} />
+                        <span className={styles.placeholderLabel}>Venture Capital</span>
                       </div>
-                      <div className={styles.statItem}>
-                        <span className={styles.statNum}>450+</span>
-                        <span className={styles.statLabel}>KOL Network</span>
-                      </div>
-                      <div className={styles.statItem}>
-                        <span className={styles.statNum}>4</span>
-                        <span className={styles.statLabel}>Funds Built</span>
-                      </div>
-                      <div className={styles.statItem}>
-                        <span className={styles.statNum}>250+</span>
-                        <span className={styles.statLabel}>Projects</span>
-                      </div>
-                    </div>
+                    )}
                   </div>
-                </div>
-                
-                <div className={styles.rightCol}>
-                  {!vcImageError ? (
-                    <img 
-                      src="/assets/images/work/vc-hero.jpg" 
-                      alt="Viivek at a VC panel" 
-                      className={styles.cardImage}
-                      onError={() => setVcImageError(true)}
-                    />
-                  ) : (
-                    <div className={styles.placeholderWrapper}>
-                      <div className={styles.crosshatch} />
-                      <span className={styles.placeholderLabel}>Venture Capital</span>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>
 
             {/* CARD 2: Marketing & Growth */}
-            <div ref={card2Ref} className={styles.cardBase} style={{ zIndex: 2, opacity: 0, transform: 'translateY(380px)' }}>
-              <div className={styles.cardGrid}>
-                <div className={styles.leftCol}>
-                  <div>
-                    <div className={styles.cardEyebrow}>02 / Marketing & Growth</div>
-                    <h3 className={styles.cardTitle}>The Signal Amplifier.</h3>
-                    <p className={styles.cardBody}>
-                      GTM architecture that moves markets. From zero-traction to $10M Series A acquisition — distribution is the moat most founders forget to build until it is already too late.
-                    </p>
+            <div ref={card2Ref} className={styles.cardBase} style={{ zIndex: 20, opacity: 0, transform: 'translateY(380px)' }}>
+              <div ref={card2OverlayRef} className={styles.gcBlockOverlay} />
+              
+              <div className={styles.gcContent}>
+                <div className={styles.cardGrid}>
+                  <div className={styles.leftCol}>
+                    <div>
+                      <div className={styles.cardEyebrow}>02 / Marketing & Growth</div>
+                      <h3 className={styles.cardTitle}>The Signal Amplifier.</h3>
+                      <p className={styles.cardBody}>
+                        GTM architecture that moves markets. From zero-traction to $10M Series A acquisition — distribution is the moat most founders forget to build until it is already too late.
+                      </p>
+                    </div>
+                    <div>
+                      <div className={styles.pillsRow}>
+                        <span className={styles.pill}>NODO</span>
+                        <span className={styles.pill}>Nordek</span>
+                        <span className={styles.pill}>Series A Exit</span>
+                        <span className={styles.pill}>KOL Strategy</span>
+                        <span className={styles.pill}>20+ Events</span>
+                      </div>
+                      <div className={styles.statsRow}>
+                        <div className={styles.statItem}>
+                          <span className={styles.statNum}>$10M</span>
+                          <span className={styles.statLabel}>Series A (NODO)</span>
+                        </div>
+                        <div className={styles.statItem}>
+                          <span className={styles.statNum}>20+</span>
+                          <span className={styles.statLabel}>Global Events</span>
+                        </div>
+                        <div className={styles.statItem}>
+                          <span className={styles.statNum}>14</span>
+                          <span className={styles.statLabel}>Cities / 12 Mo.</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <div className={styles.pillsRow}>
-                      <span className={styles.pill}>NODO</span>
-                      <span className={styles.pill}>Nordek</span>
-                      <span className={styles.pill}>Series A Exit</span>
-                      <span className={styles.pill}>KOL Strategy</span>
-                      <span className={styles.pill}>20+ Events</span>
-                    </div>
-                    <div className={styles.statsRow}>
-                      <div className={styles.statItem}>
-                        <span className={styles.statNum}>$10M</span>
-                        <span className={styles.statLabel}>Series A (NODO)</span>
+                  
+                  <div className={styles.rightCol}>
+                    {!mktImageError ? (
+                      <img 
+                        src="/assets/images/work/marketing-hero.jpg" 
+                        alt="Viivek Mehata at a VC panel" 
+                        className={styles.cardImage}
+                        onError={() => setMktImageError(true)}
+                      />
+                    ) : (
+                      <div className={styles.placeholderWrapper}>
+                        <div className={styles.crosshatch} />
+                        <span className={styles.placeholderLabel}>Marketing & Growth</span>
                       </div>
-                      <div className={styles.statItem}>
-                        <span className={styles.statNum}>20+</span>
-                        <span className={styles.statLabel}>Global Events</span>
-                      </div>
-                      <div className={styles.statItem}>
-                        <span className={styles.statNum}>14</span>
-                        <span className={styles.statLabel}>Cities / 12 Mo.</span>
-                      </div>
-                    </div>
+                    )}
                   </div>
-                </div>
-                
-                <div className={styles.rightCol}>
-                  {!mktImageError ? (
-                    <img 
-                      src="/assets/images/work/marketing-hero.jpg" 
-                      alt="GTM and marketing timeline overview" 
-                      className={styles.cardImage}
-                      onError={() => setMktImageError(true)}
-                    />
-                  ) : (
-                    <div className={styles.placeholderWrapper}>
-                      <div className={styles.crosshatch} />
-                      <span className={styles.placeholderLabel}>Marketing & Growth</span>
-                    </div>
-                  )}
                 </div>
               </div>
             </div>
 
             {/* CARD 3: AI (Quiet Multiplier) */}
-            <div ref={card3Ref} className={styles.cardBase} style={{ zIndex: 3, opacity: 0, transform: 'translateY(380px)' }}>
-              <div className={styles.fullCol}>
-                <div className={styles.card3Grid}>
-                  <div>
-                    <div className={styles.cardEyebrow}>03 / Artificial Intelligence</div>
-                    <h3 className={styles.cardTitle}>The Quiet Multiplier.</h3>
-                    <p className={styles.cardBody}>
-                      Direct, production-grade intelligence built to multiply professional bandwidth. I design and code custom AI integrations that sit quietly behind deal sourcing, portfolio tracking, travel planning, and research operations — converting manual hours into instant, automated flows.
-                    </p>
-                  </div>
-                  <div>
-                    <div className={styles.toolSubLabel}>Live Tools</div>
-                    <div className={styles.toolChipsGrid}>
-                      <div className={styles.toolChip}>
-                        <span className={styles.toolDot} /> Triply
+            <div ref={card3Ref} className={`${styles.cardBase} ${styles.card3BaseOverride}`} style={{ zIndex: 30, opacity: 0, transform: 'translateY(380px)' }}>
+              <div className={styles.gcContent}>
+                <div className={styles.fullCol}>
+                  <div className={styles.card3Grid}>
+                    <div>
+                      <div className={styles.cardEyebrow}>03 / Artificial Intelligence</div>
+                      <h3 className={styles.cardTitle}>The Quiet Multiplier.</h3>
+                      <p className={styles.cardBody}>
+                        Direct, production-grade intelligence built to multiply professional bandwidth. I design and code custom AI integrations that sit quietly behind deal sourcing, portfolio tracking, travel planning, and research operations — converting manual hours into instant, automated flows.
+                      </p>
+                    </div>
+                    <div>
+                      <div className={styles.toolSubLabel}>Live Tools</div>
+                      <div className={styles.toolChipsGrid}>
+                        <div className={styles.toolChip}>
+                          <span className={styles.toolDot} /> Triply
+                        </div>
+                        <div className={styles.toolChip}>
+                          <span className={styles.toolDot} /> YC Website
+                        </div>
+                        <div className={styles.toolChip}>
+                          <span className={styles.toolDot} /> YC CRM
+                        </div>
+                        <div className={styles.toolChip}>
+                          <span className={styles.toolDot} /> Tradepoint
+                        </div>
+                        <div className={styles.toolChip}>
+                          <span className={styles.toolDot} /> BingX
+                        </div>
+                        <div className={styles.toolChip}>
+                          <span className={styles.toolDot} /> Fincal
+                        </div>
                       </div>
-                      <div className={styles.toolChip}>
-                        <span className={styles.toolDot} /> YC Website
-                      </div>
-                      <div className={styles.toolChip}>
-                        <span className={styles.toolDot} /> YC CRM
-                      </div>
-                      <div className={styles.toolChip}>
-                        <span className={styles.toolDot} /> Tradepoint
-                      </div>
-                      <div className={styles.toolChip}>
-                        <span className={styles.toolDot} /> BingX
-                      </div>
-                      <div className={styles.toolChip}>
-                        <span className={styles.toolDot} /> Fincal
+                      <div className={styles.statsRow}>
+                        <div className={styles.statItem}>
+                          <span className={styles.statNum}>6</span>
+                          <span className={styles.statLabel}>Live Tools</span>
+                        </div>
+                        <div className={styles.statItem}>
+                          <span className={styles.statNum}>3</span>
+                          <span className={styles.statLabel}>VC Firms</span>
+                        </div>
+                        <div className={styles.statItem}>
+                          <span className={styles.statNum}>∞</span>
+                          <span className={styles.statLabel}>Hours Saved</span>
+                        </div>
                       </div>
                     </div>
-                    <div className={styles.statsRow}>
-                      <div className={styles.statItem}>
-                        <span className={styles.statNum}>6</span>
-                        <span className={styles.statLabel}>Live Tools</span>
-                      </div>
-                      <div className={styles.statItem}>
-                        <span className={styles.statNum}>3</span>
-                        <span className={styles.statLabel}>VC Firms</span>
-                      </div>
-                      <div className={styles.statItem}>
-                        <span className={styles.statNum}>∞</span>
-                        <span className={styles.statLabel}>Hours Saved</span>
-                      </div>
+                  </div>
+                  
+                  <div className={styles.bottomFeatureGrid}>
+                    <div className={styles.featureBlock}>
+                      <span className={styles.featureTitle}>Built For</span>
+                      <span className={styles.featureText}>deal flow automation, CRM intelligence, UX research, financial modeling</span>
                     </div>
-                  </div>
-                </div>
-                
-                <div className={styles.bottomFeatureGrid}>
-                  <div className={styles.featureBlock}>
-                    <span className={styles.featureTitle}>Built For</span>
-                    <span className={styles.featureText}>deal flow automation, CRM intelligence, UX research, financial modeling</span>
-                  </div>
-                  <div className={styles.featureBlock}>
-                    <span className={styles.featureTitle}>Stack</span>
-                    <span className={styles.featureText}>Claude API · Custom frontends · Supabase · Vercel — all production</span>
+                    <div className={styles.featureBlock}>
+                      <span className={styles.featureTitle}>Stack</span>
+                      <span className={styles.featureText}>Claude API · Custom frontends · Supabase · Vercel — all production</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -381,9 +407,6 @@ const ThreePillars = () => {
           </div>
         </div>
       </div>
-
-      {/* Visual Connector Line to strip */}
-      <div className={styles.visualConnector} aria-hidden="true" />
 
       {/* AI Tools Strip */}
       <div ref={stripRef} className={styles.stripSection}>
@@ -398,35 +421,36 @@ const ThreePillars = () => {
             <div 
               key={tool.name} 
               className={styles.toolCard} 
-              style={{ transitionDelay: `${180 + idx * 90}ms` }}
+              style={{
+                transition: 'opacity 0.55s ease, transform 0.55s cubic-bezier(0.16, 1, 0.3, 1)',
+                transitionDelay: `${160 + idx * 80}ms`
+              }}
             >
-              {/* Full bleed gradient background */}
+              {/* FIX 7: Rebuilt Tool Card Structure */}
               <div 
-                className={styles.cardGradient} 
+                className={styles.tcBg} 
                 style={{ background: tool.gradient }} 
               />
               
-              {/* Top row elements */}
-              <div className={styles.cardTopRow}>
+              {/* Category pill and Live badge */}
+              <div className={styles.tcHeader}>
                 <span className={styles.cardCategory}>{tool.category}</span>
                 <span className={styles.liveBadge}>
                   <span className={styles.liveBadgeDot} /> Live
                 </span>
               </div>
               
-              {/* Static bottom layout */}
-              <div className={styles.staticBottomLayer}>
-                <span className={styles.staticName}>{tool.name}</span>
-                <span className={styles.staticType}>{tool.category}</span>
+              {/* Always visible label layer */}
+              <div className={styles.tcAlwaysLabel}>
+                <span className={styles.toolName}>{tool.name}</span>
+                <span className={styles.toolType}>{tool.category}</span>
               </div>
               
-              {/* Hover Panel */}
-              <div className={styles.hoverPanel}>
-                <div>
-                  <span className={styles.hoverName}>{tool.name}</span>
-                  <div className={styles.hoverType}>{tool.category}</div>
-                  <p className={styles.hoverDesc}>{tool.desc}</p>
-                </div>
+              {/* Hover Reveal Panel */}
+              <div className={styles.tcRevealPanel}>
+                <span className={styles.toolName}>{tool.name}</span>
+                <div className={styles.toolType}>{tool.category}</div>
+                <p className={styles.hoverDesc}>{tool.desc}</p>
                 {tool.link !== '#' ? (
                   <a 
                     href={tool.link} 
@@ -434,10 +458,12 @@ const ThreePillars = () => {
                     rel="noopener noreferrer" 
                     className={styles.hoverCta}
                   >
-                    View Product →
+                    View Product <span className={styles.hoverArrow}>→</span>
                   </a>
                 ) : (
-                  <span className={styles.hoverCta}>View Product →</span>
+                  <span className={styles.hoverCta}>
+                    View Product <span className={styles.hoverArrow}>→</span>
+                  </span>
                 )}
               </div>
             </div>

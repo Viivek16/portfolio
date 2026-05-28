@@ -1,8 +1,7 @@
 /* =========================================================
-   STYLING FOR SECTION 4 - THREE PILLARS
+   STYLING FOR SECTION 4 - THREE PILLARS (REVISED)
    ========================================================= */
 
-/* Brand & Typography Tokens local mapping */
 .pillarsSection {
   background-color: #06091A;
   color: #F8F7F4;
@@ -10,11 +9,15 @@
   overflow: hidden;
   font-family: 'Poppins', sans-serif;
   user-select: none;
+  
+  /* FIX 2: Clear Navigation Bar Height (NAV_HEIGHT = 80px + 24px) */
+  padding-top: 104px;
 }
 
 /* 1. SECTION HEADER */
 .header {
-  padding: 52px 52px 32px 52px;
+  /* FIX 1: Exact Section 3 left/right breathing room (8vw) */
+  padding: 52px 8vw 32px 8vw;
   position: relative;
   z-index: 10;
 }
@@ -119,16 +122,22 @@
   top: 0;
   height: 540px;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
 }
 
 /* 4. THREE GLASSMORPHIC CARDS */
 .cardBase {
   position: absolute;
-  width: calc(100% - 104px);
-  height: 480px;
+  
+  /* FIX 1 & 5: Horizontal Margins and Centering aligned with 8vw spacing */
+  left: 8vw;
+  width: calc(100% - 16vw);
+  
+  /* FIX 5: Taller premium height */
+  height: 460px;
+  min-height: 460px;
+  top: 40px; /* Centered vertically inside 540px sticky stage */
+  
   background: rgba(255, 255, 255, 0.045);
   backdrop-filter: blur(32px) saturate(180%);
   -webkit-backdrop-filter: blur(32px) saturate(180%);
@@ -141,12 +150,20 @@
   overflow: hidden;
   will-change: transform, filter, opacity;
   
-  /* Modern CSS origin-aware transition as recommended by Emil Kowalski */
+  /* Modern CSS origin-aware transition */
   transition: 
     border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
     box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  transform-origin: center center;
+  
+  /* FIX 3: Top-Center Anchor Point */
+  transform-origin: top center;
+}
+
+.card3BaseOverride {
+  border-bottom: none !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 }
 
 /* Card Hover states with touch guards */
@@ -159,23 +176,43 @@
       inset 0 1px 0 rgba(248, 247, 244, 0.12),
       inset 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
     transform: scale(1.012) translateY(-4px) !important;
-    z-index: 10 !important;
   }
+}
+
+/* FIX 4: Card Overlay Structure */
+.gcContent {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+}
+
+.gcBlockOverlay {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(6, 9, 26, 0.88);
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
 /* Card 1 & 2 Grid layouts */
 .cardGrid {
   display: grid;
-  grid-template-columns: 1fr 380px;
+  grid-template-columns: 1fr 400px; /* FIX 5: Exactly 400px right image column */
   height: 100%;
 }
 
 .leftCol {
-  padding: 38px 36px 36px 40px;
+  /* FIX 5: Strict Premium Padding */
+  padding: 44px 40px 44px 48px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  box-sizing: border-box;
 }
 
 .cardEyebrow {
@@ -262,7 +299,11 @@
 /* Right Col: Image Container */
 .rightCol {
   position: relative;
-  height: 100%;
+  /* FIX 5: Strict Proportions */
+  height: 460px;
+  min-height: 460px;
+  width: 400px;
+  flex-shrink: 0;
   overflow: hidden;
   border-left: 1px solid rgba(248, 247, 244, 0.07);
 }
@@ -305,15 +346,13 @@
 
 /* CARD 3 — Full-Width AI Card */
 .fullCol {
-  padding: 36px 40px;
+  /* FIX 5: Premium Padding & Taller proportions */
+  padding: 44px 48px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  
-  /* Dissolving bottom edge */
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
+  box-sizing: border-box;
 }
 
 .card3Grid {
@@ -398,34 +437,14 @@
 
 
 /* 5. AI TOOLS STRIP SECTION */
-.visualConnector {
-  height: 36px;
-  margin-top: -2px; /* Flush layout connector */
-  border-left: 1px solid rgba(248, 247, 244, 0.06);
-  border-right: 1px solid rgba(248, 247, 244, 0.06);
-  margin-left: 52px;
-  margin-right: 52px;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.018) 0%, transparent 100%);
-  position: relative;
-  z-index: 5;
-}
-
-/* Centered vertical connection line */
-.visualConnector::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: linear-gradient(to bottom, rgba(10, 196, 224, 0.25) 0%, transparent 100%);
-  transform: translateX(-50%);
-}
 
 .stripSection {
-  padding: 0 52px 40px 52px;
+  /* FIX 6: 56px visual overlap with Card 3, transparent background */
+  margin-top: -56px;
   position: relative;
-  z-index: 6;
+  z-index: 35;
+  background: transparent;
+  padding: 0;
   
   /* Initial state */
   opacity: 0;
@@ -445,6 +464,9 @@
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  /* FIX 1: Aligned to 8vw spacing */
+  padding-left: 8vw;
+  padding-right: 8vw;
 }
 
 .stripLabel {
@@ -467,10 +489,14 @@
 /* Scroll Container */
 .scrollerTrack {
   display: flex;
-  gap: 14px;
+  /* FIX 7: Premium Layout & Aligned Breathing Space */
+  gap: 20px;
+  padding-bottom: 48px;
+  padding-left: 8vw;
+  padding-right: 8vw;
   overflow-x: auto;
-  scrollbar-width: none;
   cursor: grab;
+  -webkit-overflow-scrolling: touch;
 }
 
 .scrollerTrack:active {
@@ -481,59 +507,60 @@
   display: none;
 }
 
-/* Portrait Card: 190px x 270px */
+/* FIX 7: Premium Tool Card (300px x 420px) */
 .toolCard {
-  flex: 0 0 190px;
-  width: 190px;
-  height: 270px;
-  border-radius: 16px;
+  flex: 0 0 300px;
+  width: 300px;
+  height: 420px;
+  border-radius: 18px;
   border: 1px solid rgba(248, 247, 244, 0.08);
   overflow: hidden;
   position: relative;
   will-change: transform, box-shadow, border-color;
   
-  /* Transition settings */
+  /* Premium Transition timings */
   transition: 
-    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+    box-shadow 0.5s, 
+    border-color 0.4s;
     
   /* Stagger animations initial state */
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(30px);
 }
 
-.revealed .toolCard {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Hover scales card and shows details */
+/* Hover scales card, elevates and reveals panel */
 @media (hover: hover) and (pointer: fine) {
   .toolCard:hover {
-    transform: scale(1.065) translateY(-8px) !important;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6) !important;
-    border-color: rgba(10, 196, 224, 0.3) !important;
+    transform: scale(1.04) translateY(-10px) !important;
+    box-shadow: 
+      0 28px 70px rgba(0,0,0,0.65), 
+      0 0 28px rgba(10,196,224,0.09) !important;
+    border-color: rgba(10,196,224,0.35) !important;
     z-index: 10 !important;
   }
   
-  .toolCard:hover .hoverPanel {
+  .toolCard:hover .tcRevealPanel {
     transform: translateY(0) !important;
+  }
+  
+  .toolCard:hover .hoverArrow {
+    transform: translateX(4px);
   }
 }
 
 /* Card Visual Sections */
-.cardGradient {
+.tcBg {
   position: absolute;
   inset: 0;
   z-index: 1;
 }
 
-.cardTopRow {
+.tcHeader {
   position: absolute;
-  top: 12px;
-  left: 12px;
-  right: 12px;
+  top: 18px;
+  left: 18px;
+  right: 18px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -543,12 +570,15 @@
 .cardCategory {
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
-  font-size: 8.5px;
-  color: #0AC4E0;
-  background: rgba(6, 9, 26, 0.5);
-  border: 0.5px solid rgba(10, 196, 224, 0.2);
-  padding: 2px 8px;
-  border-radius: 4px;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: rgba(248, 247, 244, 0.75);
+  background: rgba(8, 13, 26, 0.6);
+  border: 0.5px solid rgba(248, 247, 244, 0.12);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 5px 11px;
+  border-radius: 12px;
   text-transform: uppercase;
 }
 
@@ -556,12 +586,14 @@
   display: flex;
   align-items: center;
   font-family: 'Poppins', sans-serif;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 8px;
-  color: rgba(248, 247, 244, 0.8);
-  background: rgba(6, 9, 26, 0.5);
-  padding: 2px 6px;
-  border-radius: 4px;
+  letter-spacing: 0.05em;
+  color: #0AC4E0;
+  background: rgba(10, 196, 224, 0.18);
+  border: 0.5px solid rgba(10, 196, 224, 0.35);
+  padding: 4px 8px;
+  border-radius: 6px;
   text-transform: uppercase;
 }
 
@@ -575,93 +607,84 @@
 }
 
 /* Static base bottom layer */
-.staticBottomLayer {
+.tcAlwaysLabel {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 16px 12px;
-  background: linear-gradient(to top, rgba(6, 9, 26, 0.85) 0%, transparent 100%);
+  padding: 56px 20px 20px;
+  background: linear-gradient(to top, rgba(6, 9, 26, 0.92) 0%, transparent 55%);
   z-index: 2;
   display: flex;
   flex-direction: column;
 }
 
-.staticName {
+.toolName {
   font-family: 'Playfair Display', serif;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 20px;
   color: #F8F7F4;
   line-height: 1.2;
 }
 
-.staticType {
+.toolType {
   font-family: 'Poppins', sans-serif;
-  font-weight: 400;
-  font-size: 8px;
-  letter-spacing: 0.05em;
+  font-weight: 500;
+  font-size: 9px;
+  letter-spacing: 0.12em;
   color: #0AC4E0;
   text-transform: uppercase;
-  margin-top: 2px;
+  margin-top: 4px;
 }
 
 /* Glass panel overlay that slides up on hover */
-.hoverPanel {
+.tcRevealPanel {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 18px 14px;
-  background: rgba(6, 9, 26, 0.82);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  border-top: 0.5px solid rgba(248, 247, 244, 0.1);
+  padding: 20px 22px 24px;
+  background: rgba(6, 9, 26, 0.80);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border-top: 0.5px solid rgba(248, 247, 244, 0.12);
   transform: translateY(100%);
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.48s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 4;
   display: flex;
   flex-direction: column;
-  height: calc(100% - 36px); /* Height spans almost full card on reveal */
-  justify-content: space-between;
-}
-
-.hoverName {
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  font-size: 16px;
-  color: #F8F7F4;
-  line-height: 1.1;
-}
-
-.hoverType {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  font-size: 8px;
-  color: #0AC4E0;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  box-sizing: border-box;
 }
 
 .hoverDesc {
   font-family: 'Poppins', sans-serif;
   font-weight: 300;
-  font-size: 11px;
-  line-height: 1.5;
+  font-size: 12.5px;
+  line-height: 1.65;
   color: rgba(248, 247, 244, 0.65);
   margin-top: 8px;
+  margin-bottom: 14px;
   flex-grow: 1;
 }
 
 .hoverCta {
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
-  font-size: 8.5px;
+  font-size: 9px;
   color: #0AC4E0;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-top: 10px;
+  letter-spacing: 0.12em;
+  margin-top: auto;
   display: flex;
   align-items: center;
+  text-decoration: none;
+}
+
+.hoverArrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  font-size: 12px;
+  margin-left: 4px;
 }
 
 /* Adaptive Breakpoints for Glass Cards Grid */
@@ -674,6 +697,7 @@
   .rightCol {
     border-left: none;
     border-top: 1px solid rgba(248, 247, 244, 0.07);
+    width: 100%;
   }
   
   .leftCol {
@@ -686,32 +710,22 @@
   }
   
   .cardBase {
-    height: 480px;
-  }
-  
-  .scrollContainer {
-    height: 520px;
-  }
-  
-  .stickyStage {
-    height: 520px;
-  }
-  
-  .card3Grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+    height: 460px;
   }
 }
 
 @media (max-width: 639px) {
+  .pillarsSection {
+    padding-top: 80px;
+  }
   .header {
-    padding: 36px 24px 24px 24px;
+    padding: 36px 8vw 24px 8vw;
   }
   
   .cardBase {
-    width: calc(100% - 48px);
-    left: 24px;
-    height: 480px;
+    left: 8vw;
+    width: calc(100% - 16vw);
+    height: 460px;
   }
   
   .leftCol {
@@ -729,18 +743,5 @@
   
   .statsRow {
     grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .visualConnector {
-    margin-left: 24px;
-    margin-right: 24px;
-  }
-  
-  .stripSection {
-    padding: 0 24px 40px 24px;
-  }
-  
-  .scrollerTrack {
-    gap: 10px;
   }
 }
