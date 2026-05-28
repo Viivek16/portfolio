@@ -13,7 +13,7 @@ const statsData = [
 
 const WorkStats = () => {
   const containerRef = useRef(null);
-  const isInView = useInView(containerRef, { once: true, amount: 0.6 });
+  const isInView = useInView(containerRef, { once: true, amount: 0.2 });
   const prefersReducedMotion = useReducedMotion();
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
@@ -50,18 +50,18 @@ const WorkStats = () => {
       
       <div className={styles.statsGrid}>
 
-        <motion.div className={`${styles.horizontalHairline} ${styles.topHairline}`} variants={getLineVariant(0.5, 0.6)} initial="hidden" animate={isInView ? "visible" : "hidden"} />
-        <motion.div className={`${styles.horizontalHairline} ${styles.middleHairline}`} variants={getLineVariant(1.3, 0.6)} initial="hidden" animate={isInView ? "visible" : "hidden"} />
-        <motion.div className={`${styles.horizontalHairline} ${styles.bottomHairline}`} variants={getLineVariant(2.1, 0.4)} initial="hidden" animate={isInView ? "visible" : "hidden"} />
+        <motion.div className={`${styles.horizontalHairline} ${styles.topHairline}`} variants={getLineVariant(0.1, 0.4)} initial="hidden" animate={isInView ? "visible" : "hidden"} />
+        <motion.div className={`${styles.horizontalHairline} ${styles.middleHairline}`} variants={getLineVariant(0.3, 0.4)} initial="hidden" animate={isInView ? "visible" : "hidden"} />
+        <motion.div className={`${styles.horizontalHairline} ${styles.bottomHairline}`} variants={getLineVariant(0.5, 0.3)} initial="hidden" animate={isInView ? "visible" : "hidden"} />
         
-        <motion.div className={`${styles.verticalHairline} ${styles.vertLine1}`} variants={getVertLineVariant(0.7, 1.4)} initial="hidden" animate={isInView ? "visible" : "hidden"} />
-        <motion.div className={`${styles.verticalHairline} ${styles.vertLine2}`} variants={getVertLineVariant(0.7, 1.4)} initial="hidden" animate={isInView ? "visible" : "hidden"} />
-        <motion.div className={`${styles.verticalHairline} ${styles.vertLine3}`} variants={getVertLineVariant(0.7, 1.4)} initial="hidden" animate={isInView ? "visible" : "hidden"} />
-        <motion.div className={`${styles.verticalHairline} ${styles.vertLine4}`} variants={getVertLineVariant(0.7, 1.4)} initial="hidden" animate={isInView ? "visible" : "hidden"} />
+        <motion.div className={`${styles.verticalHairline} ${styles.vertLine1}`} variants={getVertLineVariant(0.2, 0.8)} initial="hidden" animate={isInView ? "visible" : "hidden"} />
+        <motion.div className={`${styles.verticalHairline} ${styles.vertLine2}`} variants={getVertLineVariant(0.2, 0.8)} initial="hidden" animate={isInView ? "visible" : "hidden"} />
+        <motion.div className={`${styles.verticalHairline} ${styles.vertLine3}`} variants={getVertLineVariant(0.2, 0.8)} initial="hidden" animate={isInView ? "visible" : "hidden"} />
+        <motion.div className={`${styles.verticalHairline} ${styles.vertLine4}`} variants={getVertLineVariant(0.2, 0.8)} initial="hidden" animate={isInView ? "visible" : "hidden"} />
 
         {statsData.map((stat, i) => {
           // Row 1: i < 3, Row 2: i >= 3
-          const cellDelay = i < 3 ? 0.95 : 1.65;
+          const cellDelay = i < 3 ? 0.35 : 0.55;
           const isHovered = hoveredIndex === i;
           const isOtherHovered = hoveredIndex !== null && hoveredIndex !== i;
 

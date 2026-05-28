@@ -99,17 +99,18 @@ const ThreePillars = () => {
         height: '3400px',
       }}
     >
-      {/* ══ STICKY STAGE — pins to viewport for entire scroll duration ══ */}
-      <div
+      {/* ── Sticky Stage ── */}
+      <div 
         style={{
           position: 'sticky',
-          top: 'var(--nav-h, 72px)',
-          height: 'calc(100vh - var(--nav-h, 72px))',
-          overflow: 'hidden',
+          top: 0,
+          height: '100vh',
           display: 'flex',
           flexDirection: 'column',
-          paddingLeft: '6vw',
-          paddingRight: '6vw',
+          padding: '0 4vw',
+          paddingTop: '40px',
+          paddingBottom: '24px',
+          overflow: 'hidden',
         }}
       >
 
@@ -154,8 +155,8 @@ const ThreePillars = () => {
         <div
           style={{
             position: 'relative',
-            flex: 1,
-            minHeight: '680px',
+            height: 'calc(100vh - 160px)',
+            minHeight: '640px',
           }}
         >
           {/* CARD 1 — VC */}
@@ -165,7 +166,7 @@ const ThreePillars = () => {
             style={{
               position: 'absolute',
               top: 0, left: 0, right: 0,
-              minHeight: '680px',
+              height: '100%',
               zIndex: 10,
             }}
           >
@@ -225,7 +226,8 @@ const ThreePillars = () => {
           <div
             ref={block1Ref}
             style={{
-              position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+              position: 'absolute', top: 0, left: 0, right: 0,
+              height: '100%',
               maxWidth: '1100px', margin: '0 auto',
               background: '#070C18', opacity: 0, zIndex: 15, pointerEvents: 'none',
               borderRadius: '20px'
@@ -238,7 +240,8 @@ const ThreePillars = () => {
             className="gc gc2"
             style={{
               position: 'absolute',
-              top: 0, left: 0, right: 0, bottom: 0,
+              top: 0, left: 0, right: 0,
+              height: '100%',
               zIndex: 20,
               opacity: 0,
               maxWidth: '1100px',
@@ -301,7 +304,8 @@ const ThreePillars = () => {
           <div
             ref={block2Ref}
             style={{
-              position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+              position: 'absolute', top: 0, left: 0, right: 0,
+              height: '100%',
               maxWidth: '1100px', margin: '0 auto',
               background: '#070C18', opacity: 0, zIndex: 25, pointerEvents: 'none',
               borderRadius: '20px'
@@ -314,13 +318,14 @@ const ThreePillars = () => {
             className="gc gc3"
             style={{
               position: 'absolute',
-              top: 0, left: 0, right: 0, bottom: 0,
+              top: 0, left: 0, right: 0,
+              height: '100%',
               zIndex: 30,
               opacity: 0,
               maxWidth: '1100px',
               margin: '0 auto',
-              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 50%, rgba(0,0,0,0.1) 70%, transparent 100%)',
-              maskImage: 'linear-gradient(to bottom, black 0%, black 50%, rgba(0,0,0,0.1) 70%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 75%, transparent 100%)',
+              maskImage: 'linear-gradient(to bottom, black 0%, black 75%, transparent 100%)',
             }}
           >
             <div style={{ padding: '48px' }}>
@@ -346,7 +351,7 @@ const ThreePillars = () => {
             ref={stripRef}
             style={{
               position: 'absolute',
-              bottom: 0,
+              bottom: '40px',
               left: 0,
               right: 0,
               zIndex: 50,
@@ -355,59 +360,49 @@ const ThreePillars = () => {
               transition: 'opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1)',
               pointerEvents: 'none',
               display: 'flex',
-              gap: '24px',
-              overflowX: 'auto',
-              paddingBottom: '32px',
-              paddingTop: '20px',
-              marginLeft: '-2vw',
-              marginRight: '-2vw',
-              paddingLeft: '2vw',
-              paddingRight: '2vw',
+              gap: '12px',
+              width: '100%',
+              maxWidth: '1400px',
+              margin: '0 auto',
             }}
           >
             {[
-              { name: 'Triply', cat: 'Travel AI', link: 'https://triply.app', stat: '"Better food picks than Google"', gradient: 'linear-gradient(160deg, #0C2A5A, #0992C2 55%, #0AC4E0)' },
-              { name: 'YC Website', cat: 'Brand', link: '#', stat: 'Yellow Capital public presence', gradient: 'linear-gradient(160deg, #0B1A4A, #0B2D72 50%, #0992C2)' },
-              { name: 'YC CRM', cat: 'CRM', link: '#', stat: 'AI-assisted pipeline tracking', gradient: 'linear-gradient(160deg, #061428, #0992C2 60%, #06091A)' },
-              { name: 'Tradepoint', cat: 'UX / Dev', link: '#', stat: 'UX research to production', gradient: 'linear-gradient(160deg, #042030, #0AC4E0 60%, #0B2D72)' },
-              { name: 'BingX', cat: 'Exchange', link: '#', stat: 'Automated trading assistant', gradient: 'linear-gradient(160deg, #08112A, #0B2D72 45%, #0AC4E0)' },
-              { name: 'Fincal', cat: 'Finance', link: '#', stat: 'Portfolio ROI modeling', gradient: 'linear-gradient(160deg, #061824, #0992C2 50%, #0B2D72)' },
+              { name: 'Triply', cat: 'Travel AI', link: 'https://triply.app', stat: 'Better food picks', gradient: 'linear-gradient(160deg, #0C2A5A, #0992C2 55%, #0AC4E0)' },
+              { name: 'YC Web', cat: 'Brand', link: '#', stat: 'Public presence', gradient: 'linear-gradient(160deg, #0B1A4A, #0B2D72 50%, #0992C2)' },
+              { name: 'YC CRM', cat: 'CRM', link: '#', stat: 'Pipeline tracking', gradient: 'linear-gradient(160deg, #061428, #0992C2 60%, #06091A)' },
+              { name: 'Tradepoint', cat: 'Dev', link: '#', stat: 'Research to prod', gradient: 'linear-gradient(160deg, #042030, #0AC4E0 60%, #0B2D72)' },
+              { name: 'BingX', cat: 'Trade', link: '#', stat: 'Trading assistant', gradient: 'linear-gradient(160deg, #08112A, #0B2D72 45%, #0AC4E0)' },
+              { name: 'Fincal', cat: 'Finance', link: '#', stat: 'ROI modeling', gradient: 'linear-gradient(160deg, #061824, #0992C2 50%, #0B2D72)' },
             ].map((tool, i) => (
               <a
                 key={tool.name}
                 href={tool.link}
                 style={{
-                  width: '420px',
-                  height: '560px',
-                  flexShrink: 0,
-                  borderRadius: '24px',
+                  flex: 1,
+                  minWidth: 0,
+                  height: '380px',
+                  borderRadius: '16px',
                   background: tool.gradient,
                   border: '1px solid rgba(248,247,244,0.12)',
                   boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
                   position: 'relative',
                   overflow: 'hidden',
                   textDecoration: 'none',
-                  display: 'block',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'flex-start',
                   opacity: 0,
                   transform: 'translateY(40px)',
                   transition: `opacity 0.6s ease ${160 + i * 80}ms, transform 0.6s cubic-bezier(0.34, 1.3, 0.64, 1) ${160 + i * 80}ms`,
                 }}
                 className="tc"
               >
-                <div style={{ padding: '36px' }}>
-                  <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '11px', fontWeight: 500, letterSpacing: '0.2em', color: '#0AC4E0', marginBottom: '16px' }}>{tool.cat}</p>
-                  <p style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: '36px', letterSpacing: '-0.015em', color: '#F8F7F4' }}>{tool.name}</p>
+                <div style={{ padding: '24px' }}>
+                  <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '9px', fontWeight: 500, letterSpacing: '0.2em', color: '#0AC4E0', marginBottom: '12px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{tool.cat}</p>
+                  <p style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(20px, 2vw, 28px)', letterSpacing: '-0.015em', color: '#F8F7F4', lineHeight: 1.1 }}>{tool.name}</p>
                 </div>
-                <div style={{
-                  position: 'absolute', bottom: 0, left: 0, right: 0,
-                  background: 'rgba(6,9,26,0.85)',
-                  backdropFilter: 'blur(30px)',
-                  padding: '24px 36px',
-                  transform: 'translateY(100%)',
-                  transition: 'transform 0.48s cubic-bezier(0.16,1,0.3,1)',
-                  borderTop: '1px solid rgba(248,247,244,0.1)'
-                }} className="tc-panel">
-                  <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '14px', fontWeight: 300, color: 'rgba(248,247,244,0.85)', lineHeight: 1.7 }}>{tool.stat}</p>
+                <div style={{ marginTop: 'auto', padding: '24px' }}>
+                  <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '11px', color: 'rgba(248,247,244,0.6)', lineHeight: 1.4 }}>{tool.stat}</p>
                 </div>
               </a>
             ))}
