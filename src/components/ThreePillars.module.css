@@ -5,21 +5,13 @@
 .pillarsSection {
   background-color: #06091A;
   color: #F8F7F4;
-  position: relative;
-  height: 2800px;
   font-family: \'Poppins\', sans-serif;
   user-select: none;
 }
 
 
-.stickyWrapper {
-  position: sticky;
-  top: 100px;
-  width: 100%;
-  height: calc(100vh - 100px);
-  overflow: hidden;
-  padding-left: 8vw;
-  padding-right: 8vw;
+.s4StickyStage {
+  /* Removed to favor inline styles from JS */
 }
 
 /* 1. SECTION HEADER */
@@ -109,18 +101,14 @@
 /* 3. SCROLL STACKING ZONE */
 
 
-.stickyStage {
-  position: relative;
-  height: 480px;
-  width: 100%;
-}
+
 
 /* 4. THREE GLASSMORPHIC CARDS */
 .cardBase {
   position: absolute;
   left: 0;
   width: 100%;
-  height: 460px;
+  height: 680px;
   top: 0;
   background: rgba(255, 255, 255, 0.045);
   backdrop-filter: blur(32px) saturate(180%);
@@ -160,16 +148,7 @@
   height: 100%;
 }
 
-.gcBlockOverlay {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: rgba(6, 9, 26, 0.88);
-  z-index: 4;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
+
 
 /* Card 1 & 2 Grid layouts */
 .cardGrid {
@@ -273,8 +252,8 @@
 .rightCol {
   position: relative;
   /* FIX 5: Strict Proportions */
-  height: 460px;
-  min-height: 460px;
+  height: 680px;
+  min-height: 680px;
   width: 400px;
   flex-shrink: 0;
   overflow: hidden;
@@ -669,7 +648,7 @@
   }
   
   .cardBase {
-    height: 460px;
+    height: 680px;
   }
 }
 
@@ -677,8 +656,6 @@
   .pillarsSection {
   background-color: #06091A;
   color: #F8F7F4;
-  position: relative;
-  height: 2800px;
   font-family: \'Poppins\', sans-serif;
   user-select: none;
 }
@@ -691,7 +668,7 @@
   .cardBase {
     left: 8vw;
     width: calc(100% - 16vw);
-    height: 460px;
+    height: 680px;
   }
   
   .leftCol {
@@ -719,4 +696,42 @@
 .stripSection.revealed {
   opacity: 1;
   transform: translateY(0);
+}
+
+
+.s4CardContainer {
+  position: relative;
+  flex: 1;
+  margin: 24px 8vw 0;
+}
+
+.gc {
+  position: absolute;
+  inset: 0;
+  min-height: 680px;
+}
+
+.gcBlock {
+  position: absolute;
+  inset: 0;
+  min-height: 680px;
+  border-radius: 20px;
+  background: rgba(6, 9, 26, 0.90);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.gc1 { z-index: 10; }
+.gc2 { z-index: 20; }
+.gc3 { 
+  z-index: 30;
+  -webkit-mask-image: linear-gradient(
+    to bottom, black 0%, black 58%,
+    rgba(0,0,0,0.4) 78%, transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom, black 0%, black 58%,
+    rgba(0,0,0,0.4) 78%, transparent 100%
+  );
 }
