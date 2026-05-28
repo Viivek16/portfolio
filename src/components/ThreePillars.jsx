@@ -171,6 +171,9 @@ const ThreePillars = () => {
               top: 0, left: 0, right: 0,
               height: '100%',
               zIndex: 10,
+              maxWidth: '1100px',
+              margin: '0 auto',
+              transformOrigin: 'top center',
             }}
           >
             {/* ── existing Card 1 content — DO NOT CHANGE TEXT OR STATS ── */}
@@ -249,6 +252,7 @@ const ThreePillars = () => {
               opacity: 0,
               maxWidth: '1100px',
               margin: '0 auto',
+              transformOrigin: 'top center',
             }}
           >
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 480px', height: '100%' }}>
@@ -327,8 +331,7 @@ const ThreePillars = () => {
               opacity: 0,
               maxWidth: '1100px',
               margin: '0 auto',
-              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 75%, transparent 100%)',
-              maskImage: 'linear-gradient(to bottom, black 0%, black 75%, transparent 100%)',
+              transformOrigin: 'top center',
             }}
           >
             <div style={{ padding: '48px' }}>
