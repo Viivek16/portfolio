@@ -29,52 +29,57 @@ const ThreePillars = () => {
 
       if (!gc1 || !gc2 || !gc3) return;
 
-      const e2 = eio(clamp((p - 0.20) / 0.28, 0, 1));
-      const e3 = eio(clamp((p - 0.52) / 0.28, 0, 1));
+      const p2 = clamp((p - 0.1) / 0.35, 0, 1);
+      const p3 = clamp((p - 0.5) / 0.35, 0, 1);
 
-      // Card 1 — scales back as Card 2 arrives
-      gc1.style.transform  = `scale(${lerp(1.0, 0.93, e2)}) translateY(${lerp(0, -24, e2)}px)`;
+      // Card 1 stays top:0, scales slightly
+      gc1.style.transform  = `scale(${lerp(1.0, 0.95, p2)}) translateY(0px)`;
       gc1.style.willChange = 'transform';
-
-      // Card 2 — slides in from bottom, then scales back as Card 3 arrives
-      gc2.style.opacity    = e2 > 0.01 ? '1' : '0';
-      gc2.style.transform  = `translateY(${lerp(680, 0, e2) + lerp(0, -24, e3)}px) scale(${lerp(1.0, 0.93, e3)})`;
+      
+      // Card 2 slides up to overlap Card 1 at 40px
+      gc2.style.opacity    = p2 > 0.01 ? '1' : '0';
+      const gc2Top = lerp(window.innerHeight, 40, eio(p2));
+      gc2.style.transform  = `translateY(${gc2Top}px) scale(${lerp(1.0, 0.95, p3)})`;
       gc2.style.willChange = 'transform, opacity';
 
-      // Card 3 — slides in from bottom
-      gc3.style.opacity    = e3 > 0.01 ? '1' : '0';
-      gc3.style.transform  = `translateY(${lerp(680, 0, e3)}px)`;
+      // Card 3 slides up to overlap Card 2 at 80px
+      gc3.style.opacity    = p3 > 0.01 ? '1' : '0';
+      const gc3Top = lerp(window.innerHeight, 80, eio(p3));
+      gc3.style.transform  = `translateY(${gc3Top}px)`;
       gc3.style.willChange = 'transform, opacity';
 
-      // Blockers
-      if (b1) b1.style.opacity = e2 >= 0.85 ? '1' : '0';
-      if (b2) b2.style.opacity = e3 >= 0.85 ? '1' : '0';
+      // Blockers (dimming)
+      if (b1) b1.style.opacity = lerp(0, 0.65, p2);
+      if (b2) {
+        b2.style.opacity = lerp(0, 0.65, p3);
+        b2.style.transform = gc2.style.transform; // Make blocker 2 follow card 2
+      }
 
       // AI tools strip
       if (strip) {
         const show = p >= 0.82;
         strip.style.opacity       = show ? '1' : '0';
-        strip.style.transform     = show ? 'translateY(0)' : 'translateY(40px)';
+        strip.style.transform     = show ? 'translateY(-20px)' : 'translateY(120px)';
         strip.style.pointerEvents = show ? 'auto' : 'none';
 
         // Pop each tool card
         const cards = strip.querySelectorAll('.tc');
         cards.forEach(tc => {
           tc.style.opacity   = show ? '1' : '0';
-          tc.style.transform = show ? 'translateY(0)' : 'translateY(30px)';
+          tc.style.transform = show ? 'translateY(0)' : 'translateY(40px)';
         });
       }
     }
 
     function handleScroll() {
-      // Tri-fallback for scroll position — covers all browsers and scroll modes
-      const scrollY       = window.scrollY ?? window.pageYOffset ?? document.documentElement.scrollTop ?? 0;
-      const sectionTop    = section.offsetTop;
-      const sectionHeight = section.offsetHeight;   // should be 3400px
-      const viewHeight    = window.innerHeight;
+      const section = sectionRef.current;
+      if (!section) return;
 
-      const raw = (scrollY - sectionTop) / (sectionHeight - viewHeight);
-      const p   = clamp(raw, 0, 1);
+      const rect = section.getBoundingClientRect();
+      const maxScroll = rect.height - window.innerHeight;
+      const scrolled = -rect.top;
+      const raw = scrolled / maxScroll;
+      const p = clamp(raw, 0, 1);
 
       animate(p);
     }
@@ -123,10 +128,11 @@ const ThreePillars = () => {
           <h2 style={{
             fontFamily: 'Fraunces, serif',
             fontStyle: 'italic',
-            fontWeight: 900,
-            fontSize: 'clamp(48px, 5.5vw, 68px)',
+            fontWeight: 300,
+            fontSize: 'clamp(48px, 6vw, 64px)',
             color: '#F8F7F4',
-            lineHeight: 1,
+            lineHeight: 1.05,
+            letterSpacing: '-0.015em',
             margin: 0,
           }}>
             The Work<span style={{ color: '#0AC4E0' }}>.</span>
@@ -172,7 +178,7 @@ const ThreePillars = () => {
                   <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '10px', letterSpacing: '0.22em', color: '#0AC4E0', marginBottom: '16px' }}>
                     01 / VENTURE CAPITAL
                   </p>
-                  <h3 style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 900, fontSize: 'clamp(28px, 3vw, 42px)', color: '#F8F7F4', marginBottom: '20px' }}>
+                  <h3 style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(48px, 6vw, 64px)', letterSpacing: '-0.015em', lineHeight: 1.05, color: '#F8F7F4', marginBottom: '20px' }}>
                     The Deal Maker.
                   </h3>
                   <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, color: 'rgba(248,247,244,0.72)', maxWidth: '520px' }}>
@@ -249,7 +255,7 @@ const ThreePillars = () => {
                   <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '10px', letterSpacing: '0.22em', color: '#0AC4E0', marginBottom: '16px' }}>
                     02 / MARKETING & GROWTH
                   </p>
-                  <h3 style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 900, fontSize: 'clamp(28px, 3vw, 42px)', color: '#F8F7F4', marginBottom: '20px' }}>
+                  <h3 style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(48px, 6vw, 64px)', letterSpacing: '-0.015em', lineHeight: 1.05, color: '#F8F7F4', marginBottom: '20px' }}>
                     The Signal Amplifier.
                   </h3>
                   <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, color: 'rgba(248,247,244,0.72)', maxWidth: '520px' }}>
@@ -315,15 +321,15 @@ const ThreePillars = () => {
               minHeight: '680px',
               zIndex: 30,
               opacity: 0,
-              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 58%, rgba(0,0,0,0.4) 78%, transparent 100%)',
-              maskImage: 'linear-gradient(to bottom, black 0%, black 58%, rgba(0,0,0,0.4) 78%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 50%, rgba(0,0,0,0.1) 70%, transparent 100%)',
+              maskImage: 'linear-gradient(to bottom, black 0%, black 50%, rgba(0,0,0,0.1) 70%, transparent 100%)',
             }}
           >
             <div style={{ padding: '48px' }}>
               <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '10px', letterSpacing: '0.22em', color: '#0AC4E0', marginBottom: '16px' }}>
                 03 / AI & TOOLS
               </p>
-              <h3 style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 900, fontSize: 'clamp(28px, 3vw, 42px)', color: '#F8F7F4', marginBottom: '20px' }}>
+              <h3 style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(48px, 6vw, 64px)', letterSpacing: '-0.015em', lineHeight: 1.05, color: '#F8F7F4', marginBottom: '20px' }}>
                 The Code Alchemist.
               </h3>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px' }}>
@@ -342,18 +348,23 @@ const ThreePillars = () => {
             ref={stripRef}
             style={{
               position: 'absolute',
-              bottom: '-20px',
+              bottom: 0,
               left: 0,
               right: 0,
               zIndex: 50,
               opacity: 0,
-              transform: 'translateY(40px)',
+              transform: 'translateY(120px)',
               transition: 'opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1)',
               pointerEvents: 'none',
               display: 'flex',
-              gap: '16px',
+              gap: '24px',
               overflowX: 'auto',
-              paddingBottom: '16px',
+              paddingBottom: '32px',
+              paddingTop: '20px',
+              marginLeft: '-2vw',
+              marginRight: '-2vw',
+              paddingLeft: '2vw',
+              paddingRight: '2vw',
             }}
           >
             {[
@@ -368,35 +379,37 @@ const ThreePillars = () => {
                 key={tool.name}
                 href={tool.link}
                 style={{
-                  width: '300px',
-                  height: '420px',
+                  width: '420px',
+                  height: '560px',
                   flexShrink: 0,
-                  borderRadius: '18px',
+                  borderRadius: '24px',
                   background: tool.gradient,
-                  border: '1px solid rgba(248,247,244,0.08)',
+                  border: '1px solid rgba(248,247,244,0.12)',
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
                   position: 'relative',
                   overflow: 'hidden',
                   textDecoration: 'none',
                   display: 'block',
                   opacity: 0,
-                  transform: 'translateY(30px)',
-                  transition: `opacity 0.5s ease ${160 + i * 80}ms, transform 0.5s ease ${160 + i * 80}ms`,
+                  transform: 'translateY(40px)',
+                  transition: `opacity 0.6s ease ${160 + i * 80}ms, transform 0.6s cubic-bezier(0.34, 1.3, 0.64, 1) ${160 + i * 80}ms`,
                 }}
                 className="tc"
               >
-                <div style={{ padding: '28px' }}>
-                  <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '10px', fontWeight: 500, letterSpacing: '0.18em', color: '#0AC4E0', marginBottom: '12px' }}>{tool.cat}</p>
-                  <p style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 900, fontSize: '24px', color: '#F8F7F4' }}>{tool.name}</p>
+                <div style={{ padding: '36px' }}>
+                  <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '11px', fontWeight: 500, letterSpacing: '0.2em', color: '#0AC4E0', marginBottom: '16px' }}>{tool.cat}</p>
+                  <p style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: '36px', letterSpacing: '-0.015em', color: '#F8F7F4' }}>{tool.name}</p>
                 </div>
                 <div style={{
                   position: 'absolute', bottom: 0, left: 0, right: 0,
-                  background: 'rgba(6,9,26,0.82)',
-                  backdropFilter: 'blur(24px)',
-                  padding: '20px 28px',
+                  background: 'rgba(6,9,26,0.85)',
+                  backdropFilter: 'blur(30px)',
+                  padding: '24px 36px',
                   transform: 'translateY(100%)',
                   transition: 'transform 0.48s cubic-bezier(0.16,1,0.3,1)',
+                  borderTop: '1px solid rgba(248,247,244,0.1)'
                 }} className="tc-panel">
-                  <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '12px', fontWeight: 300, color: 'rgba(248,247,244,0.80)', lineHeight: 1.7 }}>{tool.stat}</p>
+                  <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '14px', fontWeight: 300, color: 'rgba(248,247,244,0.85)', lineHeight: 1.7 }}>{tool.stat}</p>
                 </div>
               </a>
             ))}
