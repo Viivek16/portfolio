@@ -336,6 +336,7 @@ const ThreePillars = () => {
         </div>{/* end card-container */}
       </div>{/* end sticky-stage */}
     </section>
+    </>
   );
 };
 
