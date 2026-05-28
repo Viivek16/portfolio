@@ -3,6 +3,7 @@ import Hero from '../components/Hero'
 import WorkStats from '../components/WorkStats'
 import WorkAbout from '../components/WorkAbout'
 import ThreePillars from '../components/ThreePillars'
+import AITools from '../components/AITools'
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
       <WorkStats />
       <WorkAbout />
       <ThreePillars />
+      <AITools />
     </main>
   )
 }

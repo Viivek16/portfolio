@@ -25,7 +25,6 @@ const ThreePillars = () => {
       const gc3    = gc3Ref.current;
       const b1     = block1Ref.current;
       const b2     = block2Ref.current;
-      const strip  = stripRef.current;
 
       if (!gc1 || !gc2 || !gc3) return;
 
@@ -57,21 +56,6 @@ const ThreePillars = () => {
         b2.style.opacity = lerp(0, 0.85, p3);
         b2.style.transform = gc2.style.transform; // Make blocker 2 follow card 2
       }
-
-      // AI tools strip
-      if (strip) {
-        const show = p >= 0.88;
-        strip.style.opacity       = show ? '1' : '0';
-        strip.style.transform     = show ? 'translateY(0px)' : 'translateY(120px)';
-        strip.style.pointerEvents = show ? 'auto' : 'none';
-
-        // Pop each tool card
-        const cards = strip.querySelectorAll('.tc');
-        cards.forEach(tc => {
-          tc.style.opacity   = show ? '1' : '0';
-          tc.style.transform = show ? 'translateY(0)' : 'translateY(40px)';
-        });
-      }
     }
 
     function handleScroll() {
@@ -94,14 +78,15 @@ const ThreePillars = () => {
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      id="three-pillars"
-      style={{
-        position: 'relative',
-        height: '3400px',
-      }}
-    >
+    <>
+      <section
+        ref={sectionRef}
+        id="three-pillars"
+        style={{
+          position: 'relative',
+          height: '3400px',
+        }}
+      >
       {/* ── Sticky Stage ── */}
       <div 
         style={{
@@ -171,8 +156,6 @@ const ThreePillars = () => {
               top: 0, left: 0, right: 0,
               height: '100%',
               zIndex: 10,
-              maxWidth: '1100px',
-              margin: '0 auto',
               transformOrigin: 'top center',
             }}
           >
@@ -234,8 +217,9 @@ const ThreePillars = () => {
             style={{
               position: 'absolute', top: 0, left: 0, right: 0,
               height: '100%',
-              maxWidth: '1100px', margin: '0 auto',
-              background: '#070C18', opacity: 0, zIndex: 15, pointerEvents: 'none',
+              background: 'rgba(7, 12, 24, 0.75)', 
+              backdropFilter: 'blur(20px)',
+              opacity: 0, zIndex: 15, pointerEvents: 'none',
               borderRadius: '20px'
             }}
           />
@@ -250,8 +234,6 @@ const ThreePillars = () => {
               height: '100%',
               zIndex: 20,
               opacity: 0,
-              maxWidth: '1100px',
-              margin: '0 auto',
               transformOrigin: 'top center',
             }}
           >
@@ -313,13 +295,14 @@ const ThreePillars = () => {
             style={{
               position: 'absolute', top: 0, left: 0, right: 0,
               height: '100%',
-              maxWidth: '1100px', margin: '0 auto',
-              background: '#070C18', opacity: 0, zIndex: 25, pointerEvents: 'none',
+              background: 'rgba(7, 12, 24, 0.75)', 
+              backdropFilter: 'blur(20px)',
+              opacity: 0, zIndex: 25, pointerEvents: 'none',
               borderRadius: '20px'
             }}
           />
 
-          {/* CARD 3 — AI Tools (full width, two-column text, bottom fade) */}
+          {/* CARD 3 — AI Tools */}
           <div
             ref={gc3Ref}
             className="gc gc3"
@@ -329,8 +312,6 @@ const ThreePillars = () => {
               height: '100%',
               zIndex: 30,
               opacity: 0,
-              maxWidth: '1100px',
-              margin: '0 auto',
               transformOrigin: 'top center',
             }}
           >
@@ -350,67 +331,6 @@ const ThreePillars = () => {
                 </p>
               </div>
             </div>
-          </div>
-
-          {/* ── AI Tools Strip — reveals at p >= 0.82, overlaps Card 3 fade ── */}
-          <div
-            ref={stripRef}
-            style={{
-              position: 'absolute',
-              bottom: '24px',
-              left: 0,
-              right: 0,
-              zIndex: 50,
-              opacity: 0,
-              transform: 'translateY(120px)',
-              transition: 'opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1)',
-              pointerEvents: 'none',
-              display: 'flex',
-              gap: '16px',
-              width: '100%',
-              maxWidth: '1400px',
-              margin: '0 auto',
-            }}
-          >
-            {[
-              { name: 'Triply', cat: 'Travel AI', link: 'https://triply.app', stat: 'Better food picks', gradient: 'linear-gradient(160deg, #0C2A5A, #0992C2 55%, #0AC4E0)' },
-              { name: 'YC Web', cat: 'Brand', link: '#', stat: 'Public presence', gradient: 'linear-gradient(160deg, #0B1A4A, #0B2D72 50%, #0992C2)' },
-              { name: 'YC CRM', cat: 'CRM', link: '#', stat: 'Pipeline tracking', gradient: 'linear-gradient(160deg, #061428, #0992C2 60%, #06091A)' },
-              { name: 'Tradepoint', cat: 'Dev', link: '#', stat: 'Research to prod', gradient: 'linear-gradient(160deg, #042030, #0AC4E0 60%, #0B2D72)' },
-              { name: 'BingX', cat: 'Trade', link: '#', stat: 'Trading assistant', gradient: 'linear-gradient(160deg, #08112A, #0B2D72 45%, #0AC4E0)' },
-            ].map((tool, i) => (
-              <a
-                key={tool.name}
-                href={tool.link}
-                style={{
-                  flex: 1,
-                  minWidth: 0,
-                  height: '460px',
-                  borderRadius: '16px',
-                  background: tool.gradient,
-                  border: '1px solid rgba(248,247,244,0.12)',
-                  boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  textDecoration: 'none',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'flex-start',
-                  opacity: 0,
-                  transform: 'translateY(40px)',
-                  transition: `opacity 0.6s ease ${160 + i * 80}ms, transform 0.6s cubic-bezier(0.34, 1.3, 0.64, 1) ${160 + i * 80}ms`,
-                }}
-                className="tc"
-              >
-                <div style={{ padding: '24px' }}>
-                  <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '9px', fontWeight: 500, letterSpacing: '0.2em', color: '#0AC4E0', marginBottom: '12px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{tool.cat}</p>
-                  <p style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(20px, 2vw, 28px)', letterSpacing: '-0.015em', color: '#F8F7F4', lineHeight: 1.1 }}>{tool.name}</p>
-                </div>
-                <div style={{ marginTop: 'auto', padding: '24px' }}>
-                  <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '11px', color: 'rgba(248,247,244,0.6)', lineHeight: 1.4 }}>{tool.stat}</p>
-                </div>
-              </a>
-            ))}
           </div>
 
         </div>{/* end card-container */}
