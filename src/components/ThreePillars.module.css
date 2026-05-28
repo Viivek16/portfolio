@@ -6,18 +6,25 @@
   background-color: #06091A;
   color: #F8F7F4;
   position: relative;
-  overflow: hidden;
-  font-family: 'Poppins', sans-serif;
+  height: 2800px;
+  font-family: \'Poppins\', sans-serif;
   user-select: none;
-  
-  /* FIX 2: Clear Navigation Bar Height (NAV_HEIGHT = 80px + 24px) */
-  padding-top: 104px;
+}
+
+
+.stickyWrapper {
+  position: sticky;
+  top: 100px;
+  width: 100%;
+  height: calc(100vh - 100px);
+  overflow: hidden;
+  padding-left: 8vw;
+  padding-right: 8vw;
 }
 
 /* 1. SECTION HEADER */
 .header {
-  /* FIX 1: Exact Section 3 left/right breathing room (8vw) */
-  padding: 52px 8vw 32px 8vw;
+  padding: 52px 0 32px 0;
   position: relative;
   z-index: 10;
 }
@@ -100,64 +107,30 @@
 }
 
 /* 3. SCROLL STACKING ZONE */
-.scrollContainer {
-  height: 540px;
-  overflow-y: scroll;
-  scrollbar-width: none; /* Hide scrollbar Firefox */
-  position: relative;
-  z-index: 5;
-}
 
-.scrollContainer::-webkit-scrollbar {
-  display: none; /* Hide scrollbar Chrome/Safari */
-}
-
-.scrollInner {
-  height: 1900px; /* Tall inner height for scrolling */
-  position: relative;
-}
 
 .stickyStage {
-  position: sticky;
-  top: 0;
-  height: 540px;
-  overflow: hidden;
+  position: relative;
+  height: 480px;
   width: 100%;
 }
 
 /* 4. THREE GLASSMORPHIC CARDS */
 .cardBase {
   position: absolute;
-  
-  /* FIX 1 & 5: Horizontal Margins and Centering aligned with 8vw spacing */
-  left: 8vw;
-  width: calc(100% - 16vw);
-  
-  /* FIX 5: Taller premium height */
+  left: 0;
+  width: 100%;
   height: 460px;
-  min-height: 460px;
-  top: 40px; /* Centered vertically inside 540px sticky stage */
-  
+  top: 0;
   background: rgba(255, 255, 255, 0.045);
   backdrop-filter: blur(32px) saturate(180%);
   -webkit-backdrop-filter: blur(32px) saturate(180%);
   border: 1px solid rgba(248, 247, 244, 0.10);
   border-radius: 20px;
-  box-shadow: 
-    0 28px 80px rgba(0, 0, 0, 0.55),
-    inset 0 1px 0 rgba(248, 247, 244, 0.12),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(248, 247, 244, 0.12), inset 0 -1px 0 rgba(0, 0, 0, 0.25);
   overflow: hidden;
-  will-change: transform, filter, opacity;
-  
-  /* Modern CSS origin-aware transition */
-  transition: 
-    border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  
-  /* FIX 3: Top-Center Anchor Point */
-  transform-origin: top center;
+  transition: box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity, filter;
 }
 
 .card3BaseOverride {
@@ -439,19 +412,13 @@
 /* 5. AI TOOLS STRIP SECTION */
 
 .stripSection {
-  /* FIX 6: 56px visual overlap with Card 3, transparent background */
-  margin-top: -56px;
+  width: 100%;
   position: relative;
-  z-index: 35;
-  background: transparent;
-  padding: 0;
-  
-  /* Initial state */
+  z-index: 16;
   opacity: 0;
   transform: translateY(44px);
-  transition: 
-    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  padding-bottom: 40px;
 }
 
 .revealed {
@@ -509,24 +476,16 @@
 
 /* FIX 7: Premium Tool Card (300px x 420px) */
 .toolCard {
-  flex: 0 0 300px;
-  width: 300px;
-  height: 420px;
-  border-radius: 18px;
-  border: 1px solid rgba(248, 247, 244, 0.08);
-  overflow: hidden;
+  width: 190px;
+  height: 270px;
+  flex-shrink: 0;
   position: relative;
-  will-change: transform, box-shadow, border-color;
-  
-  /* Premium Transition timings */
-  transition: 
-    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
-    box-shadow 0.5s, 
-    border-color 0.4s;
-    
-  /* Stagger animations initial state */
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: grab;
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(24px);
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Hover scales card, elevates and reveals panel */
@@ -716,11 +675,18 @@
 
 @media (max-width: 639px) {
   .pillarsSection {
-    padding-top: 80px;
-  }
+  background-color: #06091A;
+  color: #F8F7F4;
+  position: relative;
+  height: 2800px;
+  font-family: \'Poppins\', sans-serif;
+  user-select: none;
+}
   .header {
-    padding: 36px 8vw 24px 8vw;
-  }
+  padding: 52px 0 32px 0;
+  position: relative;
+  z-index: 10;
+}
   
   .cardBase {
     left: 8vw;
@@ -744,4 +710,13 @@
   .statsRow {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+.stripSection.revealed .toolCard {
+  opacity: 1;
+  transform: translateY(0);
+}
+.stripSection.revealed {
+  opacity: 1;
+  transform: translateY(0);
 }

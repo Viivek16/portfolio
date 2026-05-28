@@ -22,61 +22,61 @@ const ThreePillars = () => {
   const [mktImageError, setMktImageError] = useState(false);
 
   // Stacking Zone scroll handler
+  
+  const wrapperRef = useRef(null);
+
   const handleScroll = () => {
-    if (!containerRef.current) return;
-    const scrollTop = containerRef.current.scrollTop;
-    const scrollHeight = containerRef.current.scrollHeight;
-    const clientHeight = containerRef.current.clientHeight;
-    const maxScroll = scrollHeight - clientHeight;
-    if (maxScroll <= 0) return;
+    if (!wrapperRef.current) return;
+    
+    const rect = wrapperRef.current.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    const scrollableDistance = rect.height - windowHeight;
+    
+    let p = 0;
+    if (rect.top <= 0) {
+      p = clamp(Math.abs(rect.top) / scrollableDistance, 0, 1);
+    }
 
-    const p = scrollTop / maxScroll;
-
-    // Dispatch custom event for sailing bar (Dot threshold logic: VC 0.30, Marketing 0.62, AI 0.90)
+    // Dispatch custom event for sailing bar
     window.dispatchEvent(new CustomEvent('work-scroll', { detail: { p } }));
 
     // FIX 3: Stacking calculations
-    const e2 = easeInOutQuad(clamp((p - 0.30) / 0.30, 0, 1));
-    const e3 = easeInOutQuad(clamp((p - 0.62) / 0.30, 0, 1));
+    const e2 = easeInOutQuad(clamp((p - 0.28) / 0.32, 0, 1));
+    const e3 = easeInOutQuad(clamp((p - 0.58) / 0.32, 0, 1));
 
-    // Card 1 properties: scale 1.0 -> 0.93, translateY 0 -> -24px, filter brightness 1 -> 0.62
     if (card1Ref.current) {
-      const scaleVal = lerp(1.0, 0.93, e2);
-      const tyVal = lerp(0, -24, e2);
+      const scaleVal = lerp(1.0, 0.94, e2);
+      const tyVal = lerp(0, -18, e2);
       const brightnessVal = lerp(1, 0.62, e2);
       card1Ref.current.style.transform = `translateY(${tyVal}px) scale(${scaleVal})`;
       card1Ref.current.style.filter = `brightness(${brightnessVal})`;
     }
 
-    // FIX 4: Card 1 content block overlay gets applied when e2 >= 0.85
     if (card1OverlayRef.current) {
       card1OverlayRef.current.style.opacity = e2 >= 0.85 ? 1 : 0;
     }
 
-    // Card 2 properties: opacity, scale 1.0 -> 0.93 (on e3), translateY entry (100% -> 0% on e2) + push (-24px on e3)
     if (card2Ref.current) {
       const opVal = e2 > 0.01 ? 1 : 0;
-      const scaleVal = lerp(1.0, 0.93, e3);
-      const tyEntry = 100 * (1 - e2);
-      const tyPush = lerp(0, -24, e3);
+      const scaleVal = lerp(1.0, 0.94, e3);
+      const tyEntry = lerp(380, 0, e2);
+      const tyPush = lerp(0, -18, e3);
       const brightnessVal = lerp(1, 0.62, e3);
       card2Ref.current.style.opacity = opVal;
-      card2Ref.current.style.transform = `translateY(calc(${tyEntry}% + ${tyPush}px)) scale(${scaleVal})`;
+      card2Ref.current.style.transform = `translateY(${tyEntry + tyPush}px) scale(${scaleVal})`;
       card2Ref.current.style.filter = `brightness(${brightnessVal})`;
       card2Ref.current.style.pointerEvents = opVal > 0 ? 'auto' : 'none';
     }
 
-    // FIX 4: Card 2 content block overlay gets applied when e3 >= 0.85
     if (card2OverlayRef.current) {
       card2OverlayRef.current.style.opacity = e3 >= 0.85 ? 1 : 0;
     }
 
-    // Card 3 properties: opacity, translateY entry (100% -> 0% on e3), scale is always 1.0
     if (card3Ref.current) {
       const opVal = e3 > 0.01 ? 1 : 0;
-      const tyVal = 100 * (1 - e3);
+      const tyVal = lerp(380, 0, e3);
       card3Ref.current.style.opacity = opVal;
-      card3Ref.current.style.transform = `translateY(${tyVal}%)`;
+      card3Ref.current.style.transform = `translateY(${tyVal}px)`;
       card3Ref.current.style.pointerEvents = opVal > 0 ? 'auto' : 'none';
     }
 
@@ -89,15 +89,9 @@ const ThreePillars = () => {
   };
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (container) {
-      container.addEventListener('scroll', handleScroll, { passive: true });
-    }
-    return () => {
-      if (container) {
-        container.removeEventListener('scroll', handleScroll);
-      }
-    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Drag to scroll horizontal scroller
@@ -190,7 +184,8 @@ const ThreePillars = () => {
   ];
 
   return (
-    <section className={styles.pillarsSection} aria-label="Three Pillars of Work">
+    <section ref={wrapperRef} className={styles.pillarsSection} aria-label="Three Pillars of Work">
+      <div className={styles.stickyWrapper}>
       {/* Background Depth Orbs */}
       <div className={`${styles.orb} ${styles.orb1}`} aria-hidden="true" />
       <div className={`${styles.orb} ${styles.orb2}`} aria-hidden="true" />
@@ -216,9 +211,7 @@ const ThreePillars = () => {
       </div>
 
       {/* Stacking Zone - id="sb" scroll box */}
-      <div ref={containerRef} id="sb" className={styles.scrollContainer}>
-        <div className={styles.scrollInner}>
-          <div className={styles.stickyStage}>
+      <div className={styles.stickyStage}>
             
             {/* CARD 1: Venture Capital */}
             <div ref={card1Ref} className={styles.cardBase} style={{ zIndex: 10 }}>
@@ -405,8 +398,9 @@ const ThreePillars = () => {
             </div>
 
           </div>
-        </div>
-      </div>
+
+      {/* AI Tools Strip Visual Connector */}
+      <div className={styles.stripConnector} />
 
       {/* AI Tools Strip */}
       <div ref={stripRef} className={styles.stripSection}>
@@ -422,8 +416,7 @@ const ThreePillars = () => {
               key={tool.name} 
               className={styles.toolCard} 
               style={{
-                transition: 'opacity 0.55s ease, transform 0.55s cubic-bezier(0.16, 1, 0.3, 1)',
-                transitionDelay: `${160 + idx * 80}ms`
+                transitionDelay: `${180 + idx * 90}ms`
               }}
             >
               {/* FIX 7: Rebuilt Tool Card Structure */}
@@ -470,6 +463,7 @@ const ThreePillars = () => {
           ))}
         </div>
       </div>
+          </div>
     </section>
   );
 };
