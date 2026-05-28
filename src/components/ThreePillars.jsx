@@ -1,189 +1,89 @@
-import React, { useRef, useEffect, useState } from 'react';
-import styles from './ThreePillars.module.css';
+import React, { useRef, useEffect } from 'react';
 
 const ThreePillars = () => {
-  const sectionRef  = useRef(null);
-  const gc1Ref      = useRef(null);
-  const gc2Ref      = useRef(null);
-  const gc3Ref      = useRef(null);
-  const block1Ref   = useRef(null);
-  const block2Ref   = useRef(null);
-  const stripRef    = useRef(null);
-  const scrollerRef = useRef(null);
+  const sectionRef = useRef(null);
+  const gc1Ref     = useRef(null);
+  const gc2Ref     = useRef(null);
+  const gc3Ref     = useRef(null);
+  const block1Ref  = useRef(null);
+  const block2Ref  = useRef(null);
+  const stripRef   = useRef(null);
 
-  const [vcImageError, setVcImageError] = useState(false);
-  const [mktImageError, setMktImageError] = useState(false);
-
-  // ── Helpers ───────────────────────────────────────────
-  function eio(t) {
-    return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-  }
-  function clamp(v, lo, hi) { return Math.min(hi, Math.max(lo, v)); }
-  function lerp(a, b, t)    { return a + (b - a) * t; }
-
-  // ── Animate ───────────────────────────────────────────
-  function animate(p) {
-    const gc1    = gc1Ref.current;
-    const gc2    = gc2Ref.current;
-    const gc3    = gc3Ref.current;
-    const block1 = block1Ref.current;
-    const block2 = block2Ref.current;
-    const strip  = stripRef.current;
-
-    // Guard — if any card ref is null, animation cannot run
-    if (!gc1 || !gc2 || !gc3) {
-      console.warn('[S4] One or more card refs are null — check ref attachments in JSX');
-      return;
-    }
-
-    const e2 = eio(clamp((p - 0.20) / 0.28, 0, 1));
-    const e3 = eio(clamp((p - 0.52) / 0.28, 0, 1));
-
-    // Card 1: scales back, lifts as Card 2 arrives
-    gc1.style.transform = `scale(${lerp(1.0, 0.93, e2)}) translateY(${lerp(0, -24, e2)}px)`;
-    gc1.style.willChange = 'transform';
-
-    // Card 2: slides in from below, then itself gets pushed back
-    gc2.style.opacity   = e2 > 0.01 ? '1' : '0';
-    gc2.style.transform = `translateY(${lerp(680, 0, e2) + lerp(0, -24, e3)}px) scale(${lerp(1.0, 0.93, e3)})`;
-    gc2.style.willChange = 'transform, opacity';
-
-    // Card 3: slides in from below, stays at scale 1
-    gc3.style.opacity   = e3 > 0.01 ? '1' : '0';
-    gc3.style.transform = `translateY(${lerp(680, 0, e3)}px)`;
-    gc3.style.willChange = 'transform, opacity';
-
-    // Opacity blockers
-    if (block1) block1.style.opacity = e2 >= 0.85 ? '1' : '0';
-    if (block2) block2.style.opacity = e3 >= 0.85 ? '1' : '0';
-
-    // AI tools strip reveal at p >= 0.82
-    if (strip) {
-      const revealed = p >= 0.82;
-      strip.style.opacity       = revealed ? '1' : '0';
-      strip.style.transform     = revealed ? 'translateY(0)' : 'translateY(40px)';
-      strip.style.pointerEvents = revealed ? 'auto' : 'none';
-    }
-  }
-
-  // ── Scroll Listener ───────────────────────────────────
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
-    function handleScroll() {
-      // Support window.scrollY, pageYOffset, and scrollTop fallback
-      const scrollY = window.scrollY ?? window.pageYOffset ?? document.documentElement.scrollTop ?? 0;
+    function eio(t) {
+      return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    }
+    function clamp(v, lo, hi) { return Math.min(hi, Math.max(lo, v)); }
+    function lerp(a, b, t) { return a + (b - a) * t; }
 
-      // offsetTop is recalculated fresh each call — never stale
+    function animate(p) {
+      const gc1    = gc1Ref.current;
+      const gc2    = gc2Ref.current;
+      const gc3    = gc3Ref.current;
+      const b1     = block1Ref.current;
+      const b2     = block2Ref.current;
+      const strip  = stripRef.current;
+
+      if (!gc1 || !gc2 || !gc3) return;
+
+      const e2 = eio(clamp((p - 0.20) / 0.28, 0, 1));
+      const e3 = eio(clamp((p - 0.52) / 0.28, 0, 1));
+
+      // Card 1 — scales back as Card 2 arrives
+      gc1.style.transform  = `scale(${lerp(1.0, 0.93, e2)}) translateY(${lerp(0, -24, e2)}px)`;
+      gc1.style.willChange = 'transform';
+
+      // Card 2 — slides in from bottom, then scales back as Card 3 arrives
+      gc2.style.opacity    = e2 > 0.01 ? '1' : '0';
+      gc2.style.transform  = `translateY(${lerp(680, 0, e2) + lerp(0, -24, e3)}px) scale(${lerp(1.0, 0.93, e3)})`;
+      gc2.style.willChange = 'transform, opacity';
+
+      // Card 3 — slides in from bottom
+      gc3.style.opacity    = e3 > 0.01 ? '1' : '0';
+      gc3.style.transform  = `translateY(${lerp(680, 0, e3)}px)`;
+      gc3.style.willChange = 'transform, opacity';
+
+      // Blockers
+      if (b1) b1.style.opacity = e2 >= 0.85 ? '1' : '0';
+      if (b2) b2.style.opacity = e3 >= 0.85 ? '1' : '0';
+
+      // AI tools strip
+      if (strip) {
+        const show = p >= 0.82;
+        strip.style.opacity       = show ? '1' : '0';
+        strip.style.transform     = show ? 'translateY(0)' : 'translateY(40px)';
+        strip.style.pointerEvents = show ? 'auto' : 'none';
+
+        // Pop each tool card
+        const cards = strip.querySelectorAll('.tc');
+        cards.forEach(tc => {
+          tc.style.opacity   = show ? '1' : '0';
+          tc.style.transform = show ? 'translateY(0)' : 'translateY(30px)';
+        });
+      }
+    }
+
+    function handleScroll() {
+      // Tri-fallback for scroll position — covers all browsers and scroll modes
+      const scrollY       = window.scrollY ?? window.pageYOffset ?? document.documentElement.scrollTop ?? 0;
       const sectionTop    = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
+      const sectionHeight = section.offsetHeight;   // should be 3400px
       const viewHeight    = window.innerHeight;
 
-      // p = 0 when user first reaches section top
-      // p = 1 when section bottom aligns with viewport bottom
       const raw = (scrollY - sectionTop) / (sectionHeight - viewHeight);
       const p   = clamp(raw, 0, 1);
-      
-      window.dispatchEvent(new CustomEvent('work-scroll', { detail: { p } }));
 
       animate(p);
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // fire once on mount to set initial state
+    handleScroll(); // set initial state on mount
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // Drag to scroll horizontal scroller
-  useEffect(() => {
-    const scroller = scrollerRef.current;
-    if (!scroller) return;
-
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    const handleMouseDown = (e) => {
-      isDown = true;
-      startX = e.pageX - scroller.offsetLeft;
-      scrollLeft = scroller.scrollLeft;
-    };
-
-    const handleMouseLeave = () => {
-      isDown = false;
-    };
-
-    const handleMouseUp = () => {
-      isDown = false;
-    };
-
-    const handleMouseMove = (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - scroller.offsetLeft;
-      const walk = (x - startX) * 1.3;
-      scroller.scrollLeft = scrollLeft - walk;
-    };
-
-    scroller.addEventListener('mousedown', handleMouseDown);
-    scroller.addEventListener('mouseleave', handleMouseLeave);
-    scroller.addEventListener('mouseup', handleMouseUp);
-    scroller.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      scroller.removeEventListener('mousedown', handleMouseDown);
-      scroller.removeEventListener('mouseleave', handleMouseLeave);
-      scroller.removeEventListener('mouseup', handleMouseUp);
-      scroller.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
-
-  const aiTools = [
-    {
-      name: 'Triply',
-      gradient: 'linear-gradient(160deg, #0C2A5A 0%, #0992C2 50%, #0AC4E0 100%)',
-      category: 'Travel AI',
-      desc: '"Better food picks than Google" — Harjyot S.',
-      link: 'https://triply.app'
-    },
-    {
-      name: 'YC Website',
-      gradient: 'linear-gradient(160deg, #0B1A4A 0%, #0B2D72 50%, #0992C2 100%)',
-      category: 'Brand',
-      desc: "Built for Yellow Capital's public presence & investor portal",
-      link: '#'
-    },
-    {
-      name: 'YC CRM',
-      gradient: 'linear-gradient(160deg, #061428 0%, #0992C2 50%, #06091A 100%)',
-      category: 'CRM',
-      desc: 'AI-assisted pipeline for the Yellow Capital deal portfolio',
-      link: '#'
-    },
-    {
-      name: 'Tradepoint',
-      gradient: 'linear-gradient(160deg, #042030 0%, #0AC4E0 50%, #0B2D72 100%)',
-      category: 'UX / Dev',
-      desc: 'Full UX research to production frontend pipeline',
-      link: '#'
-    },
-    {
-      name: 'BingX',
-      gradient: 'linear-gradient(160deg, #08112A 0%, #0B2D72 50%, #0AC4E0 100%)',
-      category: 'Exchange',
-      desc: 'Automated trading assistant for the BingX ecosystem',
-      link: '#'
-    },
-    {
-      name: 'Fincal',
-      gradient: 'linear-gradient(160deg, #061824 0%, #0992C2 50%, #0B2D72 100%)',
-      category: 'Finance',
-      desc: 'Portfolio performance & ROI modeling for Web3 investors',
-      link: '#'
-    }
-  ];
 
   return (
     <section
@@ -192,233 +92,257 @@ const ThreePillars = () => {
       style={{
         position: 'relative',
         height: '3400px',
-        paddingLeft: 0,
-        paddingRight: 0,
       }}
-      className={styles.pillarsSection}
-      aria-label="Three Pillars of Work"
     >
+      {/* ══ STICKY STAGE — pins to viewport for entire scroll duration ══ */}
       <div
-        className={styles.s4StickyStage}
         style={{
           position: 'sticky',
-          top: '80px',
-          height: 'calc(100vh - 80px)',
+          top: 'var(--nav-h, 72px)',
+          height: 'calc(100vh - var(--nav-h, 72px))',
           overflow: 'hidden',
           display: 'flex',
           flexDirection: 'column',
+          paddingLeft: '6vw',
+          paddingRight: '6vw',
         }}
       >
-        {/* Background Depth Orbs */}
-        <div className={`${styles.orb} ${styles.orb1}`} aria-hidden="true" />
-        <div className={`${styles.orb} ${styles.orb2}`} aria-hidden="true" />
-        <div className={`${styles.orb} ${styles.orb3}`} aria-hidden="true" />
-        
-        {/* Noise overlay pattern */}
-        <svg className={styles.noiseOverlay} viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <filter id="noiseFilter">
-            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
-          </filter>
-          <rect width="100%" height="100%" filter="url(#noiseFilter)" />
-        </svg>
 
-        {/* Section heading */}
-        <div className={styles.header} style={{ flexShrink: 0, paddingTop: '48px', paddingLeft: '8vw', paddingRight: '8vw' }}>
-          <div className={styles.eyebrow}>— THREE PILLARS</div>
-          <h2 className={styles.title}>
-            The Work<span className={styles.titleAccent}>.</span>
+        {/* ── Section Heading ── */}
+        <div style={{ paddingTop: '48px', paddingBottom: '32px', flexShrink: 0 }}>
+          <p style={{
+            fontFamily: 'Poppins, sans-serif',
+            fontWeight: 500,
+            fontSize: '9.5px',
+            letterSpacing: '0.24em',
+            color: '#0AC4E0',
+            marginBottom: '12px',
+          }}>
+            — THREE PILLARS
+          </p>
+          <h2 style={{
+            fontFamily: 'Fraunces, serif',
+            fontStyle: 'italic',
+            fontWeight: 900,
+            fontSize: 'clamp(48px, 5.5vw, 68px)',
+            color: '#F8F7F4',
+            lineHeight: 1,
+            margin: 0,
+          }}>
+            The Work<span style={{ color: '#0AC4E0' }}>.</span>
           </h2>
-          <p className={styles.subtitle}>
+          <p style={{
+            fontFamily: 'Poppins, sans-serif',
+            fontWeight: 300,
+            fontSize: '12.5px',
+            color: 'rgba(248,247,244,0.52)',
+            lineHeight: 1.9,
+            maxWidth: '420px',
+            marginTop: '16px',
+          }}>
             Six years across Web3, capital markets and growth infrastructure — three domains where I operate with full conviction.
           </p>
         </div>
 
-        {/* Card container */}
+        {/* ── Card Container — all three cards stacked at position absolute inset 0 ── */}
         <div
-          className={styles.s4CardContainer}
           style={{
             position: 'relative',
             flex: 1,
-            margin: '24px 8vw 0',
             minHeight: '680px',
           }}
         >
-          {/* Card 1 */}
-          <div ref={gc1Ref} className={`${styles.cardBase} ${styles.gc1}`} style={{ position: 'absolute', inset: 0, minHeight: '680px', zIndex: 10 }}>
-            <div className={styles.gcContent}>
-              <div className={styles.cardGrid}>
-                <div className={styles.leftCol}>
-                  <div>
-                    <div className={styles.cardEyebrow}>01 / Venture Capital</div>
-                    <h3 className={styles.cardTitle}>The Deal Maker.</h3>
-                    <p className={styles.cardBody}>
-                      From evaluating 800+ decks to managing $200M+ AUM across four funds — built from inside the table, not above it. My edge is founder empathy: I've signed term sheets and felt payroll anxiety in equal measure.
-                    </p>
-                  </div>
-                  <div>
-                    <div className={styles.pillsRow}>
-                      <span className={styles.pill}>NewTribe Capital</span>
-                      <span className={styles.pill}>DCF</span>
-                      <span className={styles.pill}>Leo Ventures</span>
-                      <span className={styles.pill}>Asva</span>
-                    </div>
-                    <div className={styles.statsRow}>
-                      <div className={styles.statItem}>
-                        <span className={styles.statNum}>$200M+</span>
-                        <span className={styles.statLabel}>AUM Managed</span>
-                      </div>
-                      <div className={styles.statItem}>
-                        <span className={styles.statNum}>450+</span>
-                        <span className={styles.statLabel}>KOL Network</span>
-                      </div>
-                      <div className={styles.statItem}>
-                        <span className={styles.statNum}>4</span>
-                        <span className={styles.statLabel}>Funds Built</span>
-                      </div>
-                      <div className={styles.statItem}>
-                        <span className={styles.statNum}>250+</span>
-                        <span className={styles.statLabel}>Projects</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className={styles.rightCol} style={{ minHeight: '680px', height: '100%' }}>
-                  {!vcImageError ? (
-                    <img 
-                      src="/assets/images/work/vc-hero.jpg" 
-                      alt="Viivek Mehata at a VC panel" 
-                      className={styles.cardImage}
-                      style={{ objectFit: 'cover' }}
-                      onError={() => setVcImageError(true)}
-                    />
-                  ) : (
-                    <div className={styles.placeholderWrapper}>
-                      <div className={styles.crosshatch} />
-                      <span className={styles.placeholderLabel}>Venture Capital</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div ref={block1Ref} id="block1" className={styles.gcBlock} style={{ zIndex: 15 }} />
-
-          {/* Card 2 */}
-          <div ref={gc2Ref} className={`${styles.cardBase} ${styles.gc2}`} style={{ position: 'absolute', inset: 0, minHeight: '680px', zIndex: 20, opacity: 0 }}>
-            <div className={styles.gcContent}>
-              <div className={styles.cardGrid}>
-                <div className={styles.leftCol}>
-                  <div>
-                    <div className={styles.cardEyebrow}>02 / Marketing & Growth</div>
-                    <h3 className={styles.cardTitle}>The Signal Amplifier.</h3>
-                    <p className={styles.cardBody}>
-                      GTM architecture that moves markets. From zero-traction to $10M Series A acquisition — distribution is the moat most founders forget to build until it is already too late.
-                    </p>
-                  </div>
-                  <div>
-                    <div className={styles.pillsRow}>
-                      <span className={styles.pill}>NODO</span>
-                      <span className={styles.pill}>Nordek</span>
-                      <span className={styles.pill}>Series A Exit</span>
-                      <span className={styles.pill}>KOL Strategy</span>
-                      <span className={styles.pill}>20+ Events</span>
-                    </div>
-                    <div className={styles.statsRow}>
-                      <div className={styles.statItem}>
-                        <span className={styles.statNum}>$10M</span>
-                        <span className={styles.statLabel}>Series A (NODO)</span>
-                      </div>
-                      <div className={styles.statItem}>
-                        <span className={styles.statNum}>20+</span>
-                        <span className={styles.statLabel}>Global Events</span>
-                      </div>
-                      <div className={styles.statItem}>
-                        <span className={styles.statNum}>14</span>
-                        <span className={styles.statLabel}>Cities / 12 Mo.</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className={styles.rightCol} style={{ minHeight: '680px', height: '100%' }}>
-                  {!mktImageError ? (
-                    <img 
-                      src="/assets/images/work/marketing-hero.jpg" 
-                      alt="Viivek Mehata at a VC panel" 
-                      className={styles.cardImage}
-                      style={{ objectFit: 'cover' }}
-                      onError={() => setMktImageError(true)}
-                    />
-                  ) : (
-                    <div className={styles.placeholderWrapper}>
-                      <div className={styles.crosshatch} />
-                      <span className={styles.placeholderLabel}>Marketing & Growth</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div ref={block2Ref} id="block2" className={styles.gcBlock} style={{ zIndex: 25 }} />
-
-          {/* Card 3 */}
-          <div ref={gc3Ref} className={`${styles.cardBase} ${styles.gc3}`} style={{ position: 'absolute', inset: 0, minHeight: '680px', zIndex: 30, opacity: 0 }}>
-            <div className={styles.gcContent}>
-              <div className={styles.fullCol}>
-                <div className={styles.card3Grid}>
-                  <div>
-                    <div className={styles.cardEyebrow}>03 / Artificial Intelligence</div>
-                    <h3 className={styles.cardTitle}>The Quiet Multiplier.</h3>
-                    <p className={styles.cardBody}>
-                      Direct, production-grade intelligence built to multiply professional bandwidth. I design and code custom AI integrations that sit quietly behind deal sourcing, portfolio tracking, travel planning, and research operations — converting manual hours into instant, automated flows.
-                    </p>
-                  </div>
-                  <div>
-                    <div className={styles.toolSubLabel}>Live Tools</div>
-                    <div className={styles.toolChipsGrid}>
-                      <div className={styles.toolChip}><span className={styles.toolDot} /> Triply</div>
-                      <div className={styles.toolChip}><span className={styles.toolDot} /> YC Website</div>
-                      <div className={styles.toolChip}><span className={styles.toolDot} /> YC CRM</div>
-                      <div className={styles.toolChip}><span className={styles.toolDot} /> Tradepoint</div>
-                      <div className={styles.toolChip}><span className={styles.toolDot} /> BingX</div>
-                      <div className={styles.toolChip}><span className={styles.toolDot} /> Fincal</div>
-                    </div>
-                    <div className={styles.statsRow}>
-                      <div className={styles.statItem}>
-                        <span className={styles.statNum}>6</span>
-                        <span className={styles.statLabel}>Live Tools</span>
-                      </div>
-                      <div className={styles.statItem}>
-                        <span className={styles.statNum}>3</span>
-                        <span className={styles.statLabel}>VC Firms</span>
-                      </div>
-                      <div className={styles.statItem}>
-                        <span className={styles.statNum}>∞</span>
-                        <span className={styles.statLabel}>Hours Saved</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className={styles.bottomFeatureGrid}>
-                  <div className={styles.featureBlock}>
-                    <span className={styles.featureTitle}>Built For</span>
-                    <span className={styles.featureText}>deal flow automation, CRM intelligence, UX research, financial modeling</span>
-                  </div>
-                  <div className={styles.featureBlock}>
-                    <span className={styles.featureTitle}>Stack</span>
-                    <span className={styles.featureText}>Claude API · Custom frontends · Supabase · Vercel — all production</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* AI Tools Strip — overlaps Card 3 */}
+          {/* CARD 1 — VC */}
           <div
-            ref={stripRef}
-            className={styles.s4StripWrap}
+            ref={gc1Ref}
+            className="gc gc1"
             style={{
               position: 'absolute',
-              bottom: '-40px',
+              top: 0, left: 0, right: 0,
+              minHeight: '680px',
+              zIndex: 10,
+            }}
+          >
+            {/* ── existing Card 1 content — DO NOT CHANGE TEXT OR STATS ── */}
+            {/* Grid layout: text left, image right */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', height: '100%', minHeight: '680px' }}>
+              <div style={{ padding: '48px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                {/* Label */}
+                <div>
+                  <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '10px', letterSpacing: '0.22em', color: '#0AC4E0', marginBottom: '16px' }}>
+                    01 / VENTURE CAPITAL
+                  </p>
+                  <h3 style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 900, fontSize: 'clamp(28px, 3vw, 42px)', color: '#F8F7F4', marginBottom: '20px' }}>
+                    The Deal Maker.
+                  </h3>
+                  <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, color: 'rgba(248,247,244,0.72)', maxWidth: '520px' }}>
+                    From evaluating 800+ decks to managing $200M+ AUM across four funds — built from inside the table, not above it. My edge is founder empathy: I've signed term sheets and felt payroll anxiety in equal measure.
+                  </p>
+                </div>
+                {/* Pills */}
+                <div>
+                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '32px' }}>
+                    {['NewTribe Capital', 'DCF', 'Leo Ventures', 'Asva'].map(label => (
+                      <span key={label} style={{ fontFamily: 'Poppins, sans-serif', fontSize: '11px', fontWeight: 400, border: '1px solid rgba(248,247,244,0.20)', borderRadius: '100px', padding: '4px 14px', color: 'rgba(248,247,244,0.70)' }}>
+                        {label}
+                      </span>
+                    ))}
+                  </div>
+                  {/* Stats row */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
+                    {[['$200M+', 'AUM MANAGED'], ['450+', 'KOL NETWORK'], ['4', 'FUNDS BUILT'], ['250+', 'PROJECTS']].map(([num, label]) => (
+                      <div key={label}>
+                        <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontStyle: 'normal', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>
+                        <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '9px', letterSpacing: '0.12em', color: 'rgba(248,247,244,0.45)', marginTop: '4px' }}>{label}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              {/* Right image panel */}
+              <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '0 20px 20px 0' }}>
+                <img
+                  src="/images/work/vc-hero.jpg"
+                  alt="Venture Capital"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.parentElement.style.background = 'linear-gradient(160deg, #0B2D72, #0992C2 60%, #0AC4E0)';
+                    e.currentTarget.parentElement.innerHTML += `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:Fraunces,serif;font-style:italic;font-size:28px;color:rgba(248,247,244,0.4)">Venture Capital</div>`;
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* BLOCKER 1 — hides Card 1 content when Card 2 is fully stacked */}
+          <div
+            ref={block1Ref}
+            style={{
+              position: 'absolute',
+              top: 0, left: 0, right: 0,
+              minHeight: '680px',
+              borderRadius: '20px',
+              background: 'rgba(6,9,26,0.90)',
+              pointerEvents: 'none',
+              opacity: 0,
+              transition: 'opacity 0.35s ease',
+              zIndex: 15,
+            }}
+          />
+
+          {/* CARD 2 — Marketing & Growth */}
+          <div
+            ref={gc2Ref}
+            className="gc gc2"
+            style={{
+              position: 'absolute',
+              top: 0, left: 0, right: 0,
+              minHeight: '680px',
+              zIndex: 20,
+              opacity: 0,
+            }}
+          >
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', height: '100%', minHeight: '680px' }}>
+              <div style={{ padding: '48px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                <div>
+                  <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '10px', letterSpacing: '0.22em', color: '#0AC4E0', marginBottom: '16px' }}>
+                    02 / MARKETING & GROWTH
+                  </p>
+                  <h3 style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 900, fontSize: 'clamp(28px, 3vw, 42px)', color: '#F8F7F4', marginBottom: '20px' }}>
+                    The Signal Amplifier.
+                  </h3>
+                  <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, color: 'rgba(248,247,244,0.72)', maxWidth: '520px' }}>
+                    GTM architecture that moves markets. From zero-traction to $10M Series A acquisition — distribution is the moat most founders forget to build until it is already too late.
+                  </p>
+                </div>
+                <div>
+                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '32px' }}>
+                    {['NODO', 'Nordek', '20+ Events', '14 Cities'].map(label => (
+                      <span key={label} style={{ fontFamily: 'Poppins, sans-serif', fontSize: '11px', fontWeight: 400, border: '1px solid rgba(248,247,244,0.20)', borderRadius: '100px', padding: '4px 14px', color: 'rgba(248,247,244,0.70)' }}>
+                        {label}
+                      </span>
+                    ))}
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
+                    {[['$10M', 'SERIES A RAISED'], ['20+', 'EVENTS HOSTED'], ['14', 'CITIES IN 12 MOS']].map(([num, label]) => (
+                      <div key={label}>
+                        <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontStyle: 'normal', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>
+                        <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '9px', letterSpacing: '0.12em', color: 'rgba(248,247,244,0.45)', marginTop: '4px' }}>{label}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '0 20px 20px 0' }}>
+                <img
+                  src="/images/work/marketing-hero.jpg"
+                  alt="Marketing & Growth"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    e.currentTarget.parentElement.style.background = 'linear-gradient(160deg, #0B1A4A, #0B2D72 50%, #0992C2)';
+                    e.currentTarget.parentElement.innerHTML += `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:Fraunces,serif;font-style:italic;font-size:28px;color:rgba(248,247,244,0.4)">Marketing & Growth</div>`;
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* BLOCKER 2 */}
+          <div
+            ref={block2Ref}
+            style={{
+              position: 'absolute',
+              top: 0, left: 0, right: 0,
+              minHeight: '680px',
+              borderRadius: '20px',
+              background: 'rgba(6,9,26,0.90)',
+              pointerEvents: 'none',
+              opacity: 0,
+              transition: 'opacity 0.35s ease',
+              zIndex: 25,
+            }}
+          />
+
+          {/* CARD 3 — AI Tools (full width, two-column text, bottom fade) */}
+          <div
+            ref={gc3Ref}
+            className="gc gc3"
+            style={{
+              position: 'absolute',
+              top: 0, left: 0, right: 0,
+              minHeight: '680px',
+              zIndex: 30,
+              opacity: 0,
+              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 58%, rgba(0,0,0,0.4) 78%, transparent 100%)',
+              maskImage: 'linear-gradient(to bottom, black 0%, black 58%, rgba(0,0,0,0.4) 78%, transparent 100%)',
+            }}
+          >
+            <div style={{ padding: '48px' }}>
+              <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '10px', letterSpacing: '0.22em', color: '#0AC4E0', marginBottom: '16px' }}>
+                03 / AI & TOOLS
+              </p>
+              <h3 style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 900, fontSize: 'clamp(28px, 3vw, 42px)', color: '#F8F7F4', marginBottom: '20px' }}>
+                The Code Alchemist.
+              </h3>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px' }}>
+                <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, color: 'rgba(248,247,244,0.72)' }}>
+                  Six live products built at the intersection of AI and Web3. Not side projects — tools actively used by real portfolios, real traders, and real travelers.
+                </p>
+                <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, color: 'rgba(248,247,244,0.52)' }}>
+                  Triply, Yellow Capital Website, Yellow Capital CRM, Tradepoint, BingX Assistant, Fincal — each one solving a specific friction point in the Web3 operator stack.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* ── AI Tools Strip — reveals at p >= 0.82, overlaps Card 3 fade ── */}
+          <div
+            ref={stripRef}
+            style={{
+              position: 'absolute',
+              bottom: '-20px',
               left: 0,
               right: 0,
               zIndex: 50,
@@ -426,51 +350,60 @@ const ThreePillars = () => {
               transform: 'translateY(40px)',
               transition: 'opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1)',
               pointerEvents: 'none',
+              display: 'flex',
+              gap: '16px',
+              overflowX: 'auto',
+              paddingBottom: '16px',
             }}
           >
-            <div className={styles.stripLabelWrapper}>
-              <span className={styles.stripLabel}>AI Tools — Drag to Explore</span>
-              <div className={styles.stripLine} />
-            </div>
-            <div ref={scrollerRef} className={styles.scrollerTrack}>
-              {aiTools.map((tool, idx) => (
-                <div 
-                  key={tool.name} 
-                  className={styles.toolCard} 
-                  style={{ transitionDelay: `${180 + idx * 90}ms` }}
-                >
-                  <div className={styles.tcBg} style={{ background: tool.gradient }} />
-                  <div className={styles.tcHeader}>
-                    <span className={styles.cardCategory}>{tool.category}</span>
-                    <span className={styles.liveBadge}>
-                      <span className={styles.liveBadgeDot} /> Live
-                    </span>
-                  </div>
-                  <div className={styles.tcAlwaysLabel}>
-                    <span className={styles.toolName}>{tool.name}</span>
-                    <span className={styles.toolType}>{tool.category}</span>
-                  </div>
-                  <div className={styles.tcRevealPanel}>
-                    <span className={styles.toolName}>{tool.name}</span>
-                    <div className={styles.toolType}>{tool.category}</div>
-                    <p className={styles.hoverDesc}>{tool.desc}</p>
-                    {tool.link !== '#' ? (
-                      <a href={tool.link} target="_blank" rel="noopener noreferrer" className={styles.hoverCta}>
-                        View Product <span className={styles.hoverArrow}>→</span>
-                      </a>
-                    ) : (
-                      <span className={styles.hoverCta}>
-                        View Product <span className={styles.hoverArrow}>→</span>
-                      </span>
-                    )}
-                  </div>
+            {[
+              { name: 'Triply', cat: 'Travel AI', link: 'https://triply.app', stat: '"Better food picks than Google"', gradient: 'linear-gradient(160deg, #0C2A5A, #0992C2 55%, #0AC4E0)' },
+              { name: 'YC Website', cat: 'Brand', link: '#', stat: 'Yellow Capital public presence', gradient: 'linear-gradient(160deg, #0B1A4A, #0B2D72 50%, #0992C2)' },
+              { name: 'YC CRM', cat: 'CRM', link: '#', stat: 'AI-assisted pipeline tracking', gradient: 'linear-gradient(160deg, #061428, #0992C2 60%, #06091A)' },
+              { name: 'Tradepoint', cat: 'UX / Dev', link: '#', stat: 'UX research to production', gradient: 'linear-gradient(160deg, #042030, #0AC4E0 60%, #0B2D72)' },
+              { name: 'BingX', cat: 'Exchange', link: '#', stat: 'Automated trading assistant', gradient: 'linear-gradient(160deg, #08112A, #0B2D72 45%, #0AC4E0)' },
+              { name: 'Fincal', cat: 'Finance', link: '#', stat: 'Portfolio ROI modeling', gradient: 'linear-gradient(160deg, #061824, #0992C2 50%, #0B2D72)' },
+            ].map((tool, i) => (
+              <a
+                key={tool.name}
+                href={tool.link}
+                style={{
+                  width: '300px',
+                  height: '420px',
+                  flexShrink: 0,
+                  borderRadius: '18px',
+                  background: tool.gradient,
+                  border: '1px solid rgba(248,247,244,0.08)',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  textDecoration: 'none',
+                  display: 'block',
+                  opacity: 0,
+                  transform: 'translateY(30px)',
+                  transition: `opacity 0.5s ease ${160 + i * 80}ms, transform 0.5s ease ${160 + i * 80}ms`,
+                }}
+                className="tc"
+              >
+                <div style={{ padding: '28px' }}>
+                  <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '10px', fontWeight: 500, letterSpacing: '0.18em', color: '#0AC4E0', marginBottom: '12px' }}>{tool.cat}</p>
+                  <p style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 900, fontSize: '24px', color: '#F8F7F4' }}>{tool.name}</p>
                 </div>
-              ))}
-            </div>
+                <div style={{
+                  position: 'absolute', bottom: 0, left: 0, right: 0,
+                  background: 'rgba(6,9,26,0.82)',
+                  backdropFilter: 'blur(24px)',
+                  padding: '20px 28px',
+                  transform: 'translateY(100%)',
+                  transition: 'transform 0.48s cubic-bezier(0.16,1,0.3,1)',
+                }} className="tc-panel">
+                  <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '12px', fontWeight: 300, color: 'rgba(248,247,244,0.80)', lineHeight: 1.7 }}>{tool.stat}</p>
+                </div>
+              </a>
+            ))}
           </div>
 
-        </div>
-      </div>
+        </div>{/* end card-container */}
+      </div>{/* end sticky-stage */}
     </section>
   );
 };
