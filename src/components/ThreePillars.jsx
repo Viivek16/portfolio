@@ -47,7 +47,7 @@ const ThreePillars = () => {
           style={{ scale: scale1 }}
         >
           {/* Left Column (Text & Stats) - PADDING GOES HERE */}
-          <div className="w-full md:w-[65%] p-8 md:p-12 flex flex-col justify-between">
+          <div className="w-full md:w-[65%] p-8 md:p-12 flex flex-col justify-start">
             <div>
               <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '10px', letterSpacing: '0.22em', color: '#0AC4E0', marginBottom: '16px' }}>
                 01 / VENTURE CAPITAL
@@ -76,20 +76,18 @@ const ThreePillars = () => {
                       marginBottom: '2px',
                     }}
                   >
-                    → {point}
+                    • {point}
                   </p>
                 ))}
               </div>
             </div>
-            <div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginTop: '32px' }}>
-                {[['$200M+', 'AUM MANAGED'], ['3', 'FUNDS BUILT'], ['250+', 'PROJECTS MANAGED']].map(([num, label]) => (
-                  <div key={label}>
-                    <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 300, fontStyle: 'italic', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>
-                    <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '9px', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.45)', marginTop: '4px' }}>{label}</p>
-                  </div>
-                ))}
-              </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginTop: '32px' }}>
+              {[['$200M+', 'AUM MANAGED'], ['3', 'FUNDS BUILT'], ['250+', 'PROJECTS MANAGED']].map(([num, label]) => (
+                <div key={label}>
+                  <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 300, fontStyle: 'italic', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>
+                  <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '9px', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.45)', marginTop: '4px' }}>{label}</p>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -114,7 +112,7 @@ const ThreePillars = () => {
           style={{ scale: scale2 }}
         >
           {/* Left Column (Text & Stats) - PADDING GOES HERE */}
-          <div className="w-full md:w-[65%] p-8 md:p-12 flex flex-col justify-between">
+          <div className="w-full md:w-[65%] p-8 md:p-12 flex flex-col justify-start">
             <div>
               <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '10px', letterSpacing: '0.22em', color: '#0AC4E0', marginBottom: '16px' }}>
                 02 / MARKETING & GROWTH
@@ -143,20 +141,18 @@ const ThreePillars = () => {
                       marginBottom: '2px',
                     }}
                   >
-                    → {point}
+                    • {point}
                   </p>
                 ))}
               </div>
             </div>
-            <div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginTop: '32px' }}>
-                {[['450+', 'KOL NETWORK'], ['20+', 'GLOBAL EVENTS HOSTED'], ['150+', 'PARTNERSHIPS FOSTERED']].map(([num, label]) => (
-                  <div key={label}>
-                    <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 300, fontStyle: 'italic', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>
-                    <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '11px', color: 'rgba(255,255,255,0.6)', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{label}</p>
-                  </div>
-                ))}
-              </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginTop: '32px' }}>
+              {[['450+', 'KOL NETWORK'], ['20+', 'GLOBAL EVENTS HOSTED'], ['150+', 'PARTNERSHIPS FOSTERED']].map(([num, label]) => (
+                <div key={label}>
+                  <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 300, fontStyle: 'italic', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>
+                  <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '11px', color: 'rgba(255,255,255,0.6)', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{label}</p>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -180,7 +176,7 @@ const ThreePillars = () => {
           className="w-full min-h-[65vh] rounded-[2.5rem] bg-gradient-to-br from-white/[0.09] via-white/[0.02] to-transparent backdrop-blur-3xl border border-white/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.2)] overflow-hidden flex flex-col md:flex-row mb-12 transition-all duration-300 hover:border-white/25 hover:shadow-[0_12px_48px_rgba(0,0,0,0.6)] sticky top-[33vh] z-30 origin-top"
         >
           {/* Left Column (Text & Stats) - PADDING GOES HERE */}
-          <div className="w-full md:w-[65%] p-8 md:p-12 flex flex-col justify-between">
+          <div className="w-full md:w-[65%] p-8 md:p-12 flex flex-col justify-start">
             <div>
               <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '10px', letterSpacing: '0.22em', color: '#0AC4E0', marginBottom: '16px' }}>
                 03 / AI & TOOLS
@@ -209,20 +205,18 @@ const ThreePillars = () => {
                       marginBottom: '2px',
                     }}
                   >
-                    → {point}
+                    • {point}
                   </p>
                 ))}
               </div>
             </div>
-            <div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', marginTop: '32px' }}>
-                {[['5', 'LIVE PRODUCTS'], ['100%', 'DELIVERY RATE']].map(([num, label]) => (
-                  <div key={label}>
-                    <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 300, fontStyle: 'italic', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>
-                    <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '9px', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.45)', marginTop: '4px' }}>{label}</p>
-                  </div>
-                ))}
-              </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', marginTop: '32px' }}>
+              {[['5', 'LIVE PRODUCTS'], ['100%', 'DELIVERY RATE']].map(([num, label]) => (
+                <div key={label}>
+                  <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 300, fontStyle: 'italic', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>
+                  <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '9px', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.45)', marginTop: '4px' }}>{label}</p>
+                </div>
+              ))}
             </div>
           </div>
 
