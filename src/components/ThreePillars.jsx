@@ -1,36 +1,10 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React from 'react';
 
 const ThreePillars = () => {
-  const stripRef = useRef(null);
-  const [isIntersecting, setIsIntersecting] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsIntersecting(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (stripRef.current) observer.observe(stripRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  const tools = [
-    { name: 'Triply', image: '/images/work/triply.jpg', cat: 'Travel AI', link: 'https://triply.app', stat: 'Better food picks' },
-    { name: 'YC Web', image: '/images/work/ycweb.jpg', cat: 'Brand', link: '#', stat: 'Public presence' },
-    { name: 'YC CRM', image: '/images/work/yccrm.jpg', cat: 'CRM', link: '#', stat: 'Pipeline tracking' },
-    { name: 'Tradepoint', image: '/images/work/tradepoint.jpg', cat: 'Dev', link: '#', stat: 'Research to prod' },
-    { name: 'BingX', image: '/images/work/bingx.jpg', cat: 'Trade', link: '#', stat: 'Trading assistant' },
-  ];
-
   return (
-    <section className="relative w-full max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24">
-      {/* 1. STICKY TITLE */}
-      <div className="sticky top-[8vh] z-50 bg-[#0a0f16] py-4 w-full">
+    <section className="w-full px-[8vw] py-12">
+      {/* 1. TITLE */}
+      <div className="pb-12 w-full">
         <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '9.5px', letterSpacing: '0.24em', color: '#0AC4E0', marginBottom: '12px' }}>
           — THREE PILLARS
         </p>
@@ -42,10 +16,11 @@ const ThreePillars = () => {
         </p>
       </div>
 
-      {/* 2. STACKING CARDS */}
-      <div className="relative w-full pb-[15vh]">
+      {/* 2. STACKING CARDS CONTAINER */}
+      <div className="flex flex-col gap-12 w-full">
+        
         {/* Card 1 */}
-        <div className="sticky top-[22vh] z-10 w-full min-h-[50vh] rounded-3xl bg-[#0a0f16]/85 backdrop-blur-2xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] overflow-hidden">
+        <div className="w-full min-h-[60vh] rounded-3xl bg-[#0f172a] overflow-hidden">
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', height: '100%' }}>
             <div style={{ padding: '48px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
@@ -93,7 +68,7 @@ const ThreePillars = () => {
         </div>
 
         {/* Card 2 */}
-        <div className="sticky top-[27vh] z-20 w-full min-h-[50vh] rounded-3xl bg-[#0a0f16]/85 backdrop-blur-2xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] overflow-hidden">
+        <div className="w-full min-h-[60vh] rounded-3xl bg-[#0f172a] overflow-hidden">
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 480px', height: '100%' }}>
             <div style={{ padding: '48px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
@@ -146,8 +121,8 @@ const ThreePillars = () => {
           </div>
         </div>
 
-        {/* Card 3 - DO NOT DELETE CONTENT */}
-        <div className="sticky top-[32vh] z-30 w-full min-h-[50vh] rounded-3xl bg-[#0a0f16]/85 backdrop-blur-2xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] overflow-hidden">
+        {/* Card 3 */}
+        <div className="w-full min-h-[60vh] rounded-3xl bg-[#0f172a] overflow-hidden">
           <div style={{ padding: '48px', display: 'flex', flexDirection: 'column', height: '100%' }}>
             <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '10px', letterSpacing: '0.22em', color: '#0AC4E0', marginBottom: '16px' }}>
               03 / AI & TOOLS
@@ -165,42 +140,8 @@ const ThreePillars = () => {
             </div>
           </div>
         </div>
-      </div>
 
-      {/* 3. AI TOOLS STRIP OVERLAP */}
-      <div className="relative z-40 -mt-[25vh] pt-[25vh] w-full bg-gradient-to-t from-[#0a0f16] via-[#0a0f16]/95 to-transparent pointer-events-none">
-        <div
-          ref={stripRef}
-          className={`pointer-events-auto grid grid-cols-2 md:grid-cols-5 gap-4 w-full pb-24 opacity-0 translate-y-24 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-            isIntersecting ? 'opacity-100 translate-y-0' : ''
-          }`}
-        >
-          {tools.map((tool) => (
-            <a
-              key={tool.name}
-              href={tool.link}
-              className="group relative overflow-hidden rounded-2xl w-full aspect-[3/4] cursor-pointer transition-all duration-500 ease-out hover:scale-[1.03] hover:shadow-2xl hover:shadow-cyan-500/10"
-            >
-              <img
-                src={tool.image}
-                alt={tool.name}
-                className="object-cover w-full h-full"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  e.currentTarget.parentElement.style.background = 'linear-gradient(160deg, #0B1A4A, #0992C2)';
-                }}
-              />
-              
-              <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/90 to-transparent translate-y-full transition-transform duration-500 group-hover:translate-y-0 flex flex-col justify-end">
-                <p className="font-poppins text-[11px] font-medium tracking-[0.2em] text-[#0AC4E0] mb-2 uppercase">{tool.cat}</p>
-                <p className="font-fraunces italic font-light text-2xl lg:text-3xl tracking-[-0.015em] text-[#F8F7F4] leading-[1.1] mb-2">{tool.name}</p>
-                <p className="font-poppins font-light text-[13px] text-[#F8F7F4]/60 leading-[1.5]">{tool.stat}</p>
-              </div>
-            </a>
-          ))}
-        </div>
       </div>
-
     </section>
   );
 };
