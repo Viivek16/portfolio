@@ -105,13 +105,29 @@ const WorkAbout = () => {
   // SplitType for prose
   useEffect(() => {
     if (!proseRef.current || prefersReducedMotion) return;
-    const split = new SplitType(proseRef.current.querySelectorAll('p'), { types: 'lines' });
-    split.lines.forEach(line => {
-      line.style.opacity = '0';
-      line.style.transform = 'translateY(16px)';
-      line.style.willChange = 'opacity, transform';
-    });
-    return () => split.revert();
+    
+    let split;
+    
+    const initSplit = () => {
+      split = new SplitType(proseRef.current.querySelectorAll('p'), { types: 'lines' });
+      split.lines.forEach(line => {
+        line.style.opacity = '0';
+        line.style.transform = 'translateY(16px)';
+        line.style.willChange = 'opacity, transform';
+      });
+    };
+
+    if (document.fonts) {
+      document.fonts.ready.then(() => {
+        if (proseRef.current) initSplit();
+      });
+    } else {
+      initSplit();
+    }
+
+    return () => {
+      if (split) split.revert();
+    };
   }, [prefersReducedMotion]);
 
   // Prose and Firm Strip animation
@@ -176,7 +192,7 @@ const WorkAbout = () => {
   }, [isInView, prefersReducedMotion]);
 
   return (
-    <section ref={containerRef} className={`${styles.aboutSection} mt-[15vh]`} aria-label="About the story">
+    <section ref={containerRef} className={`${styles.aboutSection} mt-[8vh]`} aria-label="About the story">
       <div className={styles.aboutGrid}>
         {/* Left Column: Text */}
         <div className={styles.aboutTextCol}>
