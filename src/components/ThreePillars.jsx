@@ -20,7 +20,7 @@ const ThreePillars = () => {
       <div className="flex flex-col gap-12 w-full">
         
         {/* Card 1 */}
-        <div className="w-full min-h-[50vh] rounded-[2.5rem] bg-white/[0.05] backdrop-blur-3xl border border-white/15 shadow-[0_8px_32px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col md:flex-row mb-12 transition-all duration-300 hover:border-white/25 hover:shadow-[0_12px_48px_rgba(0,0,0,0.6)]">
+        <div className="w-full min-h-[65vh] rounded-[2.5rem] bg-gradient-to-br from-white/[0.09] via-white/[0.02] to-transparent backdrop-blur-3xl border border-white/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.2)] overflow-hidden flex flex-col md:flex-row mb-12 transition-all duration-300 hover:border-white/25 hover:shadow-[0_12px_48px_rgba(0,0,0,0.6)]">
           {/* Left Column (Text & Stats) - PADDING GOES HERE */}
           <div className="w-full md:w-[65%] p-8 md:p-12 flex flex-col justify-between">
             <div>
@@ -69,7 +69,7 @@ const ThreePillars = () => {
         </div>
 
         {/* Card 2 */}
-        <div className="w-full min-h-[50vh] rounded-[2.5rem] bg-white/[0.05] backdrop-blur-3xl border border-white/15 shadow-[0_8px_32px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col md:flex-row mb-12 transition-all duration-300 hover:border-white/25 hover:shadow-[0_12px_48px_rgba(0,0,0,0.6)]">
+        <div className="w-full min-h-[65vh] rounded-[2.5rem] bg-gradient-to-br from-white/[0.09] via-white/[0.02] to-transparent backdrop-blur-3xl border border-white/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.2)] overflow-hidden flex flex-col md:flex-row mb-12 transition-all duration-300 hover:border-white/25 hover:shadow-[0_12px_48px_rgba(0,0,0,0.6)]">
           {/* Left Column (Text & Stats) - PADDING GOES HERE */}
           <div className="w-full md:w-[65%] p-8 md:p-12 flex flex-col justify-between">
             <div>
@@ -118,7 +118,7 @@ const ThreePillars = () => {
         </div>
 
         {/* Card 3 */}
-        <div className="w-full min-h-[50vh] rounded-[2.5rem] bg-white/[0.05] backdrop-blur-3xl border border-white/15 shadow-[0_8px_32px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col md:flex-row mb-12 transition-all duration-300 hover:border-white/25 hover:shadow-[0_12px_48px_rgba(0,0,0,0.6)]">
+        <div className="w-full min-h-[65vh] rounded-[2.5rem] bg-gradient-to-br from-white/[0.09] via-white/[0.02] to-transparent backdrop-blur-3xl border border-white/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.2)] overflow-hidden flex flex-col md:flex-row mb-12 transition-all duration-300 hover:border-white/25 hover:shadow-[0_12px_48px_rgba(0,0,0,0.6)]">
           {/* Left Column (Text & Stats) - PADDING GOES HERE */}
           <div className="w-full md:w-[65%] p-8 md:p-12 flex flex-col justify-between">
             <div>
