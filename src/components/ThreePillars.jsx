@@ -56,19 +56,34 @@ const ThreePillars = () => {
                 The Deal Maker.
               </h3>
               <p className="text-white/70" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, maxWidth: '520px' }}>
-                From evaluating 800+ decks to managing $200M+ AUM across four funds — built from inside the table, not above it. My edge is founder empathy: I've signed term sheets and felt payroll anxiety in equal measure.
+                With 6+ years in Web3 Venture Capital, I've sourced 1,000+ deals through the bull cycle of 2021–2022, led 50+ investments, and facilitated 120+ strategic partnerships with VCs, accelerators, and incubators worldwide.
               </p>
-            </div>
-            <div>
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '32px', marginTop: '32px' }}>
-                {['NewTribe Capital', 'DCF', 'Leo Ventures', 'Asva'].map(label => (
-                  <span key={label} style={{ fontFamily: 'Poppins, sans-serif', fontSize: '11px', fontWeight: 400, border: '1px solid rgba(255,255,255,0.20)', borderRadius: '100px', padding: '4px 14px', color: 'rgba(255,255,255,0.70)' }}>
-                    {label}
-                  </span>
+              <div style={{ marginTop: '16px' }}>
+                {[
+                  'Built direct relationships with regulators across RAK DAO, DIFC, Dubai Government, MAS Singapore, BVI, and the Cayman Islands.',
+                  'Helped establish three VC firms: Asva Ventures (India), Leo Ventures (Singapore), and Digital Consensus Fund (UAE).',
+                  'Raised early-stage capital for portfolio companies under NewTribe Capital and guided them through CEX listings.',
+                  'Managed KOL rounds for Kasta, Casper, Swanchain, Synfutures, Singularity DAO, Aster Network, and more.',
+                ].map((point, i) => (
+                  <p
+                    key={i}
+                    className="text-white/70"
+                    style={{
+                      fontFamily: 'Poppins, sans-serif',
+                      fontWeight: 300,
+                      fontSize: '14px',
+                      lineHeight: 1.9,
+                      marginBottom: '2px',
+                    }}
+                  >
+                    → {point}
+                  </p>
                 ))}
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
-                {[['$200M+', 'AUM MANAGED'], ['450+', 'KOL NETWORK'], ['4', 'FUNDS BUILT'], ['250+', 'PROJECTS']].map(([num, label]) => (
+            </div>
+            <div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginTop: '32px' }}>
+                {[['$200M+', 'AUM MANAGED'], ['3', 'FUNDS BUILT'], ['250+', 'PROJECTS MANAGED']].map(([num, label]) => (
                   <div key={label}>
                     <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 300, fontStyle: 'italic', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>
                     <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '9px', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.45)', marginTop: '4px' }}>{label}</p>
@@ -108,19 +123,34 @@ const ThreePillars = () => {
                 The Signal Amplifier.
               </h3>
               <p className="text-white/70" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, maxWidth: '520px' }}>
-                GTM architecture that moves markets. From zero-traction to $10M Series A acquisition — distribution is the moat most founders forget to build until it is already too late.
+                A marketer at heart, I build traction before it's needed. Web3 sharpened one truth: utility is the king, but distribution is the moat most founders never build until it's too late. I go deep on fundamentals — from early-stage ideation to late-stage revenue growth — and fix what's broken before scaling what works.
               </p>
-            </div>
-            <div>
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '32px', marginTop: '32px' }}>
-                {['NODO', 'Nordek', '20+ Events', '14 Cities'].map(label => (
-                  <span key={label} style={{ fontFamily: 'Poppins, sans-serif', fontSize: '11px', fontWeight: 400, border: '1px solid rgba(255,255,255,0.20)', borderRadius: '100px', padding: '4px 14px', color: 'rgba(255,255,255,0.70)' }}>
-                    {label}
-                  </span>
+              <div style={{ marginTop: '16px' }}>
+                {[
+                  'Scaled Neurotech Designs from 3 to 18 members, fully bootstrapped, generating $60K+ in B2B revenue pre-launch.',
+                  'Led GTM strategy for 20+ Web3 projects including Nordek, 5ire Chain, and NODO — from listing to user adoption.',
+                  'Grew multiple company LinkedIn pages and personal brand accounts into industry-leading voices in their categories.',
+                  'Built three KOL communities from scratch, each with 450, 500, and 600 global Web3 influencers respectively.',
+                ].map((point, i) => (
+                  <p
+                    key={i}
+                    className="text-white/70"
+                    style={{
+                      fontFamily: 'Poppins, sans-serif',
+                      fontWeight: 300,
+                      fontSize: '14px',
+                      lineHeight: 1.9,
+                      marginBottom: '2px',
+                    }}
+                  >
+                    → {point}
+                  </p>
                 ))}
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
-                {[['320%', 'Growth YoY'], ['14M+', 'Impressions'], ['5+', 'Acquisitions']].map(([num, label]) => (
+            </div>
+            <div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginTop: '32px' }}>
+                {[['450+', 'KOL NETWORK'], ['20+', 'GLOBAL EVENTS HOSTED'], ['150+', 'PARTNERSHIPS FOSTERED']].map(([num, label]) => (
                   <div key={label}>
                     <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 300, fontStyle: 'italic', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>
                     <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '11px', color: 'rgba(255,255,255,0.6)', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{label}</p>
@@ -159,19 +189,34 @@ const ThreePillars = () => {
                 The Code Alchemist.
               </h3>
               <p className="text-white/70" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, maxWidth: '520px' }}>
-                Six live products built at the intersection of AI and Web3. Not side projects — tools actively used by real portfolios, real traders, and real travelers.
+                I didn't just follow the AI wave — I learned the underlying mechanics and built tools that solve real problems for real teams. Five live products. Zero toy projects.
               </p>
-            </div>
-            <div>
-              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '32px', marginTop: '32px' }}>
-                {['Triply', 'Yellow Capital', 'Yellow CRM', 'Tradepoint', 'BingX Assistant', 'Fincal'].map(label => (
-                  <span key={label} style={{ fontFamily: 'Poppins, sans-serif', fontSize: '11px', fontWeight: 400, border: '1px solid rgba(255,255,255,0.20)', borderRadius: '100px', padding: '4px 14px', color: 'rgba(255,255,255,0.70)' }}>
-                    {label}
-                  </span>
+              <div style={{ marginTop: '16px' }}>
+                {[
+                  'Triply: A travel OS for managing flights, visas, and hotel bookings from one unified dashboard.',
+                  'Yellow CRM: A Telegram-integrated CRM built for the Yellow Capital team — managing active deals, pipelines, and delivery.',
+                  'Tradepoint UI: A clean, intuitive frontend for Yellow Capital\'s native token distribution platform.',
+                  'BingX: A dating app reimagined with a women-first experience, solving loneliness through curated companionship.',
+                ].map((point, i) => (
+                  <p
+                    key={i}
+                    className="text-white/70"
+                    style={{
+                      fontFamily: 'Poppins, sans-serif',
+                      fontWeight: 300,
+                      fontSize: '14px',
+                      lineHeight: 1.9,
+                      marginBottom: '2px',
+                    }}
+                  >
+                    → {point}
+                  </p>
                 ))}
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
-                {[['6', 'LIVE PRODUCTS'], ['4k+', 'ACTIVE USERS'], ['100%', 'DELIVERY RATE']].map(([num, label]) => (
+            </div>
+            <div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', marginTop: '32px' }}>
+                {[['5', 'LIVE PRODUCTS'], ['100%', 'DELIVERY RATE']].map(([num, label]) => (
                   <div key={label}>
                     <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 300, fontStyle: 'italic', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>
                     <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '9px', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.45)', marginTop: '4px' }}>{label}</p>
