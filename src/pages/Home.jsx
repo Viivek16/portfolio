@@ -11,8 +11,10 @@ const Home = () => {
       <Hero />
       <WorkStats />
       <WorkAbout />
-      <ThreePillars />
-      <AITools />
+      <section className="w-full max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24 relative">
+        <ThreePillars />
+        <AITools />
+      </section>
     </main>
   )
 }
