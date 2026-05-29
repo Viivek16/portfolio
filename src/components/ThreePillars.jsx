@@ -20,24 +20,24 @@ const ThreePillars = () => {
       <div className="flex flex-col gap-12 w-full">
         
         {/* Card 1 */}
-        <div className="w-full min-h-[60vh] rounded-3xl bg-[#0f172a] overflow-hidden">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', height: '100%' }}>
-            <div style={{ padding: '48px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div className="w-full min-h-[60vh] rounded-3xl bg-white/[0.03] backdrop-blur-2xl border border-white/10 border-t-white/20 shadow-2xl overflow-hidden relative p-8 md:p-12">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', height: '100%', gap: '48px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
                 <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '10px', letterSpacing: '0.22em', color: '#0AC4E0', marginBottom: '16px' }}>
                   01 / VENTURE CAPITAL
                 </p>
-                <h3 style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(48px, 6vw, 64px)', letterSpacing: '-0.015em', lineHeight: 1.05, color: '#F8F7F4', marginBottom: '20px' }}>
+                <h3 className="text-white" style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(48px, 6vw, 64px)', letterSpacing: '-0.015em', lineHeight: 1.05, marginBottom: '20px' }}>
                   The Deal Maker.
                 </h3>
-                <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, color: 'rgba(248,247,244,0.72)', maxWidth: '520px' }}>
+                <p className="text-white/70" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, maxWidth: '520px' }}>
                   From evaluating 800+ decks to managing $200M+ AUM across four funds — built from inside the table, not above it. My edge is founder empathy: I've signed term sheets and felt payroll anxiety in equal measure.
                 </p>
               </div>
               <div>
                 <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '32px' }}>
                   {['NewTribe Capital', 'DCF', 'Leo Ventures', 'Asva'].map(label => (
-                    <span key={label} style={{ fontFamily: 'Poppins, sans-serif', fontSize: '11px', fontWeight: 400, border: '1px solid rgba(248,247,244,0.20)', borderRadius: '100px', padding: '4px 14px', color: 'rgba(248,247,244,0.70)' }}>
+                    <span key={label} style={{ fontFamily: 'Poppins, sans-serif', fontSize: '11px', fontWeight: 400, border: '1px solid rgba(255,255,255,0.20)', borderRadius: '100px', padding: '4px 14px', color: 'rgba(255,255,255,0.70)' }}>
                       {label}
                     </span>
                   ))}
@@ -46,13 +46,13 @@ const ThreePillars = () => {
                   {[['$200M+', 'AUM MANAGED'], ['450+', 'KOL NETWORK'], ['4', 'FUNDS BUILT'], ['250+', 'PROJECTS']].map(([num, label]) => (
                     <div key={label}>
                       <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontStyle: 'normal', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>
-                      <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '9px', letterSpacing: '0.12em', color: 'rgba(248,247,244,0.45)', marginTop: '4px' }}>{label}</p>
+                      <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '9px', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.45)', marginTop: '4px' }}>{label}</p>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
-            <div style={{ position: 'relative', overflow: 'hidden' }}>
+            <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '16px' }}>
               <img
                 src="/images/work/vc-hero.jpg"
                 alt="Venture Capital"
@@ -60,7 +60,7 @@ const ThreePillars = () => {
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                   e.currentTarget.parentElement.style.background = 'linear-gradient(160deg, #0B2D72, #0992C2 60%, #0AC4E0)';
-                  e.currentTarget.parentElement.innerHTML += `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:Fraunces,serif;font-style:italic;font-size:28px;color:rgba(248,247,244,0.4)">Venture Capital</div>`;
+                  e.currentTarget.parentElement.innerHTML += `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:Fraunces,serif;font-style:italic;font-size:28px;color:rgba(255,255,255,0.4)">Venture Capital</div>`;
                 }}
               />
             </div>
@@ -68,24 +68,24 @@ const ThreePillars = () => {
         </div>
 
         {/* Card 2 */}
-        <div className="w-full min-h-[60vh] rounded-3xl bg-[#0f172a] overflow-hidden">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 480px', height: '100%' }}>
-            <div style={{ padding: '48px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div className="w-full min-h-[60vh] rounded-3xl bg-white/[0.03] backdrop-blur-2xl border border-white/10 border-t-white/20 shadow-2xl overflow-hidden relative p-8 md:p-12">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 480px', height: '100%', gap: '48px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <div>
                 <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '10px', letterSpacing: '0.22em', color: '#0AC4E0', marginBottom: '16px' }}>
                   02 / MARKETING & GROWTH
                 </p>
-                <h3 style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(48px, 6vw, 64px)', letterSpacing: '-0.015em', lineHeight: 1.05, color: '#F8F7F4', marginBottom: '20px' }}>
+                <h3 className="text-white" style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(48px, 6vw, 64px)', letterSpacing: '-0.015em', lineHeight: 1.05, marginBottom: '20px' }}>
                   The Signal Amplifier.
                 </h3>
-                <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, color: 'rgba(248,247,244,0.72)', maxWidth: '520px' }}>
+                <p className="text-white/70" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, maxWidth: '520px' }}>
                   GTM architecture that moves markets. From zero-traction to $10M Series A acquisition — distribution is the moat most founders forget to build until it is already too late.
                 </p>
               </div>
               <div>
                 <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '32px' }}>
                   {['NODO', 'Nordek', '20+ Events', '14 Cities'].map(label => (
-                    <span key={label} style={{ fontFamily: 'Poppins, sans-serif', fontSize: '11px', fontWeight: 400, border: '1px solid rgba(248,247,244,0.20)', borderRadius: '100px', padding: '4px 14px', color: 'rgba(248,247,244,0.70)' }}>
+                    <span key={label} style={{ fontFamily: 'Poppins, sans-serif', fontSize: '11px', fontWeight: 400, border: '1px solid rgba(255,255,255,0.20)', borderRadius: '100px', padding: '4px 14px', color: 'rgba(255,255,255,0.70)' }}>
                       {label}
                     </span>
                   ))}
@@ -93,20 +93,20 @@ const ThreePillars = () => {
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
                   <div>
                     <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 300, fontStyle: 'normal', fontSize: '28px', color: '#0992C2', margin: 0 }}>320%</p>
-                    <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '11px', color: 'rgba(248,247,244,0.6)', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Growth YoY</p>
+                    <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '11px', color: 'rgba(255,255,255,0.6)', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Growth YoY</p>
                   </div>
                   <div>
                     <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 300, fontStyle: 'normal', fontSize: '28px', color: '#0992C2', margin: 0 }}>14M+</p>
-                    <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '11px', color: 'rgba(248,247,244,0.6)', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Impressions</p>
+                    <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '11px', color: 'rgba(255,255,255,0.6)', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Impressions</p>
                   </div>
                   <div>
                     <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 300, fontStyle: 'normal', fontSize: '28px', color: '#0992C2', margin: 0 }}>5+</p>
-                    <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '11px', color: 'rgba(248,247,244,0.6)', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Acquisitions</p>
+                    <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '11px', color: 'rgba(255,255,255,0.6)', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Acquisitions</p>
                   </div>
                 </div>
               </div>
             </div>
-            <div style={{ position: 'relative', overflow: 'hidden' }}>
+            <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '16px' }}>
               <img
                 src="/images/work/marketing-hero.jpg"
                 alt="Marketing & Growth"
@@ -114,7 +114,7 @@ const ThreePillars = () => {
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                   e.currentTarget.parentElement.style.background = 'linear-gradient(160deg, #0B1A4A, #0B2D72 50%, #0992C2)';
-                  e.currentTarget.parentElement.innerHTML += `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:Fraunces,serif;font-style:italic;font-size:28px;color:rgba(248,247,244,0.4)">Marketing & Growth</div>`;
+                  e.currentTarget.parentElement.innerHTML += `<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:Fraunces,serif;font-style:italic;font-size:28px;color:rgba(255,255,255,0.4)">Marketing & Growth</div>`;
                 }}
               />
             </div>
@@ -122,19 +122,19 @@ const ThreePillars = () => {
         </div>
 
         {/* Card 3 */}
-        <div className="w-full min-h-[60vh] rounded-3xl bg-[#0f172a] overflow-hidden">
-          <div style={{ padding: '48px', display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <div className="w-full min-h-[60vh] rounded-3xl bg-white/[0.03] backdrop-blur-2xl border border-white/10 border-t-white/20 shadow-2xl overflow-hidden relative p-8 md:p-12">
+          <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
             <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '10px', letterSpacing: '0.22em', color: '#0AC4E0', marginBottom: '16px' }}>
               03 / AI & TOOLS
             </p>
-            <h3 style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(48px, 6vw, 64px)', letterSpacing: '-0.015em', lineHeight: 1.05, color: '#F8F7F4', marginBottom: '20px' }}>
+            <h3 className="text-white" style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(48px, 6vw, 64px)', letterSpacing: '-0.015em', lineHeight: 1.05, marginBottom: '20px' }}>
               The Code Alchemist.
             </h3>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px' }}>
-              <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, color: 'rgba(248,247,244,0.72)' }}>
+              <p className="text-white/70" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9 }}>
                 Six live products built at the intersection of AI and Web3. Not side projects — tools actively used by real portfolios, real traders, and real travelers.
               </p>
-              <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, color: 'rgba(248,247,244,0.52)' }}>
+              <p className="text-gray-300" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9 }}>
                 Triply, Yellow Capital Website, Yellow Capital CRM, Tradepoint, BingX Assistant, Fincal — each one solving a specific friction point in the Web3 operator stack.
               </p>
             </div>
