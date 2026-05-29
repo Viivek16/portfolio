@@ -12,7 +12,7 @@ const ThreePillars = () => {
   const scale2 = useTransform(scrollYProgress, [0.3, 0.6], [1, 0.98]);
 
   return (
-    <section className="w-full px-[8vw] py-12" ref={containerRef}>
+    <section className="w-full px-[8vw] py-12 min-h-[250vh]" ref={containerRef}>
       {/* 1. TITLE */}
       <motion.div 
         className="sticky top-[5vh] z-50 mb-12 pb-12 w-full"
@@ -34,7 +34,7 @@ const ThreePillars = () => {
 
       {/* 2. STACKING CARDS CONTAINER */}
       <motion.div 
-        className="flex flex-col gap-12 w-full mt-[10vh] pb-[80vh]"
+        className="flex flex-col gap-12 w-full mt-[10vh]"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-15%" }}
