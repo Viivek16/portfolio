@@ -13,7 +13,7 @@ const ThreePillars = () => {
         }}
       >
         {/* ── Section Heading ── */}
-        <div style={{ paddingTop: '48px', paddingBottom: '32px', flexShrink: 0 }}>
+        <div className="sticky top-[10vh] z-50 pb-8 pt-4 pointer-events-none">
           <p style={{
             fontFamily: 'Poppins, sans-serif',
             fontWeight: 500,
@@ -50,14 +50,11 @@ const ThreePillars = () => {
         </div>
 
         {/* ── Card Container — native sticky stacking ── */}
-        <div className="pb-[30vh] flex flex-col gap-[40vh] relative mt-12">
+        <div className="pb-0 flex flex-col gap-[40vh] relative mt-8 w-full max-w-5xl mx-auto">
           {/* CARD 1 — VC */}
           <div
-            className="gc gc1 sticky top-[10vh] z-10 bg-[#0a0f16]/85 backdrop-blur-2xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] rounded-[24px] overflow-hidden"
-            style={{
-              height: 'calc(100vh - 160px)',
-              minHeight: '640px',
-            }}
+            className="gc gc1 sticky top-[25vh] z-10 bg-[#0a0f16]/85 backdrop-blur-2xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] rounded-[24px] overflow-hidden"
+            style={{ minHeight: '50vh' }}
           >
             {/* ── existing Card 1 content — DO NOT CHANGE TEXT OR STATS ── */}
             {/* Grid layout: text left, image right */}
@@ -113,11 +110,8 @@ const ThreePillars = () => {
 
           {/* CARD 2 — Marketing & Growth */}
           <div
-            className="gc gc2 sticky top-[15vh] z-20 bg-[#0a0f16]/85 backdrop-blur-2xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] rounded-[24px] overflow-hidden"
-            style={{
-              height: 'calc(100vh - 160px)',
-              minHeight: '640px',
-            }}
+            className="gc gc2 sticky top-[29vh] z-20 bg-[#0a0f16]/85 backdrop-blur-2xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] rounded-[24px] overflow-hidden"
+            style={{ minHeight: '50vh' }}
           >
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 480px', height: '100%' }}>
               <div style={{ padding: '48px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
@@ -173,11 +167,8 @@ const ThreePillars = () => {
 
           {/* CARD 3 — AI Tools */}
           <div
-            className="gc gc3 sticky top-[20vh] z-30 bg-[#0a0f16]/85 backdrop-blur-2xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] rounded-[24px] overflow-hidden"
-            style={{
-              height: 'calc(100vh - 160px)',
-              minHeight: '640px',
-            }}
+            className="gc gc3 sticky top-[33vh] z-30 bg-[#0a0f16]/85 backdrop-blur-2xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] rounded-[24px] overflow-hidden"
+            style={{ minHeight: '50vh' }}
           >
             <div style={{ padding: '48px' }}>
               <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '10px', letterSpacing: '0.22em', color: '#0AC4E0', marginBottom: '16px' }}>

@@ -19,56 +19,51 @@ const AITools = () => {
     return () => observer.disconnect();
   }, []);
 
-  return (
-    <section
-      style={{
-        padding: '12vw 4vw',
-        background: '#070C18',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        position: 'relative',
-        zIndex: 10,
-      }}
-    >
-      {/* Background radial gradient to blend nicely with ThreePillars above */}
-      <div style={{
-        position: 'absolute',
-        top: '-200px',
-        left: 0,
-        right: 0,
-        height: '400px',
-        background: 'radial-gradient(ellipse at top, rgba(10, 196, 224, 0.05) 0%, transparent 70%)',
-        pointerEvents: 'none',
-      }} />
+  const tools = [
+    { name: 'Triply', image: '/images/work/triply.jpg', cat: 'Travel AI', link: 'https://triply.app', stat: 'Better food picks' },
+    { name: 'YC Web', image: '/images/work/ycweb.jpg', cat: 'Brand', link: '#', stat: 'Public presence' },
+    { name: 'YC CRM', image: '/images/work/yccrm.jpg', cat: 'CRM', link: '#', stat: 'Pipeline tracking' },
+    { name: 'Tradepoint', image: '/images/work/tradepoint.jpg', cat: 'Dev', link: '#', stat: 'Research to prod' },
+    { name: 'BingX', image: '/images/work/bingx.jpg', cat: 'Trade', link: '#', stat: 'Trading assistant' },
+  ];
 
-      <div
-        ref={stripRef}
-        className={`flex gap-[16px] w-full max-w-[1800px] opacity-0 translate-y-24 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          isIntersecting ? 'opacity-100 translate-y-0' : ''
-        }`}
-      >
-        {[
-          { name: 'Triply', cat: 'Travel AI', link: 'https://triply.app', stat: 'Better food picks' },
-          { name: 'YC Web', cat: 'Brand', link: '#', stat: 'Public presence' },
-          { name: 'YC CRM', cat: 'CRM', link: '#', stat: 'Pipeline tracking' },
-          { name: 'Tradepoint', cat: 'Dev', link: '#', stat: 'Research to prod' },
-          { name: 'BingX', cat: 'Trade', link: '#', stat: 'Trading assistant' },
-        ].map((tool) => (
-          <a
-            key={tool.name}
-            href={tool.link}
-            className="flex-1 min-w-0 h-[520px] rounded-[24px] shadow-[0_24px_48px_rgba(0,0,0,0.5)] relative overflow-hidden flex flex-col justify-start no-underline bg-[#0f172a] border border-white/5 hover:border-cyan-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(6,182,212,0.15)]"
-          >
-            <div style={{ padding: '32px' }}>
-              <p style={{ fontFamily: 'Poppins, sans-serif', fontSize: '11px', fontWeight: 500, letterSpacing: '0.2em', color: '#0AC4E0', marginBottom: '16px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{tool.cat}</p>
-              <p style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(24px, 2.5vw, 36px)', letterSpacing: '-0.015em', color: '#F8F7F4', lineHeight: 1.1 }}>{tool.name}</p>
-            </div>
-            <div style={{ marginTop: 'auto', padding: '32px' }}>
-              <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '13px', color: 'rgba(248,247,244,0.6)', lineHeight: 1.5 }}>{tool.stat}</p>
-            </div>
-          </a>
-        ))}
+  return (
+    <section className="relative z-40 -mt-[20vh] w-full flex flex-col items-center">
+      {/* Masking Gradient over Card 3 */}
+      <div className="w-full h-[20vh] bg-gradient-to-t from-[#070C18] via-[#070C18]/80 to-transparent pointer-events-none" />
+      
+      {/* Solid background for the strip area */}
+      <div className="w-full bg-[#070C18] px-[4vw] pb-[12vw] pt-[4vh] flex flex-col items-center relative">
+        <div
+          ref={stripRef}
+          className={`flex gap-[16px] w-full max-w-[1800px] opacity-0 translate-y-24 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            isIntersecting ? 'opacity-100 translate-y-0' : ''
+          }`}
+        >
+          {tools.map((tool) => (
+            <a
+              key={tool.name}
+              href={tool.link}
+              className="group relative overflow-hidden rounded-2xl cursor-pointer transition-all duration-500 ease-out hover:scale-[1.03] hover:shadow-2xl hover:shadow-cyan-500/10 flex-1 min-w-0 h-[520px] bg-[#0f172a] border border-white/5"
+            >
+              <img
+                src={tool.image}
+                alt={tool.name}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.parentElement.style.background = 'linear-gradient(160deg, #0B1A4A, #0992C2)';
+                }}
+              />
+              
+              <div className="absolute inset-x-0 bottom-0 p-8 pt-24 bg-gradient-to-t from-black/90 via-black/60 to-transparent translate-y-full transition-transform duration-500 ease-out group-hover:translate-y-0 flex flex-col justify-end">
+                <p className="font-poppins text-[11px] font-medium tracking-[0.2em] text-[#0AC4E0] mb-2 uppercase">{tool.cat}</p>
+                <p className="font-fraunces italic font-light text-2xl lg:text-3xl tracking-[-0.015em] text-[#F8F7F4] leading-[1.1] mb-2">{tool.name}</p>
+                <p className="font-poppins font-light text-[13px] text-[#F8F7F4]/60 leading-[1.5]">{tool.stat}</p>
+              </div>
+            </a>
+          ))}
+        </div>
       </div>
     </section>
   );
