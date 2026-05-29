@@ -8,8 +8,8 @@ const ThreePillars = () => {
     offset: ["start start", "end end"]
   });
 
-  const scale1 = useTransform(scrollYProgress, [0, 0.3], [1, 0.95]);
-  const scale2 = useTransform(scrollYProgress, [0.3, 0.6], [1, 0.95]);
+  const scale1 = useTransform(scrollYProgress, [0, 0.3], [1, 0.98]);
+  const scale2 = useTransform(scrollYProgress, [0.3, 0.6], [1, 0.98]);
 
   return (
     <section className="w-full px-[8vw] py-12 pb-[50vh]" ref={containerRef}>
@@ -31,7 +31,7 @@ const ThreePillars = () => {
         
         {/* Card 1 */}
         <motion.div 
-          className="w-full min-h-[65vh] rounded-[2.5rem] bg-gradient-to-br from-white/[0.09] via-white/[0.02] to-transparent backdrop-blur-3xl border border-white/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.2)] overflow-hidden flex flex-col md:flex-row mb-12 transition-all duration-300 hover:border-white/25 hover:shadow-[0_12px_48px_rgba(0,0,0,0.6)] sticky top-[22vh] z-10 origin-top"
+          className="w-full min-h-[65vh] rounded-[2.5rem] bg-gradient-to-br from-white/[0.09] via-white/[0.02] to-transparent backdrop-blur-3xl border border-white/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.2)] overflow-hidden flex flex-col md:flex-row mb-12 transition-all duration-300 hover:border-white/25 hover:shadow-[0_12px_48px_rgba(0,0,0,0.6)] sticky top-[30vh] z-10 origin-top"
           style={{ scale: scale1 }}
         >
           {/* Left Column (Text & Stats) - PADDING GOES HERE */}
@@ -83,7 +83,7 @@ const ThreePillars = () => {
 
         {/* Card 2 */}
         <motion.div 
-          className="w-full min-h-[65vh] rounded-[2.5rem] bg-gradient-to-br from-white/[0.09] via-white/[0.02] to-transparent backdrop-blur-3xl border border-white/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.2)] overflow-hidden flex flex-col md:flex-row mb-12 transition-all duration-300 hover:border-white/25 hover:shadow-[0_12px_48px_rgba(0,0,0,0.6)] sticky top-[26vh] z-20 origin-top"
+          className="w-full min-h-[65vh] rounded-[2.5rem] bg-gradient-to-br from-white/[0.09] via-white/[0.02] to-transparent backdrop-blur-3xl border border-white/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.2)] overflow-hidden flex flex-col md:flex-row mb-12 transition-all duration-300 hover:border-white/25 hover:shadow-[0_12px_48px_rgba(0,0,0,0.6)] sticky top-[34vh] z-20 origin-top"
           style={{ scale: scale2 }}
         >
           {/* Left Column (Text & Stats) - PADDING GOES HERE */}
@@ -135,7 +135,7 @@ const ThreePillars = () => {
 
         {/* Card 3 */}
         <motion.div 
-          className="w-full min-h-[65vh] rounded-[2.5rem] bg-gradient-to-br from-white/[0.09] via-white/[0.02] to-transparent backdrop-blur-3xl border border-white/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.2)] overflow-hidden flex flex-col md:flex-row mb-12 transition-all duration-300 hover:border-white/25 hover:shadow-[0_12px_48px_rgba(0,0,0,0.6)] sticky top-[30vh] z-30 origin-top"
+          className="w-full min-h-[65vh] rounded-[2.5rem] bg-gradient-to-br from-white/[0.09] via-white/[0.02] to-transparent backdrop-blur-3xl border border-white/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.2)] overflow-hidden flex flex-col md:flex-row mb-12 transition-all duration-300 hover:border-white/25 hover:shadow-[0_12px_48px_rgba(0,0,0,0.6)] sticky top-[38vh] z-30 origin-top"
         >
           {/* Left Column (Text & Stats) - PADDING GOES HERE */}
           <div className="w-full md:w-[65%] p-8 md:p-12 flex flex-col justify-between">
