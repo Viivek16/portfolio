@@ -55,10 +55,10 @@ const ThreePillars = () => {
               <h3 className="text-white" style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(48px, 6vw, 64px)', letterSpacing: '-0.015em', lineHeight: 1.05, marginBottom: '20px' }}>
                 The Deal Maker.
               </h3>
-              <p className="text-white/70" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, maxWidth: '520px' }}>
+              <p className="text-white/70" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, maxWidth: '480px' }}>
                 With 6+ years in Web3 Venture Capital, I've sourced 1,000+ deals through the bull cycle of 2021–2022, led 50+ investments, and facilitated 120+ strategic partnerships with VCs, accelerators, and incubators worldwide.
               </p>
-              <div style={{ marginTop: '16px' }}>
+              <div style={{ marginTop: '16px', maxWidth: '480px' }}>
                 {[
                   'Built direct relationships with regulators across RAK DAO, DIFC, Dubai Government, MAS Singapore, BVI, and the Cayman Islands.',
                   'Helped establish three VC firms: Asva Ventures (India), Leo Ventures (Singapore), and Digital Consensus Fund (UAE).',
@@ -81,7 +81,7 @@ const ThreePillars = () => {
                 ))}
               </div>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginTop: '32px' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', gap: '56px', alignItems: 'flex-start', marginTop: '48px' }}>
               {[['$200M+', 'AUM MANAGED'], ['3', 'FUNDS BUILT'], ['250+', 'PROJECTS MANAGED']].map(([num, label]) => (
                 <div key={label}>
                   <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 300, fontStyle: 'italic', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>
@@ -120,10 +120,10 @@ const ThreePillars = () => {
               <h3 className="text-white" style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(48px, 6vw, 64px)', letterSpacing: '-0.015em', lineHeight: 1.05, marginBottom: '20px' }}>
                 The Signal Amplifier.
               </h3>
-              <p className="text-white/70" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, maxWidth: '520px' }}>
+              <p className="text-white/70" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, maxWidth: '480px' }}>
                 A marketer at heart, I build traction before it's needed. Web3 sharpened one truth: utility is the king, but distribution is the moat most founders never build until it's too late. I go deep on fundamentals — from early-stage ideation to late-stage revenue growth — and fix what's broken before scaling what works.
               </p>
-              <div style={{ marginTop: '16px' }}>
+              <div style={{ marginTop: '16px', maxWidth: '480px' }}>
                 {[
                   'Scaled Neurotech Designs from 3 to 18 members, fully bootstrapped, generating $60K+ in B2B revenue pre-launch.',
                   'Led GTM strategy for 20+ Web3 projects including Nordek, 5ire Chain, and NODO — from listing to user adoption.',
@@ -146,7 +146,7 @@ const ThreePillars = () => {
                 ))}
               </div>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginTop: '32px' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', gap: '56px', alignItems: 'flex-start', marginTop: '48px' }}>
               {[['450+', 'KOL NETWORK'], ['20+', 'GLOBAL EVENTS HOSTED'], ['150+', 'PARTNERSHIPS FOSTERED']].map(([num, label]) => (
                 <div key={label}>
                   <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 300, fontStyle: 'italic', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>
@@ -184,10 +184,10 @@ const ThreePillars = () => {
               <h3 className="text-white" style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(48px, 6vw, 64px)', letterSpacing: '-0.015em', lineHeight: 1.05, marginBottom: '20px' }}>
                 The Code Alchemist.
               </h3>
-              <p className="text-white/70" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, maxWidth: '520px' }}>
+              <p className="text-white/70" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, maxWidth: '480px' }}>
                 I didn't just follow the AI wave — I learned the underlying mechanics and built tools that solve real problems for real teams. Five live products. Zero toy projects.
               </p>
-              <div style={{ marginTop: '16px' }}>
+              <div style={{ marginTop: '16px', maxWidth: '480px' }}>
                 {[
                   'Triply: A travel OS for managing flights, visas, and hotel bookings from one unified dashboard.',
                   'Yellow CRM: A Telegram-integrated CRM built for the Yellow Capital team — managing active deals, pipelines, and delivery.',
@@ -210,7 +210,7 @@ const ThreePillars = () => {
                 ))}
               </div>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px', marginTop: '32px' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', gap: '56px', alignItems: 'flex-start', marginTop: '48px' }}>
               {[['5', 'LIVE PRODUCTS'], ['100%', 'DELIVERY RATE']].map(([num, label]) => (
                 <div key={label}>
                   <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 300, fontStyle: 'italic', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>
