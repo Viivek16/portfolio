@@ -12,9 +12,15 @@ const ThreePillars = () => {
   const scale2 = useTransform(scrollYProgress, [0.3, 0.6], [1, 0.98]);
 
   return (
-    <section className="w-full px-[8vw] py-12 pb-[80vh]" ref={containerRef}>
+    <section className="w-full px-[8vw] py-12" ref={containerRef}>
       {/* 1. TITLE */}
-      <div className="sticky top-[5vh] z-50 mb-12 pb-12 w-full">
+      <motion.div 
+        className="sticky top-[5vh] z-50 mb-12 pb-12 w-full"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-15%" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '9.5px', letterSpacing: '0.24em', color: '#0AC4E0', marginBottom: '12px' }}>
           — THREE PILLARS
         </p>
@@ -24,10 +30,16 @@ const ThreePillars = () => {
         <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '12.5px', color: 'rgba(248,247,244,0.52)', lineHeight: 1.9, maxWidth: '420px', marginTop: '16px' }}>
           Six years across Web3, capital markets and growth infrastructure — three domains where I operate with full conviction.
         </p>
-      </div>
+      </motion.div>
 
       {/* 2. STACKING CARDS CONTAINER */}
-      <div className="flex flex-col gap-12 w-full mt-[10vh]">
+      <motion.div 
+        className="flex flex-col gap-12 w-full mt-[10vh] pb-[80vh]"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-15%" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
         
         {/* Card 1 */}
         <motion.div 
@@ -184,7 +196,7 @@ const ThreePillars = () => {
           </div>
         </motion.div>
 
-      </div>
+      </motion.div>
     </section>
   );
 };
