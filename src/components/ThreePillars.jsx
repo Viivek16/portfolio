@@ -1,19 +1,15 @@
 import React, { useRef, useEffect } from 'react';
 
 const ThreePillars = () => {
-  // Removed JS scroll listener in favor of native CSS sticky stacking
-
   return (
     <>
       <section
         id="three-pillars"
-        style={{
-          position: 'relative',
-          padding: '40px 4vw 0',
-        }}
+        className="w-full px-6 md:px-12 lg:px-24 mx-auto max-w-screen-2xl relative"
+        style={{ paddingTop: '40px' }}
       >
         {/* ── Section Heading ── */}
-        <div className="sticky top-[10vh] z-50 pb-8 pt-4 pointer-events-none">
+        <div className="sticky top-[8vh] z-40 pb-6 pt-4 pointer-events-none">
           <p style={{
             fontFamily: 'Poppins, sans-serif',
             fontWeight: 500,
@@ -50,15 +46,13 @@ const ThreePillars = () => {
         </div>
 
         {/* ── Card Container — native sticky stacking ── */}
-        <div className="pb-0 flex flex-col gap-[40vh] relative mt-8 w-full max-w-5xl mx-auto">
+        <div className="pb-0 flex flex-col gap-[40vh] relative mt-8 w-full">
           {/* CARD 1 — VC */}
           <div
-            className="gc gc1 sticky top-[25vh] z-10 bg-[#0a0f16]/85 backdrop-blur-2xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] rounded-[24px] overflow-hidden"
-            style={{ minHeight: '50vh' }}
+            className="gc gc1 sticky top-[20vh] z-10 bg-[#0a0f16]/85 backdrop-blur-2xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] w-full min-h-[60vh] rounded-3xl overflow-hidden"
           >
-            {/* ── existing Card 1 content — DO NOT CHANGE TEXT OR STATS ── */}
             {/* Grid layout: text left, image right */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', height: '100%' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', height: '100%', minHeight: '60vh' }}>
               <div style={{ padding: '48px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 {/* Label */}
                 <div>
@@ -93,7 +87,7 @@ const ThreePillars = () => {
                 </div>
               </div>
               {/* Right image panel */}
-              <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '0 20px 20px 0' }}>
+              <div style={{ position: 'relative', overflow: 'hidden' }}>
                 <img
                   src="/images/work/vc-hero.jpg"
                   alt="Venture Capital"
@@ -110,10 +104,9 @@ const ThreePillars = () => {
 
           {/* CARD 2 — Marketing & Growth */}
           <div
-            className="gc gc2 sticky top-[29vh] z-20 bg-[#0a0f16]/85 backdrop-blur-2xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] rounded-[24px] overflow-hidden"
-            style={{ minHeight: '50vh' }}
+            className="gc gc2 sticky top-[25vh] z-20 bg-[#0a0f16]/85 backdrop-blur-2xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] w-full min-h-[60vh] rounded-3xl overflow-hidden"
           >
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 480px', height: '100%' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 480px', height: '100%', minHeight: '60vh' }}>
               <div style={{ padding: '48px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <div>
                   <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '10px', letterSpacing: '0.22em', color: '#0AC4E0', marginBottom: '16px' }}>
@@ -150,7 +143,7 @@ const ThreePillars = () => {
                   </div>
                 </div>
               </div>
-              <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '0 20px 20px 0' }}>
+              <div style={{ position: 'relative', overflow: 'hidden' }}>
                 <img
                   src="/images/work/marketing-hero.jpg"
                   alt="Marketing & Growth"
@@ -167,10 +160,9 @@ const ThreePillars = () => {
 
           {/* CARD 3 — AI Tools */}
           <div
-            className="gc gc3 sticky top-[33vh] z-30 bg-[#0a0f16]/85 backdrop-blur-2xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] rounded-[24px] overflow-hidden"
-            style={{ minHeight: '50vh' }}
+            className="gc gc3 sticky top-[30vh] z-30 bg-[#0a0f16]/85 backdrop-blur-2xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] w-full min-h-[60vh] rounded-3xl overflow-hidden"
           >
-            <div style={{ padding: '48px' }}>
+            <div style={{ padding: '48px', display: 'flex', flexDirection: 'column', height: '100%', minHeight: '60vh' }}>
               <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '10px', letterSpacing: '0.22em', color: '#0AC4E0', marginBottom: '16px' }}>
                 03 / AI & TOOLS
               </p>
