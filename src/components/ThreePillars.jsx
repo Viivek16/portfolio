@@ -94,7 +94,7 @@ const ThreePillars = () => {
           </div>
 
           {/* Right Column (Image) - NO PADDING, FLUSH TO EDGES */}
-          <div className="w-full md:w-[35%] relative min-h-[300px] md:min-h-full" style={{ WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 15%)', maskImage: 'linear-gradient(to right, transparent 0%, black 15%)' }}>
+          <div className="w-full md:w-[35%] relative min-h-[300px] md:min-h-full" style={{ WebkitMaskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.05) 10%, rgba(0,0,0,0.4) 30%, black 50%)', maskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.05) 10%, rgba(0,0,0,0.4) 30%, black 50%)' }}>
             <img 
               src="/images/work/vc-hero.jpg" 
               alt="Venture Capital" 
@@ -161,7 +161,7 @@ const ThreePillars = () => {
           </div>
 
           {/* Right Column (Image) - NO PADDING, FLUSH TO EDGES */}
-          <div className="w-full md:w-[35%] relative min-h-[300px] md:min-h-full" style={{ WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 15%)', maskImage: 'linear-gradient(to right, transparent 0%, black 15%)' }}>
+          <div className="w-full md:w-[35%] relative min-h-[300px] md:min-h-full" style={{ WebkitMaskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.05) 10%, rgba(0,0,0,0.4) 30%, black 50%)', maskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.05) 10%, rgba(0,0,0,0.4) 30%, black 50%)' }}>
             <img 
               src="/images/work/marketing-hero.jpg" 
               alt="Marketing & Growth" 
@@ -227,7 +227,7 @@ const ThreePillars = () => {
           </div>
 
           {/* Right Column (Image) - NO PADDING, FLUSH TO EDGES */}
-          <div className="w-full md:w-[35%] relative min-h-[300px] md:min-h-full" style={{ WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 15%)', maskImage: 'linear-gradient(to right, transparent 0%, black 15%)' }}>
+          <div className="w-full md:w-[35%] relative min-h-[300px] md:min-h-full" style={{ WebkitMaskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.05) 10%, rgba(0,0,0,0.4) 30%, black 50%)', maskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.05) 10%, rgba(0,0,0,0.4) 30%, black 50%)' }}>
             <img 
               src="/images/work/ai-hero.png" 
               alt="AI & Tools" 
