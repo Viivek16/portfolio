@@ -1,107 +1,17 @@
 import React, { useRef, useEffect } from 'react';
 
 const ThreePillars = () => {
-  const sectionRef = useRef(null);
-  const gc1Ref     = useRef(null);
-  const gc2Ref     = useRef(null);
-  const gc3Ref     = useRef(null);
-  const block1Ref  = useRef(null);
-  const block2Ref  = useRef(null);
-  const stripRef   = useRef(null);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    function eio(t) {
-      return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-    }
-    function clamp(v, lo, hi) { return Math.min(hi, Math.max(lo, v)); }
-    function lerp(a, b, t) { return a + (b - a) * t; }
-
-    function animate(p) {
-      const gc1    = gc1Ref.current;
-      const gc2    = gc2Ref.current;
-      const gc3    = gc3Ref.current;
-      const b1     = block1Ref.current;
-      const b2     = block2Ref.current;
-
-      if (!gc1 || !gc2 || !gc3) return;
-
-      const p2 = clamp((p - 0.1) / 0.35, 0, 1);
-      const p3 = clamp((p - 0.5) / 0.35, 0, 1);
-
-      // Card 1 stays top:0, scales slightly
-      gc1.style.transform  = `scale(${lerp(1.0, 0.95, p2)}) translateY(0px)`;
-      gc1.style.willChange = 'transform';
-      
-      // Card 2 slides up to overlap Card 1 at 40px
-      gc2.style.opacity    = p2 > 0.01 ? '1' : '0';
-      const gc2Top = lerp(window.innerHeight, 40, eio(p2));
-      gc2.style.transform  = `translateY(${gc2Top}px) scale(${lerp(1.0, 0.95, p3)})`;
-      gc2.style.willChange = 'transform, opacity';
-
-      // Card 3 slides up to overlap Card 2 at 80px
-      gc3.style.opacity    = p3 > 0.01 ? '1' : '0';
-      const gc3Top = lerp(window.innerHeight, 80, eio(p3));
-      gc3.style.transform  = `translateY(${gc3Top}px)`;
-      gc3.style.willChange = 'transform, opacity';
-
-      // Blockers (dimming)
-      if (b1) {
-        b1.style.opacity = lerp(0, 0.85, p2);
-        b1.style.transform = gc1.style.transform;
-      }
-      if (b2) {
-        b2.style.opacity = lerp(0, 0.85, p3);
-        b2.style.transform = gc2.style.transform; // Make blocker 2 follow card 2
-      }
-    }
-
-    function handleScroll() {
-      const section = sectionRef.current;
-      if (!section) return;
-
-      const rect = section.getBoundingClientRect();
-      const maxScroll = rect.height - window.innerHeight;
-      const scrolled = -rect.top;
-      const raw = scrolled / maxScroll;
-      const p = clamp(raw, 0, 1);
-
-      animate(p);
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // set initial state on mount
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  // Removed JS scroll listener in favor of native CSS sticky stacking
 
   return (
     <>
       <section
-        ref={sectionRef}
         id="three-pillars"
         style={{
           position: 'relative',
-          height: '3400px',
+          padding: '40px 4vw 0',
         }}
       >
-      {/* ── Sticky Stage ── */}
-      <div 
-        style={{
-          position: 'sticky',
-          top: 0,
-          height: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          padding: '0 4vw',
-          paddingTop: '40px',
-          paddingBottom: '24px',
-          overflow: 'visible',
-        }}
-      >
-
         {/* ── Section Heading ── */}
         <div style={{ paddingTop: '48px', paddingBottom: '32px', flexShrink: 0 }}>
           <p style={{
@@ -139,24 +49,14 @@ const ThreePillars = () => {
           </p>
         </div>
 
-        {/* ── Card Container — all three cards stacked at position absolute inset 0 ── */}
-        <div
-          style={{
-            position: 'relative',
-            height: 'calc(100vh - 160px)',
-            minHeight: '640px',
-          }}
-        >
+        {/* ── Card Container — native sticky stacking ── */}
+        <div className="pb-[30vh] flex flex-col gap-[40vh] relative mt-12">
           {/* CARD 1 — VC */}
           <div
-            ref={gc1Ref}
-            className="gc gc1"
+            className="gc gc1 sticky top-[10vh] z-10 bg-[#0a0f16]/85 backdrop-blur-2xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] rounded-[24px] overflow-hidden"
             style={{
-              position: 'absolute',
-              top: 0, left: 0, right: 0,
-              height: '100%',
-              zIndex: 10,
-              transformOrigin: 'top center',
+              height: 'calc(100vh - 160px)',
+              minHeight: '640px',
             }}
           >
             {/* ── existing Card 1 content — DO NOT CHANGE TEXT OR STATS ── */}
@@ -211,30 +111,12 @@ const ThreePillars = () => {
             </div>
           </div>
 
-          {/* BLOCKER 1 — hides Card 1 content when Card 2 is fully stacked */}
-          <div
-            ref={block1Ref}
-            style={{
-              position: 'absolute', top: 0, left: 0, right: 0,
-              height: '100%',
-              background: 'rgba(7, 12, 24, 0.75)', 
-              backdropFilter: 'blur(20px)',
-              opacity: 0, zIndex: 15, pointerEvents: 'none',
-              borderRadius: '20px'
-            }}
-          />
-
           {/* CARD 2 — Marketing & Growth */}
           <div
-            ref={gc2Ref}
-            className="gc gc2"
+            className="gc gc2 sticky top-[15vh] z-20 bg-[#0a0f16]/85 backdrop-blur-2xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] rounded-[24px] overflow-hidden"
             style={{
-              position: 'absolute',
-              top: 0, left: 0, right: 0,
-              height: '100%',
-              zIndex: 20,
-              opacity: 0,
-              transformOrigin: 'top center',
+              height: 'calc(100vh - 160px)',
+              minHeight: '640px',
             }}
           >
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 480px', height: '100%' }}>
@@ -289,30 +171,12 @@ const ThreePillars = () => {
             </div>
           </div>
 
-          {/* BLOCKER 2 */}
-          <div
-            ref={block2Ref}
-            style={{
-              position: 'absolute', top: 0, left: 0, right: 0,
-              height: '100%',
-              background: 'rgba(7, 12, 24, 0.75)', 
-              backdropFilter: 'blur(20px)',
-              opacity: 0, zIndex: 25, pointerEvents: 'none',
-              borderRadius: '20px'
-            }}
-          />
-
           {/* CARD 3 — AI Tools */}
           <div
-            ref={gc3Ref}
-            className="gc gc3"
+            className="gc gc3 sticky top-[20vh] z-30 bg-[#0a0f16]/85 backdrop-blur-2xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] rounded-[24px] overflow-hidden"
             style={{
-              position: 'absolute',
-              top: 0, left: 0, right: 0,
-              height: '100%',
-              zIndex: 30,
-              opacity: 0,
-              transformOrigin: 'top center',
+              height: 'calc(100vh - 160px)',
+              minHeight: '640px',
             }}
           >
             <div style={{ padding: '48px' }}>
@@ -334,8 +198,7 @@ const ThreePillars = () => {
           </div>
 
         </div>{/* end card-container */}
-      </div>{/* end sticky-stage */}
-    </section>
+      </section>
     </>
   );
 };
