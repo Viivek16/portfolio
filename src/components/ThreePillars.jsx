@@ -55,10 +55,10 @@ const ThreePillars = () => {
               <h3 className="text-white" style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(48px, 6vw, 64px)', letterSpacing: '-0.015em', lineHeight: 1.05, marginBottom: '20px' }}>
                 The Deal Maker.
               </h3>
-              <p className="text-white/70" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, maxWidth: '480px' }}>
+              <p className="text-white/70" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, maxWidth: '600px' }}>
                 With 6+ years in Web3 Venture Capital, I've sourced 1,000+ deals through the bull cycle of 2021–2022, led 50+ investments, and facilitated 120+ strategic partnerships with VCs, accelerators, and incubators worldwide.
               </p>
-              <div style={{ marginTop: '16px', maxWidth: '480px' }}>
+              <div style={{ marginTop: '16px', maxWidth: '600px' }}>
                 {[
                   'Built direct relationships with regulators across RAK DAO, DIFC, Dubai Government, MAS Singapore, BVI, and the Cayman Islands.',
                   'Helped establish three VC firms: Asva Ventures (India), Leo Ventures (Singapore), and Digital Consensus Fund (UAE).',
@@ -120,10 +120,10 @@ const ThreePillars = () => {
               <h3 className="text-white" style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(48px, 6vw, 64px)', letterSpacing: '-0.015em', lineHeight: 1.05, marginBottom: '20px' }}>
                 The Signal Amplifier.
               </h3>
-              <p className="text-white/70" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, maxWidth: '480px' }}>
+              <p className="text-white/70" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, maxWidth: '600px' }}>
                 A marketer at heart, I build traction before it's needed. Web3 sharpened one truth: utility is the king, but distribution is the moat most founders never build until it's too late. I go deep on fundamentals — from early-stage ideation to late-stage revenue growth — and fix what's broken before scaling what works.
               </p>
-              <div style={{ marginTop: '16px', maxWidth: '480px' }}>
+              <div style={{ marginTop: '16px', maxWidth: '600px' }}>
                 {[
                   'Scaled Neurotech Designs from 3 to 18 members, fully bootstrapped, generating $60K+ in B2B revenue pre-launch.',
                   'Led GTM strategy for 20+ Web3 projects including Nordek, 5ire Chain, and NODO — from listing to user adoption.',
@@ -184,10 +184,10 @@ const ThreePillars = () => {
               <h3 className="text-white" style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(48px, 6vw, 64px)', letterSpacing: '-0.015em', lineHeight: 1.05, marginBottom: '20px' }}>
                 The Code Alchemist.
               </h3>
-              <p className="text-white/70" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, maxWidth: '480px' }}>
+              <p className="text-white/70" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, maxWidth: '600px' }}>
                 I didn't just follow the AI wave — I learned the underlying mechanics and built tools that solve real problems for real teams. Five live products. Zero toy projects.
               </p>
-              <div style={{ marginTop: '16px', maxWidth: '480px' }}>
+              <div style={{ marginTop: '16px', maxWidth: '600px' }}>
                 {[
                   'Triply: A travel OS for managing flights, visas, and hotel bookings from one unified dashboard.',
                   'Yellow CRM: A Telegram-integrated CRM built for the Yellow Capital team — managing active deals, pipelines, and delivery.',
