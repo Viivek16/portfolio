@@ -70,7 +70,7 @@ const ThreePillars = () => {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
                 {[['$200M+', 'AUM MANAGED'], ['450+', 'KOL NETWORK'], ['4', 'FUNDS BUILT'], ['250+', 'PROJECTS']].map(([num, label]) => (
                   <div key={label}>
-                    <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontStyle: 'normal', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>
+                    <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 300, fontStyle: 'italic', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>
                     <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '9px', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.45)', marginTop: '4px' }}>{label}</p>
                   </div>
                 ))}
@@ -122,7 +122,7 @@ const ThreePillars = () => {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
                 {[['320%', 'Growth YoY'], ['14M+', 'Impressions'], ['5+', 'Acquisitions']].map(([num, label]) => (
                   <div key={label}>
-                    <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontStyle: 'normal', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>
+                    <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 300, fontStyle: 'italic', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>
                     <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '11px', color: 'rgba(255,255,255,0.6)', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{label}</p>
                   </div>
                 ))}
@@ -173,7 +173,7 @@ const ThreePillars = () => {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
                 {[['6', 'LIVE PRODUCTS'], ['4k+', 'ACTIVE USERS'], ['100%', 'DELIVERY RATE']].map(([num, label]) => (
                   <div key={label}>
-                    <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 700, fontStyle: 'normal', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>
+                    <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 300, fontStyle: 'italic', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>
                     <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '9px', letterSpacing: '0.12em', color: 'rgba(255,255,255,0.45)', marginTop: '4px' }}>{label}</p>
                   </div>
                 ))}
