@@ -176,7 +176,7 @@ const WorkAbout = () => {
   }, [isInView, prefersReducedMotion]);
 
   return (
-    <section ref={containerRef} className={styles.aboutSection} aria-label="About the story">
+    <section ref={containerRef} className={`${styles.aboutSection} mt-[15vh]`} aria-label="About the story">
       <div className={styles.aboutGrid}>
         {/* Left Column: Text */}
         <div className={styles.aboutTextCol}>
