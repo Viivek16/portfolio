@@ -120,10 +120,10 @@ const ThreePillars = () => {
               <h3 className="text-white" style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(48px, 6vw, 64px)', letterSpacing: '-0.015em', lineHeight: 1.05, marginBottom: '20px' }}>
                 The Signal Amplifier.
               </h3>
-              <p className="text-white/70" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, maxWidth: '480px' }}>
+              <p className="text-white/70" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9 }}>
                 A marketer at heart, I build traction before it's needed. Web3 sharpened one truth: utility is the king, but distribution is the moat most founders never build until it's too late. I go deep on fundamentals — from early-stage ideation to late-stage revenue growth — and fix what's broken before scaling what works.
               </p>
-              <div style={{ marginTop: '16px', maxWidth: '480px' }}>
+              <div style={{ marginTop: '16px' }}>
                 {[
                   'Scaled Neurotech Designs from 3 to 18 members, fully bootstrapped, generating $60K+ in B2B revenue pre-launch.',
                   'Led GTM strategy for 20+ Web3 projects including Nordek, 5ire Chain, and NODO — from listing to user adoption.',
@@ -184,10 +184,10 @@ const ThreePillars = () => {
               <h3 className="text-white" style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(48px, 6vw, 64px)', letterSpacing: '-0.015em', lineHeight: 1.05, marginBottom: '20px' }}>
                 The Code Alchemist.
               </h3>
-              <p className="text-white/70" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9, maxWidth: '480px' }}>
+              <p className="text-white/70" style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', lineHeight: 1.9 }}>
                 I didn't just follow the AI wave — I learned the underlying mechanics and built tools that solve real problems for real teams. Five live products. Zero toy projects.
               </p>
-              <div style={{ marginTop: '16px', maxWidth: '480px' }}>
+              <div style={{ marginTop: '16px' }}>
                 {[
                   'Triply: A travel OS for managing flights, visas, and hotel bookings from one unified dashboard.',
                   'Yellow CRM: A Telegram-integrated CRM built for the Yellow Capital team — managing active deals, pipelines, and delivery.',
