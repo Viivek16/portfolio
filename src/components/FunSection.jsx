@@ -59,65 +59,106 @@ const TILES = [
 
 const FunSection = () => {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: '-80px' });
+  const isInView = useInView(sectionRef, { once: true, amount: 0.15 });
   const [hoveredTile, setHoveredTile] = useState(null);
 
-  // Interval and Index refs
-  const intervalsRef = useRef({});
-  const indexesRef = useRef({});
   const slideRefs = useRef({});
+  const slideData = useRef({});
 
-  // Cleanup intervals on unmount
   useEffect(() => {
+    TILES.forEach(tile => {
+      const layerA = slideRefs.current[`${tile.id}-A`];
+      if (layerA) {
+        layerA.style.backgroundImage = `url('${tile.images[0]}')`;
+      }
+      const layerB = slideRefs.current[`${tile.id}-B`];
+      if (layerB) {
+        layerB.style.backgroundImage = `url('${tile.images[1]}')`;
+      }
+      slideData.current[tile.id] = { current: 'A', index: 0, interval: null };
+    });
+    
     return () => {
-      Object.values(intervalsRef.current).forEach(clearInterval);
+      Object.values(slideData.current).forEach(data => {
+        if (data && data.interval) clearInterval(data.interval);
+      });
     };
   }, []);
 
+  const doCrossfade = (tileId, images) => {
+    let data = slideData.current[tileId];
+    if (!data) return;
+    
+    const nextIndex = (data.index + 1) % images.length;
+    const layerA = slideRefs.current[`${tileId}-A`];
+    const layerB = slideRefs.current[`${tileId}-B`];
+    
+    if (!layerA || !layerB) return;
+    
+    const activeLayer = data.current === 'A' ? layerA : layerB;
+    const inactiveLayer = data.current === 'A' ? layerB : layerA;
+    
+    inactiveLayer.style.backgroundImage = `url('${images[nextIndex]}')`;
+    
+    activeLayer.style.opacity = '0';
+    inactiveLayer.style.opacity = '1';
+    
+    data.index = nextIndex;
+    data.current = data.current === 'A' ? 'B' : 'A';
+  };
+
   const handleMouseEnter = (tileId, images) => {
     setHoveredTile(tileId);
+    let data = slideData.current[tileId];
+    if (data && data.interval) clearInterval(data.interval);
     
-    // Clear existing interval if any
-    if (intervalsRef.current[tileId]) {
-      clearInterval(intervalsRef.current[tileId]);
-    }
+    const layerA = slideRefs.current[`${tileId}-A`];
+    const layerB = slideRefs.current[`${tileId}-B`];
     
-    // Set initial index to 1 (since 0 is the starting image)
-    indexesRef.current[tileId] = 1;
-
-    intervalsRef.current[tileId] = setInterval(() => {
-      const el = slideRefs.current[tileId];
-      if (el) {
-        const nextIndex = indexesRef.current[tileId] % images.length;
-        el.style.backgroundImage = `url('${images[nextIndex]}')`;
-        indexesRef.current[tileId] = nextIndex + 1;
-      }
-    }, 1100);
+    if (layerA) layerA.style.filter = 'grayscale(0%) brightness(0.85)';
+    if (layerB) layerB.style.filter = 'grayscale(0%) brightness(0.85)';
+    
+    doCrossfade(tileId, images);
+    
+    data.interval = setInterval(() => {
+      doCrossfade(tileId, images);
+    }, 1800);
   };
 
   const handleMouseLeave = (tileId, images) => {
     setHoveredTile(null);
-    
-    if (intervalsRef.current[tileId]) {
-      clearInterval(intervalsRef.current[tileId]);
-      intervalsRef.current[tileId] = null;
+    let data = slideData.current[tileId];
+    if (data && data.interval) {
+      clearInterval(data.interval);
+      data.interval = null;
     }
     
-    // Reset back to images[0]
-    const el = slideRefs.current[tileId];
-    if (el) {
-      el.style.backgroundImage = `url('${images[0]}')`;
+    const layerA = slideRefs.current[`${tileId}-A`];
+    const layerB = slideRefs.current[`${tileId}-B`];
+    
+    if (layerA) {
+      layerA.style.backgroundImage = `url('${images[0]}')`;
+      layerA.style.opacity = '1';
+      layerA.style.filter = 'grayscale(100%) brightness(0.65)';
     }
-    indexesRef.current[tileId] = 0;
+    if (layerB) {
+      layerB.style.opacity = '0';
+      layerB.style.filter = 'grayscale(100%) brightness(0.65)';
+    }
+    
+    if (data) {
+      data.index = 0;
+      data.current = 'A';
+    }
   };
 
   const getTileDelay = (id) => {
     switch(id) {
-      case 'travel': return 0.22;
-      case 'cooking': return 0.32;
-      case 'writing': return 0.38;
-      case 'learning': return 0.44;
-      default: return 0.22;
+      case 'travel': return 0.28;
+      case 'cooking': return 0.36;
+      case 'writing': return 0.42;
+      case 'learning': return 0.48;
+      default: return 0.28;
     }
   };
 
@@ -135,11 +176,10 @@ const FunSection = () => {
         backgroundColor: '#070C18'
       }}
     >
-      {/* Eyebrow & Heading */}
       <motion.div
-        initial={{ opacity: 0, y: 32 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
-        transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94], delay: 0 }}
       >
         <div 
           style={{
@@ -154,24 +194,30 @@ const FunSection = () => {
         >
           — WHEN I'M NOT WORKING
         </div>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 28 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
+        transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 }}
+      >
         <h2 style={{ 
-          fontSize: '48px', 
-          color: '#fff', 
-          marginBottom: '16px', 
+          fontFamily: "'Fraunces', serif", 
+          fontWeight: 300, 
+          fontStyle: 'italic', 
+          fontSize: 'clamp(38px, 4vw, 52px)', 
+          color: '#ffffff', 
           lineHeight: 1.1,
-          margin: '0 0 16px 0' // Explicit override just in case
+          margin: '0 0 16px 0'
         }}>
-          <span style={{ fontWeight: 400 }}>The other </span>
-          <span style={{ fontFamily: "'Fraunces', serif", fontStyle: 'italic', fontWeight: 300 }}>chapters</span>
-          <span style={{ color: '#0AC4E0' }}>.</span>
+          The other chapters<span style={{ color: '#0AC4E0' }}>.</span>
         </h2>
       </motion.div>
 
-      {/* Subheading */}
       <motion.div
-        initial={{ opacity: 0, y: 32 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
-        transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.12 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.18 }}
         style={{ marginBottom: '48px' }}
       >
         <p 
@@ -189,12 +235,11 @@ const FunSection = () => {
         </p>
       </motion.div>
 
-      {/* Grid Container */}
       <div 
         style={{
           display: 'grid',
           gridTemplateColumns: '1.65fr 1fr 1fr',
-          gridTemplateRows: '260px 190px',
+          gridTemplateRows: '280px 200px',
           gap: '12px',
           width: '100%'
         }}
@@ -202,124 +247,115 @@ const FunSection = () => {
         {TILES.map((tile) => {
           const isHovered = hoveredTile === tile.id;
           const delay = getTileDelay(tile.id);
-          const initialMotion = { opacity: 0, y: 40, scale: 0.97 };
+          const initialMotion = { opacity: 0, y: 36, scale: 0.97 };
           
           return (
             <motion.div
               key={tile.id}
               initial={initialMotion}
               animate={isInView ? { opacity: 1, y: 0, scale: 1 } : initialMotion}
-              transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94], delay: delay }}
+              transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94], delay: delay }}
               style={{
                 ...tile.gridStyle,
-                borderRadius: '18px',
-                overflow: 'hidden',
                 position: 'relative',
-                cursor: 'pointer',
-                transform: isHovered ? 'translateY(-5px) scale(1.015)' : 'translateY(0) scale(1)',
-                transition: 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                cursor: 'pointer'
               }}
               onMouseEnter={() => handleMouseEnter(tile.id, tile.images)}
               onMouseLeave={() => handleMouseLeave(tile.id, tile.images)}
             >
-              {/* 1. Single Slide Layer */}
-              <div 
-                ref={el => slideRefs.current[tile.id] = el}
-                style={{
-                  position: 'absolute',
-                  top: 0, left: 0, right: 0, bottom: 0,
-                  backgroundImage: `url('${tile.images[0]}')`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  zIndex: 1,
-                  filter: isHovered ? 'grayscale(0%) brightness(0.85)' : 'grayscale(100%) brightness(0.65)',
-                  transition: 'filter 0.5s ease',
-                }}
-              />
+              <div style={{
+                position: 'absolute', inset: 0,
+                overflow: 'hidden',
+                borderRadius: '18px',
+                transform: isHovered ? 'translateY(-5px) scale(1.015)' : 'none',
+                transition: 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+              }}>
+                {/* Layer A */}
+                <div 
+                  ref={el => slideRefs.current[`${tile.id}-A`] = el}
+                  style={{
+                    position: 'absolute', inset: 0,
+                    backgroundSize: 'cover', backgroundPosition: 'center',
+                    transition: 'opacity 0.7s ease, filter 0.7s ease',
+                    opacity: 1,
+                    filter: 'grayscale(100%) brightness(0.65)'
+                  }}
+                />
 
-              {/* 2. Dark Gradient Overlay */}
-              <div 
-                style={{
-                  position: 'absolute',
-                  top: 0, left: 0, right: 0, bottom: 0,
-                  zIndex: 3,
-                  background: 'linear-gradient(to top, rgba(7,12,24,0.92) 0%, rgba(7,12,24,0.45) 50%, transparent 100%)',
-                  opacity: isHovered ? 1 : 0,
-                  transition: 'opacity 0.4s ease'
-                }}
-              />
+                {/* Layer B */}
+                <div 
+                  ref={el => slideRefs.current[`${tile.id}-B`] = el}
+                  style={{
+                    position: 'absolute', inset: 0,
+                    backgroundSize: 'cover', backgroundPosition: 'center',
+                    transition: 'opacity 0.7s ease, filter 0.7s ease',
+                    opacity: 0,
+                    filter: 'grayscale(100%) brightness(0.65)'
+                  }}
+                />
 
-              {/* 3. Category Badge */}
-              <div 
-                style={{
-                  position: 'absolute',
-                  top: '15px',
-                  left: '16px',
-                  zIndex: 5,
-                  fontFamily: "'Poppins', sans-serif",
-                  fontWeight: 500,
-                  fontSize: '9px',
-                  letterSpacing: '0.18em',
-                  textTransform: 'uppercase',
-                  color: isHovered ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.4)',
-                  transition: 'color 0.3s ease'
-                }}
-              >
-                {tile.badge}
-              </div>
-
-              {/* 4. Caption Block */}
-              <div 
-                style={{
-                  position: 'absolute',
-                  bottom: 0, left: 0, right: 0,
-                  padding: '18px',
-                  zIndex: 4,
-                  opacity: isHovered ? 1 : 0,
-                  transform: isHovered ? 'translateY(0)' : 'translateY(14px)',
-                  transition: 'opacity 0.4s ease 0.05s, transform 0.4s ease 0.05s'
-                }}
-              >
-                <div style={{ width: '20px', height: '1px', backgroundColor: '#0AC4E0', marginBottom: '6px' }} />
+                {/* Overlay curtain */}
                 <div 
                   style={{
-                    fontFamily: "'Poppins', sans-serif",
-                    fontStyle: 'italic',
-                    fontWeight: 300,
-                    fontSize: '11px',
-                    color: 'rgba(255,255,255,0.88)',
-                    lineHeight: 1.6
+                    position: 'absolute', inset: 0,
+                    zIndex: 3,
+                    background: 'linear-gradient(to top, rgba(7,12,24,0.92) 0%, rgba(7,12,24,0.45) 50%, transparent 100%)',
+                    opacity: isHovered ? 1 : 0,
+                    transition: 'opacity 0.4s ease'
                   }}
-                >
-                  {tile.captionText}
-                </div>
+                />
+
+                {/* Category Badge */}
                 <div 
                   style={{
-                    fontFamily: "'Poppins', sans-serif",
-                    fontWeight: 500,
-                    fontSize: '9px',
-                    letterSpacing: '0.14em',
-                    color: '#0AC4E0',
-                    textTransform: 'uppercase',
-                    marginTop: '5px'
+                    position: 'absolute', top: '15px', left: '16px', zIndex: 5,
+                    fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: '9px',
+                    letterSpacing: '0.18em', textTransform: 'uppercase',
+                    color: isHovered ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.4)',
+                    transition: 'color 0.3s ease'
                   }}
                 >
-                  {tile.captionSub}
+                  {tile.badge}
                 </div>
-              </div>
 
-              {/* 5. Glow Border Pseudo */}
-              <div 
-                style={{
-                  position: 'absolute',
-                  top: 0, left: 0, right: 0, bottom: 0,
-                  zIndex: 6,
-                  pointerEvents: 'none',
-                  borderRadius: '18px',
-                  border: isHovered ? '1px solid rgba(9,146,194,0.3)' : '1px solid rgba(9,146,194,0)',
-                  transition: 'border 0.35s ease'
-                }}
-              />
+                {/* Caption Block */}
+                <div 
+                  style={{
+                    position: 'absolute', bottom: 0, left: 0, right: 0, padding: '18px', zIndex: 4,
+                    opacity: isHovered ? 1 : 0,
+                    transform: isHovered ? 'translateY(0)' : 'translateY(14px)',
+                    transition: 'opacity 0.4s ease 0.05s, transform 0.4s ease 0.05s'
+                  }}
+                >
+                  <div style={{ display: 'block', width: '20px', height: '1px', backgroundColor: '#0AC4E0', marginBottom: '6px' }} />
+                  <div 
+                    style={{
+                      fontFamily: "'Poppins', sans-serif", fontStyle: 'italic', fontWeight: 300,
+                      fontSize: '11px', color: 'rgba(255,255,255,0.88)', lineHeight: 1.6
+                    }}
+                  >
+                    {tile.captionText}
+                  </div>
+                  <div 
+                    style={{
+                      fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: '9px',
+                      letterSpacing: '0.14em', color: '#0AC4E0', textTransform: 'uppercase', marginTop: '5px'
+                    }}
+                  >
+                    {tile.captionSub}
+                  </div>
+                </div>
+
+                {/* Glow Border */}
+                <div 
+                  style={{
+                    position: 'absolute', inset: 0, zIndex: 6, pointerEvents: 'none',
+                    borderRadius: '18px',
+                    border: isHovered ? '1px solid rgba(9,146,194,0.3)' : '1px solid transparent',
+                    transition: 'border-color 0.4s ease'
+                  }}
+                />
+              </div>
             </motion.div>
           );
         })}
