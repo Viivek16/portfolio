@@ -11,18 +11,20 @@ const ThreePillars = () => {
   const scale1 = useTransform(scrollYProgress, [0, 0.3], [1, 0.98]);
   const scale2 = useTransform(scrollYProgress, [0.3, 0.6], [1, 0.98]);
   
-  // Track specifically when the section starts exiting the viewport
+  // Track when the section starts exiting the viewport to trigger a cinematic fade out
   const { scrollYProgress: exitProgress } = useScroll({
     target: containerRef,
-    offset: ["end end", "end start"]
+    offset: ["end 110%", "end 30%"]
   });
   
-  // Fade out and move up the title during the first half of the exit
-  const titleOpacity = useTransform(exitProgress, [0, 0.5], [1, 0]);
-  const titleY = useTransform(exitProgress, [0, 0.5], [0, -100]);
+  // Fade out, scale down, and glide the ENTIRE section seamlessly into the background
+  const sectionOpacity = useTransform(exitProgress, [0, 1], [1, 0]);
+  const sectionScale = useTransform(exitProgress, [0, 1], [1, 0.95]);
+  const sectionY = useTransform(exitProgress, [0, 1], [0, -60]);
 
   return (
     <section className="w-full px-[8vw] pt-6 pb-12 mt-[8vh] min-h-[250vh]" ref={containerRef}>
+      <motion.div style={{ opacity: sectionOpacity, scale: sectionScale, y: sectionY }} className="w-full h-full relative">
       {/* 1. TITLE */}
       <motion.div 
         className="sticky top-[5vh] z-20 mb-12 pb-12 w-full"
@@ -31,7 +33,7 @@ const ThreePillars = () => {
         viewport={{ once: true, margin: "-15%" }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <motion.div style={{ opacity: titleOpacity, y: titleY }}>
+        <div>
           <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '9.5px', letterSpacing: '0.24em', color: '#0AC4E0', marginBottom: '12px' }}>
             — THREE PILLARS
           </p>
@@ -41,7 +43,7 @@ const ThreePillars = () => {
           <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', color: 'rgba(248,247,244,0.52)', lineHeight: 1.9, maxWidth: '480px', marginTop: '16px' }}>
             Six years across Web3, capital markets and growth infrastructure — three domains where I operate with full conviction.
           </p>
-        </motion.div>
+        </div>
       </motion.div>
 
       {/* 2. STACKING CARDS CONTAINER */}
@@ -247,6 +249,7 @@ const ThreePillars = () => {
           </div>
         </motion.div>
 
+      </motion.div>
       </motion.div>
     </section>
   );
