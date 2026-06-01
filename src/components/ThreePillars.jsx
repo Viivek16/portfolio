@@ -12,7 +12,7 @@ const ThreePillars = () => {
   const scale2 = useTransform(scrollYProgress, [0.3, 0.6], [1, 0.98]);
 
   return (
-    <section className="w-full px-[8vw] pt-6 pb-12 mt-[8vh] min-h-[250vh]" style={{ overflow: 'hidden', isolation: 'isolate' }} ref={containerRef}>
+    <section className="w-full px-[8vw] pt-6 pb-12 mt-[8vh] min-h-[250vh]" ref={containerRef}>
       {/* 1. TITLE */}
       <motion.div 
         className="sticky top-[5vh] z-50 mb-12 pb-12 w-full"
