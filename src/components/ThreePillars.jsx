@@ -15,7 +15,17 @@ const ThreePillars = () => {
     <section className="w-full px-[8vw] pt-6 pb-12 mt-[8vh] min-h-[250vh]" ref={containerRef}>
       {/* 1. TITLE */}
       <motion.div 
-        className="sticky top-[5vh] z-50 mb-12 pb-12 w-full"
+        className="sticky top-0 pt-[5vh] z-50 mb-12 pb-12 w-full"
+        style={{
+          background: 'linear-gradient(to bottom, #070C18 60%, rgba(7, 12, 24, 0.8) 85%, transparent 100%)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          marginLeft: '-8vw',
+          marginRight: '-8vw',
+          paddingLeft: '8vw',
+          paddingRight: '8vw',
+          width: 'calc(100% + 16vw)'
+        }}
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-15%" }}

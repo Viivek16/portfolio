@@ -173,7 +173,10 @@ const FunSection = () => {
         position: 'relative',
         zIndex: 1,
         isolation: 'isolate',
-        backgroundColor: '#070C18'
+        backgroundColor: '#070C18',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column'
       }}
     >
       <motion.div
@@ -239,26 +242,29 @@ const FunSection = () => {
         style={{
           display: 'grid',
           gridTemplateColumns: '1.65fr 1fr 1fr',
-          gridTemplateRows: '280px 200px',
+          gridTemplateRows: 'minmax(0, 1.4fr) minmax(0, 1fr)',
           gap: '12px',
-          width: '100%'
+          width: '100%',
+          flex: 1,
+          perspective: '1200px'
         }}
       >
         {TILES.map((tile) => {
           const isHovered = hoveredTile === tile.id;
           const delay = getTileDelay(tile.id);
-          const initialMotion = { opacity: 0, y: 36, scale: 0.97 };
+          const initialMotion = { opacity: 0, y: 50, scale: 0.9, rotateX: 15 };
           
           return (
             <motion.div
               key={tile.id}
               initial={initialMotion}
-              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : initialMotion}
-              transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94], delay: delay }}
+              animate={isInView ? { opacity: 1, y: 0, scale: 1, rotateX: 0 } : initialMotion}
+              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: delay }}
               style={{
                 ...tile.gridStyle,
                 position: 'relative',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                transformStyle: 'preserve-3d'
               }}
               onMouseEnter={() => handleMouseEnter(tile.id, tile.images)}
               onMouseLeave={() => handleMouseLeave(tile.id, tile.images)}
