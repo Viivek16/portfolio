@@ -10,8 +10,8 @@ const ThreePillars = () => {
 
   const scale1 = useTransform(scrollYProgress, [0, 0.3], [1, 0.98]);
   const scale2 = useTransform(scrollYProgress, [0.3, 0.6], [1, 0.98]);
-  const titleOpacity = useTransform(scrollYProgress, [0.65, 0.85], [1, 0]);
-  const titleY = useTransform(scrollYProgress, [0.65, 0.85], [0, -60]);
+  const titleOpacity = useTransform(scrollYProgress, [0.85, 0.95], [1, 0]);
+  const titleY = useTransform(scrollYProgress, [0.85, 0.95], [0, -60]);
 
   return (
     <section className="w-full px-[8vw] pt-6 pb-12 mt-[8vh] min-h-[250vh]" ref={containerRef}>

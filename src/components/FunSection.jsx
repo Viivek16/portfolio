@@ -9,7 +9,7 @@ const TILES = [
     captionSub: 'Solo. Always moving.',
     images: [
       '/images/fun/travelling/1.jpg',
-      '/images/fun/travelling/2.jpg',
+      '/images/fun/travelling/2.jpeg',
       '/images/fun/travelling/3.jpg',
       '/images/fun/travelling/4.jpg',
       '/images/fun/travelling/5.jpg',
@@ -37,9 +37,9 @@ const TILES = [
     captionSub: 'Diaries & drafts.',
     images: [
       '/images/fun/writing/1.jpg',
-      '/images/fun/writing/2.jpg',
-      '/images/fun/writing/3.jpg',
-      '/images/fun/writing/4.jpg',
+      '/images/fun/writing/2.jpeg',
+      '/images/fun/writing/3.jpeg',
+      '/images/fun/writing/4.jpeg',
     ],
     gridStyle: { gridColumn: '3', gridRow: '1' },
   },
@@ -266,8 +266,9 @@ const FunSection = () => {
                 position: 'absolute', inset: 0,
                 overflow: 'hidden',
                 borderRadius: '18px',
-                transform: isHovered ? 'translateY(-5px) scale(1.015)' : 'none',
-                transition: 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                transform: isHovered ? 'translateY(-12px) scale(1.05)' : 'none',
+                boxShadow: isHovered ? '0 30px 60px rgba(0,0,0,0.6), 0 15px 25px rgba(0,0,0,0.4)' : '0 10px 30px rgba(0,0,0,0.2)',
+                transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
               }}>
                 {/* Layer A */}
                 <div 
