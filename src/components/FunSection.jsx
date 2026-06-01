@@ -49,7 +49,7 @@ const TILES = [
     captionText: 'The best investment is still the one you make in yourself.',
     captionSub: 'Books. Courses. Conversations.',
     images: [
-      '/images/fun/learning/1.jpg',
+      '/images/fun/learning/1.png',
       '/images/fun/learning/2.jpg',
       '/images/fun/learning/3.jpg',
     ],
@@ -59,7 +59,7 @@ const TILES = [
 
 const FunSection = () => {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.35 });
+  const isInView = useInView(sectionRef, { once: false, amount: 0.35 });
   const [hoveredTile, setHoveredTile] = useState(null);
 
   const slideRefs = useRef({});
@@ -109,6 +109,8 @@ const FunSection = () => {
     
     if (layerA) layerA.style.filter = 'grayscale(0%) brightness(0.85)';
     if (layerB) layerB.style.filter = 'grayscale(0%) brightness(0.85)';
+    
+    doCrossfade(tileId, images);
     
     data.interval = setInterval(() => {
       doCrossfade(tileId, images);

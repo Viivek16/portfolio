@@ -10,6 +10,8 @@ const ThreePillars = () => {
 
   const scale1 = useTransform(scrollYProgress, [0, 0.3], [1, 0.98]);
   const scale2 = useTransform(scrollYProgress, [0.3, 0.6], [1, 0.98]);
+  const titleOpacity = useTransform(scrollYProgress, [0.65, 0.85], [1, 0]);
+  const titleY = useTransform(scrollYProgress, [0.65, 0.85], [0, -60]);
 
   return (
     <section className="w-full px-[8vw] pt-6 pb-12 mt-[8vh] min-h-[250vh]" ref={containerRef}>
@@ -21,15 +23,17 @@ const ThreePillars = () => {
         viewport={{ once: true, margin: "-15%" }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '9.5px', letterSpacing: '0.24em', color: '#0AC4E0', marginBottom: '12px' }}>
-          — THREE PILLARS
-        </p>
-        <h2 style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(48px, 6vw, 64px)', color: '#F8F7F4', lineHeight: 1.05, letterSpacing: '-0.015em', margin: 0 }}>
-          The Work<span style={{ color: '#0AC4E0' }}>.</span>
-        </h2>
-        <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', color: 'rgba(248,247,244,0.52)', lineHeight: 1.9, maxWidth: '420px', marginTop: '16px' }}>
-          Six years across Web3, capital markets and growth infrastructure — three domains where I operate with full conviction.
-        </p>
+        <motion.div style={{ opacity: titleOpacity, y: titleY }}>
+          <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '9.5px', letterSpacing: '0.24em', color: '#0AC4E0', marginBottom: '12px' }}>
+            — THREE PILLARS
+          </p>
+          <h2 style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(48px, 6vw, 64px)', color: '#F8F7F4', lineHeight: 1.05, letterSpacing: '-0.015em', margin: 0 }}>
+            The Work<span style={{ color: '#0AC4E0' }}>.</span>
+          </h2>
+          <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', color: 'rgba(248,247,244,0.52)', lineHeight: 1.9, maxWidth: '480px', marginTop: '16px' }}>
+            Six years across Web3, capital markets and growth infrastructure — three domains where I operate with full conviction.
+          </p>
+        </motion.div>
       </motion.div>
 
       {/* 2. STACKING CARDS CONTAINER */}
