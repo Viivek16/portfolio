@@ -68,6 +68,11 @@ const FunSection = () => {
   useEffect(() => {
     TILES.forEach(tile => {
       slideData.current[tile.id] = { current: 'A', index: 0, interval: null };
+      // Preload all images to prevent blank tiles on initial transition
+      tile.images.forEach(src => {
+        const img = new Image();
+        img.src = src;
+      });
     });
     
     return () => {
@@ -124,6 +129,8 @@ const FunSection = () => {
       clearInterval(data.interval);
       data.interval = null;
     }
+    data.current = 'A';
+    data.index = 0;
     
     const layerA = slideRefs.current[`${tileId}-A`];
     const layerB = slideRefs.current[`${tileId}-B`];
@@ -176,19 +183,18 @@ const FunSection = () => {
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94], delay: 0 }}
       >
-        <div 
+        <p 
           style={{
             fontFamily: "'Poppins', sans-serif",
             fontWeight: 500,
-            fontSize: '11px',
-            letterSpacing: '0.15em',
-            color: 'rgba(255,255,255,0.4)',
-            textTransform: 'uppercase',
+            fontSize: '9.5px',
+            letterSpacing: '0.24em',
+            color: '#0AC4E0',
             marginBottom: '16px'
           }}
         >
           — WHEN I'M NOT WORKING
-        </div>
+        </p>
       </motion.div>
 
       <motion.div
@@ -266,9 +272,9 @@ const FunSection = () => {
                 position: 'absolute', inset: 0,
                 overflow: 'hidden',
                 borderRadius: '18px',
-                transform: isHovered ? 'translateY(-12px) scale(1.05)' : 'none',
-                boxShadow: isHovered ? '0 30px 60px rgba(0,0,0,0.6), 0 15px 25px rgba(0,0,0,0.4)' : '0 10px 30px rgba(0,0,0,0.2)',
-                transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+                transform: isHovered ? 'translateY(-5px) scale(1.015)' : 'none',
+                boxShadow: isHovered ? '0 20px 40px rgba(0,0,0,0.4), 0 10px 20px rgba(0,0,0,0.2)' : '0 10px 30px rgba(0,0,0,0.2)',
+                transition: 'all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
               }}>
                 {/* Layer A */}
                 <div 

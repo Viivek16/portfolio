@@ -10,14 +10,22 @@ const ThreePillars = () => {
 
   const scale1 = useTransform(scrollYProgress, [0, 0.3], [1, 0.98]);
   const scale2 = useTransform(scrollYProgress, [0.3, 0.6], [1, 0.98]);
-  const titleOpacity = useTransform(scrollYProgress, [0.85, 0.95], [1, 0]);
-  const titleY = useTransform(scrollYProgress, [0.85, 0.95], [0, -60]);
+  
+  // Track specifically when the section starts exiting the viewport
+  const { scrollYProgress: exitProgress } = useScroll({
+    target: containerRef,
+    offset: ["end end", "end start"]
+  });
+  
+  // Fade out and move up the title during the first half of the exit
+  const titleOpacity = useTransform(exitProgress, [0, 0.5], [1, 0]);
+  const titleY = useTransform(exitProgress, [0, 0.5], [0, -100]);
 
   return (
     <section className="w-full px-[8vw] pt-6 pb-12 mt-[8vh] min-h-[250vh]" ref={containerRef}>
       {/* 1. TITLE */}
       <motion.div 
-        className="sticky top-[5vh] z-50 mb-12 pb-12 w-full"
+        className="sticky top-[5vh] z-20 mb-12 pb-12 w-full"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-15%" }}
