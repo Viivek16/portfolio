@@ -59,7 +59,7 @@ const TILES = [
 
 const FunSection = () => {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.15 });
+  const isInView = useInView(sectionRef, { once: true, amount: 0.35 });
   const [hoveredTile, setHoveredTile] = useState(null);
 
   const slideRefs = useRef({});
@@ -67,14 +67,6 @@ const FunSection = () => {
 
   useEffect(() => {
     TILES.forEach(tile => {
-      const layerA = slideRefs.current[`${tile.id}-A`];
-      if (layerA) {
-        layerA.style.backgroundImage = `url('${tile.images[0]}')`;
-      }
-      const layerB = slideRefs.current[`${tile.id}-B`];
-      if (layerB) {
-        layerB.style.backgroundImage = `url('${tile.images[1]}')`;
-      }
       slideData.current[tile.id] = { current: 'A', index: 0, interval: null };
     });
     
@@ -117,8 +109,6 @@ const FunSection = () => {
     
     if (layerA) layerA.style.filter = 'grayscale(0%) brightness(0.85)';
     if (layerB) layerB.style.filter = 'grayscale(0%) brightness(0.85)';
-    
-    doCrossfade(tileId, images);
     
     data.interval = setInterval(() => {
       doCrossfade(tileId, images);
@@ -171,7 +161,7 @@ const FunSection = () => {
         paddingTop: '96px',
         paddingBottom: '96px',
         position: 'relative',
-        zIndex: 1,
+        zIndex: 50,
         isolation: 'isolate',
         backgroundColor: '#070C18',
         minHeight: '100vh',
@@ -234,7 +224,8 @@ const FunSection = () => {
             margin: 0
           }}
         >
-          The chapters that don't make it to a pitch deck — but make everything else make sense.
+          The chapters that don't make it to a pitch deck, <br />
+          but make everything else make sense.
         </p>
       </motion.div>
 
@@ -282,6 +273,7 @@ const FunSection = () => {
                   style={{
                     position: 'absolute', inset: 0,
                     backgroundSize: 'cover', backgroundPosition: 'center',
+                    backgroundImage: `url(${tile.images[0]})`,
                     transition: 'opacity 0.7s ease, filter 0.7s ease',
                     opacity: 1,
                     filter: 'grayscale(100%) brightness(0.65)'
@@ -294,6 +286,7 @@ const FunSection = () => {
                   style={{
                     position: 'absolute', inset: 0,
                     backgroundSize: 'cover', backgroundPosition: 'center',
+                    backgroundImage: `url(${tile.images[1]})`,
                     transition: 'opacity 0.7s ease, filter 0.7s ease',
                     opacity: 0,
                     filter: 'grayscale(100%) brightness(0.65)'

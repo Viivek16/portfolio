@@ -15,17 +15,7 @@ const ThreePillars = () => {
     <section className="w-full px-[8vw] pt-6 pb-12 mt-[8vh] min-h-[250vh]" ref={containerRef}>
       {/* 1. TITLE */}
       <motion.div 
-        className="sticky top-0 pt-[5vh] z-50 mb-12 pb-12 w-full"
-        style={{
-          background: 'linear-gradient(to bottom, #070C18 60%, rgba(7, 12, 24, 0.8) 85%, transparent 100%)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
-          marginLeft: '-8vw',
-          marginRight: '-8vw',
-          paddingLeft: '8vw',
-          paddingRight: '8vw',
-          width: 'calc(100% + 16vw)'
-        }}
+        className="sticky top-[5vh] z-50 mb-12 pb-12 w-full"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-15%" }}
@@ -37,7 +27,7 @@ const ThreePillars = () => {
         <h2 style={{ fontFamily: 'Fraunces, serif', fontStyle: 'italic', fontWeight: 300, fontSize: 'clamp(48px, 6vw, 64px)', color: '#F8F7F4', lineHeight: 1.05, letterSpacing: '-0.015em', margin: 0 }}>
           The Work<span style={{ color: '#0AC4E0' }}>.</span>
         </h2>
-        <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '12.5px', color: 'rgba(248,247,244,0.52)', lineHeight: 1.9, maxWidth: '420px', marginTop: '16px' }}>
+        <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 300, fontSize: '14px', color: 'rgba(248,247,244,0.52)', lineHeight: 1.9, maxWidth: '420px', marginTop: '16px' }}>
           Six years across Web3, capital markets and growth infrastructure — three domains where I operate with full conviction.
         </p>
       </motion.div>
