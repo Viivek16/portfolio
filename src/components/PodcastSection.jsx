@@ -260,7 +260,6 @@ export default function PodcastSection() {
   const animFrameRef = useRef(null);
   
   const bgCanvasRef = useRef(null);
-  const playerCanvasRef = useRef(null);
   
   const isPlayingRef = useRef(false);
 
@@ -336,32 +335,6 @@ export default function PodcastSection() {
         }
       }
 
-      // 3. Draw Mini Player Waveform
-      if (playerCanvasRef.current) {
-        const canvas = playerCanvasRef.current;
-        const ctx = canvas.getContext('2d');
-        const w = canvas.width;
-        const h = canvas.height;
-        ctx.clearRect(0, 0, w, h);
-
-        const barCount = 32;
-        const barWidth = w / barCount;
-        
-        for (let i = 0; i < barCount; i++) {
-          const value = dataArray[i] || 0;
-          const barHeight = Math.max(4, (value / 255) * h);
-          
-          const gradient = ctx.createLinearGradient(0, h - barHeight, 0, h);
-          gradient.addColorStop(0, '#0AC4E0');
-          gradient.addColorStop(1, '#0992C2');
-          
-          ctx.fillStyle = gradient;
-          ctx.beginPath();
-          ctx.roundRect(i * barWidth + 1, h - barHeight, barWidth - 2, barHeight, 2);
-          ctx.fill();
-        }
-      }
-
       animFrameRef.current = requestAnimationFrame(renderWaveform);
     };
 
@@ -396,7 +369,7 @@ export default function PodcastSection() {
         position: 'relative',
         zIndex: 1,
         isolation: 'isolate',
-        paddingTop: '32px',
+        paddingTop: '0', // Set to 0 so it aligns perfectly with FunSection
         paddingBottom: '96px',
         paddingLeft: '8vw',
         paddingRight: '8vw',
@@ -405,9 +378,9 @@ export default function PodcastSection() {
       }}
     >
       <style>{`
-        @keyframes podcastPulseRing {
-          0% { transform: scale(1); opacity: 0.6; }
-          100% { transform: scale(1.4); opacity: 0; }
+        @keyframes vinylSpin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
       `}</style>
 
@@ -421,7 +394,8 @@ export default function PodcastSection() {
         paddingTop: '80px',
         paddingBottom: '96px',
         marginBottom: '64px',
-        background: 'linear-gradient(180deg, #101a2b 0%, #0c1524 60%, #0B1120 100%)',
+        // Start gradient at #070C18 to seamlessly merge with FunSection above
+        background: 'linear-gradient(180deg, #070C18 0%, #0c1524 40%, #0B1120 100%)',
         overflow: 'hidden'
       }}>
         {/* Massive Ambient Background Waveform */}
@@ -514,33 +488,87 @@ export default function PodcastSection() {
             </motion.p>
           </div>
 
-          {/* Right Player Widget */}
+          {/* Right Player Widget - Apple Music Style Vinyl */}
           <motion.div
             style={{
               flex: '0 1 480px',
               width: '100%',
               display: 'flex',
               alignItems: 'center',
-              gap: '24px',
-              padding: '24px',
-              borderRadius: '24px',
-              background: 'rgba(255,255,255,0.02)',
-              border: '0.5px solid rgba(255,255,255,0.06)',
-              backdropFilter: 'blur(32px)',
-              WebkitBackdropFilter: 'blur(32px)',
-              boxShadow: '0 24px 48px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)'
+              justifyContent: 'flex-start',
+              position: 'relative',
+              minHeight: '280px',
             }}
             initial={{ opacity: 0, y: 28, scale: 0.97 }}
             animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 28, scale: 0.97 }}
             transition={{ duration: 0.6, delay: 0.18, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
+            
+            {/* The Vinyl Record */}
             <div style={{
-              width: '120px',
-              height: '120px',
-              flexShrink: 0,
-              borderRadius: '16px',
+              position: 'absolute',
+              width: '260px',
+              height: '260px',
+              borderRadius: '50%',
+              background: 'repeating-radial-gradient(#111 0%, #000 5%, #111 10%)',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.8), inset 0 0 1px 1px rgba(255,255,255,0.15)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 1,
+              // Animate sliding out to the right when playing
+              transform: isPlaying ? 'translateX(120px)' : 'translateX(0px)',
+              transition: 'transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)',
+              animation: 'vinylSpin 4s linear infinite',
+              animationPlayState: isPlaying ? 'running' : 'paused'
+            }}>
+              {/* Inner Vinyl Label */}
+              <div style={{
+                width: '86px',
+                height: '86px',
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #0AC4E0 0%, #0992C2 100%)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: 'inset 0 0 6px rgba(0,0,0,0.6)'
+              }}>
+                {/* Center Hole */}
+                <div style={{
+                  width: '14px',
+                  height: '14px',
+                  borderRadius: '50%',
+                  background: '#0B1120',
+                  boxShadow: 'inset 0 1px 4px rgba(0,0,0,0.9)'
+                }} />
+              </div>
+              
+              {/* Vinyl Reflections */}
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                borderRadius: '50%',
+                background: 'conic-gradient(from 0deg, transparent 0deg, rgba(255,255,255,0.08) 45deg, transparent 90deg, transparent 180deg, rgba(255,255,255,0.08) 225deg, transparent 270deg)',
+                pointerEvents: 'none'
+              }} />
+            </div>
+
+            {/* The Album Cover Sleeve */}
+            <div 
+              onClick={togglePlay}
+              onMouseEnter={() => setPlayHover(true)}
+              onMouseLeave={() => setPlayHover(false)}
+              style={{
+              position: 'relative',
+              width: '260px',
+              height: '260px',
+              borderRadius: '24px',
               overflow: 'hidden',
-              boxShadow: '0 12px 32px rgba(0,0,0,0.4), 0 0 0 0.5px rgba(255,255,255,0.08)'
+              cursor: 'pointer',
+              zIndex: 2,
+              boxShadow: '0 32px 64px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.1), inset 0 1px 1px rgba(255,255,255,0.2)',
+              transform: playHover ? 'scale(1.03)' : 'scale(1)',
+              transition: 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease'
             }}>
               <img 
                 src="/images/podcast/Podcast-Cover.png" 
@@ -549,84 +577,42 @@ export default function PodcastSection() {
                 decoding="async"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} 
               />
-            </div>
-
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              <div>
-                <p style={{
-                  fontFamily: "'Poppins', sans-serif",
-                  fontSize: '9px',
-                  fontWeight: 500,
-                  letterSpacing: '0.16em',
-                  color: 'rgba(255,255,255,0.35)',
-                  textTransform: 'uppercase',
-                  margin: '0 0 4px 0'
+              
+              {/* Overlay Glass Play Button */}
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                background: isPlaying ? 'rgba(0,0,0,0.1)' : 'rgba(0,0,0,0.45)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'background 0.4s ease'
+              }}>
+                <div style={{
+                  width: '72px',
+                  height: '72px',
+                  borderRadius: '50%',
+                  background: 'rgba(255,255,255,0.12)',
+                  backdropFilter: 'blur(16px)',
+                  WebkitBackdropFilter: 'blur(16px)',
+                  border: '1px solid rgba(255,255,255,0.25)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 12px 32px rgba(0,0,0,0.4)',
+                  transform: playHover ? 'scale(1.12)' : 'scale(1)',
+                  transition: 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
                 }}>
-                  HOSTED BY
-                </p>
-                <h3 style={{
-                  fontFamily: "'Fraunces', serif",
-                  fontStyle: 'italic',
-                  fontWeight: 300,
-                  fontSize: '20px',
-                  color: '#ffffff',
-                  margin: 0
-                }}>
-                  Viivek Mehata
-                </h3>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                <div style={{ position: 'relative' }}>
-                  <div style={{
-                    position: 'absolute',
-                    inset: '-6px',
-                    borderRadius: '50%',
-                    border: '1px solid rgba(10,196,224,0.4)',
-                    animation: 'podcastPulseRing 1.8s ease-out infinite',
-                    pointerEvents: 'none',
-                    display: isPlaying ? 'block' : 'none'
-                  }} />
-                  <button
-                    onMouseEnter={() => setPlayHover(true)}
-                    onMouseLeave={() => setPlayHover(false)}
-                    onClick={togglePlay}
-                    style={{
-                      width: '48px',
-                      height: '48px',
-                      borderRadius: '50%',
-                      border: 'none',
-                      cursor: 'pointer',
-                      flexShrink: 0,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      background: isPlaying 
-                        ? 'linear-gradient(135deg, #0AC4E0 0%, #0992C2 100%)' 
-                        : 'linear-gradient(135deg, #0992C2 0%, #075a78 100%)',
-                      boxShadow: isPlaying 
-                        ? '0 0 20px rgba(10,196,224,0.45)' 
-                        : '0 6px 16px rgba(9,146,194,0.35)',
-                      transform: playHover ? 'scale(1.06)' : 'scale(1)',
-                      transition: 'transform 0.25s ease, box-shadow 0.3s ease, background 0.3s ease'
-                    }}
-                  >
-                    {isPlaying ? (
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff">
-                        <rect x="6" y="5" width="4" height="14" rx="1" />
-                        <rect x="14" y="5" width="4" height="14" rx="1" />
-                      </svg>
-                    ) : (
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff" style={{ marginLeft: '3px' }}>
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    )}
-                  </button>
-                </div>
-                
-                {/* Canvas based mini waveform */}
-                <div style={{ flex: 1, height: '40px', display: 'flex', alignItems: 'center' }}>
-                  <canvas ref={playerCanvasRef} width={160} height={40} style={{ width: '100%', height: '40px' }} />
+                  {isPlaying ? (
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="#ffffff">
+                      <rect x="6" y="5" width="4" height="14" rx="1" />
+                      <rect x="14" y="5" width="4" height="14" rx="1" />
+                    </svg>
+                  ) : (
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="#ffffff" style={{ marginLeft: '4px' }}>
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  )}
                 </div>
               </div>
             </div>
@@ -643,76 +629,40 @@ export default function PodcastSection() {
 
       <motion.div
         style={{
-          position: 'relative',
-          display: 'inline-flex',
+          display: 'flex',
           alignItems: 'center',
-          padding: '5px',
-          borderRadius: '14px',
-          background: 'rgba(255,255,255,0.04)',
-          border: '0.5px solid rgba(255,255,255,0.1)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          marginBottom: '32px',
-          boxShadow: '0 4px 16px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.05)'
+          gap: '16px',
+          marginBottom: '40px',
         }}
         initial={{ opacity: 0, y: 18 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
         transition={{ duration: 0.5, delay: 0.32, ease: [0.25, 0.46, 0.45, 0.94] }}
       >
-        <motion.div
-          style={{
-            position: 'absolute',
-            top: '5px',
-            bottom: '5px',
-            width: 'calc(50% - 7.5px)',
-            borderRadius: '10px',
-            background: 'linear-gradient(135deg, #0AC4E0 0%, #0992C2 100%)',
-            boxShadow: '0 4px 12px rgba(9,146,194,0.35), inset 0 1px 0 rgba(255,255,255,0.2)',
-            zIndex: 0,
-          }}
-          animate={{ left: activeSeason === 1 ? 5 : 'calc(50% + 2.5px)' }}
-          transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-        />
-        <button
-          onClick={() => setActiveSeason(1)}
-          style={{
-            position: 'relative',
-            zIndex: 1,
-            padding: '11px 26px',
-            fontFamily: "'Poppins', sans-serif",
-            fontSize: '11px',
-            fontWeight: 500,
-            letterSpacing: '0.14em',
-            textTransform: 'uppercase',
-            background: 'transparent',
-            border: 'none',
-            cursor: 'pointer',
-            color: activeSeason === 1 ? '#ffffff' : 'rgba(255,255,255,0.5)',
-            transition: 'color 0.25s ease'
-          }}
-        >
-          SEASON 01  ·  6
-        </button>
-        <button
-          onClick={() => setActiveSeason(2)}
-          style={{
-            position: 'relative',
-            zIndex: 1,
-            padding: '11px 26px',
-            fontFamily: "'Poppins', sans-serif",
-            fontSize: '11px',
-            fontWeight: 500,
-            letterSpacing: '0.14em',
-            textTransform: 'uppercase',
-            background: 'transparent',
-            border: 'none',
-            cursor: 'pointer',
-            color: activeSeason === 2 ? '#ffffff' : 'rgba(255,255,255,0.5)',
-            transition: 'color 0.25s ease'
-          }}
-        >
-          SEASON 02  ·  4
-        </button>
+        {[1, 2].map(season => (
+          <button
+            key={season}
+            onClick={() => setActiveSeason(season)}
+            style={{
+              padding: '12px 28px',
+              fontFamily: "'Poppins', sans-serif",
+              fontSize: '11px',
+              fontWeight: 500,
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              color: activeSeason === season ? '#ffffff' : 'rgba(255,255,255,0.4)',
+              background: activeSeason === season ? 'rgba(9, 146, 194, 0.15)' : 'rgba(255,255,255,0.03)',
+              border: activeSeason === season ? '0.5px solid rgba(10, 196, 224, 0.4)' : '0.5px solid rgba(255,255,255,0.08)',
+              borderRadius: '100px',
+              cursor: 'pointer',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+              boxShadow: activeSeason === season ? '0 8px 24px rgba(9,146,194,0.25), inset 0 1px 0 rgba(255,255,255,0.1)' : '0 4px 12px rgba(0,0,0,0.1)',
+            }}
+          >
+            SEASON 0{season}
+          </button>
+        ))}
       </motion.div>
 
       <motion.div

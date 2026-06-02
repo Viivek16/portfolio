@@ -63,7 +63,6 @@ function App() {
             <div className={`static-horizon-dot dot-2 ${sailingProgress >= 0.62 ? 'active' : ''}`} />
             <div className={`static-horizon-dot dot-3 ${sailingProgress >= 0.90 ? 'active' : ''}`} />
           </div>
-          <div className="static-horizon-meta">— still sailing</div>
         </div>
       )}
 

@@ -14,19 +14,18 @@ const ThreePillars = () => {
   // Track when the section starts exiting the viewport to trigger a cinematic fade out
   const { scrollYProgress: exitProgress } = useScroll({
     target: containerRef,
-    offset: ["end 110%", "end 30%"]
+    offset: ["end 100%", "end 30%"]
   });
   
-  // Fade out and glide the ENTIRE section seamlessly into the background without breaking sticky
+  // Fade out the heading seamlessly into the background without breaking sticky
   const sectionOpacity = useTransform(exitProgress, [0, 1], [1, 0]);
-  const sectionY = useTransform(exitProgress, [0, 1], [0, -100]);
 
   return (
     <section className="w-full px-[8vw] pt-6 pb-12 mt-[8vh] min-h-[250vh]" ref={containerRef}>
       {/* 1. TITLE */}
       <motion.div 
         className="sticky top-[5vh] z-20 mb-12 pb-12 w-full"
-        style={{ opacity: sectionOpacity, y: sectionY }}
+        style={{ opacity: sectionOpacity }}
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-15%" }}
@@ -57,7 +56,7 @@ const ThreePillars = () => {
         {/* Card 1 */}
         <motion.div 
           className="w-full min-h-[65vh] rounded-[2.5rem] bg-gradient-to-br from-white/[0.09] via-white/[0.02] to-transparent backdrop-blur-3xl border border-white/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.2)] overflow-hidden flex flex-col md:flex-row mb-12 transition-all duration-300 hover:border-white/25 hover:shadow-[0_12px_48px_rgba(0,0,0,0.6)] sticky top-[25vh] z-10 origin-top"
-          style={{ scale: scale1, opacity: sectionOpacity, y: sectionY }}
+          style={{ scale: scale1 }}
         >
           {/* Left Column (Text & Stats) - PADDING GOES HERE */}
           <div className="w-full md:w-[65%] p-8 md:p-12 flex flex-col justify-start">
@@ -122,7 +121,7 @@ const ThreePillars = () => {
         {/* Card 2 */}
         <motion.div 
           className="w-full min-h-[65vh] rounded-[2.5rem] bg-gradient-to-br from-white/[0.09] via-white/[0.02] to-transparent backdrop-blur-3xl border border-white/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.2)] overflow-hidden flex flex-col md:flex-row mb-12 transition-all duration-300 hover:border-white/25 hover:shadow-[0_12px_48px_rgba(0,0,0,0.6)] sticky top-[29vh] z-20 origin-top"
-          style={{ scale: scale2, opacity: sectionOpacity, y: sectionY }}
+          style={{ scale: scale2 }}
         >
           {/* Left Column (Text & Stats) - PADDING GOES HERE */}
           <div className="w-full md:w-[65%] p-8 md:p-12 flex flex-col justify-start">
@@ -187,7 +186,6 @@ const ThreePillars = () => {
         {/* Card 3 */}
         <motion.div 
           className="w-full min-h-[65vh] rounded-[2.5rem] bg-gradient-to-br from-white/[0.09] via-white/[0.02] to-transparent backdrop-blur-3xl border border-white/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.2)] overflow-hidden flex flex-col md:flex-row mb-12 transition-all duration-300 hover:border-white/25 hover:shadow-[0_12px_48px_rgba(0,0,0,0.6)] sticky top-[33vh] z-30 origin-top"
-          style={{ opacity: sectionOpacity, y: sectionY }}
         >
           {/* Left Column (Text & Stats) - PADDING GOES HERE */}
           <div className="w-full md:w-[65%] p-8 md:p-12 flex flex-col justify-start">
