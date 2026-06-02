@@ -1,8 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
 import Info from './pages/Info'
 import { Menu } from 'lucide-react'
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 const Navigation = () => {
   const location = useLocation()
@@ -53,6 +63,7 @@ function App() {
 
   return (
     <div className="antialiased text-text-primary bg-bg-primary min-h-screen relative">
+      <ScrollToTop />
       <Navigation />
       
 

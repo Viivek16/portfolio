@@ -24,7 +24,7 @@ const TestimonialSection = () => {
   }, []);
 
   return (
-    <div style={{ backgroundColor: '#0B1120', width: '100%' }}>
+    <div className={styles.container} style={{ minHeight: 'auto', backgroundColor: '#0B1120', width: '100%', paddingBottom: '80px' }}>
       <section className={`${styles.section} ${styles.friendsSection} home-testimonial`} id="testimonials">
         <div className={styles.friendsHeader}>
           <div className={`${styles.eyebrow} ${styles.friendsEyebrow}`}>Witnesses</div>
