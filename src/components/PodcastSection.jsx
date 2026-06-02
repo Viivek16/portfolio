@@ -374,7 +374,7 @@ export default function PodcastSection() {
         paddingLeft: '8vw',
         paddingRight: '8vw',
         width: '100%',
-        backgroundColor: '#0B1120'
+        backgroundColor: 'transparent'
       }}
     >
       <style>{`
@@ -395,7 +395,7 @@ export default function PodcastSection() {
         paddingBottom: '96px',
         marginBottom: '64px',
         // Start gradient at #070C18 to seamlessly merge with FunSection above
-        background: 'linear-gradient(180deg, #070C18 0%, #0c1524 40%, #0B1120 100%)',
+        background: 'linear-gradient(180deg, #070C18 0%, rgba(7, 12, 24, 0.6) 40%, transparent 100%)',
         overflow: 'hidden'
       }}>
         {/* Massive Ambient Background Waveform */}
@@ -522,6 +522,18 @@ export default function PodcastSection() {
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="#1DB954"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.24 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.84.24 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.539-1.56.299z"/></svg>
                   Spotify
+                </a>
+                <a href={SPOTIFY_URL} target="_blank" rel="noopener noreferrer" style={{
+                  display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 16px', borderRadius: '12px',
+                  background: 'rgba(255,255,255,0.03)', border: '0.5px solid rgba(255,255,255,0.08)',
+                  color: '#fff', textDecoration: 'none', fontFamily: "'Poppins', sans-serif", fontSize: '11px', fontWeight: 500,
+                  transition: 'background 0.3s ease, transform 0.3s ease'
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.transform = 'translateY(-2px)' }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; e.currentTarget.style.transform = 'translateY(0)' }}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="#0AC4E0"><path d="M11.65 18.06c-.84.28-1.8.44-2.76.44-3.11 0-5.9-1.2-7.85-3.14-.3-.3-.06-.77.34-.69 2.05.38 4.18-.08 5.86-1.32.22-.16.54-.08.66.16.8 1.63 2.22 2.76 3.93 3.12.33.07.41.52.13.7l-.31.73zM15 12a3 3 0 11-6 0 3 3 0 016 0zm-3-5c2.76 0 5 2.24 5 5s-2.24 5-5 5-5-2.24-5-5 2.24-5 5-5z"/></svg>
+                  Amazon Music
                 </a>
                 <a href={SPOTIFY_URL} target="_blank" rel="noopener noreferrer" style={{
                   display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 16px', borderRadius: '12px',

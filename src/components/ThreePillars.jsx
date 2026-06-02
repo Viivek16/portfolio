@@ -58,8 +58,8 @@ const ThreePillars = () => {
           className="w-full min-h-[65vh] rounded-[2.5rem] bg-gradient-to-br from-white/[0.09] via-white/[0.02] to-transparent backdrop-blur-3xl border border-white/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.2)] overflow-hidden flex flex-col md:flex-row mb-12 transition-all duration-300 hover:border-white/25 hover:shadow-[0_12px_48px_rgba(0,0,0,0.6)] sticky top-[25vh] z-10 origin-top"
           style={{ scale: scale1 }}
         >
-          {/* Left Column (Text & Stats) - PADDING GOES HERE */}
-          <div className="w-full md:w-[65%] p-8 md:p-12 flex flex-col justify-start">
+          {/* Left Column (Text & Stats) */}
+          <div className="w-full md:w-[55%] p-8 md:p-12 flex flex-col justify-start">
             <div>
               <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '10px', letterSpacing: '0.22em', color: '#0AC4E0', marginBottom: '16px' }}>
                 01 / VENTURE CAPITAL
@@ -103,8 +103,8 @@ const ThreePillars = () => {
             </div>
           </div>
 
-          {/* Right Column (Image) - NO PADDING, FLUSH TO EDGES */}
-          <div className="w-full md:w-[35%] relative min-h-[300px] md:min-h-full" style={{ WebkitMaskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.05) 10%, rgba(0,0,0,0.4) 30%, black 50%)', maskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.05) 10%, rgba(0,0,0,0.4) 30%, black 50%)' }}>
+          {/* Right Column (Image) */}
+          <div className="w-full md:w-[45%] relative min-h-[300px] md:min-h-full" style={{ WebkitMaskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 4%, rgba(0,0,0,0.6) 12%, black 20%)', maskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 4%, rgba(0,0,0,0.6) 12%, black 20%)' }}>
             <img 
               src="/images/work/vc-hero.jpg" 
               alt="Venture Capital" 
@@ -123,8 +123,8 @@ const ThreePillars = () => {
           className="w-full min-h-[65vh] rounded-[2.5rem] bg-gradient-to-br from-white/[0.09] via-white/[0.02] to-transparent backdrop-blur-3xl border border-white/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.2)] overflow-hidden flex flex-col md:flex-row mb-12 transition-all duration-300 hover:border-white/25 hover:shadow-[0_12px_48px_rgba(0,0,0,0.6)] sticky top-[29vh] z-20 origin-top"
           style={{ scale: scale2 }}
         >
-          {/* Left Column (Text & Stats) - PADDING GOES HERE */}
-          <div className="w-full md:w-[65%] p-8 md:p-12 flex flex-col justify-start">
+          {/* Left Column (Text & Stats) */}
+          <div className="w-full md:w-[55%] p-8 md:p-12 flex flex-col justify-start">
             <div>
               <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '10px', letterSpacing: '0.22em', color: '#0AC4E0', marginBottom: '16px' }}>
                 02 / MARKETING & GROWTH
@@ -168,8 +168,8 @@ const ThreePillars = () => {
             </div>
           </div>
 
-          {/* Right Column (Image) - NO PADDING, FLUSH TO EDGES */}
-          <div className="w-full md:w-[35%] relative min-h-[300px] md:min-h-full" style={{ WebkitMaskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.05) 10%, rgba(0,0,0,0.4) 30%, black 50%)', maskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.05) 10%, rgba(0,0,0,0.4) 30%, black 50%)' }}>
+          {/* Right Column (Image) */}
+          <div className="w-full md:w-[45%] relative min-h-[300px] md:min-h-full" style={{ WebkitMaskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 4%, rgba(0,0,0,0.6) 12%, black 20%)', maskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 4%, rgba(0,0,0,0.6) 12%, black 20%)' }}>
             <img 
               src="/images/work/marketing-hero.jpg" 
               alt="Marketing & Growth" 
@@ -187,8 +187,8 @@ const ThreePillars = () => {
         <motion.div 
           className="w-full min-h-[65vh] rounded-[2.5rem] bg-gradient-to-br from-white/[0.09] via-white/[0.02] to-transparent backdrop-blur-3xl border border-white/20 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.2)] overflow-hidden flex flex-col md:flex-row mb-12 transition-all duration-300 hover:border-white/25 hover:shadow-[0_12px_48px_rgba(0,0,0,0.6)] sticky top-[33vh] z-30 origin-top"
         >
-          {/* Left Column (Text & Stats) - PADDING GOES HERE */}
-          <div className="w-full md:w-[65%] p-8 md:p-12 flex flex-col justify-start">
+          {/* Left Column (Text & Stats) */}
+          <div className="w-full md:w-[55%] p-8 md:p-12 flex flex-col justify-start">
             <div>
               <p style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, fontSize: '10px', letterSpacing: '0.22em', color: '#0AC4E0', marginBottom: '16px' }}>
                 03 / AI & TOOLS
@@ -232,10 +232,10 @@ const ThreePillars = () => {
             </div>
           </div>
 
-          {/* Right Column (Image) - NO PADDING, FLUSH TO EDGES */}
-          <div className="w-full md:w-[35%] relative min-h-[300px] md:min-h-full" style={{ WebkitMaskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.05) 10%, rgba(0,0,0,0.4) 30%, black 50%)', maskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.05) 10%, rgba(0,0,0,0.4) 30%, black 50%)' }}>
+          {/* Right Column (Image) */}
+          <div className="w-full md:w-[45%] relative min-h-[300px] md:min-h-full" style={{ WebkitMaskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 4%, rgba(0,0,0,0.6) 12%, black 20%)', maskImage: 'linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 4%, rgba(0,0,0,0.6) 12%, black 20%)' }}>
             <img 
-              src="/images/work/ai-hero.png" 
+              src="/images/work/vr-headset.jpg" 
               alt="AI & Tools" 
               className="absolute inset-0 w-full h-full object-cover" 
               onError={(e) => {
