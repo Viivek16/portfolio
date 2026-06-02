@@ -4,6 +4,7 @@ import WorkStats from '../components/WorkStats'
 import WorkAbout from '../components/WorkAbout'
 import ThreePillars from '../components/ThreePillars'
 import FunSection from '../components/FunSection'
+import PodcastSection from '../components/PodcastSection'
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <WorkAbout />
       <ThreePillars />
       <FunSection />
+      <PodcastSection />
     </main>
   )
 }
