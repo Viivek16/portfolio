@@ -112,7 +112,8 @@ function EpisodeCard({ episode, index }) {
         zIndex: isHovered ? 2 : 1,
         transition: 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.35s ease',
         minHeight: '160px',
-        textDecoration: 'none'
+        textDecoration: 'none',
+        willChange: 'transform'
       }}
     >
       <div style={{
@@ -131,11 +132,14 @@ function EpisodeCard({ episode, index }) {
         transition: 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease',
         boxShadow: isHovered 
           ? '0 16px 40px rgba(0,0,0,0.6), 0 0 0 0.5px rgba(255,255,255,0.12), 0 0 24px rgba(9,146,194,0.25)' 
-          : '0 8px 20px rgba(0,0,0,0.5), 0 0 0 0.5px rgba(255,255,255,0.06)'
+          : '0 8px 20px rgba(0,0,0,0.5), 0 0 0 0.5px rgba(255,255,255,0.06)',
+        willChange: 'transform'
       }}>
         <img 
           src={`/images/podcast/episodes/${episode.file}`}
           alt={episode.title}
+          loading="lazy"
+          decoding="async"
           style={{ 
             width: '100%', 
             height: '100%', 
@@ -254,7 +258,10 @@ export default function PodcastSection() {
   const audioCtxRef = useRef(null);
   const analyserRef = useRef(null);
   const animFrameRef = useRef(null);
-  const barsRef = useRef([]);
+  
+  const bgCanvasRef = useRef(null);
+  const playerCanvasRef = useRef(null);
+  
   const isPlayingRef = useRef(false);
 
   const [activeSeason, setActiveSeason] = useState(1);
@@ -269,68 +276,102 @@ export default function PodcastSection() {
   }, [isPlaying]);
 
   useEffect(() => {
-    barsRef.current.forEach((bar) => {
-      if (!bar) return;
-      const initialHeight = 6 + Math.random() * 8;
-      bar.style.height = `${initialHeight}px`;
-    });
-
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const analyser = audioCtx.createAnalyser();
-    analyser.fftSize = 64;
-    analyser.smoothingTimeConstant = 0.75;
+    let sourceNode;
     
-    if (audioRef.current) {
-      const source = audioCtx.createMediaElementSource(audioRef.current);
-      source.connect(analyser);
-      analyser.connect(audioCtx.destination);
+    // Initialize Web Audio API ONLY once to avoid Memory Leaks and InvalidStateError
+    if (!audioCtxRef.current) {
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 128; // Provides 64 frequency bins
+      analyser.smoothingTimeConstant = 0.85; // Smoother animations
+      
+      if (audioRef.current) {
+        sourceNode = audioCtx.createMediaElementSource(audioRef.current);
+        sourceNode.connect(analyser);
+        analyser.connect(audioCtx.destination);
+      }
+      
+      audioCtxRef.current = audioCtx;
+      analyserRef.current = analyser;
     }
-    
-    audioCtxRef.current = audioCtx;
-    analyserRef.current = analyser;
 
+    const analyser = analyserRef.current;
     const dataArray = new Uint8Array(analyser.frequencyBinCount);
 
-    const animateIdle = () => {
-      const t = Date.now() / 1000;
-      barsRef.current.forEach((bar, i) => {
-        if (!bar) return;
-        const phase = i * 0.2;
-        const height = 6 + Math.sin(t * 1.5 + phase) * 4 + Math.random() * 2;
-        bar.style.height = `${height}px`;
-      });
-      if (!isPlayingRef.current) {
-        animFrameRef.current = requestAnimationFrame(animateIdle);
+    const renderWaveform = () => {
+      // 1. Get audio data
+      if (isPlayingRef.current) {
+        analyser.getByteFrequencyData(dataArray);
+      } else {
+        // Idle animation data
+        const t = Date.now() / 1000;
+        for (let i = 0; i < dataArray.length; i++) {
+          // Creates a gentle breathing wave
+          dataArray[i] = 15 + Math.sin(t * 1.5 + i * 0.15) * 10;
+        }
       }
+
+      // 2. Draw Massive Background Waveform
+      if (bgCanvasRef.current) {
+        const canvas = bgCanvasRef.current;
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width;
+        const h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+
+        const barCount = 64;
+        const barWidth = w / barCount;
+        
+        ctx.fillStyle = 'rgba(9, 146, 194, 0.15)'; // Cyan with low opacity
+        
+        for (let i = 0; i < barCount; i++) {
+          const value = dataArray[i] || 0;
+          // Scale value to canvas height
+          const barHeight = Math.max(10, (value / 255) * h * 0.8);
+          
+          ctx.beginPath();
+          // Draw from bottom up
+          ctx.roundRect(i * barWidth + 2, h - barHeight, barWidth - 4, barHeight, 10);
+          ctx.fill();
+        }
+      }
+
+      // 3. Draw Mini Player Waveform
+      if (playerCanvasRef.current) {
+        const canvas = playerCanvasRef.current;
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width;
+        const h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+
+        const barCount = 32;
+        const barWidth = w / barCount;
+        
+        for (let i = 0; i < barCount; i++) {
+          const value = dataArray[i] || 0;
+          const barHeight = Math.max(4, (value / 255) * h);
+          
+          const gradient = ctx.createLinearGradient(0, h - barHeight, 0, h);
+          gradient.addColorStop(0, '#0AC4E0');
+          gradient.addColorStop(1, '#0992C2');
+          
+          ctx.fillStyle = gradient;
+          ctx.beginPath();
+          ctx.roundRect(i * barWidth + 1, h - barHeight, barWidth - 2, barHeight, 2);
+          ctx.fill();
+        }
+      }
+
+      animFrameRef.current = requestAnimationFrame(renderWaveform);
     };
 
-    const animateActive = () => {
-      if (!isPlayingRef.current) {
-        animateIdle();
-        return;
-      }
-      
-      analyserRef.current.getByteFrequencyData(dataArray);
-      
-      barsRef.current.forEach((bar, i) => {
-        if (!bar) return;
-        const value = dataArray[i] || 0;
-        const height = Math.max(4, (value / 255) * 56);
-        bar.style.height = `${height}px`;
-      });
-      
-      animFrameRef.current = requestAnimationFrame(animateActive);
-    };
-
-    animFrameRef.current = requestAnimationFrame(animateIdle);
+    // Start render loop
+    animFrameRef.current = requestAnimationFrame(renderWaveform);
 
     return () => {
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
-      if (audioCtxRef.current && audioCtxRef.current.state !== 'closed') {
-        audioCtxRef.current.close();
-      }
     };
-  }, []);
+  }, []); // Run only on mount
 
   const togglePlay = async () => {
     if (!audioRef.current) return;
@@ -355,7 +396,7 @@ export default function PodcastSection() {
         position: 'relative',
         zIndex: 1,
         isolation: 'isolate',
-        paddingTop: '96px',
+        paddingTop: '32px',
         paddingBottom: '96px',
         paddingLeft: '8vw',
         paddingRight: '8vw',
@@ -370,224 +411,232 @@ export default function PodcastSection() {
         }
       `}</style>
 
-      {/* Hero Block */}
+      {/* Hero Block - Premium redesign */}
       <div style={{
         position: 'relative',
-        borderRadius: '24px',
-        overflow: 'hidden',
-        padding: '48px 48px 56px 48px',
+        marginLeft: '-8vw', // Breaks out of the section padding to be full width
+        marginRight: '-8vw',
+        paddingLeft: '8vw', // Restores inner content alignment
+        paddingRight: '8vw',
+        paddingTop: '80px',
+        paddingBottom: '96px',
         marginBottom: '64px',
-        isolation: 'isolate',
-        background: 'linear-gradient(180deg, rgba(31,55,92,0.55) 0%, rgba(20,38,68,0.45) 40%, rgba(11,17,32,0.85) 85%, #0B1120 100%)',
-        border: '0.5px solid rgba(255,255,255,0.06)'
+        background: 'linear-gradient(180deg, #101a2b 0%, #0c1524 60%, #0B1120 100%)',
+        overflow: 'hidden'
       }}>
+        {/* Massive Ambient Background Waveform */}
+        <canvas 
+          ref={bgCanvasRef} 
+          width={1920} 
+          height={600} 
+          style={{ 
+            position: 'absolute', 
+            bottom: 0, 
+            left: 0, 
+            width: '100%', 
+            height: '100%', 
+            pointerEvents: 'none', 
+            zIndex: 0 
+          }} 
+        />
+        
         {/* Radial glow layer */}
         <div style={{
           position: 'absolute',
           inset: 0,
-          zIndex: 0,
+          zIndex: 1,
           pointerEvents: 'none',
-          background: 'radial-gradient(ellipse at 20% 30%, rgba(9,146,194,0.18) 0%, transparent 50%)',
-          opacity: 0.7
+          background: 'radial-gradient(ellipse at 30% 40%, rgba(9,146,194,0.12) 0%, transparent 60%)',
+          opacity: 0.8
         }} />
 
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          <motion.p
-            style={{
-              fontFamily: "'Poppins', sans-serif",
-              fontSize: '10px',
-              fontWeight: 500,
-              letterSpacing: '0.22em',
-              color: '#0AC4E0',
-              textTransform: 'uppercase',
-              marginBottom: '14px'
-            }}
-            initial={{ opacity: 0, y: 18 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
-            transition={{ duration: 0.5, delay: 0, ease: [0.25, 0.46, 0.45, 0.94] }}
-          >
-            — THE PODCAST
-          </motion.p>
+        <div style={{ 
+          position: 'relative', 
+          zIndex: 2,
+          display: 'flex',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '48px'
+        }}>
+          {/* Left Typography */}
+          <div style={{ flex: '1 1 400px' }}>
+            <motion.p
+              style={{
+                fontFamily: "'Poppins', sans-serif",
+                fontSize: '10px',
+                fontWeight: 500,
+                letterSpacing: '0.22em',
+                color: '#0AC4E0',
+                textTransform: 'uppercase',
+                marginBottom: '16px'
+              }}
+              initial={{ opacity: 0, y: 18 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+              transition={{ duration: 0.5, delay: 0, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              — THE PODCAST
+            </motion.p>
 
-          <motion.h2
-            style={{
-              fontFamily: "'Fraunces', serif",
-              fontWeight: 300,
-              fontStyle: 'italic',
-              fontSize: 'clamp(40px, 4.5vw, 60px)',
-              color: '#ffffff',
-              lineHeight: 1.05,
-              margin: '0 0 36px 0',
-              letterSpacing: '-0.01em',
-            }}
-            initial={{ opacity: 0, y: 24 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-            transition={{ duration: 0.55, delay: 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
-          >
-            Mehta and More Talks<span style={{ color: '#0AC4E0' }}>.</span>
-          </motion.h2>
+            <motion.h2
+              style={{
+                fontFamily: "'Fraunces', serif",
+                fontWeight: 300,
+                fontStyle: 'italic',
+                fontSize: 'clamp(44px, 5vw, 68px)',
+                color: '#ffffff',
+                lineHeight: 1.05,
+                margin: 0,
+                letterSpacing: '-0.01em',
+              }}
+              initial={{ opacity: 0, y: 24 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+              transition={{ duration: 0.55, delay: 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              Mehta and More Talks<span style={{ color: '#0AC4E0' }}>.</span>
+            </motion.h2>
+            
+            <motion.p
+              style={{
+                fontFamily: "'Poppins', sans-serif",
+                fontSize: '14px',
+                fontWeight: 300,
+                color: 'rgba(255,255,255,0.6)',
+                lineHeight: 1.6,
+                marginTop: '24px',
+                maxWidth: '420px'
+              }}
+              initial={{ opacity: 0, y: 24 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+              transition={{ duration: 0.55, delay: 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              All things about VC, Marketing, Life — and all the experiences in between.
+            </motion.p>
+          </div>
 
+          {/* Right Player Widget */}
           <motion.div
             style={{
+              flex: '0 1 480px',
+              width: '100%',
               display: 'flex',
               alignItems: 'center',
               gap: '24px',
-              padding: '20px',
-              borderRadius: '18px',
-              background: 'rgba(255,255,255,0.04)',
-              border: '0.5px solid rgba(255,255,255,0.08)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)'
+              padding: '24px',
+              borderRadius: '24px',
+              background: 'rgba(255,255,255,0.02)',
+              border: '0.5px solid rgba(255,255,255,0.06)',
+              backdropFilter: 'blur(32px)',
+              WebkitBackdropFilter: 'blur(32px)',
+              boxShadow: '0 24px 48px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)'
             }}
-            initial={{ opacity: 0, y: 28, scale: 0.985 }}
-            animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 28, scale: 0.985 }}
+            initial={{ opacity: 0, y: 28, scale: 0.97 }}
+            animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 28, scale: 0.97 }}
             transition={{ duration: 0.6, delay: 0.18, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <div style={{
-              width: '140px',
-              height: '140px',
+              width: '120px',
+              height: '120px',
               flexShrink: 0,
-              borderRadius: '12px',
+              borderRadius: '16px',
               overflow: 'hidden',
-              position: 'relative',
               boxShadow: '0 12px 32px rgba(0,0,0,0.4), 0 0 0 0.5px rgba(255,255,255,0.08)'
             }}>
               <img 
-                src="/images/podcast/Podcast%20Cover.png" 
+                src="/images/podcast/Podcast-Cover.png" 
                 alt="Mehta and More Talks" 
+                loading="lazy"
+                decoding="async"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} 
               />
             </div>
 
-            <div style={{
-              flex: 1,
-              display: 'flex',
-              alignItems: 'center',
-              gap: '20px',
-              height: '100%'
-            }}>
-              <div style={{ position: 'relative' }}>
-                <div style={{
-                  position: 'absolute',
-                  inset: '-6px',
-                  borderRadius: '50%',
-                  border: '1px solid rgba(10,196,224,0.4)',
-                  animation: 'podcastPulseRing 1.8s ease-out infinite',
-                  pointerEvents: 'none',
-                  display: isPlaying ? 'block' : 'none'
-                }} />
-                <button
-                  onMouseEnter={() => setPlayHover(true)}
-                  onMouseLeave={() => setPlayHover(false)}
-                  onClick={togglePlay}
-                  style={{
-                    width: '64px',
-                    height: '64px',
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <div>
+                <p style={{
+                  fontFamily: "'Poppins', sans-serif",
+                  fontSize: '9px',
+                  fontWeight: 500,
+                  letterSpacing: '0.16em',
+                  color: 'rgba(255,255,255,0.35)',
+                  textTransform: 'uppercase',
+                  margin: '0 0 4px 0'
+                }}>
+                  HOSTED BY
+                </p>
+                <h3 style={{
+                  fontFamily: "'Fraunces', serif",
+                  fontStyle: 'italic',
+                  fontWeight: 300,
+                  fontSize: '20px',
+                  color: '#ffffff',
+                  margin: 0
+                }}>
+                  Viivek Mehata
+                </h3>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                <div style={{ position: 'relative' }}>
+                  <div style={{
+                    position: 'absolute',
+                    inset: '-6px',
                     borderRadius: '50%',
-                    border: 'none',
-                    cursor: 'pointer',
-                    flexShrink: 0,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: isPlaying 
-                      ? 'linear-gradient(135deg, #0AC4E0 0%, #0992C2 100%)' 
-                      : 'linear-gradient(135deg, #0992C2 0%, #075a78 100%)',
-                    boxShadow: isPlaying 
-                      ? '0 0 24px rgba(10,196,224,0.45), 0 8px 24px rgba(9,146,194,0.3)' 
-                      : '0 8px 20px rgba(9,146,194,0.35)',
-                    transform: playHover ? 'scale(1.06)' : 'scale(1)',
-                    transition: 'transform 0.25s ease, box-shadow 0.3s ease, background 0.3s ease'
-                  }}
-                >
-                  {isPlaying ? (
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff">
-                      <rect x="6" y="5" width="4" height="14" rx="1" />
-                      <rect x="14" y="5" width="4" height="14" rx="1" />
-                    </svg>
-                  ) : (
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff" style={{ marginLeft: '3px' }}>
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  )}
-                </button>
-              </div>
-
-              <audio 
-                ref={audioRef} 
-                src="/audio/intro.mp3" 
-                preload="auto" 
-                onEnded={() => setIsPlaying(false)} 
-              />
-
-              <div style={{
-                flex: 1,
-                height: '64px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                gap: '3px'
-              }}>
-                {Array.from({ length: 32 }).map((_, i) => (
-                  <div
-                    key={i}
-                    ref={el => barsRef.current[i] = el}
+                    border: '1px solid rgba(10,196,224,0.4)',
+                    animation: 'podcastPulseRing 1.8s ease-out infinite',
+                    pointerEvents: 'none',
+                    display: isPlaying ? 'block' : 'none'
+                  }} />
+                  <button
+                    onMouseEnter={() => setPlayHover(true)}
+                    onMouseLeave={() => setPlayHover(false)}
+                    onClick={togglePlay}
                     style={{
-                      width: '3px',
-                      background: 'linear-gradient(180deg, #0AC4E0 0%, #0992C2 100%)',
-                      borderRadius: '2px',
-                      minHeight: '4px',
+                      width: '48px',
+                      height: '48px',
+                      borderRadius: '50%',
+                      border: 'none',
+                      cursor: 'pointer',
                       flexShrink: 0,
-                      transition: 'height 80ms ease-out'
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      background: isPlaying 
+                        ? 'linear-gradient(135deg, #0AC4E0 0%, #0992C2 100%)' 
+                        : 'linear-gradient(135deg, #0992C2 0%, #075a78 100%)',
+                      boxShadow: isPlaying 
+                        ? '0 0 20px rgba(10,196,224,0.45)' 
+                        : '0 6px 16px rgba(9,146,194,0.35)',
+                      transform: playHover ? 'scale(1.06)' : 'scale(1)',
+                      transition: 'transform 0.25s ease, box-shadow 0.3s ease, background 0.3s ease'
                     }}
-                  />
-                ))}
+                  >
+                    {isPlaying ? (
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff">
+                        <rect x="6" y="5" width="4" height="14" rx="1" />
+                        <rect x="14" y="5" width="4" height="14" rx="1" />
+                      </svg>
+                    ) : (
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff" style={{ marginLeft: '3px' }}>
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+                
+                {/* Canvas based mini waveform */}
+                <div style={{ flex: 1, height: '40px', display: 'flex', alignItems: 'center' }}>
+                  <canvas ref={playerCanvasRef} width={160} height={40} style={{ width: '100%', height: '40px' }} />
+                </div>
               </div>
             </div>
 
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-end',
-              justifyContent: 'center',
-              gap: '8px',
-              flexShrink: 0,
-              paddingRight: '4px'
-            }}>
-              <p style={{
-                fontFamily: "'Poppins', sans-serif",
-                fontSize: '9px',
-                fontWeight: 500,
-                letterSpacing: '0.16em',
-                color: 'rgba(255,255,255,0.35)',
-                textTransform: 'uppercase',
-                margin: 0
-              }}>
-                HOSTED BY
-              </p>
-              <p style={{
-                fontFamily: "'Fraunces', serif",
-                fontStyle: 'italic',
-                fontWeight: 300,
-                fontSize: '18px',
-                color: 'rgba(255,255,255,0.92)',
-                margin: 0
-              }}>
-                Viivek Mehata
-              </p>
-              <div style={{ width: '40px', height: '0.5px', background: 'rgba(255,255,255,0.15)', margin: '4px 0' }} />
-              <p style={{
-                fontFamily: "'Poppins', sans-serif",
-                fontSize: '9px',
-                fontWeight: 500,
-                letterSpacing: '0.14em',
-                color: 'rgba(255,255,255,0.4)',
-                textTransform: 'uppercase',
-                margin: 0
-              }}>
-                10 EPISODES · 2 SEASONS
-              </p>
-            </div>
+            <audio 
+              ref={audioRef} 
+              src="/audio/intro.mp3" 
+              preload="auto" 
+              onEnded={() => setIsPlaying(false)} 
+            />
           </motion.div>
         </div>
       </div>
