@@ -1236,7 +1236,6 @@
   position: relative;
   margin: 0;
   padding: 0;
-  flex: 1;
   font-family: 'Cormorant Garamond', serif !important;
   font-style: italic;
   font-weight: 400;
@@ -1278,7 +1277,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  margin-top: 8px;
+  margin-top: auto;
   padding-top: 18px;
   border-top: 1px solid rgba(244, 241, 234, 0.1);
 }

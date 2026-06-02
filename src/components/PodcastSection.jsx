@@ -79,7 +79,7 @@ const SEASON_2 = [
   },
 ];
 
-function EpisodeCard({ episode, index }) {
+function EpisodeCard({ episode, index, isInView }) {
   const [hoveredCard, setHoveredCard] = useState(null);
   
   const handleMouseEnter = () => setHoveredCard(episode.num);
@@ -88,12 +88,15 @@ function EpisodeCard({ episode, index }) {
   const isHovered = hoveredCard === episode.num;
 
   return (
-    <a
+    <motion.a
       href={SPOTIFY_URL}
       target="_blank"
       rel="noopener noreferrer"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      initial={{ opacity: 0, y: 24, scale: 0.96 }}
+      animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 24, scale: 0.96 }}
+      transition={{ duration: 0.5, delay: 0.45 + (index * 0.08), ease: [0.25, 0.46, 0.45, 0.94] }}
       style={{
         display: 'flex',
         alignItems: 'stretch',
@@ -248,7 +251,7 @@ function EpisodeCard({ episode, index }) {
           </div>
         </div>
       </div>
-    </a>
+    </motion.a>
   );
 }
 
@@ -268,7 +271,7 @@ export default function PodcastSection() {
   const [playHover, setPlayHover] = useState(false);
   const [spotifyHover, setSpotifyHover] = useState(false);
 
-  const isInView = useInView(sectionRef, { once: true, amount: 0.12 });
+  const isInView = useInView(sectionRef, { once: false, amount: 0.12 });
 
   useEffect(() => {
     isPlayingRef.current = isPlaying;
@@ -744,7 +747,7 @@ export default function PodcastSection() {
             style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px', width: '100%' }}
           >
             {(activeSeason === 1 ? SEASON_1 : SEASON_2).map((ep, idx) => (
-              <EpisodeCard key={ep.num} episode={ep} index={idx} />
+              <EpisodeCard key={ep.num} episode={ep} index={idx} isInView={isInView} />
             ))}
           </motion.div>
         </AnimatePresence>

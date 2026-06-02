@@ -37,7 +37,7 @@ const TestimonialSection = () => {
             target="_blank" 
             rel="noopener noreferrer" 
             className={styles.friendCard}
-            style={{ textDecoration: 'none', display: 'block' }}
+            style={{ textDecoration: 'none' }}
           >
             <div className={styles.friendPhoto}>
               <img src="/images/friends/juliet-su.jpg" alt="Juliet Su, Managing Partner at NewTribe Capital" loading="lazy" />
@@ -58,7 +58,7 @@ const TestimonialSection = () => {
             target="_blank" 
             rel="noopener noreferrer" 
             className={styles.friendCard}
-            style={{ textDecoration: 'none', display: 'block' }}
+            style={{ textDecoration: 'none' }}
           >
             <div className={styles.friendPhoto}>
               <img src="/images/friends/Karan-aneja.jpg" alt="Karan Aneja, Senior Analyst at Pi42 Ventures" loading="lazy" />
@@ -79,7 +79,7 @@ const TestimonialSection = () => {
             target="_blank" 
             rel="noopener noreferrer" 
             className={styles.friendCard}
-            style={{ textDecoration: 'none', display: 'block' }}
+            style={{ textDecoration: 'none' }}
           >
             <div className={styles.friendPhoto}>
               <img src="/images/friends/Srushti-shirsat.jpg" alt="Srushti Shirsat, Founder at HRBP" loading="lazy" />
@@ -100,7 +100,7 @@ const TestimonialSection = () => {
             target="_blank" 
             rel="noopener noreferrer" 
             className={styles.friendCard}
-            style={{ textDecoration: 'none', display: 'block' }}
+            style={{ textDecoration: 'none' }}
           >
             <div className={styles.friendPhoto}>
               <img src="/images/friends/zhanna-manzyk.jpg" alt="Zhanna Manzyk, CEO at Jaya Talent" loading="lazy" />
@@ -121,7 +121,7 @@ const TestimonialSection = () => {
             target="_blank" 
             rel="noopener noreferrer" 
             className={styles.friendCard}
-            style={{ textDecoration: 'none', display: 'block' }}
+            style={{ textDecoration: 'none' }}
           >
             <div className={styles.friendPhoto}>
               <img src="/images/friends/Sowmya-Raghavan.jpg" alt="Sowmya Raghavan, Ex-CEO of NODO Inc." loading="lazy" />
