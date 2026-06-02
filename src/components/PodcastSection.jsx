@@ -486,6 +486,57 @@ export default function PodcastSection() {
             >
               All things about VC, Marketing, Life — and all the experiences in between.
             </motion.p>
+            
+            {/* Premium CTA Row */}
+            <motion.div
+              style={{
+                marginTop: '40px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '12px'
+              }}
+              initial={{ opacity: 0, y: 24 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+              transition={{ duration: 0.55, delay: 0.16, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              <p style={{
+                fontFamily: "'Poppins', sans-serif",
+                fontSize: '9px',
+                fontWeight: 500,
+                letterSpacing: '0.14em',
+                color: 'rgba(255,255,255,0.3)',
+                textTransform: 'uppercase',
+                margin: 0
+              }}>
+                Available Everywhere
+              </p>
+              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                <a href={SPOTIFY_URL} target="_blank" rel="noopener noreferrer" style={{
+                  display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 16px', borderRadius: '12px',
+                  background: 'rgba(255,255,255,0.03)', border: '0.5px solid rgba(255,255,255,0.08)',
+                  color: '#fff', textDecoration: 'none', fontFamily: "'Poppins', sans-serif", fontSize: '11px', fontWeight: 500,
+                  transition: 'background 0.3s ease, transform 0.3s ease'
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.transform = 'translateY(-2px)' }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; e.currentTarget.style.transform = 'translateY(0)' }}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="#1DB954"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.24 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.84.24 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.539-1.56.299z"/></svg>
+                  Spotify
+                </a>
+                <a href={SPOTIFY_URL} target="_blank" rel="noopener noreferrer" style={{
+                  display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 16px', borderRadius: '12px',
+                  background: 'rgba(255,255,255,0.03)', border: '0.5px solid rgba(255,255,255,0.08)',
+                  color: '#fff', textDecoration: 'none', fontFamily: "'Poppins', sans-serif", fontSize: '11px', fontWeight: 500,
+                  transition: 'background 0.3s ease, transform 0.3s ease'
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.transform = 'translateY(-2px)' }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; e.currentTarget.style.transform = 'translateY(0)' }}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="#fa243c"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.83 16.924c-1.14 1.637-2.316 3.255-4.103 3.298-1.748.04-2.316-1.022-4.321-1.022-1.988 0-2.61.98-4.28 1.022-1.73.04-3.044-1.77-4.184-3.418C-.316 14.654-.833 10.61 1.09 7.892c.94-1.325 2.366-2.17 3.935-2.213 1.691-.04 3.298 1.127 4.322 1.127 1.023 0 2.946-1.393 5.01-1.191 1.748.083 3.336.85 4.38 2.373-3.774 2.193-3.155 7.406.634 8.918-.89 2.234-2.112 4.408-3.541 6.32v-.002zm-3.376-11.45c-.878 1.066-2.115 1.776-3.42 1.733-.146-1.4.526-2.73 1.384-3.776.878-1.087 2.203-1.797 3.42-1.753.167 1.417-.506 2.73-1.384 3.796z"/></svg>
+                  Apple Music
+                </a>
+              </div>
+            </motion.div>
           </div>
 
           {/* Right Player Widget - Apple Music Style Vinyl */}
@@ -582,34 +633,35 @@ export default function PodcastSection() {
               <div style={{
                 position: 'absolute',
                 inset: 0,
-                background: isPlaying ? 'rgba(0,0,0,0.1)' : 'rgba(0,0,0,0.45)',
+                background: isPlaying ? 'rgba(0,0,0,0.05)' : 'rgba(0,0,0,0.25)',
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                alignItems: 'flex-end',
+                justifyContent: 'flex-end',
+                padding: '20px',
                 transition: 'background 0.4s ease'
               }}>
                 <div style={{
-                  width: '72px',
-                  height: '72px',
+                  width: '60px',
+                  height: '60px',
                   borderRadius: '50%',
-                  background: 'rgba(255,255,255,0.12)',
+                  background: 'rgba(255,255,255,0.15)',
                   backdropFilter: 'blur(16px)',
                   WebkitBackdropFilter: 'blur(16px)',
                   border: '1px solid rgba(255,255,255,0.25)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  boxShadow: '0 12px 32px rgba(0,0,0,0.4)',
-                  transform: playHover ? 'scale(1.12)' : 'scale(1)',
+                  boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
+                  transform: playHover ? 'scale(1.1)' : 'scale(1)',
                   transition: 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
                 }}>
                   {isPlaying ? (
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="#ffffff">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#ffffff">
                       <rect x="6" y="5" width="4" height="14" rx="1" />
                       <rect x="14" y="5" width="4" height="14" rx="1" />
                     </svg>
                   ) : (
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="#ffffff" style={{ marginLeft: '4px' }}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#ffffff" style={{ marginLeft: '4px' }}>
                       <path d="M8 5v14l11-7z" />
                     </svg>
                   )}
@@ -686,54 +738,7 @@ export default function PodcastSection() {
         </AnimatePresence>
       </motion.div>
 
-      <motion.div
-        style={{
-          marginTop: '32px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '14px'
-        }}
-        initial={{ opacity: 0, y: 18 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
-        transition={{ duration: 0.5, delay: 0.52, ease: [0.25, 0.46, 0.45, 0.94] }}
-      >
-        <a
-          href={SPOTIFY_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          onMouseEnter={() => setSpotifyHover(true)}
-          onMouseLeave={() => setSpotifyHover(false)}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '10px',
-            fontFamily: "'Poppins', sans-serif",
-            fontSize: '11px',
-            fontWeight: 500,
-            letterSpacing: '0.14em',
-            textTransform: 'uppercase',
-            color: spotifyHover ? '#1DB954' : 'rgba(255,255,255,0.55)',
-            border: spotifyHover ? '0.5px solid rgba(29,185,84,0.5)' : '0.5px solid rgba(255,255,255,0.12)',
-            borderRadius: '10px',
-            padding: '12px 20px',
-            cursor: 'pointer',
-            backgroundColor: spotifyHover ? 'rgba(29,185,84,0.05)' : 'transparent',
-            textDecoration: 'none',
-            transition: 'color 0.25s ease, border-color 0.25s ease, background-color 0.25s ease'
-          }}
-        >
-          <span style={{ 
-            width: '8px', 
-            height: '8px', 
-            borderRadius: '50%', 
-            backgroundColor: '#1DB954', 
-            flexShrink: 0,
-            boxShadow: spotifyHover ? '0 0 8px rgba(29,185,84,0.6)' : 'none',
-            transition: 'box-shadow 0.25s ease',
-          }} />
-          LISTEN ON SPOTIFY — ALL EPISODES
-        </a>
-      </motion.div>
+
     </div>
   );
 }

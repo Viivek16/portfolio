@@ -5,6 +5,7 @@ import WorkAbout from '../components/WorkAbout'
 import ThreePillars from '../components/ThreePillars'
 import FunSection from '../components/FunSection'
 import PodcastSection from '../components/PodcastSection'
+import TestimonialSection from '../components/TestimonialSection'
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
       <ThreePillars />
       <FunSection />
       <PodcastSection />
+      <TestimonialSection />
     </main>
   )
 }
