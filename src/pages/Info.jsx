@@ -527,11 +527,10 @@ const Info = () => {
           </div>
 
           <div className={styles.nowHeroTop}>
-            <div className={`${styles.eyebrow} ${styles.nowEyebrow}`}>SINCE THEN · OPEN WATER</div>
             <h2 className={styles.nowWordmark}>Now</h2>
             <div className={styles.nowTagline}>
               <div>Still sailing across</div>
-              <div className={styles.nowTaglineEm}>VC, Market Making, AI.</div>
+              <div className={styles.nowTaglineEm}>VC, Marketing, AI.</div>
             </div>
 
             <div className={styles.nowPullQuote}>
@@ -559,8 +558,8 @@ const Info = () => {
                 </div>
                 <div className={styles.nowPillarContent}>
                   <div className={styles.nowPillarNum}>i.</div>
-                  <h4 className={styles.nowPillarName}>VC × Marketing</h4>
-                  <p className={styles.nowPillarBody}>A marketer at heart, a VC by profession. Still up for all things exciting in the Web3 venture and growth space.</p>
+                  <h4 className={styles.nowPillarName}>Venture Capital</h4>
+                  <p className={styles.nowPillarBody}>Every next big idea needs capital that propels its growth. I'm always optimistic of the interesting big bets on future tech</p>
                   <div className={styles.nowPillarTag}>YELLOW · ASVA · LEO · DCF</div>
                 </div>
               </div>
@@ -579,8 +578,8 @@ const Info = () => {
                 </div>
                 <div className={styles.nowPillarContent}>
                   <div className={styles.nowPillarNum}>ii.</div>
-                  <h4 className={styles.nowPillarName}>Market Making</h4>
-                  <p className={styles.nowPillarBody}>A year at Yellow Capital landed it — market making is the need of the hour for every token listing on a CEX.</p>
+                  <h4 className={styles.nowPillarName}>Marketing</h4>
+                  <p className={styles.nowPillarBody}>Being a marketer at heart a storytelling fanatic, I'm most excited about interesting products, and ideas that create an impact</p>
                   <div className={styles.nowPillarTag}>LIQUIDITY · DISTRIBUTION · CEX LISTINGS</div>
                 </div>
               </div>
