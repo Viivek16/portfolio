@@ -121,8 +121,8 @@ const Footer = () => {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        paddingTop: '96px',
-        paddingBottom: '56px',
+        paddingTop: '80px', // Equal padding for perfect vertical centering
+        paddingBottom: '80px',
         paddingLeft: '8vw',
         paddingRight: '8vw',
         boxSizing: 'border-box',
@@ -168,12 +168,12 @@ const Footer = () => {
         />
       </div>
 
-      {/* 2. Interactive Spotlight Overlay (Allowed to bleed vertically!) */}
+      {/* 2. Interactive Spotlight Overlay (Bleeds up, but ends at bottom to prevent empty scroll space) */}
       <motion.div
         style={{
           position: 'absolute',
           top: '-500px', // Bleeds aggressively into the section above
-          bottom: '-500px', // Bleeds below
+          bottom: 0, // CRITICAL FIX: DO NOT bleed below to prevent extra blank scroll space
           left: 0,
           right: 0,
           background: spotlightBackground,
