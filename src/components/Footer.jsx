@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, useInView, useMotionValue, useSpring, useTransform, useMotionTemplate } from 'framer-motion';
 
 const PREMIUM_EASE = [0.16, 1, 0.3, 1]; // Ultra-smooth, Apple-like easing
@@ -43,34 +43,60 @@ const Footer = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
   const [hovered, setHovered] = useState(null);
+  const [rect, setRect] = useState({ width: 1200, height: 600 });
 
   // 3D Tilt and Spotlight Mechanics
-  const mouseX = useMotionValue(0.5);
-  const mouseY = useMotionValue(0.5);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const opacity = useMotionValue(0);
   
   const springX = useSpring(mouseX, { stiffness: 40, damping: 30 });
   const springY = useSpring(mouseY, { stiffness: 40, damping: 30 });
+  const springOpacity = useSpring(opacity, { stiffness: 40, damping: 30 });
 
-  function handleMouseMove({ currentTarget, clientX, clientY }) {
-    const rect = currentTarget.getBoundingClientRect();
-    // Normalized coordinates (-0.5 to 0.5)
-    mouseX.set((clientX - rect.left) / rect.width - 0.5);
-    mouseY.set((clientY - rect.top) / rect.height - 0.5);
+  useEffect(() => {
+    if (sectionRef.current) {
+      const r = sectionRef.current.getBoundingClientRect();
+      setRect({ width: r.width, height: r.height });
+      // Initialize center
+      mouseX.set(r.width / 2);
+      mouseY.set(r.height / 2);
+    }
+  }, [mouseX, mouseY]);
+
+  function handleMouseMove({ clientX, clientY }) {
+    if (sectionRef.current) {
+      const r = sectionRef.current.getBoundingClientRect();
+      mouseX.set(clientX - r.left);
+      mouseY.set(clientY - r.top);
+    }
+  }
+
+  function handleMouseEnter() {
+    opacity.set(1);
   }
 
   function handleMouseLeave() {
-    mouseX.set(0);
-    mouseY.set(0);
+    opacity.set(0);
+    // Soft reset tilt to center
+    mouseX.set(rect.width / 2);
+    mouseY.set(rect.height / 2);
   }
 
-  // Map normalized mouse position to rotation angles (subtle parallax)
-  const rotateX = useTransform(springY, [-0.5, 0.5], [3, -3]);
-  const rotateY = useTransform(springX, [-0.5, 0.5], [-3, 3]);
+  // 3D Tilt calculation (subtle mapping)
+  const rotateX = useTransform(springY, y => {
+    const norm = (y / rect.height) - 0.5; 
+    return norm * -4; 
+  });
+  const rotateY = useTransform(springX, x => {
+    const norm = (x / rect.width) - 0.5;
+    return norm * 4;
+  });
 
-  // Spotlight that follows the mouse (converted to screen coordinates for the gradient)
-  const spotlightX = useTransform(springX, [-0.5, 0.5], ['0%', '100%']);
-  const spotlightY = useTransform(springY, [-0.5, 0.5], ['0%', '100%']);
-  const spotlightBackground = useMotionTemplate`radial-gradient(1000px circle at ${spotlightX} ${spotlightY}, rgba(10, 196, 224, 0.06), transparent 70%)`;
+  // Spotlight Y is offset by 500px because the overlay div physically bleeds 500px upwards
+  const spotlightY_div = useTransform(springY, y => y + 500);
+  
+  const spotlightBackground = useMotionTemplate`radial-gradient(1000px circle at ${springX}px ${spotlightY_div}px, rgba(10, 196, 224, 0.08), transparent 65%)`;
 
   const reveal = (delay) => ({
     initial: { opacity: 0, y: 40, scale: 0.98 },
@@ -82,13 +108,14 @@ const Footer = () => {
     <footer
       ref={sectionRef}
       onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       style={{
         position: 'relative',
-        zIndex: 1,
+        zIndex: 10, // Ensure it sits physically over the Testimonials edge
         isolation: 'isolate',
-        // Start precisely at the previous section's color, end at our deep ink
-        background: 'linear-gradient(to bottom, #0B1120 0%, #070C18 300px, #070C18 100%)',
+        // Exact match with Testimonials background color #0B1120
+        backgroundColor: '#0B1120',
         width: '100%',
         minHeight: '85vh',
         display: 'flex',
@@ -99,57 +126,59 @@ const Footer = () => {
         paddingLeft: '8vw',
         paddingRight: '8vw',
         boxSizing: 'border-box',
-        overflow: 'hidden',
-        // CRITICAL FIX: -2px marginTop perfectly overlaps any subpixel bleeding background line
+        // CRITICAL FIX: -2px marginTop and a solid shadow perfectly blends away any hairline crack
         marginTop: '-2px',
+        boxShadow: '0 -2px 0 #0B1120',
         perspective: '1200px',
       }}
     >
-      {/* 1. Interactive Spotlight Overlay */}
-      <motion.div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background: spotlightBackground,
-          zIndex: -1,
-          pointerEvents: 'none',
-        }}
-      />
+      {/* 1. Aurora Orbs Container (Internal bounds only) */}
+      <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: -2 }}>
+        <motion.div
+          animate={{
+            x: ['0%', '10%', '-5%', '0%'],
+            y: ['0%', '-10%', '5%', '0%'],
+            scale: [1, 1.1, 0.9, 1],
+            opacity: [0.3, 0.5, 0.3]
+          }}
+          transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
+          style={{
+            position: 'absolute',
+            top: '10%', left: '20%',
+            width: '50vw', height: '50vw',
+            background: 'radial-gradient(circle, rgba(10, 196, 224, 0.05) 0%, transparent 60%)',
+            filter: 'blur(80px)',
+          }}
+        />
+        <motion.div
+          animate={{
+            x: ['0%', '-15%', '10%', '0%'],
+            y: ['0%', '15%', '-10%', '0%'],
+            scale: [1, 1.2, 0.8, 1],
+            opacity: [0.2, 0.4, 0.2]
+          }}
+          transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+          style={{
+            position: 'absolute',
+            bottom: '10%', right: '10%',
+            width: '40vw', height: '40vw',
+            background: 'radial-gradient(circle, rgba(9, 146, 194, 0.06) 0%, transparent 60%)',
+            filter: 'blur(80px)',
+          }}
+        />
+      </div>
 
-      {/* 2. Premium Aurora Orbs (Depth & WOW effect) */}
+      {/* 2. Interactive Spotlight Overlay (Allowed to bleed vertically!) */}
       <motion.div
-        animate={{
-          x: ['0%', '10%', '-5%', '0%'],
-          y: ['0%', '-10%', '5%', '0%'],
-          scale: [1, 1.1, 0.9, 1],
-          opacity: [0.3, 0.5, 0.3]
-        }}
-        transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
         style={{
           position: 'absolute',
-          top: '10%', left: '20%',
-          width: '50vw', height: '50vw',
-          background: 'radial-gradient(circle, rgba(10, 196, 224, 0.05) 0%, transparent 60%)',
-          filter: 'blur(80px)',
-          zIndex: -2,
-          pointerEvents: 'none',
-        }}
-      />
-      <motion.div
-        animate={{
-          x: ['0%', '-15%', '10%', '0%'],
-          y: ['0%', '15%', '-10%', '0%'],
-          scale: [1, 1.2, 0.8, 1],
-          opacity: [0.2, 0.4, 0.2]
-        }}
-        transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-        style={{
-          position: 'absolute',
-          bottom: '10%', right: '10%',
-          width: '40vw', height: '40vw',
-          background: 'radial-gradient(circle, rgba(9, 146, 194, 0.06) 0%, transparent 60%)',
-          filter: 'blur(80px)',
-          zIndex: -2,
+          top: '-500px', // Bleeds aggressively into the section above
+          bottom: '-500px', // Bleeds below
+          left: 0,
+          right: 0,
+          background: spotlightBackground,
+          opacity: springOpacity, // Smooth fade on enter/leave
+          zIndex: -1,
           pointerEvents: 'none',
         }}
       />
