@@ -6,6 +6,7 @@ import ThreePillars from '../components/ThreePillars'
 import FunSection from '../components/FunSection'
 import PodcastSection from '../components/PodcastSection'
 import TestimonialSection from '../components/TestimonialSection'
+import Footer from '../components/Footer'
 
 const Home = () => {
   return (
@@ -17,6 +18,7 @@ const Home = () => {
       <FunSection />
       <PodcastSection />
       <TestimonialSection />
+      <Footer />
     </main>
   )
 }
