@@ -146,7 +146,7 @@ const Info = () => {
             observer.unobserve(e.target);
           }
         });
-      }, { threshold: 0.1, rootMargin: '-100px 0px' });
+      }, { threshold: 0.05, rootMargin: '0px 0px' });
       nowObs.observe(nowSectionEl);
     }
 
@@ -532,8 +532,8 @@ const Info = () => {
                     <circle cx="20" cy="20" r="4.5" className={styles.nowBuoyDot} />
                     <circle cx="20" cy="20" r="7" className={styles.nowBuoyHalo} />
                     <circle cx="20" cy="20" r="4.5" className={styles.nowBuoyPulse}>
-                      <animate attributeName="r" values="4.5;22" dur="2.8s" repeatCount="indefinite" begin="5.7s" />
-                      <animate attributeName="opacity" values="0.7;0" dur="2.8s" repeatCount="indefinite" begin="5.7s" />
+                      <animate attributeName="r" values="4.5;22" dur="2.8s" repeatCount="indefinite" begin="2.8s" />
+                      <animate attributeName="opacity" values="0.7;0" dur="2.8s" repeatCount="indefinite" begin="2.8s" />
                     </circle>
                   </svg>
                   <div className={styles.nowAnchorDrop}></div>
@@ -552,8 +552,8 @@ const Info = () => {
                     <circle cx="20" cy="20" r="4.5" className={styles.nowBuoyDot} />
                     <circle cx="20" cy="20" r="7" className={styles.nowBuoyHalo} />
                     <circle cx="20" cy="20" r="4.5" className={styles.nowBuoyPulse}>
-                      <animate attributeName="r" values="4.5;22" dur="2.8s" repeatCount="indefinite" begin="5.95s" />
-                      <animate attributeName="opacity" values="0.7;0" dur="2.8s" repeatCount="indefinite" begin="5.95s" />
+                      <animate attributeName="r" values="4.5;22" dur="2.8s" repeatCount="indefinite" begin="3.0s" />
+                      <animate attributeName="opacity" values="0.7;0" dur="2.8s" repeatCount="indefinite" begin="3.0s" />
                     </circle>
                   </svg>
                   <div className={styles.nowAnchorDrop}></div>
@@ -572,8 +572,8 @@ const Info = () => {
                     <circle cx="20" cy="20" r="4.5" className={styles.nowBuoyDot} />
                     <circle cx="20" cy="20" r="7" className={styles.nowBuoyHalo} />
                     <circle cx="20" cy="20" r="4.5" className={styles.nowBuoyPulse}>
-                      <animate attributeName="r" values="4.5;22" dur="2.8s" repeatCount="indefinite" begin="6.2s" />
-                      <animate attributeName="opacity" values="0.7;0" dur="2.8s" repeatCount="indefinite" begin="6.2s" />
+                      <animate attributeName="r" values="4.5;22" dur="2.8s" repeatCount="indefinite" begin="3.2s" />
+                      <animate attributeName="opacity" values="0.7;0" dur="2.8s" repeatCount="indefinite" begin="3.2s" />
                     </circle>
                   </svg>
                   <div className={styles.nowAnchorDrop}></div>

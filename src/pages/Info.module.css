@@ -847,7 +847,7 @@
 }
 
 :global(.in-view) .nowHorizonPath {
-  animation: drawHorizon 2.0s cubic-bezier(0.4, 0, 0.2, 1) 1.8s forwards;
+  animation: drawHorizon 2.0s cubic-bezier(0.4, 0, 0.2, 1) 0.6s forwards;
 }
 
 @keyframes drawHorizon {
@@ -895,7 +895,7 @@
   transform: translateY(10px);
 }
 :global(.in-view) .nowWordmark {
-  animation: fadeUpTop 1.0s ease-out 0.6s forwards;
+  animation: fadeUpTop 1.0s ease-out 0.1s forwards;
 }
 
 .nowTagline {
@@ -908,7 +908,7 @@
   transform: translateY(10px);
 }
 :global(.in-view) .nowTagline {
-  animation: fadeUpTop 0.8s ease-out 1.2s forwards;
+  animation: fadeUpTop 0.8s ease-out 0.3s forwards;
 }
 
 .nowTaglineEm {
@@ -940,7 +940,7 @@
 }
 
 :global(.in-view) .nowPullQuoteInner {
-  animation: risePullQuote 0.9s ease-out 1.5s forwards;
+  animation: risePullQuote 0.9s ease-out 0.5s forwards;
 }
 
 @keyframes risePullQuote {
@@ -991,9 +991,9 @@
 .nowBuoySvg {
   opacity: 0;
 }
-:global(.in-view) .nowPillar:nth-child(1) .nowBuoySvg { animation: fadeBuoy 0.5s ease-out 3.6s forwards; }
-:global(.in-view) .nowPillar:nth-child(2) .nowBuoySvg { animation: fadeBuoy 0.5s ease-out 3.7s forwards; }
-:global(.in-view) .nowPillar:nth-child(3) .nowBuoySvg { animation: fadeBuoy 0.5s ease-out 3.8s forwards; }
+:global(.in-view) .nowPillar:nth-child(1) .nowBuoySvg { animation: fadeBuoy 0.5s ease-out 1.2s forwards; }
+:global(.in-view) .nowPillar:nth-child(2) .nowBuoySvg { animation: fadeBuoy 0.5s ease-out 1.3s forwards; }
+:global(.in-view) .nowPillar:nth-child(3) .nowBuoySvg { animation: fadeBuoy 0.5s ease-out 1.4s forwards; }
 
 @keyframes fadeBuoy {
   to { opacity: 1; }
@@ -1026,9 +1026,9 @@
   transform: scaleY(0);
 }
 
-:global(.in-view) .nowPillar:nth-child(1) .nowAnchorDrop { animation: dropAnchor 0.5s ease-out 3.8s forwards; }
-:global(.in-view) .nowPillar:nth-child(2) .nowAnchorDrop { animation: dropAnchor 0.5s ease-out 3.9s forwards; }
-:global(.in-view) .nowPillar:nth-child(3) .nowAnchorDrop { animation: dropAnchor 0.5s ease-out 4.0s forwards; }
+:global(.in-view) .nowPillar:nth-child(1) .nowAnchorDrop { animation: dropAnchor 0.5s ease-out 1.4s forwards; }
+:global(.in-view) .nowPillar:nth-child(2) .nowAnchorDrop { animation: dropAnchor 0.5s ease-out 1.5s forwards; }
+:global(.in-view) .nowPillar:nth-child(3) .nowAnchorDrop { animation: dropAnchor 0.5s ease-out 1.6s forwards; }
 
 @keyframes dropAnchor {
   to { transform: scaleY(1); }
@@ -1042,9 +1042,9 @@
   max-width: 320px;
   width: 100%;
 }
-:global(.in-view) .nowPillar:nth-child(1) .nowPillarContent { animation: risePillar 0.7s cubic-bezier(0.4, 0, 0.2, 1) 4.2s forwards; }
-:global(.in-view) .nowPillar:nth-child(2) .nowPillarContent { animation: risePillar 0.7s cubic-bezier(0.4, 0, 0.2, 1) 4.3s forwards; }
-:global(.in-view) .nowPillar:nth-child(3) .nowPillarContent { animation: risePillar 0.7s cubic-bezier(0.4, 0, 0.2, 1) 4.4s forwards; }
+:global(.in-view) .nowPillar:nth-child(1) .nowPillarContent { animation: risePillar 0.7s cubic-bezier(0.4, 0, 0.2, 1) 1.7s forwards; }
+:global(.in-view) .nowPillar:nth-child(2) .nowPillarContent { animation: risePillar 0.7s cubic-bezier(0.4, 0, 0.2, 1) 1.8s forwards; }
+:global(.in-view) .nowPillar:nth-child(3) .nowPillarContent { animation: risePillar 0.7s cubic-bezier(0.4, 0, 0.2, 1) 1.9s forwards; }
 
 @keyframes risePillar {
   to { opacity: 1; transform: translateY(0); }
