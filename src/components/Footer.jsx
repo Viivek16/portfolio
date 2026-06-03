@@ -1,7 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
-import { motion, useInView, useMotionValue, useSpring, useMotionTemplate } from 'framer-motion';
+import { useState, useRef } from 'react';
+import { motion, useInView, useMotionValue, useSpring, useTransform, useMotionTemplate } from 'framer-motion';
 
-const EASE = [0.25, 0.46, 0.45, 0.94];
+const PREMIUM_EASE = [0.16, 1, 0.3, 1]; // Ultra-smooth, Apple-like easing
 
 const COLUMNS = [
   {
@@ -44,40 +44,53 @@ const Footer = () => {
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
   const [hovered, setHovered] = useState(null);
 
-  // Mouse tracking for premium interactive glow effect
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  // 3D Tilt and Spotlight Mechanics
+  const mouseX = useMotionValue(0.5);
+  const mouseY = useMotionValue(0.5);
   
-  // Spring physics for smooth spotlight movement (emil-design-eng skill)
-  const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
-  const springY = useSpring(mouseY, { stiffness: 50, damping: 20 });
+  const springX = useSpring(mouseX, { stiffness: 40, damping: 30 });
+  const springY = useSpring(mouseY, { stiffness: 40, damping: 30 });
 
   function handleMouseMove({ currentTarget, clientX, clientY }) {
-    const { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
+    const rect = currentTarget.getBoundingClientRect();
+    // Normalized coordinates (-0.5 to 0.5)
+    mouseX.set((clientX - rect.left) / rect.width - 0.5);
+    mouseY.set((clientY - rect.top) / rect.height - 0.5);
   }
 
-  const spotlightBackground = useMotionTemplate`radial-gradient(800px circle at ${springX}px ${springY}px, rgba(10, 196, 224, 0.08), transparent 80%)`;
+  function handleMouseLeave() {
+    mouseX.set(0);
+    mouseY.set(0);
+  }
+
+  // Map normalized mouse position to rotation angles (subtle parallax)
+  const rotateX = useTransform(springY, [-0.5, 0.5], [3, -3]);
+  const rotateY = useTransform(springX, [-0.5, 0.5], [-3, 3]);
+
+  // Spotlight that follows the mouse (converted to screen coordinates for the gradient)
+  const spotlightX = useTransform(springX, [-0.5, 0.5], ['0%', '100%']);
+  const spotlightY = useTransform(springY, [-0.5, 0.5], ['0%', '100%']);
+  const spotlightBackground = useMotionTemplate`radial-gradient(1000px circle at ${spotlightX} ${spotlightY}, rgba(10, 196, 224, 0.06), transparent 70%)`;
 
   const reveal = (delay) => ({
-    initial: { opacity: 0, y: 32 },
-    animate: isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 },
-    transition: { duration: 0.8, delay, ease: EASE },
+    initial: { opacity: 0, y: 40, scale: 0.98 },
+    animate: isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 40, scale: 0.98 },
+    transition: { duration: 1.2, delay, ease: PREMIUM_EASE },
   });
 
   return (
     <footer
       ref={sectionRef}
       onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       style={{
         position: 'relative',
         zIndex: 1,
         isolation: 'isolate',
-        // Seamless gradient from the Testimonial background (#0B1120) to Footer background (#070C18) to remove the harsh line
+        // Start precisely at the previous section's color, end at our deep ink
         background: 'linear-gradient(to bottom, #0B1120 0%, #070C18 300px, #070C18 100%)',
         width: '100%',
-        minHeight: '85vh', // Increased height to emphasize the section and make it feel like a destination
+        minHeight: '85vh',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -87,9 +100,12 @@ const Footer = () => {
         paddingRight: '8vw',
         boxSizing: 'border-box',
         overflow: 'hidden',
+        // CRITICAL FIX: -2px marginTop perfectly overlaps any subpixel bleeding background line
+        marginTop: '-2px',
+        perspective: '1200px',
       }}
     >
-      {/* Interactive Spotlight Overlay */}
+      {/* 1. Interactive Spotlight Overlay */}
       <motion.div
         style={{
           position: 'absolute',
@@ -100,25 +116,57 @@ const Footer = () => {
         }}
       />
 
-      {/* Ambient Breathing Glow */}
+      {/* 2. Premium Aurora Orbs (Depth & WOW effect) */}
       <motion.div
-        initial={{ opacity: 0.3, scale: 1 }}
-        animate={{ opacity: [0.3, 0.5, 0.3], scale: [1, 1.05, 1] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        animate={{
+          x: ['0%', '10%', '-5%', '0%'],
+          y: ['0%', '-10%', '5%', '0%'],
+          scale: [1, 1.1, 0.9, 1],
+          opacity: [0.3, 0.5, 0.3]
+        }}
+        transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
         style={{
           position: 'absolute',
-          top: '20%',
-          left: '10%',
-          width: '60vw',
-          height: '60vw',
-          background: 'radial-gradient(circle, rgba(10, 196, 224, 0.04) 0%, transparent 60%)',
+          top: '10%', left: '20%',
+          width: '50vw', height: '50vw',
+          background: 'radial-gradient(circle, rgba(10, 196, 224, 0.05) 0%, transparent 60%)',
           filter: 'blur(80px)',
-          zIndex: -1,
+          zIndex: -2,
+          pointerEvents: 'none',
+        }}
+      />
+      <motion.div
+        animate={{
+          x: ['0%', '-15%', '10%', '0%'],
+          y: ['0%', '15%', '-10%', '0%'],
+          scale: [1, 1.2, 0.8, 1],
+          opacity: [0.2, 0.4, 0.2]
+        }}
+        transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+        style={{
+          position: 'absolute',
+          bottom: '10%', right: '10%',
+          width: '40vw', height: '40vw',
+          background: 'radial-gradient(circle, rgba(9, 146, 194, 0.06) 0%, transparent 60%)',
+          filter: 'blur(80px)',
+          zIndex: -2,
           pointerEvents: 'none',
         }}
       />
 
-      <div style={{ position: 'relative', zIndex: 1, width: '100%', maxWidth: '1440px', margin: '0 auto' }}>
+      {/* Main Content wrapped in a 3D tilt container */}
+      <motion.div
+        style={{
+          position: 'relative',
+          zIndex: 1,
+          width: '100%',
+          maxWidth: '1440px',
+          margin: '0 auto',
+          rotateX,
+          rotateY,
+          transformStyle: 'preserve-3d',
+        }}
+      >
         
         {/* Eyebrow */}
         <div style={{ overflow: 'hidden', marginBottom: '16px' }}>
@@ -141,12 +189,12 @@ const Footer = () => {
         {/* Heading — ONE element, single span for the cyan period only */}
         <div style={{ overflow: 'hidden', marginBottom: '16px' }}>
           <motion.h2
-            {...reveal(0.1)}
+            {...reveal(0.15)}
             style={{
               fontFamily: "'Fraunces', serif",
               fontWeight: 300,
               fontStyle: 'italic',
-              fontSize: 'clamp(44px, 8vw, 84px)', // Slightly larger for more wow effect
+              fontSize: 'clamp(44px, 8vw, 84px)',
               color: '#ffffff',
               lineHeight: 1,
               letterSpacing: '-0.01em',
@@ -161,7 +209,7 @@ const Footer = () => {
         <div style={{ marginBottom: '64px', maxWidth: '440px' }}>
           <div style={{ overflow: 'hidden' }}>
             <motion.p
-              {...reveal(0.2)}
+              {...reveal(0.25)}
               style={{
                 fontFamily: "'Poppins', sans-serif",
                 fontWeight: 300,
@@ -176,7 +224,7 @@ const Footer = () => {
           </div>
           <div style={{ overflow: 'hidden' }}>
             <motion.p
-              {...reveal(0.28)}
+              {...reveal(0.35)}
               style={{
                 fontFamily: "'Poppins', sans-serif",
                 fontWeight: 300,
@@ -191,18 +239,30 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* Animated Drawing Divider Line */}
+        <motion.div
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={isInView ? { scaleX: 1, opacity: 1 } : { scaleX: 0, opacity: 0 }}
+          transition={{ duration: 1.5, ease: PREMIUM_EASE, delay: 0.4 }}
+          style={{
+            height: '1px',
+            background: 'linear-gradient(90deg, rgba(255,255,255,0.15) 0%, transparent 100%)',
+            transformOrigin: 'left',
+            marginBottom: '40px',
+            width: '100%',
+          }}
+        />
+
         {/* Column grid — 4 equal columns */}
         <div
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '32px', // slightly wider gap for premium feel
-            borderTop: '1px solid rgba(255,255,255,0.08)',
-            paddingTop: '40px',
+            gap: '32px',
           }}
         >
           {COLUMNS.map((col, colIdx) => {
-            const colBaseDelay = 0.4 + colIdx * 0.15;
+            const colBaseDelay = 0.5 + colIdx * 0.15;
             return (
               <div key={col.title} style={{ minWidth: 0 }}>
                 {/* Column Title */}
@@ -238,7 +298,7 @@ const Footer = () => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   {col.items.map((item, itemIdx) => (
                     <div key={item.id} style={{ overflow: 'hidden' }}>
-                      <motion.div {...reveal(colBaseDelay + 0.1 + itemIdx * 0.08)}>
+                      <motion.div {...reveal(colBaseDelay + 0.15 + itemIdx * 0.1)}>
                         <a
                           href={item.href}
                           {...(item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
@@ -249,12 +309,13 @@ const Footer = () => {
                             alignItems: 'center',
                             textDecoration: 'none',
                             fontFamily: "'Poppins', sans-serif",
-                            fontSize: '14px', // slightly increased for better touch targets
+                            fontSize: '14px',
                             fontWeight: 300,
                             lineHeight: 1.5,
                             color: hovered === item.id ? '#0AC4E0' : 'rgba(255,255,255,0.72)',
                             transition: 'color 0.35s ease, transform 0.35s ease',
-                            transform: hovered === item.id ? 'translateX(4px)' : 'translateX(0px)', // subtle interaction wow effect
+                            // Interactive hover lift
+                            transform: hovered === item.id ? 'translateX(6px)' : 'translateX(0px)',
                           }}
                         >
                           {item.label}
@@ -269,9 +330,9 @@ const Footer = () => {
         </div>
 
         {/* Colophon row */}
-        <div style={{ overflow: 'hidden', marginTop: '64px' }}>
+        <div style={{ overflow: 'hidden', marginTop: '80px' }}>
           <motion.div
-            {...reveal(0.9)}
+            {...reveal(1.2)}
             style={{
               display: 'flex',
               justifyContent: 'space-between',
@@ -305,7 +366,7 @@ const Footer = () => {
           </motion.div>
         </div>
         
-      </div>
+      </motion.div>
     </footer>
   );
 };
