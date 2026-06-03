@@ -226,10 +226,10 @@ const Info = () => {
         <section className={`${styles.section} ${styles.lander}`} id="lander">
           <div className={`${styles.eyebrow} ${styles.landerEyebrow}`}>An Editorial Timeline · 2018 — Now</div>
           <h1 className={styles.landerQuote}>
-            <span>Every</span>{' '}<span>chapter</span>{' '}<span>taught</span>{' '}
-            <span>me</span>{' '}<span>something</span>{' '}<span>the</span>{' '}
-            <span>next</span>{' '}<span>one</span>{' '}<span>would</span>{' '}
-            <span className={styles.testWord}>test</span><span>.</span>
+            <span>Everything</span>{' '}<span>that</span>{' '}<span>you</span>{' '}
+            <span>can</span>{' '}<span>think</span>{' '}<span>of</span>{' '}
+            <span>is</span>{' '}
+            <span className={styles.testWord}>real.</span>
           </h1>
           <div className={styles.landerMeta}>
             <span className={styles.landerMetaLine}></span>
@@ -281,10 +281,7 @@ const Info = () => {
             <div className={styles.chapterMediaFrame}>
               <EditorialImage src="/images/info/02-2018-yellowbags/dsc_5257.jpg" alt="TEDxJNEC stage talk" />
             </div>
-            <div className={styles.chapterCaption}>
-              <div className={styles.chapterCaptionLeft}><span className={styles.chapterCaptionNum}>01</span><span>TEDxJNEC · Stage talk</span></div>
-              <div>Mumbai · 2018</div>
-            </div>
+
           </div>
         </section>
 
@@ -297,10 +294,7 @@ const Info = () => {
             <div className={styles.chapterMediaFrame}>
               <EditorialImage src="/images/info/03-2020-pandemic/img_20220809_141751.jpg" alt="Working through lockdown" />
             </div>
-            <div className={styles.chapterCaption}>
-              <div className={styles.chapterCaptionLeft}><span className={styles.chapterCaptionNum}>02</span><span>Lockdown studio · Building anyway</span></div>
-              <div>Home · 2020</div>
-            </div>
+
           </div>
           <div className={styles.chapterText}>
             <div className={`${styles.eyebrow} ${styles.chapterEyebrow}`}>2020 · Held in Place, Then Released</div>
@@ -328,10 +322,7 @@ const Info = () => {
             <div className={styles.chapterMediaFrame}>
               <EditorialImage src="/images/info/04-2021-newtribe/img-20230313-wa0022.jpg" alt="The first real seat at the table" />
             </div>
-            <div className={styles.chapterCaption}>
-              <div className={styles.chapterCaptionLeft}><span className={styles.chapterCaptionNum}>03</span><span>The first real seat at the table</span></div>
-              <div>Hilton · 2021</div>
-            </div>
+
           </div>
         </section>
 
@@ -460,10 +451,7 @@ const Info = () => {
             <div className={styles.chapterMediaFrame}>
               <EditorialImage src="/images/info/07-2024-threefirms/01-hero.jpg" alt="Leo Ventures launch press release" />
             </div>
-            <div className={styles.chapterCaption}>
-              <div className={styles.chapterCaptionLeft}><span className={styles.chapterCaptionNum}>06</span><span>Leo Ventures · Launch press</span></div>
-              <div>GlobeNewswire · Nov 2023</div>
-            </div>
+
           </div>
         </section>
 
@@ -473,10 +461,7 @@ const Info = () => {
             <div className={styles.chapterMediaFrame}>
               <EditorialImage src="/images/info/08-april2025-yellowcapital/img_20251203_113925052.jpg" alt="At Binance Blockchain Week" />
             </div>
-            <div className={styles.chapterCaption}>
-              <div className={styles.chapterCaptionLeft}><span className={styles.chapterCaptionNum}>07</span><span>Binance Blockchain Week · Humans of Binance</span></div>
-              <div>Dubai · Dec 2025</div>
-            </div>
+
           </div>
           <div className={styles.chapterText}>
             <div className={`${styles.eyebrow} ${styles.chapterEyebrow}`}>April 2025 · The Mandate</div>
@@ -501,10 +486,7 @@ const Info = () => {
             <div className={styles.chapterMediaFrame}>
               <EditorialImage src="/images/info/08-nov2025-marriage/01-hero.jpg" alt="Wedding portrait" />
             </div>
-            <div className={styles.chapterCaption}>
-              <div className={styles.chapterCaptionLeft}><span className={styles.chapterCaptionNum}>08</span><span>The anchor · A fixed point on the compass</span></div>
-              <div>November · 2025</div>
-            </div>
+
           </div>
         </section>
 
@@ -580,7 +562,7 @@ const Info = () => {
                   <div className={styles.nowPillarNum}>ii.</div>
                   <h4 className={styles.nowPillarName}>Marketing</h4>
                   <p className={styles.nowPillarBody}>Being a marketer at heart a storytelling fanatic, I'm most excited about interesting products, and ideas that create an impact</p>
-                  <div className={styles.nowPillarTag}>LIQUIDITY · DISTRIBUTION · CEX LISTINGS</div>
+                  <div className={styles.nowPillarTag}>STORYTELLING · CONTENT · GROWTH</div>
                 </div>
               </div>
 
