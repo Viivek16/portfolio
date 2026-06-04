@@ -72,9 +72,8 @@ const Hero = () => {
           overflow: hidden;
           position: relative;
           isolation: isolate;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          margin: 0;
+          padding-bottom: 0;
         }
 
         .hero-aura {
@@ -111,8 +110,8 @@ const Hero = () => {
 
         .hero-portrait-wrapper {
           position: absolute;
-          bottom: 0;
           left: 50%;
+          bottom: 0;
           transform: translateX(-50%) perspective(1100px) rotateY(calc(var(--rx, 0) * 1deg)) rotateX(calc(var(--ry, 0) * 1deg));
           transform-style: preserve-3d;
           transition: transform 0.2s ease-out;
@@ -121,6 +120,13 @@ const Hero = () => {
           display: flex;
           align-items: flex-end;
           filter: drop-shadow(0 14px 34px rgba(0,0,0,0.55)) drop-shadow(0 0 46px rgba(10,196,224,0.16));
+          z-index: 2;
+        }
+
+        .hero-portrait-fade {
+          height: 100%;
+          -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 60%, rgba(0,0,0,0.35) 84%, transparent 100%);
+          mask-image: linear-gradient(to bottom, #000 0%, #000 60%, rgba(0,0,0,0.35) 84%, transparent 100%);
         }
 
         .hero-portrait-img {
@@ -152,13 +158,8 @@ const Hero = () => {
           position: relative;
           z-index: 10;
           width: 100%;
-          max-width: 1440px;
-          margin: 0 auto;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 0 70px;
-          box-sizing: border-box;
+          max-width: none;
+          margin: 0;
           pointer-events: none;
         }
         
@@ -167,7 +168,13 @@ const Hero = () => {
         }
 
         .hero-left {
-          margin-top: -10vh;
+          position: absolute;
+          left: 8vw;
+          top: 50%;
+          transform: translateY(-50%);
+          text-align: left;
+          max-width: 30vw;
+          z-index: 10;
         }
 
         .hero-greeting {
@@ -209,10 +216,13 @@ const Hero = () => {
         }
 
         .hero-right {
-          max-width: 280px;
+          position: absolute;
+          right: 8vw;
+          top: 44%;
+          transform: translateY(-50%);
           text-align: right;
-          margin-bottom: 15vh;
-          position: relative;
+          max-width: 22vw;
+          z-index: 10;
         }
 
         .hero-quote {
@@ -237,18 +247,41 @@ const Hero = () => {
           line-height: 1;
         }
 
+        .hero-blend {
+          position: absolute; 
+          left: 0; 
+          right: 0; 
+          bottom: 0;
+          height: 220px;
+          background: linear-gradient(to bottom, rgba(7,12,24,0) 0%, #070C18 100%);
+          pointer-events: none; 
+          z-index: 5;
+        }
+
         @media (max-width: 768px) {
           .hero-section {
+            display: flex;
             flex-direction: column;
             justify-content: flex-start;
             padding-top: 120px;
           }
           
           .hero-content {
+            display: flex;
             flex-direction: column;
             padding: 0 24px;
             justify-content: flex-start;
             text-align: center;
+            height: auto;
+          }
+
+          .hero-left, .hero-right {
+            position: relative;
+            left: auto;
+            right: auto;
+            top: auto;
+            transform: none;
+            max-width: 100%;
           }
 
           .hero-left {
@@ -263,7 +296,6 @@ const Hero = () => {
             text-align: center;
             margin-bottom: 0;
             margin-top: 20px;
-            max-width: 100%;
           }
 
           .hero-quote-mark {
@@ -279,6 +311,7 @@ const Hero = () => {
             min-height: 400px;
             margin-top: auto;
             left: auto;
+            bottom: 0;
           }
 
           .hero-portrait-mask {
@@ -314,16 +347,18 @@ const Hero = () => {
         animate="visible"
         variants={customVariants(0.15)}
       >
-        <img 
-          src="/images/lander/hero.png" 
-          alt="Viivek Mehata" 
-          className="hero-portrait-img hero-portrait-base" 
-        />
-        <img 
-          src="/images/lander/hero.png" 
-          alt="" 
-          className="hero-portrait-img hero-portrait-mask" 
-        />
+        <div className="hero-portrait-fade">
+          <img 
+            src="/images/lander/hero.png" 
+            alt="Viivek Mehata" 
+            className="hero-portrait-img hero-portrait-base" 
+          />
+          <img 
+            src="/images/lander/hero.png" 
+            alt="Viivek Mehata" 
+            className="hero-portrait-img hero-portrait-mask" 
+          />
+        </div>
       </motion.div>
 
       {/* LAYER 3 */}
@@ -369,6 +404,9 @@ const Hero = () => {
           </motion.div>
         </div>
       </div>
+
+      {/* LAYER 4: Base Blend */}
+      <div className="hero-blend" />
     </section>
   );
 };
