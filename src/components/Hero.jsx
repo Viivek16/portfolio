@@ -95,11 +95,11 @@ const Hero = () => {
         .hero-portrait-fade img{height:100%;width:auto;display:block;}
         .hero-portrait-color{position:relative;z-index:1;}
         .hero-portrait-gray{position:absolute;top:0;left:0;height:100%;width:auto;z-index:2;filter:grayscale(1) contrast(1.06) brightness(1.05);-webkit-mask-image:radial-gradient(circle 170px at var(--mx,-9999px) var(--my,-9999px),transparent 0%,transparent 40%,#000 72%);mask-image:radial-gradient(circle 170px at var(--mx,-9999px) var(--my,-9999px),transparent 0%,transparent 40%,#000 72%);}
-        .hero-left{position:absolute;left:${GUTTER};top:50%;transform:translateY(-50%);z-index:10;max-width:24vw;text-align:left;}
+        .hero-left{position:absolute;left:calc(${GUTTER} + 1.5vw);top:50%;transform:translateY(-50%);z-index:10;max-width:28vw;text-align:left;}
         .hero-right{position:absolute;right:${GUTTER};top:46%;transform:translateY(-50%);z-index:10;max-width:26vw;text-align:right;}
-        .hero-eyebrow{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(22px,2vw,31px);color:rgba(255,255,255,0.80);margin:0 0 6px 0;}
-        .hero-name{font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:clamp(40px,5vw,58px);line-height:1.05;color:#ffffff;margin:0;}
-        .hero-triad{font-family:'Poppins',sans-serif;font-weight:500;font-size:15px;letter-spacing:0.04em;color:rgba(255,255,255,0.88);margin:28px 0 0 0;}
+        .hero-eyebrow{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(24px,2.2vw,34px);color:rgba(255,255,255,0.80);margin:0 0 6px 0;}
+        .hero-name{font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:clamp(46px,5.8vw,72px);line-height:1.05;color:#ffffff;margin:0;}
+        .hero-triad{font-family:'Poppins',sans-serif;font-weight:500;font-size:16.5px;letter-spacing:0.04em;color:rgba(255,255,255,0.88);margin:28px 0 0 0;}
         .hero-triad .dot{color:#0AC4E0;}
         .hero-quote{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(22px,2.2vw,32px);line-height:1.45;color:rgba(255,255,255,0.76);margin:0;position:relative;}
         .hero-quote .qmark{font-family:'Fraunces',serif;font-style:italic;color:#0AC4E0;font-size:1.6em;position:absolute;left:-0.7em;top:-0.35em;}
