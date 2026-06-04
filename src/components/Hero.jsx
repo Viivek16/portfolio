@@ -7,7 +7,6 @@ const NEXT_BG = '#0B1120';
 
 const Hero = () => {
   const sectionRef = useRef(null);
-  const wordmarkRef = useRef(null);
   const tiltRef = useRef(null);
   const grayRef = useRef(null);
   const colorRef = useRef(null);
@@ -31,7 +30,7 @@ const Hero = () => {
     if (!section || !gray) return;
     let raf = null;
 
-    // global subtle parallax: portrait tilts, wordmark counter-shifts (depth)
+    // global subtle parallax: portrait tilts
     const onSectionMove = (e) => {
       if (raf) return;
       raf = requestAnimationFrame(() => {
@@ -43,14 +42,10 @@ const Hero = () => {
           tiltRef.current.style.setProperty('--rx', (nx * 5).toFixed(2));
           tiltRef.current.style.setProperty('--ry', (ny * -4).toFixed(2));
         }
-        if (wordmarkRef.current) {
-          wordmarkRef.current.style.setProperty('--wx', (nx * -14).toFixed(1));
-        }
       });
     };
     const onSectionLeave = () => {
       if (tiltRef.current) { tiltRef.current.style.setProperty('--rx', '0'); tiltRef.current.style.setProperty('--ry', '0'); }
-      if (wordmarkRef.current) wordmarkRef.current.style.setProperty('--wx', '0');
     };
     section.addEventListener('mousemove', onSectionMove);
     section.addEventListener('mouseleave', onSectionLeave);
@@ -92,21 +87,21 @@ const Hero = () => {
       <style>{`
         .hero-root{position:relative;width:100%;min-height:100vh;overflow:hidden;background:#070C18;isolation:isolate;margin:0;padding:0;}
         .hero-glow{position:absolute;left:50%;top:56%;transform:translate(-50%,-50%);width:min(960px,72vw);height:min(960px,72vw);border-radius:50%;background:radial-gradient(closest-side,rgba(9,146,194,0.18),rgba(10,196,224,0.06) 45%,transparent 70%);filter:blur(46px);z-index:1;pointer-events:none;}
-        .hero-wordmark-wrap{position:absolute;top:18%;left:0;right:0;text-align:center;z-index:1;pointer-events:none;transform:translateX(calc(var(--wx,0)*1px));transition:transform .25s ease-out;}
-        .hero-wordmark{font-family:'Poppins',sans-serif;font-weight:700;font-size:clamp(56px,12.5vw,196px);line-height:1;letter-spacing:0.01em;color:rgba(255,255,255,0.10);white-space:nowrap;}
+        .hero-wordmark-wrap{position:absolute;top:18%;left:0;right:0;text-align:center;z-index:1;pointer-events:none;}
+        .hero-wordmark{font-family:'Poppins',sans-serif;font-weight:700;font-size:clamp(56px,12.5vw,196px);line-height:1;letter-spacing:0.01em;color:rgba(255,255,255,1);white-space:nowrap;}
         .hero-portrait-pos{position:absolute;left:50%;bottom:0;transform:translateX(-50%);z-index:2;}
         .hero-portrait-tilt{transform:perspective(1100px) rotateY(calc(var(--rx,0)*1deg)) rotateX(calc(var(--ry,0)*1deg));transition:transform .2s ease-out;filter:drop-shadow(0 0 55px rgba(10,196,224,0.32)) drop-shadow(0 22px 48px rgba(0,0,0,0.6));will-change:transform;}
-        .hero-portrait-fade{position:relative;height:min(94vh,900px);width:auto;-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 62%,rgba(0,0,0,0.35) 85%,transparent 100%);mask-image:linear-gradient(to bottom,#000 0%,#000 62%,rgba(0,0,0,0.35) 85%,transparent 100%);}
+        .hero-portrait-fade{position:relative;height:min(98vh,960px);width:auto;-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 62%,rgba(0,0,0,0.35) 85%,transparent 100%);mask-image:linear-gradient(to bottom,#000 0%,#000 62%,rgba(0,0,0,0.35) 85%,transparent 100%);}
         .hero-portrait-fade img{height:100%;width:auto;display:block;}
         .hero-portrait-color{position:relative;z-index:1;}
         .hero-portrait-gray{position:absolute;top:0;left:0;height:100%;width:auto;z-index:2;filter:grayscale(1) contrast(1.06) brightness(1.05);-webkit-mask-image:radial-gradient(circle 170px at var(--mx,-9999px) var(--my,-9999px),transparent 0%,transparent 40%,#000 72%);mask-image:radial-gradient(circle 170px at var(--mx,-9999px) var(--my,-9999px),transparent 0%,transparent 40%,#000 72%);}
         .hero-left{position:absolute;left:${GUTTER};top:50%;transform:translateY(-50%);z-index:10;max-width:24vw;text-align:left;}
-        .hero-right{position:absolute;right:${GUTTER};top:46%;transform:translateY(-50%);z-index:10;max-width:22vw;text-align:right;}
+        .hero-right{position:absolute;right:${GUTTER};top:46%;transform:translateY(-50%);z-index:10;max-width:26vw;text-align:right;}
         .hero-eyebrow{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(22px,2vw,31px);color:rgba(255,255,255,0.80);margin:0 0 6px 0;}
         .hero-name{font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:clamp(40px,5vw,58px);line-height:1.05;color:#ffffff;margin:0;}
         .hero-triad{font-family:'Poppins',sans-serif;font-weight:500;font-size:15px;letter-spacing:0.04em;color:rgba(255,255,255,0.88);margin:28px 0 0 0;}
         .hero-triad .dot{color:#0AC4E0;}
-        .hero-quote{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(18px,1.8vw,25px);line-height:1.5;color:rgba(255,255,255,0.72);margin:0;position:relative;}
+        .hero-quote{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(22px,2.2vw,32px);line-height:1.45;color:rgba(255,255,255,0.76);margin:0;position:relative;}
         .hero-quote .qmark{font-family:'Fraunces',serif;font-style:italic;color:#0AC4E0;font-size:1.6em;position:absolute;left:-0.7em;top:-0.35em;}
         .hero-blend{position:absolute;left:0;right:0;bottom:0;height:220px;background:linear-gradient(to bottom,rgba(7,12,24,0) 0%,${NEXT_BG} 100%);z-index:5;pointer-events:none;}
         @media (max-width:768px){
@@ -123,8 +118,15 @@ const Hero = () => {
 
       <div className="hero-glow" />
 
-      <div className="hero-wordmark-wrap" ref={wordmarkRef}>
-        <motion.div className="hero-wordmark" {...reveal(0)}>Mehta and More</motion.div>
+      <div className="hero-wordmark-wrap">
+        <motion.div 
+          className="hero-wordmark"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0.06, 0.12, 0.06] }}
+          transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          Mehta and More
+        </motion.div>
       </div>
 
       <div className="hero-portrait-pos">
