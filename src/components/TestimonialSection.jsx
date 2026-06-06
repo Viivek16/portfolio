@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import styles from '../pages/Info.module.css';
+import styles from '../pages/Story.module.css';
 
 const TestimonialSection = () => {
   useEffect(() => {

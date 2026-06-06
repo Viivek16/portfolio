@@ -30,26 +30,6 @@ const Hero = () => {
     if (!section || !gray) return;
     let raf = null;
 
-    // global subtle parallax: portrait tilts
-    const onSectionMove = (e) => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => {
-        raf = null;
-        const r = section.getBoundingClientRect();
-        const nx = (((e.clientX - r.left) - r.width / 2) / (r.width / 2));
-        const ny = (((e.clientY - r.top) - r.height / 2) / (r.height / 2));
-        if (tiltRef.current) {
-          tiltRef.current.style.setProperty('--rx', (nx * 5).toFixed(2));
-          tiltRef.current.style.setProperty('--ry', (ny * -4).toFixed(2));
-        }
-      });
-    };
-    const onSectionLeave = () => {
-      if (tiltRef.current) { tiltRef.current.style.setProperty('--rx', '0'); tiltRef.current.style.setProperty('--ry', '0'); }
-    };
-    section.addEventListener('mousemove', onSectionMove);
-    section.addEventListener('mouseleave', onSectionLeave);
-
     // figure-only color reveal: alpha hit-test on the portrait itself
     const hide = () => { gray.style.setProperty('--mx', '-9999px'); gray.style.setProperty('--my', '-9999px'); };
     const onGrayMove = (e) => {
@@ -68,8 +48,6 @@ const Hero = () => {
     gray.addEventListener('mouseleave', hide);
 
     return () => {
-      section.removeEventListener('mousemove', onSectionMove);
-      section.removeEventListener('mouseleave', onSectionLeave);
       gray.removeEventListener('mousemove', onGrayMove);
       gray.removeEventListener('mouseleave', hide);
       if (raf) cancelAnimationFrame(raf);

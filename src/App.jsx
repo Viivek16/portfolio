@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import Home from './pages/Home'
-import Info from './pages/Info'
+import Story from './pages/Story'
 import { Menu } from 'lucide-react'
 
 const ScrollToTop = () => {
@@ -31,10 +31,10 @@ const Navigation = () => {
           WORK
         </Link>
         <Link 
-          to="/info" 
-          className={`hover:text-ink transition-colors ${location.pathname === '/info' ? 'text-ink border-b border-accent' : 'text-ink-soft'}`}
+          to="/story" 
+          className={`hover:text-ink transition-colors ${location.pathname === '/story' ? 'text-ink border-b border-accent' : 'text-ink-soft'}`}
         >
-          INFO
+          STORY
         </Link>
         <button className="text-ink-soft hover:text-ink transition-colors">
           <Menu className="w-6 h-6" />
@@ -70,7 +70,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/info" element={<Info />} />
+        <Route path="/story" element={<Story />} />
       </Routes>
     </div>
   )

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import styles from './Info.module.css';
+import styles from './Story.module.css';
 
 const EditorialImage = ({ src, alt, className = '' }) => (
   <div className={`${styles.imageMat} ${className}`}>
@@ -7,7 +7,7 @@ const EditorialImage = ({ src, alt, className = '' }) => (
   </div>
 );
 
-const Info = () => {
+const Story = () => {
   const containerRef = useRef(null);
   const horizonTrackRef = useRef(null);
   const horizonCapRef = useRef(null);
@@ -742,4 +742,4 @@ const Info = () => {
   );
 };
 
-export default Info;
+export default Story;
