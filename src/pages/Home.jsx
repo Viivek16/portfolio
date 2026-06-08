@@ -8,6 +8,7 @@ import FunSection from '../components/FunSection'
 import PodcastSection from '../components/PodcastSection'
 import TestimonialSection from '../components/TestimonialSection'
 import Footer from '../components/Footer'
+import ToolsBuilt from '../components/ToolsBuilt'
 
 const Home = () => {
   return (
@@ -17,6 +18,7 @@ const Home = () => {
       <WorkStats />
       <WorkAbout />
       <ThreePillars />
+      <ToolsBuilt />
       <FunSection />
       <PodcastSection />
       <TestimonialSection />
