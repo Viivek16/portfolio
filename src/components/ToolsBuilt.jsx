@@ -13,25 +13,25 @@ const TOOLS = [
     name: "Triply",
     desc: "A travel OS — flights, visas and hotel bookings managed from one unified dashboard.",
     img: "/images/tools/triply.png?v=2", // appended cache-buster for new image
-    url: "#",
+    url: "https://www.gotriply.xyz/",
   },
   {
     name: "YC Website",
     desc: "Yellow Capital's site — designed, built and shipped end to end.",
     img: "/images/tools/yc-website.png",
-    url: "#",
+    url: "https://yc-website-v2.vercel.app/",
   },
   {
     name: "Yellow CRM",
     desc: "A Telegram-integrated CRM for active deals, pipelines and delivery.",
     img: "/images/tools/yellow-crm.png",
-    url: "#",
+    url: null, // No link, card behaves as a static display
   },
   {
     name: "Tradepoint",
     desc: "A clean, intuitive frontend for Yellow Capital's token distribution platform.",
     img: "/images/tools/tradepoint.png",
-    url: "#",
+    url: "https://tradepoint-v1.vercel.app/",
   },
 ];
 
@@ -68,13 +68,13 @@ function ToolCard({ tool, index, smoothProgress }) {
     mouseY.set(0.5);
   };
 
+  const Component = tool.url ? motion.a : motion.div;
+
   return (
     // OUTER wrapper carries the scroll entrance (opacity + y + flip).
     <motion.div style={{ opacity, y, rotateX, scale, flex: "1 1 0", minWidth: 0, transformOrigin: "bottom center" }}>
-      <motion.a
-        href={tool.url}
-        target="_blank"
-        rel="noopener noreferrer"
+      <Component
+        {...(tool.url ? { href: tool.url, target: "_blank", rel: "noopener noreferrer" } : {})}
         onMouseEnter={() => setHovered(true)}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -85,6 +85,7 @@ function ToolCard({ tool, index, smoothProgress }) {
           width: "100%",
           aspectRatio: CARD_ASPECT,
           borderRadius: RADIUS,
+          clipPath: `inset(0 round ${RADIUS}px)`, // Prevents sharp corners breaking out on hover
           overflow: "hidden",
           textDecoration: "none",
           color: "inherit",
@@ -125,22 +126,22 @@ function ToolCard({ tool, index, smoothProgress }) {
           />
         </div>
 
-        {/* frosted gradient mask — seamless (fades up via mask-image), grows + frosts on hover */}
+        {/* frosted gradient mask — strictly constrained to text area with a smooth blend out */}
         <div
           style={{
             position: "absolute",
             left: 0,
             right: 0,
             bottom: 0,
-            height: hovered ? "80%" : "48%",
-            background:
-              "linear-gradient(180deg, rgba(6,10,18,0) 0%, rgba(6,10,18,0.3) 40%, rgba(5,9,16,0.96) 100%)",
-            WebkitMaskImage: "linear-gradient(180deg, transparent 0%, #000 42%)",
-            maskImage: "linear-gradient(180deg, transparent 0%, #000 42%)",
-            backdropFilter: hovered ? "blur(5px)" : "blur(0px)",
-            WebkitBackdropFilter: hovered ? "blur(5px)" : "blur(0px)",
-            transition:
-              "height .6s cubic-bezier(.16,1,.3,1), backdrop-filter .5s ease, -webkit-backdrop-filter .5s ease",
+            height: "100%",
+            background: hovered 
+              ? "linear-gradient(to top, rgba(5,9,16,0.95) 0%, rgba(6,10,18,0.7) 25%, transparent 50%)"
+              : "linear-gradient(to top, rgba(5,9,16,0.9) 0%, rgba(6,10,18,0.3) 20%, transparent 45%)",
+            WebkitMaskImage: "linear-gradient(to top, black 0%, black 25%, transparent 45%)",
+            maskImage: "linear-gradient(to top, black 0%, black 25%, transparent 45%)",
+            backdropFilter: hovered ? "blur(8px)" : "blur(0px)",
+            WebkitBackdropFilter: hovered ? "blur(8px)" : "blur(0px)",
+            transition: "backdrop-filter .5s ease, -webkit-backdrop-filter .5s ease",
             zIndex: 2,
             pointerEvents: "none",
           }}
@@ -188,37 +189,39 @@ function ToolCard({ tool, index, smoothProgress }) {
               >
                 {tool.desc}
               </p>
-              <span
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 7,
-                  marginTop: 14,
-                  fontFamily: "'Poppins', sans-serif",
-                  fontWeight: 500,
-                  fontSize: 11,
-                  letterSpacing: "0.16em",
-                  textTransform: "uppercase",
-                  color: "#0AC4E0",
-                  opacity: hovered ? 1 : 0,
-                  transform: hovered ? "translateY(0)" : "translateY(8px)",
-                  transition: "opacity .45s ease .12s, transform .5s cubic-bezier(.16,1,.3,1) .12s",
-                }}
-              >
-                Visit
+              {tool.url && (
                 <span
                   style={{
-                    transform: hovered ? "translate(3px,-3px)" : "translate(0,0)",
-                    transition: "transform .4s ease",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 7,
+                    marginTop: 14,
+                    fontFamily: "'Poppins', sans-serif",
+                    fontWeight: 500,
+                    fontSize: 11,
+                    letterSpacing: "0.16em",
+                    textTransform: "uppercase",
+                    color: "#0AC4E0",
+                    opacity: hovered ? 1 : 0,
+                    transform: hovered ? "translateY(0)" : "translateY(8px)",
+                    transition: "opacity .45s ease .12s, transform .5s cubic-bezier(.16,1,.3,1) .12s",
                   }}
                 >
-                  ↗
+                  Visit
+                  <span
+                    style={{
+                      transform: hovered ? "translate(3px,-3px)" : "translate(0,0)",
+                      transition: "transform .4s ease",
+                    }}
+                  >
+                    ↗
+                  </span>
                 </span>
-              </span>
+              )}
             </div>
           </div>
         </div>
-      </motion.a>
+      </Component>
     </motion.div>
   );
 }
@@ -226,14 +229,12 @@ function ToolCard({ tool, index, smoothProgress }) {
 export default function ToolsBuilt() {
   const sectionRef = useRef(null);
   
-  // We use useScroll to track the section natively in both directions.
+  // Re-balanced trigger offset. Animates when user is past card 3 and section is fully engaged.
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start 0.95", "start 0.15"], 
+    offset: ["start 0.85", "start 0.35"], 
   });
 
-  // Adding a spring smooths out the scrub. This means that even if the user scrolls very quickly,
-  // the cards will animate in and out with a beautiful, timed fluid motion rather than snapping.
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 80,
     damping: 18,
@@ -253,6 +254,8 @@ export default function ToolsBuilt() {
         paddingRight: "8vw",
         paddingTop: "clamp(40px, 6vh, 68px)",
         paddingBottom: "clamp(48px, 7vh, 76px)",
+        marginTop: "-15vh", // Pull section up to naturally eliminate dead scroll space from ThreePillars
+        zIndex: 40, // Ensures it overlaps the sticky cards properly
       }}
     >
       <style>{`
@@ -287,7 +290,7 @@ export default function ToolsBuilt() {
           gap: GAP, 
           width: "100%", 
           alignItems: "stretch", 
-          perspective: "1200px" // Required for the 3D flip-up and hover tilts
+          perspective: "1200px" 
         }}
       >
         {TOOLS.map((tool, i) => (
