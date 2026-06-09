@@ -641,23 +641,23 @@ const Story = () => {
             </a>
  
             <a 
-              href="https://www.linkedin.com/in/srushtishirsat/"
+              href="#"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.friendCard}
               style={{ textDecoration: 'none' }}
             >
               <div className={styles.friendPhoto}>
-                <img src="/images/friends/Srushti-shirsat.jpg" alt="Srushti Shirsat, Founder at HRBP" loading="lazy" />
+                <img src="/images/friends/diego-martin.jpg" alt="Diego Martin, CEO at Yellow Group" loading="lazy" />
               </div>
               <div className={styles.friendBody}>
                 
                 <blockquote className={styles.friendQuote}>
-                  Viivek has never turned me down, be it for the top-tier Series A company or a pre-seed stage project — he just fits in very well everywhere.
+                  Viivek managed our dealflow, partner relationships, referral program, and marketing - all single handedly while showing consistent results. We almost had no social presence earlier, which he later got us flashing everywhere
                 </blockquote>
                 <div className={styles.friendAttrib}>
-                  <span className={styles.friendName}>Srushti Shirsat</span>
-                  <span className={styles.friendRole}>Founder · HRBP</span>
+                  <span className={styles.friendName}>Diego Martin</span>
+                  <span className={styles.friendRole}>CEO · Yellow Group</span>
                 </div>
               </div>
             </a>
