@@ -112,27 +112,15 @@ export default function BrandStrip() {
         }
 
         .brand-logo {
-          transition: opacity 400ms cubic-bezier(0.23, 1, 0.32, 1),
-                      transform 400ms cubic-bezier(0.23, 1, 0.32, 1),
-                      filter 400ms cubic-bezier(0.23, 1, 0.32, 1);
-          filter: brightness(0) invert(1) drop-shadow(0 0 0 rgba(255,255,255,0));
+          transition: filter 400ms cubic-bezier(0.23, 1, 0.32, 1);
+          filter: brightness(0) invert(1) drop-shadow(0 0 0 rgba(10, 196, 224, 0));
           opacity: ${LOGO_OPACITY};
-          cursor: pointer;
         }
 
         @media (hover: hover) and (pointer: fine) {
-          /* Dim and blur non-hovered siblings */
-          .brandstrip-track:has(.brand-logo:hover) .brand-logo:not(:hover) {
-            opacity: 0.15;
-            transform: scale(0.95);
-            filter: brightness(0) invert(1) blur(3px);
-          }
-
-          /* Scale and glow the hovered logo */
+          /* Add a cyan glow without lifting or changing logo opacity */
           .brand-logo:hover {
-            opacity: 1;
-            transform: scale(1.15);
-            filter: brightness(0) invert(1) drop-shadow(0 12px 28px rgba(10, 196, 224, 0.45));
+            filter: brightness(0) invert(1) drop-shadow(0 0 16px rgba(10, 196, 224, 0.9));
           }
         }
       `}</style>
