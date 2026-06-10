@@ -1,5 +1,6 @@
 import React from 'react'
 import Hero from '../components/Hero'
+import BrandStrip from '../components/BrandStrip'
 import ScrollProgress from '../components/ScrollProgress'
 import WorkStats from '../components/WorkStats'
 import WorkAbout from '../components/WorkAbout'
@@ -15,6 +16,7 @@ const Home = () => {
     <main className="relative w-full bg-bg-primary">
       <ScrollProgress />
       <Hero />
+      <BrandStrip />
       <WorkStats />
       <WorkAbout />
       <ThreePillars />
