@@ -5,7 +5,7 @@ import React, { useState } from "react";
 ──────────────────────────────────────────────────────────────*/
 const SPEED_S = 50;          // slightly slower for majestic scale
 const LOGO_HEIGHT = "clamp(64px, 8vw, 110px)"; // 3x to 4x size increase
-const LOGO_GAP = "clamp(80px, 12vw, 180px)";   // wider gap for larger logos
+const LOGO_GAP = "clamp(40px, 6vw, 100px)";    // reduced gap based on feedback
 const LOGO_OPACITY = 0.5;    // resting opacity
 
 // ⚠️ EXACT colors from Phase 1 recon:
@@ -16,7 +16,7 @@ const BRANDS = [
   { name: "Yellow Capital",        img: "/images/brands/yellow-capital.png" },
   { name: "NewTribe Capital",      img: "/images/brands/newtribe.png" },
   { name: "Leo Ventures",          img: "/images/brands/leo-ventures.png" },
-  { name: "Asva Capital",          img: "/images/brands/asva-capital.png" },
+  { name: "Asva Capital",          img: "/images/brands/asva-capital.png", customHeight: "clamp(36px, 4.5vw, 64px)" },
   { name: "Digital Consensus Fund", img: "/images/brands/dcf.png" },
   { name: "NODO",                  img: "/images/brands/nodo.png" },
   { name: "Nordek",                img: "/images/brands/nordek.png" },
@@ -50,7 +50,7 @@ export default function BrandStrip() {
           draggable={false}
           loading="lazy"
           style={{
-            height: LOGO_HEIGHT,
+            height: b.customHeight || LOGO_HEIGHT,
             width: "auto",
             display: "block",
             userSelect: "none",

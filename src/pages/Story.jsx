@@ -626,7 +626,7 @@ const Story = () => {
               style={{ textDecoration: 'none' }}
             >
               <div className={styles.friendPhoto}>
-                <img src="/images/friends/Karan-aneja.jpg" alt="Karan Aneja, Senior Analyst at Pi42 Ventures" loading="lazy" />
+                <img src="/images/friends/Karan-aneja.jpg" alt="Karan Aneja, Senior Analyst at 3One4 Capital" loading="lazy" />
               </div>
               <div className={styles.friendBody}>
                 
@@ -635,7 +635,7 @@ const Story = () => {
                 </blockquote>
                 <div className={styles.friendAttrib}>
                   <span className={styles.friendName}>Karan Aneja</span>
-                  <span className={styles.friendRole}>Senior Analyst · Pi42 Ventures</span>
+                  <span className={styles.friendRole}>Senior Analyst · 3One4 Capital</span>
                 </div>
               </div>
             </a>
