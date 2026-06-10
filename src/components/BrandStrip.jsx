@@ -74,10 +74,25 @@ export default function BrandStrip() {
         isolation: "isolate",
         // Seamless bridge: hero floor → stats top. NO hard edges.
         background: `linear-gradient(180deg, ${HERO_FLOOR} 0%, ${STATS_TOP} 100%)`,
-        paddingTop: "clamp(34px, 4.5vh, 52px)",
-        paddingBottom: "clamp(34px, 4.5vh, 52px)",
+        paddingTop: "clamp(24px, 3.5vh, 40px)",
+        paddingBottom: "clamp(28px, 4vh, 48px)",
       }}
     >
+      <div
+        style={{
+          fontFamily: "'Poppins', sans-serif",
+          fontWeight: 500,
+          fontSize: "12px",
+          letterSpacing: "0.28em",
+          textTransform: "uppercase",
+          color: "#0AC4E0",
+          paddingLeft: "8vw",
+          paddingRight: "8vw",
+          marginBottom: "clamp(20px, 3vh, 32px)",
+        }}
+      >
+        — BRANDS I'VE WORKED WITH
+      </div>
       {/* keyframes scoped to this component only */}
       <style>{`
         @keyframes brandstrip-marquee {
