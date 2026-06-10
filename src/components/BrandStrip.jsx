@@ -14,15 +14,15 @@ const STATS_TOP  = "#070C18";
 
 const BRANDS = [
   { name: "Yellow Capital",        img: "/images/brands/yellow-capital.png" },
-  { name: "NewTribe Capital",      img: "/images/brands/newtribe.png" },
-  { name: "Leo Ventures",          img: "/images/brands/leo-ventures.png" },
-  { name: "Asva Capital",          img: "/images/brands/asva-capital.png", customHeight: "clamp(36px, 4.5vw, 64px)" },
+  { name: "NewTribe Capital",      img: "/images/brands/newtribe.png", customHeight: "clamp(80px, 10vw, 130px)" },
+  { name: "Leo Ventures",          img: "/images/brands/leo-ventures.png", customHeight: "clamp(80px, 10vw, 130px)" },
+  { name: "Asva Capital",          img: "/images/brands/asva-capital.png", customHeight: "clamp(24px, 3vw, 48px)" },
   { name: "Digital Consensus Fund", img: "/images/brands/dcf.png" },
   { name: "NODO",                  img: "/images/brands/nodo.png" },
   { name: "Nordek",                img: "/images/brands/nordek.png" },
   { name: "5ire",                  img: "/images/brands/5ire.png" },
-  { name: "Neos Legal",            img: "/images/brands/neos-legal.png" },
-  { name: "Kinetic Kollective",    img: "/images/brands/kk.png" },
+  { name: "Neos Legal",            img: "/images/brands/neos-legal.png", customHeight: "clamp(80px, 10vw, 130px)" },
+  { name: "Kinetic Kollective",    img: "/images/brands/kk.png", customHeight: "clamp(80px, 10vw, 130px)" },
   { name: "RAK DAO",               img: "/images/brands/rak-dao.png" },
 ];
 
@@ -112,14 +112,16 @@ export default function BrandStrip() {
         }
 
         .brand-logo {
-          transition: filter 400ms cubic-bezier(0.23, 1, 0.32, 1);
+          transition: opacity 400ms cubic-bezier(0.23, 1, 0.32, 1),
+                      filter 400ms cubic-bezier(0.23, 1, 0.32, 1);
           filter: brightness(0) invert(1) drop-shadow(0 0 0 rgba(10, 196, 224, 0));
           opacity: ${LOGO_OPACITY};
         }
 
         @media (hover: hover) and (pointer: fine) {
-          /* Add a cyan glow without lifting or changing logo opacity */
+          /* Add a cyan glow and light up to white, with no bulge */
           .brand-logo:hover {
+            opacity: 1;
             filter: brightness(0) invert(1) drop-shadow(0 0 16px rgba(10, 196, 224, 0.9));
           }
         }
