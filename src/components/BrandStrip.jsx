@@ -71,35 +71,24 @@ export default function BrandStrip() {
         isolation: "isolate",
         // Seamless bridge: hero floor → stats top. NO hard edges.
         background: `linear-gradient(180deg, ${HERO_FLOOR} 0%, ${STATS_TOP} 100%)`,
-        paddingTop: "clamp(48px, 6vh, 80px)",
-        paddingBottom: "clamp(56px, 7vh, 96px)",
+        paddingTop: "48px",
+        paddingBottom: "24px",
       }}
     >
       <div
         style={{
           fontFamily: "'Poppins', sans-serif",
-          fontWeight: 600,
-          fontSize: "13px",
-          letterSpacing: "0.35em",
+          fontWeight: 400,
+          fontSize: "10px",
+          letterSpacing: "0.28em",
           textTransform: "uppercase",
-          color: "transparent",
-          backgroundImage: "linear-gradient(90deg, #0AC4E0, #00FF88)",
-          WebkitBackgroundClip: "text",
-          backgroundClip: "text",
+          color: "#0AC4E0",
           paddingLeft: "8vw",
           paddingRight: "8vw",
-          marginBottom: "clamp(32px, 5vh, 56px)",
-          display: "flex",
-          alignItems: "center",
-          gap: "16px"
+          marginBottom: "56px",
         }}
       >
-        <span style={{ 
-          width: "48px", 
-          height: "1px", 
-          background: "linear-gradient(90deg, transparent, rgba(10, 196, 224, 0.6))" 
-        }} />
-        BRANDS I'VE WORKED WITH
+        — BRANDS I'VE WORKED WITH
       </div>
       {/* keyframes scoped to this component only */}
       <style>{`
