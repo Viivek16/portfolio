@@ -13,6 +13,7 @@ const Story = () => {
   const horizonCapRef = useRef(null);
   const nowHorizonPathRef = useRef(null);
   const [horizonD, setHorizonD] = React.useState('');
+  const [isResumeOpen, setIsResumeOpen] = React.useState(false);
 
   useEffect(() => {
     function setPathLength() {
@@ -596,13 +597,7 @@ const Story = () => {
             <h2 className={styles.friendsTitle}>Friends, on the record.</h2>
           </div>
           <div className={styles.friendsGrid}>
-            <a 
-              href="https://www.linkedin.com/in/julietsu888/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.friendCard}
-              style={{ textDecoration: 'none' }}
-            >
+            <div className={styles.friendCard}>
               <div className={styles.friendPhoto}>
                 <img src="/images/friends/juliet-su.jpg" alt="Juliet Su, Managing Partner at NewTribe Capital" loading="lazy" />
               </div>
@@ -616,15 +611,9 @@ const Story = () => {
                   <span className={styles.friendRole}>Managing Partner · NewTribe Capital</span>
                 </div>
               </div>
-            </a>
+            </div>
  
-            <a 
-              href="https://www.linkedin.com/in/karan-aneja/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.friendCard}
-              style={{ textDecoration: 'none' }}
-            >
+            <div className={styles.friendCard}>
               <div className={styles.friendPhoto}>
                 <img src="/images/friends/Karan-aneja.jpg" alt="Karan Aneja, Senior Analyst at 3One4 Capital" loading="lazy" />
               </div>
@@ -638,15 +627,9 @@ const Story = () => {
                   <span className={styles.friendRole}>Senior Analyst · 3One4 Capital</span>
                 </div>
               </div>
-            </a>
+            </div>
  
-            <a 
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.friendCard}
-              style={{ textDecoration: 'none' }}
-            >
+            <div className={styles.friendCard}>
               <div className={styles.friendPhoto}>
                 <img src="/images/friends/diego-martin.jpg" alt="Diego Martin, CEO at Yellow Group" loading="lazy" />
               </div>
@@ -660,15 +643,9 @@ const Story = () => {
                   <span className={styles.friendRole}>CEO · Yellow Group</span>
                 </div>
               </div>
-            </a>
+            </div>
  
-            <a 
-              href="https://www.linkedin.com/in/blockchain-startup--recruitment/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.friendCard}
-              style={{ textDecoration: 'none' }}
-            >
+            <div className={styles.friendCard}>
               <div className={styles.friendPhoto}>
                 <img src="/images/friends/zhanna-manzyk.jpg" alt="Zhanna Manzyk, CEO at Jaya Talent" loading="lazy" />
               </div>
@@ -682,15 +659,9 @@ const Story = () => {
                   <span className={styles.friendRole}>CEO · Jaya Talent</span>
                 </div>
               </div>
-            </a>
+            </div>
  
-            <a 
-              href="https://www.linkedin.com/in/sowmya-raghavan/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.friendCard}
-              style={{ textDecoration: 'none' }}
-            >
+            <div className={styles.friendCard}>
               <div className={styles.friendPhoto}>
                 <img src="/images/friends/Sowmya-Raghavan.jpg" alt="Sowmya Raghavan, Ex-CEO of NODO Inc." loading="lazy" />
               </div>
@@ -704,7 +675,7 @@ const Story = () => {
                   <span className={styles.friendRole}>Ex-CEO · NODO Inc.</span>
                 </div>
               </div>
-            </a>
+            </div>
           </div>
         </section>
 
@@ -724,8 +695,22 @@ const Story = () => {
                 <a className={styles.contactLink} data-num="ii."  href="https://www.linkedin.com/in/viivek-mehata16/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                 <a className={styles.contactLink} data-num="iii." href="https://t.me/Viivek16" target="_blank" rel="noopener noreferrer">Telegram</a>
                 <a className={styles.contactLink} data-num="iv."  href="mailto:vivekmehta.vm31@gmail.com">Email</a>
+                <div className={styles.contactDropdownWrapper}>
+                  <button 
+                    className={`${styles.contactLink} ${styles.contactDropdownToggle} ${isResumeOpen ? styles.open : ''}`} 
+                    data-num="v."
+                    onClick={() => setIsResumeOpen(!isResumeOpen)}
+                  >
+                    Resume
+                  </button>
+                  {isResumeOpen && (
+                    <div className={styles.contactDropdownMenu}>
+                      <a className={styles.contactDropdownItem} href="https://drive.google.com/file/d/1TvSLFdRZQkucFx7mEtQQqaxYhqTyZjgu/view?usp=sharing" target="_blank" rel="noopener noreferrer">Growth</a>
+                      <a className={styles.contactDropdownItem} href="https://drive.google.com/file/d/1fDCQhhUvrjF2MQm7xFzrYiBXbmgbDuuW/view?usp=sharing" target="_blank" rel="noopener noreferrer">VC Resume</a>
+                    </div>
+                  )}
+                </div>
               </div>
-              <p className={styles.contactSignature}>Until the next chapter — V.</p>
             </div>
           </div>
           <div className={styles.contactFoot}>

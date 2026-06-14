@@ -32,13 +32,7 @@ const TestimonialSection = () => {
         </div>
         <div className={styles.friendsGrid}>
           
-          <a 
-            href="https://www.linkedin.com/in/julietsu888/" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className={styles.friendCard}
-            style={{ textDecoration: 'none' }}
-          >
+          <div className={styles.friendCard}>
             <div className={styles.friendPhoto}>
               <img src="/images/friends/juliet-su.jpg" alt="Juliet Su, Managing Partner at NewTribe Capital" loading="lazy" />
             </div>
@@ -51,15 +45,9 @@ const TestimonialSection = () => {
                 <span className={styles.friendRole}>Managing Partner · NewTribe Capital</span>
               </div>
             </div>
-          </a>
+          </div>
 
-          <a 
-            href="https://www.linkedin.com/in/karan-aneja/" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className={styles.friendCard}
-            style={{ textDecoration: 'none' }}
-          >
+          <div className={styles.friendCard}>
             <div className={styles.friendPhoto}>
               <img src="/images/friends/Karan-aneja.jpg" alt="Karan Aneja, Senior Analyst at 3One4 Capital" loading="lazy" />
             </div>
@@ -72,15 +60,9 @@ const TestimonialSection = () => {
                 <span className={styles.friendRole}>Senior Analyst · 3One4 Capital</span>
               </div>
             </div>
-          </a>
+          </div>
 
-          <a 
-            href="#" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className={styles.friendCard}
-            style={{ textDecoration: 'none' }}
-          >
+          <div className={styles.friendCard}>
             <div className={styles.friendPhoto}>
               <img src="/images/friends/diego-martin.jpg" alt="Diego Martin, CEO at Yellow Group" loading="lazy" />
             </div>
@@ -93,15 +75,9 @@ const TestimonialSection = () => {
                 <span className={styles.friendRole}>CEO · Yellow Group</span>
               </div>
             </div>
-          </a>
+          </div>
 
-          <a 
-            href="https://www.linkedin.com/in/blockchain-startup--recruitment/" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className={styles.friendCard}
-            style={{ textDecoration: 'none' }}
-          >
+          <div className={styles.friendCard}>
             <div className={styles.friendPhoto}>
               <img src="/images/friends/zhanna-manzyk.jpg" alt="Zhanna Manzyk, CEO at Jaya Talent" loading="lazy" />
             </div>
@@ -114,15 +90,9 @@ const TestimonialSection = () => {
                 <span className={styles.friendRole}>CEO · Jaya Talent</span>
               </div>
             </div>
-          </a>
+          </div>
 
-          <a 
-            href="https://www.linkedin.com/in/sowmya-raghavan/" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className={styles.friendCard}
-            style={{ textDecoration: 'none' }}
-          >
+          <div className={styles.friendCard}>
             <div className={styles.friendPhoto}>
               <img src="/images/friends/Sowmya-Raghavan.jpg" alt="Sowmya Raghavan, Ex-CEO of NODO Inc." loading="lazy" />
             </div>
@@ -135,7 +105,7 @@ const TestimonialSection = () => {
                 <span className={styles.friendRole}>Ex-CEO · NODO Inc.</span>
               </div>
             </div>
-          </a>
+          </div>
 
         </div>
       </section>

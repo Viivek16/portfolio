@@ -1105,6 +1105,35 @@
   }
 }
 
+@media (max-width: 900px) {
+  .nowSection {
+    min-height: auto;
+  }
+  .nowHeroTop {
+    height: auto;
+    padding-bottom: 60px;
+  }
+  .nowPillarsWrapper {
+    position: relative;
+    top: auto;
+    height: auto;
+    padding-bottom: 120px;
+  }
+  .nowPillars {
+    flex-direction: column;
+    gap: 80px;
+  }
+  .nowPullQuote {
+    position: relative;
+    right: auto;
+    top: auto;
+    margin-top: 40px;
+  }
+  .nowPullQuoteInner {
+    text-align: left;
+  }
+}
+
 /* =========================================================
    FRIENDS
    ========================================================= */
@@ -1467,6 +1496,67 @@
 .footLeft { text-align: left; }
 .footCenter { text-align: center; }
 .footRight { text-align: right; }
+
+.contactDropdownWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.contactDropdownToggle {
+  background: none;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+
+.contactDropdownToggle::after {
+  content: '↓' !important;
+  transform: none !important;
+}
+
+.contactDropdownToggle:hover::after {
+  transform: translateY(4px) !important;
+}
+
+.contactDropdownToggle.open::after {
+  transform: rotate(180deg) !important;
+}
+
+.contactDropdownToggle.open:hover::after {
+  transform: rotate(180deg) translateY(-4px) !important;
+}
+
+.contactDropdownMenu {
+  display: flex;
+  flex-direction: column;
+  padding-left: 56px;
+  gap: 16px;
+  margin-top: 4px;
+  margin-bottom: 20px;
+  animation: fadeInDown 0.3s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.contactDropdownItem {
+  font-size: 14px;
+  color: var(--cream-dim);
+  transition: color 0.25s ease, padding-left 0.25s ease;
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+}
+
+.contactDropdownItem:hover {
+  color: var(--sea);
+  padding-left: 6px;
+}
 
 @media (max-height: 720px) {
   .contact { min-height: 720px; height: 720px; max-height: 720px; }
