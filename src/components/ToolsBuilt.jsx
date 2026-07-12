@@ -16,7 +16,13 @@ const TOOLS = [
     url: "https://www.gotriply.xyz/",
   },
   {
-    name: "YC Website",
+    name: "Simpli App",
+    desc: "Split expenses in a live cosmos where every galaxy is a group and every member is a planet.",
+    img: "/images/tools/simpli-app.png",
+    url: "https://simpliapp.vercel.app/",
+  },
+  {
+    name: "Yellow Website",
     desc: "Yellow Capital's site — designed, built and shipped end to end.",
     img: "/images/tools/yc-website.png",
     url: "https://yc-website-v2.vercel.app/",
@@ -26,12 +32,6 @@ const TOOLS = [
     desc: "A Telegram-integrated CRM for active deals, pipelines and delivery.",
     img: "/images/tools/yellow-crm.png",
     url: null, // No link, card behaves as a static display
-  },
-  {
-    name: "Tradepoint",
-    desc: "A clean, intuitive frontend for Yellow Capital's token distribution platform.",
-    img: "/images/tools/tradepoint.png",
-    url: "https://tradepoint-v1.vercel.app/",
   },
 ];
 
@@ -259,11 +259,11 @@ export default function ToolsBuilt() {
       }}
     >
       <style>{`
-        @media (max-width: 820px){
+        @media (max-width: 900px){
           .tools-built-rail{ flex-wrap: wrap; }
           .tools-built-rail > *{ flex: 1 1 calc(50% - 12px) !important; }
         }
-        @media (max-width: 520px){
+        @media (max-width: 640px){
           .tools-built-rail > *{ flex: 1 1 100% !important; }
         }
       `}</style>

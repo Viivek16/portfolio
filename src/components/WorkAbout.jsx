@@ -17,7 +17,7 @@ const WorkAbout = () => {
   const proseRef = useRef(null);
   const firmStripRef = useRef(null);
   
-  const isInView = useInView(containerRef, { once: true, amount: 0.5 });
+  const isInView = useInView(containerRef, { once: true, amount: 0.15 });
   const prefersReducedMotion = useReducedMotion();
 
   // Photo Stack Logic
@@ -38,35 +38,35 @@ const WorkAbout = () => {
 
       const prev = frontIndex;
 
-      // 1. Animate current front card off-screen
-      cardEls[prev].classList.remove(styles['pos-front']);
-      cardEls[prev].classList.add(styles['pos-exiting']);
+      // 1. Advance the front pointer immediately
+      frontIndex = (frontIndex + 1) % TOTAL;
 
-      setTimeout(() => {
-        // 2. Advance the front pointer
-        frontIndex = (frontIndex + 1) % TOTAL;
-
-        // 3. Update all card positions
-        cardEls.forEach((el, i) => {
+      // 2. Update all card positions simultaneously for a fluid, overlapping Apple-style transition
+      cardEls.forEach((el, i) => {
+        if (i === prev) {
+          // Animate the old front card off-screen
+          el.className = `${styles.photoCard} ${styles['pos-exiting']}`;
+          
+          // After it exits, snap it to the back (hidden) quietly
+          setTimeout(() => {
+            if (el) {
+              el.style.transition = 'none';
+              el.className = `${styles.photoCard} ${styles['pos-hidden']}`;
+              void el.offsetWidth; // force reflow
+              el.style.transition = '';
+            }
+            busy = false;
+          }, 870); // wait for exit animation to finish
+        } else {
+          // Move remaining cards forward simultaneously
           const diff = (i - frontIndex + TOTAL) % TOTAL;
           const posClass = diff === 0 ? styles['pos-front']
                          : diff === 1 ? styles['pos-mid']
                          : diff === 2 ? styles['pos-back']
                          : styles['pos-hidden'];
-
-          if (i === prev) {
-            // Snap the exited card to pos-hidden with NO transition
-            el.style.transition = 'none';
-            el.className = `${styles.photoCard} ${posClass}`;
-            void el.offsetWidth; // force reflow
-            el.style.transition = '';
-          } else {
-            el.className = `${styles.photoCard} ${posClass}`;
-          }
-        });
-
-        busy = false;
-      }, 870); // slightly longer than exit animation duration
+          el.className = `${styles.photoCard} ${posClass}`;
+        }
+      });
     }
 
     const intervalId = setInterval(shuffle, 4500);
