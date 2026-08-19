@@ -6,365 +6,302 @@ const CASE_STUDIES = [
     id: "cs-01",
     code: "5539",
     number: "01",
-    title: "Scape App",
-    subtitle: "Go-To-Market & Growth Architecture",
+    title: "SCAPE APP",
+    subtitle: "GTM STRATEGY",
     category: "GTM STRATEGY",
     tag: "CANVA DECK",
     url: "https://canva.link/scape-gtm-strategy",
-    color: "#18281F", // Forest Sage Moss
-    accent: "#5BE2A3",
+    color: "#4A584C", // Moss Sage Olive (Reference Card 1)
     textColor: "#FFFFFF",
-    subColor: "rgba(240, 255, 244, 0.75)",
+    subColor: "rgba(255, 255, 255, 0.65)",
+    isLight: false,
   },
   {
     id: "cs-02",
     code: "4417",
     number: "02",
-    title: "Scape Intel",
-    subtitle: "Competitive Landscape & MCP Matrix",
+    title: "SCAPE INTEL",
+    subtitle: "COMPETITOR INTEL",
     category: "COMPETITOR INTEL",
     tag: "LIVE APP",
     url: "https://scape-mcp-research.vercel.app/",
-    color: "#12202E", // Slate Cobalt
-    accent: "#0AC4E0",
+    color: "#D1A667", // Warm Amber Sand (Reference Card 2)
     textColor: "#FFFFFF",
-    subColor: "rgba(230, 255, 250, 0.75)",
+    subColor: "rgba(255, 255, 255, 0.70)",
+    isLight: false,
   },
   {
     id: "cs-03",
     code: "3761",
     number: "03",
-    title: "Talp AI",
-    subtitle: "Global Expansion & Market Entry",
+    title: "TALP AI",
+    subtitle: "AI EXPANSION",
     category: "AI EXPANSION",
     tag: "LIVE APP",
     url: "https://talp-expansion-strategy.vercel.app/",
-    color: "#20142C", // Midnight Royal Violet
-    accent: "#BA85FF",
+    color: "#2A3748", // Slate Deep Navy (Reference Card 3)
     textColor: "#FFFFFF",
-    subColor: "rgba(250, 245, 255, 0.75)",
+    subColor: "rgba(255, 255, 255, 0.65)",
+    isLight: false,
   },
   {
     id: "cs-04",
     code: "5428",
     number: "04",
-    title: "Migma AI",
-    subtitle: "Product-Market Fit & GTM Rollout",
+    title: "MIGMA AI",
+    subtitle: "PRODUCT STRATEGY",
     category: "PRODUCT STRATEGY",
     tag: "RESEARCH PDF",
     url: "https://drive.google.com/file/d/1vp2VK9FTOWBpU1-Wr4Z0YEePz2zgmOgA/view?usp=sharing",
-    color: "#30160D", // Terracotta Rust Cognac
-    accent: "#F29979",
+    color: "#A06855", // Terracotta Cognac (Reference Card 4)
     textColor: "#FFFFFF",
-    subColor: "rgba(255, 250, 240, 0.75)",
+    subColor: "rgba(255, 255, 255, 0.70)",
+    isLight: false,
   },
   {
     id: "cs-05",
     code: "4190",
     number: "05",
-    title: "VDEX Protocol",
-    subtitle: "DeFi Growth & Liquidity Strategy",
+    title: "VDEX STRATEGY",
+    subtitle: "DEFI GROWTH",
     category: "DEFI GROWTH",
     tag: "CANVA DECK",
     url: "https://canva.link/vdex-grwoth-strategy",
-    color: "#2C0D1E", // Bordeaux Plum Wine
-    accent: "#E58CA7",
-    textColor: "#FFFFFF",
-    subColor: "rgba(255, 245, 247, 0.75)",
+    color: "#E8E2D4", // Linen Ivory Bone (Reference Card 5)
+    textColor: "#1E242B",
+    subColor: "rgba(30, 36, 43, 0.70)",
+    isLight: true,
   },
   {
     id: "cs-06",
     code: "5302",
     number: "06",
-    title: "Hypersign",
-    subtitle: "Self-Sovereign Identity Protocol",
+    title: "HYPERSIGN",
+    subtitle: "IDENTITY PROTOCOL",
     category: "IDENTITY PROTOCOL",
     tag: "CANVA DECK",
     url: "https://canva.link/hypersign",
-    color: "#261B09", // Warm Umber Ochre Gold
-    accent: "#F5D061",
+    color: "#6A2E3B", // Bordeaux Dark Plum (Reference Card 6)
     textColor: "#FFFFFF",
-    subColor: "rgba(255, 255, 240, 0.75)",
+    subColor: "rgba(255, 255, 255, 0.65)",
+    isLight: false,
   },
   {
     id: "cs-07",
     code: "4731",
     number: "07",
-    title: "Paytm B2C",
-    subtitle: "Consumer Retention & Monetization",
+    title: "PAYTM B2C",
+    subtitle: "FINTECH GROWTH",
     category: "FINTECH GROWTH",
     tag: "CANVA DECK",
     url: "https://canva.link/paytm-b2c-strategy",
-    color: "#E8E3D7", // Alabaster Bone Ivory
-    accent: "#0084B4",
-    textColor: "#111827",
-    subColor: "rgba(17, 24, 39, 0.78)",
-    isLight: true,
+    color: "#728A7A", // Pale Jade Mint (Reference Card 7)
+    textColor: "#FFFFFF",
+    subColor: "rgba(255, 255, 255, 0.70)",
+    isLight: false,
   },
   {
     id: "cs-08",
     code: "3056",
     number: "08",
-    title: "Scape App",
-    subtitle: "Spatial Discovery Ecosystem",
+    title: "SCAPE APP",
+    subtitle: "SPATIAL GTM",
     category: "GTM STRATEGY",
     tag: "CANVA DECK",
     url: "https://canva.link/scape-gtm-strategy",
-    color: "#14241B", // Deep Moss Emerald
-    accent: "#48BB78",
+    color: "#344656", // Steel Slate Cobalt (Reference Card 8)
     textColor: "#FFFFFF",
-    subColor: "rgba(240, 255, 244, 0.75)",
+    subColor: "rgba(255, 255, 255, 0.65)",
+    isLight: false,
   },
   {
     id: "cs-09",
     code: "5623",
     number: "09",
-    title: "Talp AI",
-    subtitle: "Developer Engine & SDK Adoption",
+    title: "TALP AI",
+    subtitle: "DEVELOPER ENGINE",
     category: "AI EXPANSION",
     tag: "LIVE APP",
     url: "https://talp-expansion-strategy.vercel.app/",
-    color: "#101B2E", // Deep Navy Cobalt
-    accent: "#63B3ED",
-    textColor: "#FFFFFF",
-    subColor: "rgba(235, 248, 255, 0.75)",
+    color: "#F2EEE7", // Porcelain Alabaster (Reference Card 9)
+    textColor: "#1E242B",
+    subColor: "rgba(30, 36, 43, 0.70)",
+    isLight: true,
   },
   {
     id: "cs-10",
     code: "4944",
     number: "10",
-    title: "Migma AI",
-    subtitle: "Enterprise Positioning & PMF Matrix",
+    title: "MIGMA AI",
+    subtitle: "ENTERPRISE PMF",
     category: "PRODUCT STRATEGY",
     tag: "RESEARCH PDF",
     url: "https://drive.google.com/file/d/1vp2VK9FTOWBpU1-Wr4Z0YEePz2zgmOgA/view?usp=sharing",
-    color: "#32170C", // Dark Amber Cognac
-    accent: "#ED8936",
+    color: "#222428", // Obsidian Noir (Reference Card 10)
     textColor: "#FFFFFF",
-    subColor: "rgba(255, 250, 240, 0.75)",
+    subColor: "rgba(255, 255, 255, 0.65)",
+    isLight: false,
   },
   {
     id: "cs-11",
     code: "4829",
     number: "11",
-    title: "Scape Intel",
-    subtitle: "MCP Server Ecosystem Protocols",
+    title: "SCAPE INTEL",
+    subtitle: "MCP PROTOCOLS",
     category: "COMPETITOR INTEL",
     tag: "LIVE APP",
     url: "https://scape-mcp-research.vercel.app/",
-    color: "#10261E", // Forest Pine
-    accent: "#38B2AC",
+    color: "#B55D36", // Burnt Sienna Copper (Reference Card 11)
     textColor: "#FFFFFF",
-    subColor: "rgba(230, 255, 250, 0.75)",
+    subColor: "rgba(255, 255, 255, 0.70)",
+    isLight: false,
   },
   {
     id: "cs-12",
     code: "5114",
     number: "12",
-    title: "VDEX Strategy",
-    subtitle: "Liquidity Mining & Institutional Scale",
+    title: "VDEX STRATEGY",
+    subtitle: "TOKEN RETENTION",
     category: "DEFI GROWTH",
     tag: "CANVA DECK",
     url: "https://canva.link/vdex-grwoth-strategy",
-    color: "#2C0C1E", // Deep Mulberry Burgundy
-    accent: "#F472B6",
+    color: "#C49265", // Caramel Bronze (Reference Card 12)
     textColor: "#FFFFFF",
-    subColor: "rgba(255, 245, 247, 0.75)",
+    subColor: "rgba(255, 255, 255, 0.70)",
+    isLight: false,
   },
   {
     id: "cs-13",
     code: "3768",
     number: "13",
-    title: "Hypersign",
-    subtitle: "Enterprise Identity & SSI Framework",
+    title: "HYPERSIGN",
+    subtitle: "SSI PROTOCOL",
     category: "IDENTITY PROTOCOL",
     tag: "CANVA DECK",
     url: "https://canva.link/hypersign",
-    color: "#261A07", // Antique Bronze Gold
-    accent: "#ECC94B",
-    textColor: "#FFFFFF",
-    subColor: "rgba(255, 255, 240, 0.75)",
+    color: "#E5DFC9", // Warm Pale Sand (Reference Card 13)
+    textColor: "#1E242B",
+    subColor: "rgba(30, 36, 43, 0.70)",
+    isLight: true,
   },
   {
     id: "cs-14",
     code: "4082",
     number: "14",
-    title: "Paytm B2C",
-    subtitle: "Payment Friction & Conversion Funnels",
+    title: "PAYTM B2C",
+    subtitle: "CONVERSION ENGINE",
     category: "FINTECH GROWTH",
     tag: "CANVA DECK",
     url: "https://canva.link/paytm-b2c-strategy",
-    color: "#E2DDD2", // Platinum Ivory
-    accent: "#0084B4",
-    textColor: "#111827",
-    subColor: "rgba(17, 24, 39, 0.78)",
-    isLight: true,
+    color: "#38493D", // Deep Pine Emerald (Reference Card 14)
+    textColor: "#FFFFFF",
+    subColor: "rgba(255, 255, 255, 0.65)",
+    isLight: false,
   },
 ];
 
-// Draw realistic micro EMV chip
-function drawChip(ctx, x, y, w, h, color) {
+// Helper to draw minimalist EMV circuit pad (Reference style)
+function drawChip(ctx, x, y, size, isLight) {
   ctx.save();
-  ctx.beginPath();
-  ctx.roundRect(x, y, w, h, 12);
-  ctx.fillStyle = "rgba(0, 0, 0, 0.35)";
-  ctx.fill();
-  ctx.lineWidth = 3;
-  ctx.strokeStyle = color + "99";
-  ctx.stroke();
-
-  // Clean geometric contact paths
-  ctx.lineWidth = 2.5;
-  ctx.strokeStyle = color + "80";
+  const padColor = isLight ? "rgba(0, 0, 0, 0.18)" : "rgba(255, 255, 255, 0.28)";
+  const lineColor = isLight ? "rgba(0, 0, 0, 0.35)" : "rgba(255, 255, 255, 0.45)";
 
   ctx.beginPath();
-  ctx.moveTo(x, y + h * 0.35);
-  ctx.lineTo(x + w * 0.36, y + h * 0.35);
-  ctx.lineTo(x + w * 0.36, y + h * 0.65);
-  ctx.lineTo(x, y + h * 0.65);
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.moveTo(x + w, y + h * 0.35);
-  ctx.lineTo(x + w * 0.64, y + h * 0.35);
-  ctx.lineTo(x + w * 0.64, y + h * 0.65);
-  ctx.lineTo(x + w, y + h * 0.65);
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.moveTo(x + w * 0.36, y);
-  ctx.lineTo(x + w * 0.64, y);
-  ctx.lineTo(x + w * 0.64, y + h);
-  ctx.lineTo(x + w * 0.36, y + h);
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.arc(x + w * 0.5, y + h * 0.5, 9, 0, Math.PI * 2);
-  ctx.fillStyle = color + "40";
-  ctx.fill();
-  ctx.stroke();
-  ctx.restore();
-}
-
-// Draw elegant tracked badge pill
-function drawBadge(ctx, x, y, text, color, isLight) {
-  ctx.save();
-  ctx.font = "600 24px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
-  const metrics = ctx.measureText(text);
-  const padX = 22;
-  const padY = 12;
-  const w = metrics.width + padX * 2;
-  const h = 44;
-
-  ctx.beginPath();
-  ctx.roundRect(x, y, w, h, 10);
-  ctx.fillStyle = isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.08)";
+  ctx.roundRect(x, y, size, size * 0.8, 8);
+  ctx.fillStyle = padColor;
   ctx.fill();
   ctx.lineWidth = 2;
-  ctx.strokeStyle = color + "60";
+  ctx.strokeStyle = lineColor;
   ctx.stroke();
 
-  ctx.fillStyle = color;
-  ctx.fillText(text, x + padX, y + h - padY - 2);
+  // Internal minimal circuit grid
+  ctx.beginPath();
+  ctx.moveTo(x, y + size * 0.4);
+  ctx.lineTo(x + size, y + size * 0.4);
+  ctx.moveTo(x + size * 0.35, y);
+  ctx.lineTo(x + size * 0.35, y + size * 0.8);
+  ctx.moveTo(x + size * 0.65, y);
+  ctx.lineTo(x + size * 0.65, y + size * 0.8);
+  ctx.stroke();
+
   ctx.restore();
 }
 
-// Generate luxury high-DPI card canvas texture (1200x1800)
+// Generate luxury executive matte card texture (matching Reference Image 1:1)
 function generateCardTexture(study) {
   const canvas = document.createElement("canvas");
-  canvas.width = 1200;
-  canvas.height = 1800;
+  canvas.width = 900;
+  canvas.height = 1440;
   const ctx = canvas.getContext("2d");
 
   const w = canvas.width;
   const h = canvas.height;
-  const r = 56;
+  const r = 48;
 
-  // Background gradient
-  const grad = ctx.createLinearGradient(0, 0, w, h);
-  if (study.isLight) {
-    grad.addColorStop(0, "#F6F2E8");
-    grad.addColorStop(0.6, "#E5DFD1");
-    grad.addColorStop(1, "#D0C9B8");
-  } else {
-    grad.addColorStop(0, study.color);
-    grad.addColorStop(0.55, study.color);
-    grad.addColorStop(1, "#080B10");
-  }
-
+  // Solid matte background (identical to reference image)
   ctx.beginPath();
   ctx.roundRect(0, 0, w, h, r);
-  ctx.fillStyle = grad;
+  ctx.fillStyle = study.color;
   ctx.fill();
 
-  // Subtle metallic rim border
-  ctx.lineWidth = 6;
-  ctx.strokeStyle = study.accent + "50";
+  // Ultra-fine subtle inner border
+  ctx.lineWidth = 3;
+  ctx.strokeStyle = study.isLight ? "rgba(0, 0, 0, 0.08)" : "rgba(255, 255, 255, 0.12)";
   ctx.stroke();
 
-  // Minimal Grid pattern
-  ctx.lineWidth = 1.2;
-  ctx.strokeStyle = study.isLight ? "rgba(0,0,0,0.04)" : "rgba(255,255,255,0.045)";
-  const step = 48;
-  for (let x = 0; x < w; x += step) {
-    ctx.beginPath();
-    ctx.moveTo(x, 0);
-    ctx.lineTo(x, h);
-    ctx.stroke();
-  }
-  for (let y = 0; y < h; y += step) {
-    ctx.beginPath();
-    ctx.moveTo(0, y);
-    ctx.lineTo(w, y);
-    ctx.stroke();
-  }
-
-  // Top Left: Security Code + Dots Matrix
-  ctx.fillStyle = study.accent;
-  ctx.font = "700 36px 'Courier New', monospace";
-  ctx.fillText(study.code, 75, 125);
-
-  // Pip dots
-  ctx.fillStyle = study.accent + "80";
-  ctx.font = "28px sans-serif";
-  ctx.fillText("••••", 200, 123);
-
-  // Top Right: Chip
-  drawChip(ctx, w - 180, 80, 105, 78, study.accent);
-
-  // Middle Body: Category Pill
-  drawBadge(ctx, 75, 740, study.category, study.accent, study.isLight);
-
-  // Title: Bold, elegant tracked typography
+  // 1. Top Left: Title (Tracked Uppercase Sans)
   ctx.fillStyle = study.textColor;
-  ctx.font = "700 70px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
-  ctx.fillText(study.title, 75, 870);
+  ctx.font = "600 36px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+  ctx.letterSpacing = "4px";
+  ctx.fillText(study.title, 72, 115);
 
-  // Subtitle
+  // 2. Subtitle: Muted tracked uppercase
   ctx.fillStyle = study.subColor;
-  ctx.font = "400 36px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
-  ctx.fillText(study.subtitle, 75, 935);
+  ctx.font = "500 20px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+  ctx.letterSpacing = "3px";
+  ctx.fillText(study.subtitle, 72, 160);
 
-  // Bottom Hairline Divider
-  ctx.strokeStyle = study.accent + "30";
-  ctx.lineWidth = 2.5;
+  // 3. Top Right: Minimalist contactless / geometric icon
+  ctx.save();
+  ctx.strokeStyle = study.isLight ? "rgba(0, 0, 0, 0.35)" : "rgba(255, 255, 255, 0.45)";
+  ctx.lineWidth = 3;
   ctx.beginPath();
-  ctx.moveTo(75, h - 190);
-  ctx.lineTo(w - 75, h - 190);
+  ctx.arc(w - 90, 110, 18, -Math.PI * 0.35, Math.PI * 0.35);
   ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(w - 90, 110, 28, -Math.PI * 0.35, Math.PI * 0.35);
+  ctx.stroke();
+  ctx.restore();
 
-  // Cardholder Label
-  ctx.fillStyle = study.subColor;
-  ctx.font = "600 22px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
-  ctx.fillText("CARD HOLDER", 75, h - 130);
+  // 4. Upper-Middle: EMV Chip / Minimal Circuit Matrix (around Y=420)
+  drawChip(ctx, 72, 420, 76, study.isLight);
 
-  // Cardholder Name
+  // 5. Lower-Middle: 4-digit code & 4 dots (around Y=780)
   ctx.fillStyle = study.textColor;
-  ctx.font = "700 34px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
-  ctx.fillText("VIVEK MEHATA", 75, h - 85);
+  ctx.font = "600 42px 'Courier New', monospace";
+  ctx.letterSpacing = "2px";
+  ctx.fillText(study.code, 72, 780);
 
-  // Action Button / Badge
-  drawBadge(ctx, w - 260, h - 142, `${study.tag} ↗`, study.accent, study.isLight);
+  ctx.fillStyle = study.subColor;
+  ctx.font = "32px sans-serif";
+  ctx.fillText("••••", 72, 830);
+
+  // 6. Bottom Row: Card Holder & Vivek Mehata (around Y=1320)
+  ctx.fillStyle = study.subColor;
+  ctx.font = "600 16px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+  ctx.letterSpacing = "3px";
+  ctx.fillText("CARD HOLDER", 72, 1300);
+
+  ctx.fillStyle = study.textColor;
+  ctx.font = "600 28px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+  ctx.letterSpacing = "3px";
+  ctx.fillText("V. MEHATA", 72, 1345);
+
+  // Bottom Right: Minimal Action Tag
+  ctx.fillStyle = study.subColor;
+  ctx.font = "600 18px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+  ctx.letterSpacing = "2px";
+  ctx.fillText(`${study.tag} ↗`, w - 210, 1345);
 
   const texture = new THREE.CanvasTexture(canvas);
   texture.anisotropy = 16;
@@ -372,7 +309,7 @@ function generateCardTexture(study) {
   return texture;
 }
 
-// Create 3D Rounded Box Geometry
+// 3D Rounded Box Geometry
 function createRoundedCardGeometry(width, height, radius, depth) {
   const shape = new THREE.Shape();
   const x = -width / 2;
@@ -396,8 +333,8 @@ function createRoundedCardGeometry(width, height, radius, depth) {
     bevelEnabled: true,
     bevelSegments: 4,
     steps: 1,
-    bevelSize: 0.02,
-    bevelThickness: 0.015,
+    bevelSize: 0.015,
+    bevelThickness: 0.012,
     curveSegments: 16,
   };
 
@@ -423,9 +360,9 @@ export default function CaseStudies() {
     const scene = new THREE.Scene();
     scene.background = null;
 
-    // 2. Camera Setup (Wide coverage for edge-to-edge span)
+    // 2. Camera Setup (Wide lens for full end-to-end span)
     const camera = new THREE.PerspectiveCamera(34, width / height, 0.1, 100);
-    camera.position.set(0, 0, 10.5);
+    camera.position.set(0, 0, 10.8);
 
     // 3. Renderer Setup
     const renderer = new THREE.WebGLRenderer({
@@ -437,29 +374,25 @@ export default function CaseStudies() {
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.15;
+    renderer.toneMappingExposure = 1.1;
 
-    // 4. Studio Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.4);
+    // 4. Soft Studio Lighting (Zero glaring hotspots)
+    const ambientLight = new THREE.AmbientLight(0xffffff, 2.2);
     scene.add(ambientLight);
 
-    const dirLight1 = new THREE.DirectionalLight(0xffffff, 2.2);
-    dirLight1.position.set(6, 10, 8);
+    const dirLight1 = new THREE.DirectionalLight(0xffffff, 1.8);
+    dirLight1.position.set(6, 12, 10);
     scene.add(dirLight1);
 
-    const dirLight2 = new THREE.DirectionalLight(0x0ac4e0, 1.0);
-    dirLight2.position.set(-8, -4, 6);
+    const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.9);
+    dirLight2.position.set(-8, 4, 6);
     scene.add(dirLight2);
-
-    const spotlight = new THREE.PointLight(0xffffff, 3.5, 14);
-    spotlight.position.set(0, 0, 5);
-    scene.add(spotlight);
 
     // 5. Geometry & Card Setup
     const cardWidth = 2.1;
-    const cardHeight = 3.3;
-    const cardRadius = 0.15;
-    const cardDepth = 0.04;
+    const cardHeight = 3.35;
+    const cardRadius = 0.14;
+    const cardDepth = 0.035;
     const cardGeometry = createRoundedCardGeometry(cardWidth, cardHeight, cardRadius, cardDepth);
 
     const totalCards = CASE_STUDIES.length;
@@ -476,12 +409,11 @@ export default function CaseStudies() {
 
     CASE_STUDIES.forEach((study, i) => {
       const texture = generateCardTexture(study);
-      const material = new THREE.MeshPhysicalMaterial({
+      // Ultra-matte luxury paper/plastic material (Zero glossy glare)
+      const material = new THREE.MeshStandardMaterial({
         map: texture,
-        roughness: 0.18,
-        metalness: 0.06,
-        clearcoat: 0.55,
-        clearcoatRoughness: 0.12,
+        roughness: 0.75,
+        metalness: 0.05,
       });
 
       const mesh = new THREE.Mesh(cardGeometry, material);
@@ -494,8 +426,6 @@ export default function CaseStudies() {
         index: i,
         currentLift: 0,
         targetLift: 0,
-        currentFlip: 0,
-        targetFlip: 0,
       });
     });
 
@@ -504,7 +434,6 @@ export default function CaseStudies() {
     let targetScrollProgress = 0;
     let pointer = new THREE.Vector2(-999, -999);
     let hoveredCardIndex = -1;
-    let isPointerOver = false;
 
     const raycaster = new THREE.Raycaster();
 
@@ -513,9 +442,8 @@ export default function CaseStudies() {
       const rect = sectionRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
-      // Smooth scroll entry from top entering to centered
       const start = windowHeight * 0.95;
-      const end = windowHeight * 0.22;
+      const end = windowHeight * 0.25;
       const current = rect.top;
 
       const raw = (start - current) / (start - end);
@@ -532,23 +460,18 @@ export default function CaseStudies() {
 
       pointer.x = x * 2 - 1;
       pointer.y = -y * 2 + 1;
-      isPointerOver = true;
 
-      // Update spotlight position
-      spotlight.position.x = pointer.x * (visibleSpan * 0.45);
-      spotlight.position.y = pointer.y * 3;
-
-      // Raycast against cards
+      // Raycast against card meshes
       raycaster.setFromCamera(pointer, camera);
       const intersects = raycaster.intersectObjects(cards.map((c) => c.mesh));
 
       if (intersects.length > 0) {
+        // Only the directly hovered card is active
         hoveredCardIndex = intersects[0].object.userData.index;
         container.style.cursor = "pointer";
         setActiveTitle(intersects[0].object.userData.study.title);
       } else {
-        const continuousIdx = x * totalCards;
-        hoveredCardIndex = Math.max(0, Math.min(totalCards - 1, continuousIdx));
+        hoveredCardIndex = -1;
         container.style.cursor = "default";
         setActiveTitle(null);
       }
@@ -557,7 +480,6 @@ export default function CaseStudies() {
     const handlePointerLeave = () => {
       pointer.set(-999, -999);
       hoveredCardIndex = -1;
-      isPointerOver = false;
       container.style.cursor = "default";
       setActiveTitle(null);
     };
@@ -590,14 +512,11 @@ export default function CaseStudies() {
       camera.aspect = width / height;
 
       if (width < 768) {
-        camera.position.z = 14.2;
-        camera.position.y = 0.1;
+        camera.position.z = 14.5;
       } else if (width < 1200) {
-        camera.position.z = 12.0;
-        camera.position.y = 0.2;
+        camera.position.z = 12.2;
       } else {
-        camera.position.z = 10.5;
-        camera.position.y = 0.25;
+        camera.position.z = 10.8;
       }
 
       camera.updateProjectionMatrix();
@@ -608,7 +527,7 @@ export default function CaseStudies() {
     window.addEventListener("resize", handleResize);
     handleResize();
 
-    // 7. Render Loop with Smooth Spring Easing (Emil Kowalski Craft)
+    // 7. Render Loop with Smooth Spring Physics (Matching Reference Exactly)
     let animationFrameId;
     const clock = new THREE.Clock();
 
@@ -616,31 +535,32 @@ export default function CaseStudies() {
       animationFrameId = requestAnimationFrame(animate);
       const delta = Math.min(clock.getDelta(), 0.1);
 
-      // Smooth scroll progress lerp
-      scrollProgress += (targetScrollProgress - scrollProgress) * (delta * 6.5);
+      // Smooth scroll progress
+      scrollProgress += (targetScrollProgress - scrollProgress) * (delta * 6.0);
 
       const center = (totalCards - 1) / 2; // 6.5
 
       cards.forEach((card, i) => {
-        // Even 3D diagonal rack spacing across full width
-        const offsetFromCenter = i - center;
+        // Uniform straight diagonal rack spacing (Matching Reference Image 1:1)
+        const offset = i - center;
         const stepX = (visibleSpan * 0.88) / (totalCards - 1);
-        const settledX = offsetFromCenter * stepX;
-        const settledY = -0.65 + offsetFromCenter * 0.04;
-        const settledZ = -offsetFromCenter * 0.16;
+        const settledX = offset * stepX;
+        const settledY = -0.5 - offset * 0.18; // Clean uniform diagonal slope
+        const settledZ = -offset * 0.32;       // Clean depth stacking
 
-        const settledRotY = -0.45; // ~-25.8 deg
-        const settledRotX = 0.16;  // ~9.2 deg
-        const settledRotZ = 0.035; // ~2 deg
+        // Isometric angles (Matching Reference Image 1:1)
+        const settledRotX = 0.22;  // ~12.6 deg
+        const settledRotY = -0.58; // ~-33.2 deg
+        const settledRotZ = 0.08;  // ~4.6 deg
 
-        // Air Wave Position (Falling from top in a gentle 3D arc)
-        const airX = settledX * 1.08 - 0.8;
-        const airY = 4.8 + Math.sin(i * 0.45) * 1.0;
-        const airZ = 1.8 - (i / (totalCards - 1)) * 2.5;
+        // Air Wave Position (Falling from top arc on scroll)
+        const airX = settledX * 1.05 - 1.0;
+        const airY = settledY + 6.2 + Math.sin(i * 0.4) * 1.2;
+        const airZ = settledZ + 2.0;
 
         const airRotX = 0.65;
-        const airRotY = -0.75 + (i / totalCards) * 0.3;
-        const airRotZ = -0.25 + (i / totalCards) * 0.4;
+        const airRotY = -0.85;
+        const airRotZ = -0.2;
 
         // Staggered cascade fall progress
         const cardStart = (i / totalCards) * 0.35;
@@ -656,39 +576,20 @@ export default function CaseStudies() {
         const rotY = THREE.MathUtils.lerp(airRotY, settledRotY, easedP);
         const rotZ = THREE.MathUtils.lerp(airRotZ, settledRotZ, easedP);
 
-        // Hover Pop-up & Flip-to-front physics
-        let targetLift = 0;
-        let targetFlip = 0;
+        // Hover Pop-Up: ONLY the directly hovered card lifts (Zero multiple card glitch)
+        const isHovered = hoveredCardIndex === i && cardP > 0.6;
+        const targetLift = isHovered ? 0.95 : 0;
 
-        if (isPointerOver && hoveredCardIndex >= 0 && cardP > 0.6) {
-          const dist = Math.abs(hoveredCardIndex - i);
-          if (dist < 0.6) {
-            targetLift = 1.35; // Direct pop-up
-            targetFlip = 1.0;  // Full flip to camera
-          } else if (dist < 2.0) {
-            const falloff = 1 - (dist - 0.6) / 1.4;
-            targetLift = 0.45 * falloff; // Neighbor wave
-            targetFlip = 0.25 * falloff;
-          }
-        }
-
-        // Apple-grade smooth spring interpolation (never snaps)
-        const springSpeed = Math.min(delta * 5.5, 0.25);
+        // Emil Kowalski smooth spring lerp (silky smooth, never snaps)
+        const springSpeed = Math.min(delta * 7.0, 0.25);
         card.currentLift += (targetLift - card.currentLift) * springSpeed;
-        card.currentFlip += (targetFlip - card.currentFlip) * springSpeed;
 
-        // Final transforms
-        const finalRotY = THREE.MathUtils.lerp(rotY, 0, card.currentFlip);
-        const finalRotX = THREE.MathUtils.lerp(rotX, 0, card.currentFlip);
-        const finalRotZ = THREE.MathUtils.lerp(rotZ, 0, card.currentFlip);
+        // Apply lift along card's 3D local vertical axis
+        const liftY = card.currentLift * 0.95;
+        const liftZ = card.currentLift * 0.35;
 
-        const finalY = posY + card.currentLift * 1.1;
-        const finalZ = posZ + card.currentFlip * 1.25 + card.currentLift * 0.35;
-        const finalScale = 1 + card.currentFlip * 0.08;
-
-        card.mesh.position.set(posX, finalY, finalZ);
-        card.mesh.rotation.set(finalRotX, finalRotY, finalRotZ);
-        card.mesh.scale.set(finalScale, finalScale, finalScale);
+        card.mesh.position.set(posX, posY + liftY, posZ + liftZ);
+        card.mesh.rotation.set(rotX, rotY, rotZ);
       });
 
       renderer.render(scene, camera);
@@ -768,7 +669,7 @@ export default function CaseStudies() {
           right: 50%;
           margin-left: -50vw;
           margin-right: -50vw;
-          height: clamp(520px, 64vh, 700px);
+          height: clamp(540px, 66vh, 720px);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -807,7 +708,7 @@ export default function CaseStudies() {
         </h2>
 
         <p className="cs-desc-left">
-          Fourteen cards, one wave — a physics-driven 3D case study deck. Hover over any card to pop it up and flip to front, click to open research reports.
+          Fourteen cards, one wave — a physics-driven 3D case study deck. Hover over any card to pop it up, click to open research reports.
         </p>
       </div>
 
@@ -818,7 +719,7 @@ export default function CaseStudies() {
 
       {/* Footer hint */}
       <div className="cs-hint-container">
-        <span>← Move cursor along the deck to feel them pop up and flip →</span>
+        <span>← Move cursor along the deck to explore case studies →</span>
         <span style={{ color: activeTitle ? "#0AC4E0" : "rgba(255, 255, 255, 0.35)", transition: "color 0.2s ease" }}>
           {activeTitle ? `Click to open ${activeTitle} ↗` : "Click any card to open research report ↗"}
         </span>
