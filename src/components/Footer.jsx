@@ -132,6 +132,19 @@ const Footer = () => {
         perspective: '1200px',
       }}
     >
+      <style>{`
+        .footer-columns {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 32px;
+        }
+        @media (max-width: 900px) {
+          .footer-columns { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+          .footer-columns { grid-template-columns: 1fr; }
+        }
+      `}</style>
       {/* 1. Aurora Orbs Container (Internal bounds only) */}
       <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: -2 }}>
         <motion.div
@@ -283,13 +296,7 @@ const Footer = () => {
         />
 
         {/* Column grid — 4 equal columns */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '32px',
-          }}
-        >
+        <div className="footer-columns">
           {COLUMNS.map((col, colIdx) => {
             const colBaseDelay = 0.5 + colIdx * 0.15;
             return (

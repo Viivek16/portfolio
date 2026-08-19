@@ -93,7 +93,7 @@ const ThreePillars = () => {
                 ))}
               </div>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'row', gap: '72px', alignItems: 'flex-start', marginTop: '48px' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 'clamp(24px, 5vw, 72px)', alignItems: 'flex-start', marginTop: '48px' }}>
               {[['$200M+', 'AUM MANAGED'], ['3', 'FUNDS BUILT'], ['250+', 'PROJECTS MANAGED']].map(([num, label]) => (
                 <div key={label}>
                   <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 300, fontStyle: 'italic', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>
@@ -158,7 +158,7 @@ const ThreePillars = () => {
                 ))}
               </div>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'row', gap: '72px', alignItems: 'flex-start', marginTop: '48px' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 'clamp(24px, 5vw, 72px)', alignItems: 'flex-start', marginTop: '48px' }}>
               {[['450+', 'KOL NETWORK'], ['20+', 'GLOBAL EVENTS HOSTED'], ['150+', 'PARTNERSHIPS FOSTERED']].map(([num, label]) => (
                 <div key={label}>
                   <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 300, fontStyle: 'italic', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>
@@ -222,7 +222,7 @@ const ThreePillars = () => {
                 ))}
               </div>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'row', gap: '72px', alignItems: 'flex-start', marginTop: '48px' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 'clamp(24px, 5vw, 72px)', alignItems: 'flex-start', marginTop: '48px' }}>
               {[['5', 'LIVE PRODUCTS'], ['100%', 'DELIVERY RATE']].map(([num, label]) => (
                 <div key={label}>
                   <p style={{ fontFamily: 'Fraunces, serif', fontWeight: 300, fontStyle: 'italic', fontSize: '28px', color: '#0992C2', margin: 0 }}>{num}</p>

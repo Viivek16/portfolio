@@ -10,6 +10,7 @@ import PodcastSection from '../components/PodcastSection'
 import TestimonialSection from '../components/TestimonialSection'
 import Footer from '../components/Footer'
 import ToolsBuilt from '../components/ToolsBuilt'
+import CaseStudies from '../components/CaseStudies'
 
 const Home = () => {
   return (
@@ -21,6 +22,7 @@ const Home = () => {
       <WorkAbout />
       <ThreePillars />
       <ToolsBuilt />
+      <CaseStudies />
       <FunSection />
       <PodcastSection />
       <TestimonialSection />

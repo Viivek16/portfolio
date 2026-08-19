@@ -84,12 +84,13 @@ const Hero = () => {
         .hero-blend{position:absolute;left:0;right:0;bottom:0;height:220px;background:linear-gradient(to bottom,rgba(7,12,24,0) 0%,${NEXT_BG} 100%);z-index:5;pointer-events:none;}
         @media (max-width:768px){
           .hero-portrait-tilt{transform:none;transition:none;}
-          .hero-portrait-fade{height:56vh;}
+          .hero-portrait-fade{height:56vh; width: 100%;}
+          .hero-portrait-fade img{width: 100%; height: 100%; object-fit: contain; object-position: bottom;}
           .hero-portrait-gray{-webkit-mask-image:none;mask-image:none;}
-          .hero-wordmark-wrap{top:12%;transform:none;}
-          .hero-wordmark{font-size:clamp(40px,16vw,78px);}
-          .hero-left{position:relative;left:auto;top:auto;transform:none;max-width:100%;text-align:center;padding:130px 24px 0;}
-          .hero-right{position:relative;right:auto;top:auto;transform:none;max-width:100%;text-align:center;padding:24px 24px 64px;}
+          .hero-wordmark-wrap{top: 40%; z-index: 1; transform: translateY(-50%);}
+          .hero-wordmark{font-size:clamp(40px,22vw,78px);}
+          .hero-left{position:relative;left:auto;top:auto;transform:none;max-width:100%;text-align:center;padding:80px 24px 0; z-index: 3;}
+          .hero-right{position:relative;right:auto;top:auto;transform:none;max-width:100%;text-align:center;padding:24px 24px 64px; z-index: 3;}
           .hero-quote .qmark{position:static;}
         }
       `}</style>

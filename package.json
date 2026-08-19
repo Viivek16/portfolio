@@ -18,7 +18,8 @@
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-router-dom": "^7.15.0",
-    "split-type": "^0.3.4"
+    "split-type": "^0.3.4",
+    "three": "^0.185.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

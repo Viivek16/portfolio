@@ -428,9 +428,16 @@
   margin-bottom: 20px;
 }
 
+/* Mobile hiding of Firm Strip (Issue #4) */
+@media (max-width: 768px) {
+  .stripContainer {
+    display: none !important;
+  }
+}
+
 .firmStrip {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
   column-gap: 20px;
   row-gap: 16px;
   padding-top: 24px;

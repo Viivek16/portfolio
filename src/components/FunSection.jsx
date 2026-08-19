@@ -178,6 +178,28 @@ const FunSection = () => {
         flexDirection: 'column'
       }}
     >
+      <style>{`
+        .fun-grid {
+          display: grid;
+          grid-template-columns: 1.65fr 1fr 1fr;
+          grid-template-rows: minmax(0, 1.4fr) minmax(0, 1fr);
+          gap: 12px;
+          width: 100%;
+          flex: 1;
+          perspective: 1200px;
+        }
+        @media (max-width: 900px) {
+          .fun-grid {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto;
+          }
+          .fun-grid > div {
+            grid-column: 1 !important;
+            grid-row: auto !important;
+            min-height: 300px;
+          }
+        }
+      `}</style>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -237,17 +259,7 @@ const FunSection = () => {
         </p>
       </motion.div>
 
-      <div 
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1.65fr 1fr 1fr',
-          gridTemplateRows: 'minmax(0, 1.4fr) minmax(0, 1fr)',
-          gap: '12px',
-          width: '100%',
-          flex: 1,
-          perspective: '1200px'
-        }}
-      >
+      <div className="fun-grid">
         {TILES.map((tile) => {
           const isHovered = hoveredTile === tile.id;
           const delay = getTileDelay(tile.id);

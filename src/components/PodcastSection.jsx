@@ -271,7 +271,7 @@ export default function PodcastSection() {
   const [playHover, setPlayHover] = useState(false);
   const [spotifyHover, setSpotifyHover] = useState(false);
 
-  const isInView = useInView(sectionRef, { once: false, amount: 0.12 });
+  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
 
   useEffect(() => {
     isPlayingRef.current = isPlaying;
@@ -384,6 +384,18 @@ export default function PodcastSection() {
         @keyframes vinylSpin {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
+        }
+        .podcast-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 14px;
+          width: 100%;
+        }
+        @media (max-width: 1024px) {
+          .podcast-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 640px) {
+          .podcast-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
 
@@ -744,7 +756,7 @@ export default function PodcastSection() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-            style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px', width: '100%' }}
+            className="podcast-grid"
           >
             {(activeSeason === 1 ? SEASON_1 : SEASON_2).map((ep, idx) => (
               <EpisodeCard key={ep.num} episode={ep} index={idx} isInView={isInView} />

@@ -13,6 +13,12 @@
       "skillPath": "skills/emil-design-eng/SKILL.md",
       "computedHash": "ac3fc5b4e206488ffc408a2806f829bb2e5eaf518fded09be34790685c2b3a0d"
     },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "computedHash": "b146008599c31057cef1c145774cea5d5afb30e8f43fa802e47a4b461419aaaf"
+    },
     "frontend-design": {
       "source": "anthropics/skills",
       "sourceType": "github",

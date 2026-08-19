@@ -18,12 +18,12 @@ const Navigation = () => {
   const location = useLocation()
   
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 p-6 md:px-12 flex justify-between items-center text-ink">
+    <nav className="fixed top-0 left-0 w-full z-50 p-4 md:p-6 md:px-12 flex justify-between items-center text-ink">
       <Link to="/" className="font-display text-2xl tracking-tighter font-bold uppercase">
         VM.
       </Link>
       
-      <div className="flex gap-8 items-center font-display uppercase tracking-widest text-sm">
+      <div className="flex gap-4 md:gap-8 items-center font-display uppercase tracking-widest text-xs md:text-sm">
         <Link 
           to="/" 
           className={`hover:text-ink transition-colors ${location.pathname === '/' ? 'text-ink border-b border-accent' : 'text-ink-soft'}`}
