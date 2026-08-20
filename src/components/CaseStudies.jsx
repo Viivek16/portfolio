@@ -323,7 +323,7 @@ export default function CaseStudies() {
           position: relative;
           background: #070C18;
           padding-top: clamp(56px, 8vh, 88px);
-          padding-bottom: clamp(48px, 7vh, 84px);
+          padding-bottom: clamp(28px, 4vh, 48px);
           overflow: hidden;
           isolation: isolate;
           z-index: 35;
@@ -348,7 +348,7 @@ export default function CaseStudies() {
         /* ---- full-bleed 3D shelf ---- */
         .cs-stage {
           position: relative; width: 100vw; left: 50%; margin-left: -50vw;
-          height: clamp(600px, 70vh, 820px);
+          height: clamp(580px, 60vh, 760px);
         }
         .cs-scene {
           --cw: 212px; --ch: 322px;

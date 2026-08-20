@@ -167,7 +167,7 @@ const FunSection = () => {
       style={{
         paddingLeft: '8vw',
         paddingRight: '8vw',
-        paddingTop: '96px',
+        paddingTop: '68px',
         paddingBottom: '96px',
         position: 'relative',
         zIndex: 50,
