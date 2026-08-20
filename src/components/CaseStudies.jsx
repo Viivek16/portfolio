@@ -52,18 +52,16 @@ export function rackPose(i, n, stepX) {
   return { settled, air };
 }
 
-// Index of the card centre nearest a screen x (single-card hover mapping).
-export function nearestIndex(centers, x) {
-  let best = -1;
-  let bestD = Infinity;
-  for (let i = 0; i < centers.length; i++) {
-    const d = Math.abs(centers[i] - x);
-    if (d < bestD) {
-      bestD = d;
-      best = i;
-    }
+// Frontmost card whose settled hit-box {l,r,t,b} contains the point, else -1.
+// Cards render back→front, so scan from the top of the stack down. Using the
+// SETTLED boxes (not the lifted card) keeps hover from flickering as a card
+// rises, and gating on y stops empty space above/below the shelf from lifting.
+export function hitIndex(boxes, x, y) {
+  for (let i = boxes.length - 1; i >= 0; i--) {
+    const b = boxes[i];
+    if (b && x >= b.l && x <= b.r && y >= b.t && y <= b.b) return i;
   }
-  return best;
+  return -1;
 }
 
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -143,13 +141,13 @@ export default function CaseStudies() {
     let offsetX = 0; // horizontal recentre for the 3D skew
     let offsetY = 0; // vertical recentre of the visible band
     let hovered = -1;
-    let centers = [];
+    let hitmap = [];
     let startTime = null;
     let entranceDone = !animated;
     // two-frame settle: recentre updates the offsets, then the NEXT frame paints
-    // with them and we read the (now correct) card centres for hover mapping.
+    // with them and we read the (now correct) card hit-boxes for hover.
     let pendingRecentre = !animated;
-    let pendingCenters = false;
+    let pendingHit = false;
     let raf = null;
     let idle = false;
 
@@ -176,11 +174,13 @@ export default function CaseStudies() {
       offsetY += sr.top + sr.height / 2 - bandMid;
     };
 
-    const readCenters = () => {
-      centers = slotRefs.current.map((s) => {
-        if (!s) return 0;
+    const readHitmap = () => {
+      hitmap = slotRefs.current.map((s) => {
+        if (!s) return null;
         const r = s.getBoundingClientRect();
-        return r.left + r.width / 2;
+        // trim the rotated bounding-box overhang so the hit area hugs the card
+        const vin = Math.min(22, r.height * 0.09);
+        return { l: r.left, r: r.right, t: r.top + vin, b: r.bottom - vin };
       });
     };
 
@@ -199,15 +199,18 @@ export default function CaseStudies() {
         }
 
         const target = hovered === i && entranceDone ? 1 : 0;
-        lifts[i] += (target - lifts[i]) * 0.18;
-        if (Math.abs(target - lifts[i]) > 0.001) busy = true;
-        const L = lifts[i];
+        // soft critically-damped-ish spring for a silky, glitch-free lift
+        lifts[i] += (target - lifts[i]) * 0.14;
+        if (Math.abs(lifts[i] - target) > 0.0005) busy = true;
+        else lifts[i] = target;
+        const eL = easeOut(lifts[i]); // ease the visual so the pop settles gently
+        const L = eL;
 
         const x = lerp(air.x, settled.x, e) + offsetX;
-        const y = lerp(air.y, settled.y, e) + offsetY - L * 56;
-        const z = lerp(air.z, settled.z, e) + L * 130;
+        const y = lerp(air.y, settled.y, e) + offsetY - L * 54;
+        const z = lerp(air.z, settled.z, e) + L * 128;
         const rx = lerp(air.rx, settled.rx, e);
-        const ry = lerp(air.ry, settled.ry, e) + L * 9;
+        const ry = lerp(air.ry, settled.ry, e) + L * 6;
         const rz = lerp(air.rz, settled.rz, e) * (1 - L);
 
         slot.style.transform =
@@ -228,11 +231,11 @@ export default function CaseStudies() {
       if (pendingRecentre) {
         recentre();
         pendingRecentre = false;
-        pendingCenters = true;
+        pendingHit = true;
         busy = true;
-      } else if (pendingCenters) {
-        readCenters();
-        pendingCenters = false;
+      } else if (pendingHit) {
+        readHitmap();
+        pendingHit = false;
       }
 
       // keep the loop alive through the whole entrance so it can't idle in the
@@ -271,8 +274,8 @@ export default function CaseStudies() {
     let onMove, onLeave;
     if (animated) {
       onMove = (ev) => {
-        if (!entranceDone || !centers.length) return;
-        const h = nearestIndex(centers, ev.clientX);
+        if (!entranceDone || !hitmap.length) return;
+        const h = hitIndex(hitmap, ev.clientX, ev.clientY);
         if (h !== hovered) {
           hovered = h;
           kick();
@@ -434,14 +437,6 @@ export default function CaseStudies() {
           scroll-snap-align: center;
         }
         .cs-rail .cs-title { font-size: 32px; }
-
-        .cs-hint {
-          padding-left: 8vw; padding-right: 8vw; padding-top: 14px;
-          display: flex; align-items: center; justify-content: space-between; gap: 16px;
-          font-family: 'Poppins', sans-serif; font-size: 12px;
-          color: rgba(255,255,255,0.32); letter-spacing: 0.05em;
-        }
-        @media (max-width: 640px) { .cs-hint span:last-child { display: none; } }
       `}</style>
 
       <div className="cs-header-wrapper">
@@ -478,11 +473,6 @@ export default function CaseStudies() {
           </div>
         </div>
       )}
-
-      <div className="cs-hint">
-        <span>← Move across the shelf to explore case studies →</span>
-        <span>Click any card to open the research report ↗</span>
-      </div>
     </section>
   );
 }

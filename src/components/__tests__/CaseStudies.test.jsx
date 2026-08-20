@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { stepFor, countFor, buildDeck, easeOut, rackPose, nearestIndex } from "../CaseStudies";
+import { stepFor, countFor, buildDeck, easeOut, rackPose, hitIndex } from "../CaseStudies";
 
 describe("stepFor / countFor (edge-to-edge fill)", () => {
   it("clamps the step and grows the count with width", () => {
@@ -51,11 +51,21 @@ describe("rackPose", () => {
   });
 });
 
-describe("nearestIndex (single-card hover mapping)", () => {
-  it("picks the nearest card centre to the cursor", () => {
-    const centers = [100, 200, 300, 400];
-    expect(nearestIndex(centers, 90)).toBe(0);
-    expect(nearestIndex(centers, 260)).toBe(2);
-    expect(nearestIndex(centers, 999)).toBe(3);
+describe("hitIndex (single-card hover, settled hit-boxes)", () => {
+  const boxes = [
+    { l: 0, r: 100, t: 0, b: 100 }, // 0 (back)
+    { l: 80, r: 180, t: 0, b: 100 }, // 1 (front, overlaps 0's right)
+  ];
+  it("returns -1 for empty space above/below/beside the shelf", () => {
+    expect(hitIndex(boxes, 50, 200)).toBe(-1); // below
+    expect(hitIndex(boxes, 50, -20)).toBe(-1); // above
+    expect(hitIndex(boxes, 300, 50)).toBe(-1); // beside
+  });
+  it("picks the card whose own strip the cursor is over", () => {
+    expect(hitIndex(boxes, 20, 50)).toBe(0);
+    expect(hitIndex(boxes, 160, 50)).toBe(1);
+  });
+  it("prefers the frontmost card in an overlap (no flicker)", () => {
+    expect(hitIndex(boxes, 90, 50)).toBe(1);
   });
 });
