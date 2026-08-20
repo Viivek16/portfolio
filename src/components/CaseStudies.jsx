@@ -45,10 +45,10 @@ export function easeOut(t) {
 export function rackPose(i, n, stepX) {
   const o = i - (n - 1) / 2;
   const x = o * stepX;
-  const y = o * stepX * 0.18;
+  const y = o * stepX * 0.15;
   const z = o * stepX * 0.16;
-  const settled = { x, y, z, rx: 11, ry: -30, rz: 4 };
-  const air = { x, y: y - 940, z: z + 40, rx: 19, ry: -38, rz: -4 };
+  const settled = { x, y, z, rx: 9, ry: -24, rz: 3 };
+  const air = { x, y: y - 940, z: z + 40, rx: 16, ry: -31, rz: -3 };
   return { settled, air };
 }
 
@@ -234,6 +234,10 @@ export default function CaseStudies() {
         readCenters();
         pendingCenters = false;
       }
+
+      // keep the loop alive through the whole entrance so it can't idle in the
+      // gap before entranceDone flips (which would leave hover permanently off)
+      if (animated && startTime != null && !entranceDone) busy = true;
 
       if (busy) raf = requestAnimationFrame(frame);
       else idle = true;

@@ -33,7 +33,7 @@ const COLUMNS = [
     num: 'iv.',
     title: 'Resume',
     items: [
-      { id: 'growth-cv', label: 'Growth Resume', href: 'https://drive.google.com/file/d/1TvSLFdRZQkucFx7mEtQQqaxYhqTyZjgu/view?usp=sharing', external: true },
+      { id: 'growth-cv', label: 'Growth Resume', href: 'https://drive.google.com/file/d/1yqwPX-GSbRIL5RzOoxv-WUtD66Ne6RQO/view?usp=sharing', external: true },
       { id: 'vc-cv',     label: 'VC Resume',     href: 'https://drive.google.com/file/d/1fDCQhhUvrjF2MQm7xFzrYiBXbmgbDuuW/view?usp=sharing', external: true },
     ],
   },
