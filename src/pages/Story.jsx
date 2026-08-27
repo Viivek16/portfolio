@@ -513,7 +513,7 @@ const Story = () => {
             <h2 className={styles.nowWordmark}>Now</h2>
             <div className={styles.nowTagline}>
               <div>Still sailing across</div>
-              <div className={styles.nowTaglineEm}>VC, Marketing, AI.</div>
+              <div className={styles.nowTaglineEm}>GTM, Growth, AI.</div>
             </div>
 
             <div className={styles.nowPullQuote}>

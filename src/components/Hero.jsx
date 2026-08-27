@@ -82,16 +82,27 @@ const Hero = () => {
         .hero-quote{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:clamp(22px,2.2vw,32px);line-height:1.45;color:rgba(255,255,255,0.76);margin:0;position:relative;}
         .hero-quote .qmark{font-family:'Fraunces',serif;font-style:italic;color:#0AC4E0;font-size:1.6em;position:absolute;left:-0.7em;top:-0.35em;}
         .hero-blend{position:absolute;left:0;right:0;bottom:0;height:220px;background:linear-gradient(to bottom,rgba(7,12,24,0) 0%,${NEXT_BG} 100%);z-index:5;pointer-events:none;}
-        @media (max-width:768px){
+        /* Tablets, iPad landscape and narrow laptops: stack the hero as a
+           centered column (name → portrait → quote) so the side copy never
+           collides with the portrait as it does in the absolute desktop layout. */
+        @media (max-width:1200px){
+          .hero-root{min-height:auto;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:104px 24px 56px;}
+          .hero-wordmark-wrap{top:14%;transform:none;}
+          .hero-wordmark{font-size:clamp(40px,14vw,120px);}
           .hero-portrait-tilt{transform:none;transition:none;}
-          .hero-portrait-fade{height:56vh; width: 100%;}
-          .hero-portrait-fade img{width: 100%; height: 100%; object-fit: contain; object-position: bottom;}
+          .hero-portrait-pos{position:relative;left:auto;bottom:auto;transform:none;order:2;display:flex;justify-content:center;}
+          .hero-portrait-fade{height:min(52vh,520px);width:auto;}
+          .hero-portrait-fade img{height:100%;width:auto;object-position:bottom;}
           .hero-portrait-gray{-webkit-mask-image:none;mask-image:none;}
-          .hero-wordmark-wrap{top: 40%; z-index: 1; transform: translateY(-50%);}
-          .hero-wordmark{font-size:clamp(40px,22vw,78px);}
-          .hero-left{position:relative;left:auto;top:auto;transform:none;max-width:100%;text-align:center;padding:80px 24px 0; z-index: 3;}
-          .hero-right{position:relative;right:auto;top:auto;transform:none;max-width:100%;text-align:center;padding:24px 24px 64px; z-index: 3;}
+          .hero-left{position:relative;left:auto;top:auto;transform:none;max-width:100%;text-align:center;order:1;padding:0 0 4px;z-index:3;}
+          .hero-right{position:relative;right:auto;top:auto;transform:none;max-width:100%;text-align:center;order:3;padding:20px 0 0;z-index:3;}
           .hero-quote .qmark{position:static;}
+          .hero-blend{display:none;}
+        }
+        @media (max-width:640px){
+          .hero-root{padding:88px 20px 40px;}
+          .hero-portrait-fade{height:min(46vh,420px);}
+          .hero-wordmark{font-size:clamp(38px,20vw,72px);}
         }
       `}</style>
 
@@ -122,7 +133,7 @@ const Hero = () => {
       <div className="hero-left">
         <motion.p className="hero-eyebrow" {...reveal(0.30)}>Hey there, I&apos;m</motion.p>
         <motion.h1 className="hero-name" {...reveal(0.40)}>Viivek<br />Mehata<span style={{ color: '#0AC4E0' }}>.</span></motion.h1>
-        <motion.p className="hero-triad" {...reveal(0.55)}>VC <span className="dot">·</span> Marketing <span className="dot">·</span> AI</motion.p>
+        <motion.p className="hero-triad" {...reveal(0.55)}>GTM <span className="dot">·</span> Growth <span className="dot">·</span> AI</motion.p>
       </div>
 
       <motion.div className="hero-right" {...reveal(0.65)}>

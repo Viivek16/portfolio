@@ -9,6 +9,7 @@ const COLUMNS = [
     title: 'Follow',
     items: [
       { id: 'linkedin',  label: 'LinkedIn',  href: 'https://www.linkedin.com/in/viivek-mehata16/', external: true },
+      { id: 'github',    label: 'GitHub',    href: 'https://github.com/Viivek16/portfolio',        external: true },
       { id: 'telegram',  label: 'Telegram',  href: 'https://t.me/Viivek16',                         external: true },
       { id: 'twitter',   label: 'Twitter/X', href: 'https://x.com/mehtaandmore',                    external: true },
       { id: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/mehta_and_more/',     external: true },
@@ -397,7 +398,7 @@ const Footer = () => {
                 color: 'rgba(255,255,255,0.4)',
               }}
             >
-              © 2026 · Sailing across Marketing, VC &amp; AI.
+              © 2026 · Sailing across GTM, Growth &amp; AI.
             </span>
           </motion.div>
         </div>
