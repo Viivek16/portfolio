@@ -218,9 +218,9 @@ const WorkAbout = () => {
           </h2>
           
           <div className={styles.aboutProse} ref={proseRef}>
-            <p>I'm <strong>Viivek Mehata</strong>, a GTM and growth operator with six years spent taking Web3 products from launch to real traction.</p>
-            <p>I build from the inside, not from above. I scaled a bootstrapped team from 3 to 18 people and brought in over $60K in B2B revenue before we launched. Since then I've led go-to-market for more than 20 products, owning the launch, the distribution, and the growth that comes after.</p>
-            <p>What I stand for is simple. Growth that holds after the launch, distribution that keeps working, and AI tools I build myself so a small team can move like a big one.</p>
+            <p>I'm <strong>Viivek Mehata</strong>, a GTM and strategy operator with six years spent taking Web3 products from launch to real traction.</p>
+            <p>Interesting ideas, distribution tactics, and cool tech excites me. Following which, I previously co-founded two startups, shut down the first and got a successful exit from the second. Since then I moved to Web3 and led go-to-market for more than 20 projects, owning the launch, the distribution, and the growth that comes after.</p>
+            <p>Growth that holds after the launch, distribution that keeps working, and AI tools I build myself so a small team can move like a big one.</p>
           </div>
 
           {/* Firm Strip */}

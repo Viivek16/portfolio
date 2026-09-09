@@ -13,7 +13,7 @@ describe('WorkAbout Component', () => {
 
   it('renders the story text paragraphs', () => {
     render(<WorkAbout />)
-    expect(screen.getByText(/GTM and growth operator/i)).toBeInTheDocument()
+    expect(screen.getByText(/GTM and strategy operator/i)).toBeInTheDocument()
   })
 
   it('renders built & operated at firms', () => {

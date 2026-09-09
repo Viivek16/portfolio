@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 
 /* ────────────────────────────────────────────────────────────
@@ -6,9 +6,10 @@ import { motion, useScroll, useTransform, useSpring, useMotionValue } from "fram
 ──────────────────────────────────────────────────────────────*/
 const RADIUS = 22;                        // card corner radius (px)
 const CARD_ASPECT = "5 / 8";              // width / height — lower first number = taller card
-const GAP = "clamp(16px, 1.6vw, 24px)";   // gap between cards
-const CARD_W = "clamp(230px, 19vw, 300px)"; // fixed card width so sizes never shrink as cards are added
-const MARQUEE_DURATION = "48s";           // one full loop; lower = faster drift
+const GAP = "clamp(16px, 1.6vw, 24px)";   // gap between cards (unchanged)
+const CARD_W = "clamp(270px, 23vw, 350px)"; // fixed card width — bigger than the old 4-up so cards keep impact
+const DRIFT_SPEED = 0.5;                   // auto-scroll px per frame (~30px/s); yields to user input
+const RESUME_IDLE = 1200;                  // ms of no user input before auto-drift resumes
 
 const TOOLS = [
   {
@@ -24,10 +25,10 @@ const TOOLS = [
     url: "https://simpliapp.vercel.app/",
   },
   {
-    name: "Yellow Website",
-    desc: "Yellow Capital's site — designed, built and shipped end to end.",
-    img: "/images/tools/yc-website.png",
-    url: "https://yc-website-v2.vercel.app/",
+    name: "Come Home",
+    desc: "A calm space for meditation and breathwork, built to bring you back to center.",
+    img: "/images/tools/come-home.png?v=2", // cache-buster so the new screenshot is picked up
+    url: "https://comehome-calm.vercel.app/",
   },
   {
     name: "Yellow CRM",
@@ -36,14 +37,14 @@ const TOOLS = [
     url: null, // No link, card behaves as a static display
   },
   {
-    name: "Come Home",
-    desc: "A calm space for meditation and breathwork, built to bring you back to center.",
-    img: "/images/tools/come-home.png",
-    url: "https://comehome-calm.vercel.app/",
+    name: "Yellow Website",
+    desc: "Yellow Capital's site — designed, built and shipped end to end.",
+    img: "/images/tools/yc-website.png",
+    url: "https://yc-website-v2.vercel.app/",
   },
 ];
 
-// Doubled list drives a seamless -50% marquee loop.
+// Doubled list drives a seamless loop (auto-drift and manual scroll both wrap on it).
 const LOOP = [...TOOLS, ...TOOLS];
 
 function ToolCard({ tool, index, smoothProgress }) {
@@ -83,14 +84,14 @@ function ToolCard({ tool, index, smoothProgress }) {
 
   return (
     // OUTER wrapper carries the scroll entrance (opacity + y + flip).
-    // Fixed width + marginRight (instead of flex-grow + gap) keeps card size constant and
-    // makes the doubled track loop exactly at translateX(-50%).
+    // Fixed width + marginRight keeps card size constant regardless of card count.
     <motion.div style={{ opacity, y, rotateX, scale, width: CARD_W, flexShrink: 0, marginRight: GAP, transformOrigin: "bottom center" }}>
       <Component
         {...(tool.url ? { href: tool.url, target: "_blank", rel: "noopener noreferrer" } : {})}
         onMouseEnter={() => setHovered(true)}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        onDragStart={(e) => e.preventDefault()} // let the rail own the drag, not the <a>
         whileTap={{ scale: 0.96 }} // satisfying press state
         style={{
           position: "relative",
@@ -241,6 +242,7 @@ function ToolCard({ tool, index, smoothProgress }) {
 
 export default function ToolsBuilt() {
   const sectionRef = useRef(null);
+  const railRef = useRef(null);
 
   // Re-balanced trigger offset. Animates when user is past card 3 and section is fully engaged.
   const { scrollYProgress } = useScroll({
@@ -254,6 +256,94 @@ export default function ToolsBuilt() {
     mass: 0.8,
     restDelta: 0.001
   });
+
+  // Native horizontal scroll (drag / swipe / trackpad) with an auto-drift that yields to the user.
+  useEffect(() => {
+    const rail = railRef.current;
+    const track = rail && rail.firstElementChild;
+    if (!rail || !track) return;
+
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let raf;
+    let half = track.scrollWidth / 2;
+    const measure = () => { half = track.scrollWidth / 2; };
+    const ro = new ResizeObserver(measure);
+    ro.observe(track);
+
+    let hovering = false;
+    let dragging = false;
+    let lastInput = 0;
+    const markInput = () => { lastInput = performance.now(); };
+
+    const step = () => {
+      if (!prefersReduced && !hovering && !dragging && performance.now() - lastInput > RESUME_IDLE) {
+        rail.scrollLeft += DRIFT_SPEED;
+      }
+      // Seamless wrap in both directions (content is doubled).
+      if (half > 0) {
+        if (rail.scrollLeft >= half) rail.scrollLeft -= half;
+        else if (rail.scrollLeft <= 0) rail.scrollLeft += half;
+      }
+      raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+
+    const onEnter = () => { hovering = true; };
+    const onLeave = () => { hovering = false; };
+    rail.addEventListener("mouseenter", onEnter);
+    rail.addEventListener("mouseleave", onLeave);
+    rail.addEventListener("wheel", markInput, { passive: true });
+    rail.addEventListener("touchstart", markInput, { passive: true });
+    rail.addEventListener("touchmove", markInput, { passive: true });
+
+    // Pointer drag-to-scroll for mouse/pen; touch uses the browser's native momentum panning.
+    let startX = 0, startScroll = 0, moved = 0;
+    const onPointerDown = (e) => {
+      if (e.pointerType === "touch") return;
+      dragging = true; moved = 0;
+      startX = e.clientX; startScroll = rail.scrollLeft;
+      try { rail.setPointerCapture(e.pointerId); } catch (_) {}
+      rail.style.cursor = "grabbing";
+    };
+    const onPointerMove = (e) => {
+      if (!dragging) return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > moved) moved = Math.abs(dx);
+      rail.scrollLeft = startScroll - dx;
+      markInput();
+    };
+    const onPointerUp = (e) => {
+      if (!dragging) return;
+      dragging = false; markInput();
+      rail.style.cursor = "grab";
+      try { rail.releasePointerCapture(e.pointerId); } catch (_) {}
+    };
+    // Swallow the click that follows a real drag so a card link doesn't fire mid-drag.
+    const onClickCapture = (e) => {
+      if (moved > 6) { e.preventDefault(); e.stopPropagation(); moved = 0; }
+    };
+    rail.addEventListener("pointerdown", onPointerDown);
+    rail.addEventListener("pointermove", onPointerMove);
+    rail.addEventListener("pointerup", onPointerUp);
+    rail.addEventListener("pointercancel", onPointerUp);
+    rail.addEventListener("click", onClickCapture, true);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      ro.disconnect();
+      rail.removeEventListener("mouseenter", onEnter);
+      rail.removeEventListener("mouseleave", onLeave);
+      rail.removeEventListener("wheel", markInput);
+      rail.removeEventListener("touchstart", markInput);
+      rail.removeEventListener("touchmove", markInput);
+      rail.removeEventListener("pointerdown", onPointerDown);
+      rail.removeEventListener("pointermove", onPointerMove);
+      rail.removeEventListener("pointerup", onPointerUp);
+      rail.removeEventListener("pointercancel", onPointerUp);
+      rail.removeEventListener("click", onClickCapture, true);
+    };
+  }, []);
 
   return (
     <section
@@ -272,30 +362,28 @@ export default function ToolsBuilt() {
       }}
     >
       <style>{`
-        .tools-built-viewport{
-          /* Full-bleed rail: break out of the section's 8vw padding so cards drift edge to edge */
+        .tools-built-rail{
+          /* Full-bleed, user-scrollable rail: break out of the section's 8vw padding */
           margin-left: -8vw;
           margin-right: -8vw;
-          overflow: hidden;
+          padding: 0 8vw;
+          overflow-x: auto;
+          overflow-y: hidden;
+          cursor: grab;
           perspective: 1200px;
+          scrollbar-width: none;               /* Firefox */
+          -ms-overflow-style: none;            /* IE/Edge */
+          -webkit-overflow-scrolling: touch;   /* iOS momentum */
+          overscroll-behavior-x: contain;
           -webkit-mask-image: linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%);
           mask-image: linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%);
         }
+        .tools-built-rail::-webkit-scrollbar{ display: none; } /* Chrome/Safari */
+        .tools-built-rail:active{ cursor: grabbing; }
         .tools-built-track{
           display: flex;
           width: max-content;
-          padding: 0 8vw;
-          will-change: transform;
-          animation: tools-built-marquee ${MARQUEE_DURATION} linear infinite;
-        }
-        .tools-built-viewport:hover .tools-built-track{ animation-play-state: paused; }
-        @keyframes tools-built-marquee{
-          from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
-        }
-        @media (prefers-reduced-motion: reduce){
-          .tools-built-track{ animation: none; }
-          .tools-built-viewport{ overflow-x: auto; }
+          will-change: scroll-position;
         }
       `}</style>
 
@@ -314,7 +402,7 @@ export default function ToolsBuilt() {
         — Tools Built
       </div>
 
-      <div className="tools-built-viewport">
+      <div className="tools-built-rail" ref={railRef}>
         <div className="tools-built-track">
           {LOOP.map((tool, i) => (
             <ToolCard
