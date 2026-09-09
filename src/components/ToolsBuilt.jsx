@@ -4,9 +4,11 @@ import { motion, useScroll, useTransform, useSpring, useMotionValue } from "fram
 /* ────────────────────────────────────────────────────────────
    TUNING KNOBS — iterate here on the test link
 ──────────────────────────────────────────────────────────────*/
-const RADIUS = 22;                       // card corner radius (px)
-const CARD_ASPECT = "5 / 8";             // width / height — lower first number = taller card
-const GAP = "clamp(16px, 1.6vw, 24px)";  // gap between cards
+const RADIUS = 22;                        // card corner radius (px)
+const CARD_ASPECT = "5 / 8";              // width / height — lower first number = taller card
+const GAP = "clamp(16px, 1.6vw, 24px)";   // gap between cards
+const CARD_W = "clamp(230px, 19vw, 300px)"; // fixed card width so sizes never shrink as cards are added
+const MARQUEE_DURATION = "48s";           // one full loop; lower = faster drift
 
 const TOOLS = [
   {
@@ -33,15 +35,24 @@ const TOOLS = [
     img: "/images/tools/yellow-crm.png",
     url: null, // No link, card behaves as a static display
   },
+  {
+    name: "Come Home",
+    desc: "A calm space for meditation and breathwork, built to bring you back to center.",
+    img: "/images/tools/come-home.png",
+    url: "https://comehome-calm.vercel.app/",
+  },
 ];
+
+// Doubled list drives a seamless -50% marquee loop.
+const LOOP = [...TOOLS, ...TOOLS];
 
 function ToolCard({ tool, index, smoothProgress }) {
   const [hovered, setHovered] = useState(false);
 
   // Staggered bounds for the scroll entrance/exit animation
-  const start = index * 0.16;
-  const end = start + 0.45;
-  
+  const start = index * 0.12;
+  const end = start + 0.4;
+
   // Mapped transforms driven by the smoothed scroll progress
   const opacity = useTransform(smoothProgress, [start, end], [0, 1]);
   const y = useTransform(smoothProgress, [start, end], [80, 0]);
@@ -61,7 +72,7 @@ function ToolCard({ tool, index, smoothProgress }) {
     mouseX.set((e.clientX - rect.left) / rect.width);
     mouseY.set((e.clientY - rect.top) / rect.height);
   };
-  
+
   const handleMouseLeave = () => {
     setHovered(false);
     mouseX.set(0.5);
@@ -72,7 +83,9 @@ function ToolCard({ tool, index, smoothProgress }) {
 
   return (
     // OUTER wrapper carries the scroll entrance (opacity + y + flip).
-    <motion.div style={{ opacity, y, rotateX, scale, flex: "1 1 0", minWidth: 0, transformOrigin: "bottom center" }}>
+    // Fixed width + marginRight (instead of flex-grow + gap) keeps card size constant and
+    // makes the doubled track loop exactly at translateX(-50%).
+    <motion.div style={{ opacity, y, rotateX, scale, width: CARD_W, flexShrink: 0, marginRight: GAP, transformOrigin: "bottom center" }}>
       <Component
         {...(tool.url ? { href: tool.url, target: "_blank", rel: "noopener noreferrer" } : {})}
         onMouseEnter={() => setHovered(true)}
@@ -134,7 +147,7 @@ function ToolCard({ tool, index, smoothProgress }) {
             right: 0,
             bottom: 0,
             height: "100%",
-            background: hovered 
+            background: hovered
               ? "linear-gradient(to top, rgba(5,9,16,0.95) 0%, rgba(6,10,18,0.7) 25%, transparent 50%)"
               : "linear-gradient(to top, rgba(5,9,16,0.9) 0%, rgba(6,10,18,0.3) 20%, transparent 45%)",
             WebkitMaskImage: "linear-gradient(to top, black 0%, black 25%, transparent 45%)",
@@ -228,11 +241,11 @@ function ToolCard({ tool, index, smoothProgress }) {
 
 export default function ToolsBuilt() {
   const sectionRef = useRef(null);
-  
+
   // Re-balanced trigger offset. Animates when user is past card 3 and section is fully engaged.
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start 0.85", "start 0.35"], 
+    offset: ["start 0.85", "start 0.35"],
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
@@ -259,12 +272,30 @@ export default function ToolsBuilt() {
       }}
     >
       <style>{`
-        @media (max-width: 900px){
-          .tools-built-rail{ flex-wrap: wrap; }
-          .tools-built-rail > *{ flex: 1 1 calc(50% - 12px) !important; }
+        .tools-built-viewport{
+          /* Full-bleed rail: break out of the section's 8vw padding so cards drift edge to edge */
+          margin-left: -8vw;
+          margin-right: -8vw;
+          overflow: hidden;
+          perspective: 1200px;
+          -webkit-mask-image: linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%);
         }
-        @media (max-width: 640px){
-          .tools-built-rail > *{ flex: 1 1 100% !important; }
+        .tools-built-track{
+          display: flex;
+          width: max-content;
+          padding: 0 8vw;
+          will-change: transform;
+          animation: tools-built-marquee ${MARQUEE_DURATION} linear infinite;
+        }
+        .tools-built-viewport:hover .tools-built-track{ animation-play-state: paused; }
+        @keyframes tools-built-marquee{
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
+        }
+        @media (prefers-reduced-motion: reduce){
+          .tools-built-track{ animation: none; }
+          .tools-built-viewport{ overflow-x: auto; }
         }
       `}</style>
 
@@ -283,19 +314,17 @@ export default function ToolsBuilt() {
         — Tools Built
       </div>
 
-      <div 
-        className="tools-built-rail" 
-        style={{ 
-          display: "flex", 
-          gap: GAP, 
-          width: "100%", 
-          alignItems: "stretch", 
-          perspective: "1200px" 
-        }}
-      >
-        {TOOLS.map((tool, i) => (
-          <ToolCard key={tool.name} tool={tool} index={i} smoothProgress={smoothProgress} />
-        ))}
+      <div className="tools-built-viewport">
+        <div className="tools-built-track">
+          {LOOP.map((tool, i) => (
+            <ToolCard
+              key={`${tool.name}-${i}`}
+              tool={tool}
+              index={i % TOOLS.length}
+              smoothProgress={smoothProgress}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

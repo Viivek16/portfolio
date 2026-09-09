@@ -541,9 +541,9 @@ const Story = () => {
                 </div>
                 <div className={styles.nowPillarContent}>
                   <div className={styles.nowPillarNum}>i.</div>
-                  <h4 className={styles.nowPillarName}>Venture Capital</h4>
-                  <p className={styles.nowPillarBody}>Every next big idea needs capital that propels its growth. I'm always optimistic of the interesting big bets on future tech</p>
-                  <div className={styles.nowPillarTag}>YELLOW · ASVA · LEO · DCF</div>
+                  <h4 className={styles.nowPillarName}>GTM</h4>
+                  <p className={styles.nowPillarBody}>Great products still stall without a way in. I map the motion from first message to first users, then make it repeatable. Sharp positioning, a launch that lands, and channels that actually convert.</p>
+                  <div className={styles.nowPillarTag}>POSITIONING · LAUNCH · DISTRIBUTION</div>
                 </div>
               </div>
 
@@ -561,7 +561,7 @@ const Story = () => {
                 </div>
                 <div className={styles.nowPillarContent}>
                   <div className={styles.nowPillarNum}>ii.</div>
-                  <h4 className={styles.nowPillarName}>Marketing</h4>
+                  <h4 className={styles.nowPillarName}>Growth</h4>
                   <p className={styles.nowPillarBody}>Being a marketer at heart a storytelling fanatic, I'm most excited about interesting products, and ideas that create an impact</p>
                   <div className={styles.nowPillarTag}>STORYTELLING · CONTENT · GROWTH</div>
                 </div>
@@ -581,9 +581,9 @@ const Story = () => {
                 </div>
                 <div className={styles.nowPillarContent}>
                   <div className={styles.nowPillarNum}>iii.</div>
-                  <h4 className={styles.nowPillarName}>Applied AI</h4>
-                  <p className={styles.nowPillarBody}>Learning the core, building apps and solutions with real users, putting them to work across real-life workflows.</p>
-                  <div className={styles.nowPillarTag}>TOOLS · WORKFLOWS · REAL USERS</div>
+                  <h4 className={styles.nowPillarName}>AI</h4>
+                  <p className={styles.nowPillarBody}>I learn the fundamentals, then build. Triply, Simpli, Yellow CRM and Come Home are all live and used by real people, each one solving an actual workflow instead of a demo.</p>
+                  <div className={styles.nowPillarTag}>TRIPLY · SIMPLI · YELLOW CRM · COME HOME</div>
                 </div>
               </div>
             </div>

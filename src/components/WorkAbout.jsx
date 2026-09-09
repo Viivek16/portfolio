@@ -218,9 +218,9 @@ const WorkAbout = () => {
           </h2>
           
           <div className={styles.aboutProse} ref={proseRef}>
-            <p>I'm <strong>Viivek Mehata</strong> — a venture associate, marketer, and operator, six years deep in Web3.</p>
-            <p>I'm not the traditional VC who's never shipped code or felt payroll anxiety. I founded my first startup in 2018, co-founded another in 2020 that exited, then crossed into Web3 in 2021. That arc — founder, then operator, then investor, now builder — shapes how I read deals: from inside the table, not above it.</p>
-            <p>Three things hold my attention right now. Capital that finds the right founders early. Distribution that compounds beyond the launch. And AI tooling that quietly multiplies the work behind both.</p>
+            <p>I'm <strong>Viivek Mehata</strong>, a GTM and growth operator with six years spent taking Web3 products from launch to real traction.</p>
+            <p>I build from the inside, not from above. I scaled a bootstrapped team from 3 to 18 people and brought in over $60K in B2B revenue before we launched. Since then I've led go-to-market for more than 20 products, owning the launch, the distribution, and the growth that comes after.</p>
+            <p>What I stand for is simple. Growth that holds after the launch, distribution that keeps working, and AI tools I build myself so a small team can move like a big one.</p>
           </div>
 
           {/* Firm Strip */}
