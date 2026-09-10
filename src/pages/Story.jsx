@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import styles from './Story.module.css';
+import Footer from '../components/Footer';
 
 const EditorialImage = ({ src, alt, className = '' }) => (
   <div className={`${styles.imageMat} ${className}`}>
@@ -13,7 +14,6 @@ const Story = () => {
   const horizonCapRef = useRef(null);
   const nowHorizonPathRef = useRef(null);
   const [horizonD, setHorizonD] = React.useState('');
-  const [isResumeOpen, setIsResumeOpen] = React.useState(false);
 
   useEffect(() => {
     function setPathLength() {
@@ -679,48 +679,8 @@ const Story = () => {
           </div>
         </section>
 
-        {/* ============ CONTACT ============ */}
-        <footer className={styles.contact} id="ch-footer">
-          <div className={styles.contactPhoto}>
-            <div className={styles.contactPhotoFade}></div>
-            <img src="/images/info/03-2020-neurotech/img-20201125-wa0005.jpg" alt="Viivek Mehata" loading="lazy" />
-          </div>
-          <div className={styles.contactContent}>
-            <div className={styles.contactContentInner}>
-              <div className={`${styles.eyebrow} ${styles.contactEyebrow}`}>Stay in touch</div>
-              <h2 className={styles.contactTitle}>Find me where the <em>work</em> lives.</h2>
-              <p className={styles.contactTagline}>Building across VC, market making, and AI. Always up for a conversation about a thesis worth holding — or a chapter worth starting.</p>
-              <div className={styles.contactLinks}>
-                <a className={styles.contactLink} data-num="i."   href="https://x.com/mehtaandmore" target="_blank" rel="noopener noreferrer">Twitter / X</a>
-                <a className={styles.contactLink} data-num="ii."  href="https://www.linkedin.com/in/viivek-mehata16/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                <a className={styles.contactLink} data-num="iii." href="https://t.me/Viivek16" target="_blank" rel="noopener noreferrer">Telegram</a>
-                <a className={styles.contactLink} data-num="iv."  href="mailto:vivekmehta.vm31@gmail.com">Email</a>
-                <div className={styles.contactDropdownWrapper}>
-                  <button 
-                    className={`${styles.contactLink} ${styles.contactDropdownToggle} ${isResumeOpen ? styles.open : ''}`} 
-                    data-num="v."
-                    onClick={() => setIsResumeOpen(!isResumeOpen)}
-                  >
-                    Resume
-                  </button>
-                  {isResumeOpen && (
-                    <div className={styles.contactDropdownMenu}>
-                      <a className={styles.contactDropdownItem} href="https://drive.google.com/file/d/1TvSLFdRZQkucFx7mEtQQqaxYhqTyZjgu/view?usp=sharing" target="_blank" rel="noopener noreferrer">Growth</a>
-                      <a className={styles.contactDropdownItem} href="https://drive.google.com/file/d/1fDCQhhUvrjF2MQm7xFzrYiBXbmgbDuuW/view?usp=sharing" target="_blank" rel="noopener noreferrer">VC Resume</a>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className={styles.contactFoot}>
-            <div className={styles.contactFootInner}>
-              <div className={styles.footLeft}>Editorial portfolio</div>
-              <div className={styles.footCenter}>2018 — Now</div>
-              <div className={styles.footRight}>Still sailing</div>
-            </div>
-          </div>
-        </footer>
+        {/* ============ FOOTER (shared with Work page) ============ */}
+        <Footer />
 
       </main>
     </div>

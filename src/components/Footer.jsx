@@ -26,15 +26,15 @@ const COLUMNS = [
     num: 'iii.',
     title: 'Say hello',
     items: [
-      { id: 'email', label: 'Email', href: 'mailto:vivekmehta.vm31@gmail.com', external: false },
-      { id: 'phone', label: 'Phone', href: 'tel:+918668454982',                external: false },
+      { id: 'call',  label: 'Book a Call', href: 'https://calendly.com/viivekmehata/30min', external: true },
+      { id: 'email', label: 'Email',       href: 'mailto:vivekmehta.vm31@gmail.com',        external: false },
     ],
   },
   {
     num: 'iv.',
     title: 'Resume',
     items: [
-      { id: 'growth-cv', label: 'Growth Resume', href: 'https://drive.google.com/file/d/1yqwPX-GSbRIL5RzOoxv-WUtD66Ne6RQO/view?usp=sharing', external: true },
+      { id: 'growth-cv', label: 'Growth Resume', href: 'https://drive.google.com/file/d/1gUK8vl3EycAQogWyh6XPuD4QIzZUwiAD/view?usp=sharing', external: true },
       { id: 'vc-cv',     label: 'VC Resume',     href: 'https://drive.google.com/file/d/1fDCQhhUvrjF2MQm7xFzrYiBXbmgbDuuW/view?usp=sharing', external: true },
     ],
   },
@@ -136,11 +136,12 @@ const Footer = () => {
       <style>{`
         .footer-columns {
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 32px;
+          grid-template-columns: repeat(4, max-content);
+          gap: 48px;
+          justify-content: start;
         }
         @media (max-width: 900px) {
-          .footer-columns { grid-template-columns: repeat(2, 1fr); }
+          .footer-columns { grid-template-columns: repeat(2, max-content); gap: 40px 64px; }
         }
         @media (max-width: 600px) {
           .footer-columns { grid-template-columns: 1fr; }
@@ -262,7 +263,7 @@ const Footer = () => {
                 margin: 0,
               }}
             >
-              A thesis worth holding, or a chapter worth starting,
+              Always up for interesting ideas,
             </motion.p>
           </div>
           <div style={{ overflow: 'hidden' }}>
@@ -277,7 +278,7 @@ const Footer = () => {
                 margin: 0,
               }}
             >
-              either way, the door's open.
+              distribution tactics, and cool tech.
             </motion.p>
           </div>
         </div>
