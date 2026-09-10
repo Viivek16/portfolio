@@ -542,7 +542,7 @@ const Story = () => {
                 <div className={styles.nowPillarContent}>
                   <div className={styles.nowPillarNum}>i.</div>
                   <h4 className={styles.nowPillarName}>GTM</h4>
-                  <p className={styles.nowPillarBody}>Great products still stall without a way in. I map the motion from first message to first users, then make it repeatable. Sharp positioning, a launch that lands, and channels that actually convert.</p>
+                  <p className={styles.nowPillarBody}>Great products still stall without a way in. I map the motion from first message to first users, then make it repeatable.</p>
                   <div className={styles.nowPillarTag}>POSITIONING · LAUNCH · DISTRIBUTION</div>
                 </div>
               </div>

@@ -136,12 +136,13 @@ const Footer = () => {
       <style>{`
         .footer-columns {
           display: grid;
-          grid-template-columns: repeat(4, max-content);
-          gap: 48px;
-          justify-content: start;
+          grid-template-columns: repeat(4, 1fr);
+          gap: clamp(32px, 5vw, 80px);
+          max-width: 1080px;
+          margin-inline: auto;
         }
         @media (max-width: 900px) {
-          .footer-columns { grid-template-columns: repeat(2, max-content); gap: 40px 64px; }
+          .footer-columns { grid-template-columns: repeat(2, 1fr); gap: 48px 64px; }
         }
         @media (max-width: 600px) {
           .footer-columns { grid-template-columns: 1fr; }
