@@ -137,6 +137,7 @@ export default function CaseStudies() {
 
     const animated = mode === "deck";
     const lifts = new Array(TOTAL).fill(0);
+    const vels = new Array(TOTAL).fill(0); // spring velocity per card
     const poses = [];
     let stepX = 100;
     let offsetX = 0; // horizontal recentre for the 3D skew
@@ -200,12 +201,18 @@ export default function CaseStudies() {
         }
 
         const target = hovered === i && entranceDone ? 1 : 0;
-        // soft critically-damped-ish spring for a silky, glitch-free lift
-        lifts[i] += (target - lifts[i]) * 0.14;
-        if (Math.abs(lifts[i] - target) > 0.0005) busy = true;
-        else lifts[i] = target;
-        const eL = easeOut(lifts[i]); // ease the visual so the pop settles gently
-        const L = eL;
+        // real spring (stiffness/damping) — barely-there overshoot for a premium
+        // "pop", and it keeps velocity when the hover hands off card→card so the
+        // rise/fall cross-fades smoothly instead of snapping.
+        const force = (target - lifts[i]) * 0.12 - vels[i] * 0.58;
+        vels[i] += force;
+        lifts[i] += vels[i];
+        if (Math.abs(lifts[i] - target) > 0.001 || Math.abs(vels[i]) > 0.001) busy = true;
+        else {
+          lifts[i] = target;
+          vels[i] = 0;
+        }
+        const L = Math.max(0, lifts[i]); // clamp the floor; allow the up-overshoot
 
         const x = lerp(air.x, settled.x, e) + offsetX;
         const y = lerp(air.y, settled.y, e) + offsetY - L * 54;
@@ -218,7 +225,12 @@ export default function CaseStudies() {
           `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, ${z.toFixed(2)}px) ` +
           `rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) rotateZ(${rz.toFixed(2)}deg)`;
         slot.style.opacity = animated ? Math.min(1, e / 0.3).toFixed(3) : "1";
-        slot.style.zIndex = String(100 + i + Math.round(L * 400));
+        // The hovered card owns the top layer the instant it's picked, so the
+        // incoming card never rises from *behind* the one it's replacing (the old
+        // crossover snap). An un-hovered but still-descending card keeps a residual
+        // boost so it stays above flat neighbours while it sinks back into the deck.
+        const boost = entranceDone && hovered === i ? 1000 : Math.round(L * 400);
+        slot.style.zIndex = String(100 + i + boost);
         slot.style.setProperty("--lift", L.toFixed(3));
       }
 
