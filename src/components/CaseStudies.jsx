@@ -11,11 +11,12 @@ const STUDIES = [
   { n: 5, title: "VDEX STRATEGY", category: "DEFI GROWTH",       tag: "CANVA DECK",   url: "https://canva.link/vdex-grwoth-strategy",                                            color: "#E8E2D4", isLight: true  },
   { n: 6, title: "HYPERSIGN",     category: "IDENTITY PROTOCOL", tag: "CANVA DECK",   url: "https://canva.link/hypersign",                                                       color: "#6A2E3B", isLight: false },
   { n: 7, title: "PAYTM B2C",     category: "FINTECH GROWTH",    tag: "CANVA DECK",   url: "https://canva.link/paytm-b2c-strategy",                                              color: "#728A7A", isLight: false },
+  { n: 8, title: "KAMUI BD STRATEGY", category: "BD STRATEGY",   tag: "LIVE APP",     url: "https://kamui-strategy.vercel.app/",                                                 color: "#4B3A55", isLight: false },
 ];
 
 // Tuned repeat order (indices into STUDIES) so colours never sit adjacent and
-// the light cover is well spaced — dark, warm, light, dark, warm, dark, mid.
-const ORDER = [0, 3, 4, 2, 1, 5, 6];
+// the light cover is well spaced — dark, warm, light, dark, warm, plum, dark, mid.
+const ORDER = [0, 3, 4, 2, 1, 7, 5, 6];
 
 // ---- pure helpers (unit-tested) ----------------------------------------
 
