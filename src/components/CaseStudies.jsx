@@ -117,7 +117,9 @@ export default function CaseStudies() {
   const TOTAL = deck.length;
 
   useEffect(() => {
-    const fine = window.matchMedia("(min-width: 768px) and (pointer: fine)");
+    // gate on hover-capability, not the *primary* pointer: a touch laptop with a
+    // mouse reports pointer:coarse but hover:hover, and should still get the deck.
+    const fine = window.matchMedia("(min-width: 768px) and (hover: hover)");
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
     const resolve = () => setMode(!fine.matches ? "rail" : reduce.matches ? "static" : "deck");
     resolve();
@@ -204,7 +206,7 @@ export default function CaseStudies() {
         // real spring (stiffness/damping) — barely-there overshoot for a premium
         // "pop", and it keeps velocity when the hover hands off card→card so the
         // rise/fall cross-fades smoothly instead of snapping.
-        const force = (target - lifts[i]) * 0.12 - vels[i] * 0.58;
+        const force = (target - lifts[i]) * 0.2 - vels[i] * 0.5;
         vels[i] += force;
         lifts[i] += vels[i];
         if (Math.abs(lifts[i] - target) > 0.001 || Math.abs(vels[i]) > 0.001) busy = true;
@@ -215,15 +217,17 @@ export default function CaseStudies() {
         const L = Math.max(0, lifts[i]); // clamp the floor; allow the up-overshoot
 
         const x = lerp(air.x, settled.x, e) + offsetX;
-        const y = lerp(air.y, settled.y, e) + offsetY - L * 54;
-        const z = lerp(air.z, settled.z, e) + L * 128;
+        const y = lerp(air.y, settled.y, e) + offsetY - L * 62;
+        const z = lerp(air.z, settled.z, e) + L * 150;
         const rx = lerp(air.rx, settled.rx, e);
         const ry = lerp(air.ry, settled.ry, e) + L * 6;
         const rz = lerp(air.rz, settled.rz, e) * (1 - L);
+        const s = 1 + L * 0.055; // subtle scale so the pop reads as the card coming toward you
 
         slot.style.transform =
           `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, ${z.toFixed(2)}px) ` +
-          `rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) rotateZ(${rz.toFixed(2)}deg)`;
+          `rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) rotateZ(${rz.toFixed(2)}deg) ` +
+          `scale(${s.toFixed(3)})`;
         slot.style.opacity = animated ? Math.min(1, e / 0.3).toFixed(3) : "1";
         // The hovered card owns the top layer the instant it's picked, so the
         // incoming card never rises from *behind* the one it's replacing (the old
